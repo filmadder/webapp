@@ -3,5 +3,8 @@
   "dependencies": {
     "stellar": "stellar-less#*",
     "normalize-css": "normalize.css#~3.0.3"
+  },
+  "devDependencies": {
+    "qunit": "^1.23.1"
   }
 }

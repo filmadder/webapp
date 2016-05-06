@@ -11,8 +11,6 @@
  * its own init() and destroy() functions which are publicly accessible.
  * However, this is relevant for first-tier modules only; what happens in
  * second-tier modules is responsibility of their parent modules.
- * 
- * @module
  */
 var fa = (function() {
 	
@@ -32,7 +30,6 @@ var fa = (function() {
 	 * Sets the settings and inits all the modules that need initing.
 	 * This function is intended to be called at the document.ready event.
 	 * 
-	 * @function
 	 * @param The settings.
 	 */
 	var init = function(dict) {
@@ -45,6 +42,10 @@ var fa = (function() {
 		}
 		
 		Object.freeze(settings);
+		
+		fa.comm.init();
+		
+		fa.ui.init();
 	};
 	
 	
