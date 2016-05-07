@@ -21,7 +21,6 @@
 			<nav>
 				<a href="#/" title="home">home</a>
 				<a href="#/search" title="search">search</a>
-				<a href="#/film/42" title="some film">film</a>
 			</nav>
 		</header>
 		<main>
@@ -34,11 +33,21 @@
 	</template>
 	
 	<template id="search-view">
-		<h1>{{ greeting }}</h1>
+		<h2>films</h2>
+		<div v-for="film in films">
+			<a href="#/film/{{ film.id }}" title="{{ film.title }}">
+				<h1>{{ film.title }}</h1>
+			</a>
+		</div>
+		<h2>friends</h2>
+		<p>no friends yet :(</p>
 	</template>
 	
 	<template id="film-view">
-		<h1>{{ greeting }}</h1>
+		<article class="film">
+			<h1>{{ title }}</h1>
+			<span>{{ year }}</span>
+		</article>
 	</template>
 	
 	<template id="error-view">
