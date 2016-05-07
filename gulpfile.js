@@ -63,19 +63,14 @@ gulp.task('bower', function() {
 		])
 		.pipe(concat('vendor.css'))
 		.pipe(gulp.dest('build/styles'));
-	/*gulp.src([
-			'bower_components/jquery/dist/jquery.min.js',
-			'bower_components/jquery-validation/dist/jquery.validate.min.js',
+	gulp.src([
 			'bower_components/js-signals/dist/signals.min.js',
 			'bower_components/hasher/dist/js/hasher.min.js',
 			'bower_components/crossroads/dist/crossroads.min.js',
-			'bower_components/knockout/dist/knockout.js',
-			'bower_components/dexie/dist/latest/Dexie.min.js',
-			'bower_components/mousetrap/mousetrap.min.js',
-			'bower_components/pythonic-datetime/build/datetime.js'
+			'bower_components/vue/dist/vue.min.js'
 		])
 		.pipe(concat('vendor.js'))
-		.pipe(gulp.dest('build/scripts'));*/
+		.pipe(gulp.dest('build/scripts'));
 });
 
 

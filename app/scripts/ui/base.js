@@ -13,31 +13,12 @@ fa.ui = (function() {
 	var init = function() {
 		
 		/**
-		 * jQuery Validation setup.
-		 */
-		$.validator.setDefaults({
-			errorElement: 'span'
-		});
-		
-		/**
-		 * Knockout setup.
-		 * http://www.knockmeout.net/2012/05/quick-tip-skip-binding.html
-		 */
-		ko.bindingHandlers.stopBinding = {
-			init: function() {
-				return {
-					controlsDescendantBindings: true
-				}
-			}
-		};
-		ko.virtualElements.allowedBindings.stopBinding = true;
-		
-		/**
 		 * Init the fa.ui.* modules.
 		 * The order matters: fa.ui.routing uses fa.ui.keys.
 		 */
-		fa.ui.messages.init($('#messages'));
-		fa.ui.routing.init($('#main'));
+		fa.ui.components.init();
+		// fa.ui.messages.init($('#messages'));
+		fa.ui.routing.init();
 	};
 	
 	
@@ -46,7 +27,7 @@ fa.ui = (function() {
 	 */
 	var destroy = function() {
 		fa.ui.routing.destroy();
-		fa.ui.messages.destroy();
+		// fa.ui.messages.destroy();
 	};
 	
 	

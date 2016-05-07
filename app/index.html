@@ -1,46 +1,56 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="description" content="Film adder" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		
-		<title>Film adder</title>
-		
-		<link rel="stylesheet" tyle="text/css" media="screen" href="styles/vendor.css" />
-		<link rel="stylesheet" tyle="text/css" media="screen" href="styles/style.css" />
-		
-		<link href='https://fonts.googleapis.com/css?family=Raleway:400,500,700,600,800|Lobster|Lobster+Two:400,700' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Lobster|Lobster+Two:400,700,700italic,400italic|Bangers' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Droid+Sans|Fira+Sans:300,400,700|Quicksand' rel='stylesheet' type='text/css'>
-	</head>
+<head>
+	<meta charset="utf-8" />
+	<meta name="description" content="Film adder" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<title>Film adder</title>
+	
+	<link rel="stylesheet" tyle="text/css" media="screen" href="styles/vendor.css" />
+	<link rel="stylesheet" tyle="text/css" media="screen" href="styles/style.css" />
+	
+	<link href='https://fonts.googleapis.com/css?family=Raleway:400,500,700,600,800|Lobster|Lobster+Two:400,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Lobster|Lobster+Two:400,700,700italic,400italic|Bangers' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Droid+Sans|Fira+Sans:300,400,700|Quicksand' rel='stylesheet' type='text/css'>
+</head>
 
-	<body>
+<body>
+	<div id="fa">
 		<header>
-			<h1>film adder</h1>
 			<nav>
-				<a href="#">Sign up/Log in</a>
+				<a href="#/" title="home">home</a>
+				<a href="#/search" title="search">search</a>
+				<a href="#/film/42" title="some film">film</a>
 			</nav>
 		</header>
 		<main>
-			<section class="search">
-				<form>
-					<input type="search" placeholder="I want add ... to my watchlist" />
-				</form>
-			</section>
-			<section class="links">
-				<a href="#" class="profile-pic">Me</a>
-				<a href="watchlist.html">Watchlist</a>
-				<a href="friends.html">Friends</a>
-			</section>
+			<component v-bind:is="currentView"></component>
 		</main>
-		
-		<script src="scripts/vendor.js"></script>
-		<script src="scripts/fa.js"></script>
-		<script>
-			document.addEventListener('DOMContentLoaded', function() {
-				fa.init({});
-			});
-		</script>
-	</body>
+	</div>
+	
+	<template id="home-view">
+		<h1>{{ greeting }}</h1>
+	</template>
+	
+	<template id="search-view">
+		<h1>{{ greeting }}</h1>
+	</template>
+	
+	<template id="film-view">
+		<h1>{{ greeting }}</h1>
+	</template>
+	
+	<template id="error-view">
+		<h1>Error!</h1>
+	</template>
+	
+	<script src="scripts/vendor.js"></script>
+	<script src="scripts/fa.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			fa.init({});
+		});
+	</script>
+</body>
 </html>

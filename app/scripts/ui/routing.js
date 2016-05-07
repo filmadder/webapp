@@ -1,5 +1,7 @@
 /**
  * Does the routing and holds reference to the current view.
+ * 
+ * Encapsulates all interaction with the dependencies Crossroads and Hasher.
  */
 fa.ui.routing = (function() {
 	
@@ -7,27 +9,16 @@ fa.ui.routing = (function() {
 	
 	
 	/**
-	 * I. Class definitions
+	 * I. Class definitions.
 	 */
 	/**
 	 * Class definition for the Router singleton.
-	 * 
-	 * @param The container of the views as jQuery element.
 	 */
-	var Router = function(dom) {
-		var self = this;
+	var Router = function() {
+		this.initRoutes();
 		
-		self.current = null;
-		self.next = null;
-		
-		self.dom = dom;
-		
-		self.initRoutes();
-		
-		crossroads.routed.add(self.switchView.bind(self));
-		
-		hasher.initialized.add(self.parseHash);
-		hasher.changed.add(self.parseHash);
+		hasher.initialized.add(this.parseHash);
+		hasher.changed.add(this.parseHash);
 		hasher.init();
 	};
 	
@@ -42,72 +33,32 @@ fa.ui.routing = (function() {
 	};
 	
 	/**
-	 * Takes care of switching the views, including the css transition.
-	 */
-	Router.prototype.switchView = function() {
-		var self = this;
-		
-		self.dom.addClass('opaque');
-		self.dom.one('transitionend', function() {
-			if(self.current) {
-				self.current.destroy();
-			}
-			self.dom.empty();
-			
-			self.current = self.next;
-			self.next = null;
-			
-			self.current.load(self.dom).then(function() {
-				self.dom.removeClass('opaque');
-			});
-		});
-		
-	};
-	
-	/**
 	 * Inits all the routes.
 	 * Corresponds to urls.py in Django.
 	 */
 	Router.prototype.initRoutes = function() {
-		var self = this;
-		
 		crossroads
-			.addRoute('/')
-			.matched.add(function() {
-				self.next = new q.ui.components.patients.View();
+			.addRoute('/', function() {
+				fa.ui.components.setView('home-view');
 			});
 		
 		crossroads
-			.addRoute('/patients')
-			.matched.add(function() {
-				self.next = new q.ui.components.patients.View();
+			.addRoute('/search', function() {
+				fa.ui.components.setView('search-view');
 			});
 		
 		crossroads
-			.addRoute('/patient/{id}', function(id) {
+			.addRoute('/film/{id}', function(id) {
 				id = (id) ? parseInt(id) : null;
-				self.next = new q.ui.components.patient.View(id);
+				fa.ui.components.setView('film-view', id);
 			})
 			.rules = {
 				id: /^[0-9]+$/
 			};
 		
 		crossroads
-			.addRoute('/appointments')
-			.matched.add(function() {
-				self.next = new q.ui.components.appointments.View();
-			});
-		
-		crossroads
-			.addRoute('/calendar')
-			.matched.add(function() {
-				self.next = new q.ui.components.Calendar();
-			});
-		
-		crossroads
-			.addRoute('/error')
-			.matched.add(function() {
-				self.next = new q.ui.components.Error();
+			.addRoute('/error', function() {
+				fa.ui.components.setView('error-view');
 			});
 		
 		crossroads
@@ -145,7 +96,7 @@ fa.ui.routing = (function() {
 	
 	
 	/**
-	 * II. Module variables and functions
+	 * II. Module variables and functions.
 	 */
 	/**
 	 * The active Router instance.
@@ -154,12 +105,10 @@ fa.ui.routing = (function() {
 	
 	/**
 	 * Inits the module.
-	 * 
-	 * @param The container of the views as jQuery element.
 	 */
-	var init = function(dom) {
+	var init = function() {
 		fa.assert.equal(router, null);
-		router = new Router(dom);
+		router = new Router();
 	};
 	
 	/**
@@ -194,7 +143,7 @@ fa.ui.routing = (function() {
 	
 	
 	/**
-	 * III. Module exports
+	 * III. Module exports.
 	 */
 	return {
 		init: init,

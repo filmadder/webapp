@@ -43,8 +43,14 @@ var fa = (function() {
 		
 		Object.freeze(settings);
 		
+		/**
+		 * Enable the cross-module communication infrastructure.
+		 */
 		fa.comm.init();
 		
+		/**
+		 * Enable the UI.
+		 */
 		fa.ui.init();
 	};
 	
