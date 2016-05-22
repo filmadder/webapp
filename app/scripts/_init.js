@@ -22,7 +22,8 @@ var fa = (function() {
 	 * The values here are the default values.
 	 */
 	var settings = {
-		DEBUG: true
+		DEBUG: true,
+		API_URL: 'localhost:8000'
 	};
 	
 	
@@ -47,6 +48,11 @@ var fa = (function() {
 		 * Enable the cross-module communication infrastructure.
 		 */
 		fa.comm.init();
+		
+		/**
+		 * Enable the server communication and local storage.
+		 */
+		fa.db.init();
 		
 		/**
 		 * Enable the UI.

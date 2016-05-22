@@ -22,9 +22,13 @@
 				<a href="#/" title="home">home</a>
 				<a href="#/search" title="search">search</a>
 			</nav>
+			<form v-on:submit.prevent="search">
+				<input type="search" v-model="searchQuery" />
+				<button type="submit">ssss</button>
+			</form>
 		</header>
 		<main>
-			<component v-bind:is="currentView"></component>
+			<component v-bind:is="currentView" keep-alive></component>
 		</main>
 	</div>
 	
@@ -34,7 +38,7 @@
 	
 	<template id="search-view">
 		<h2>films</h2>
-		<div v-for="film in films">
+		<div v-for="film in $parent.searchResults">
 			<a href="#/film/{{ film.id }}" title="{{ film.title }}">
 				<h1>{{ film.title }}</h1>
 			</a>

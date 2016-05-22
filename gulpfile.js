@@ -45,7 +45,6 @@ var uglify = require('gulp-uglify');
 
 gulp.task('scripts', function() {
 	gulp.src([
-			'app/scripts/fa.js',
 			'app/scripts/**/*.js'
 		])
 		/*.pipe(uglify({

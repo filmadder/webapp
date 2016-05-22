@@ -15,7 +15,7 @@ fa.assert = (function() {
 	 */
 	var AssertionError = function(message) {
 		if(message) {
-			fa.logging.error(message);
+			fa.logs.error(message);
 		}
 	};
 	

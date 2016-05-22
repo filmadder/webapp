@@ -3,11 +3,23 @@
  * 
  * This module is not inited and/or destroyed.
  */
-fa.logging = (function() {
+fa.logs = (function() {
 	
 	"use strict";
 	
 	
+	/**
+	 * Constants
+	 */
+	/**
+	 * Prefix for the log keys.
+	 */
+	var PREFIX = 'log';
+	
+	
+	/**
+	 * Functions
+	 */
 	/**
 	 * Makes a log entry.
 	 * 
@@ -26,7 +38,7 @@ fa.logging = (function() {
 			text: text
 		};
 		
-		var key = 'qLog' + time.toString();
+		var key = PREFIX + time.toString();
 		for(var i = 0; true; i++) {
 			if(localStorage.getItem(key) != null) {
 				if(i > 0) {
@@ -75,7 +87,7 @@ fa.logging = (function() {
 		
 		for(i = 0; i < localStorage.length; i++) {
 			key = localStorage.key(i);
-			if(!key.startsWith('qLog')) {
+			if(!key.startsWith(PREFIX)) {
 				continue;
 			}
 			
@@ -88,8 +100,8 @@ fa.logging = (function() {
 	};
 	
 	/**
-	 * Deletes all the q logs.
-	 * The two loops are needed.
+	 * Deletes all the logs.
+	 * Both loops are needed.
 	 */
 	var clear = function() {
 		var i, key;
@@ -97,7 +109,7 @@ fa.logging = (function() {
 		
 		for(i = 0; i < localStorage.length; i++) {
 			key = localStorage.key(i);
-			if(!key.startsWith('qLog')) {
+			if(!key.startsWith(PREFIX)) {
 				continue;
 			}
 			keysToClear.push(key);
@@ -110,7 +122,7 @@ fa.logging = (function() {
 	
 	
 	/**
-	 * Module exports.
+	 * Exports
 	 */
 	return {
 		error: error,
