@@ -9,7 +9,7 @@ fa.ui.routing = (function() {
 	
 	
 	/**
-	 * I. Class definitions.
+	 * Class definitions
 	 */
 	/**
 	 * Class definition for the Router singleton.
@@ -57,6 +57,11 @@ fa.ui.routing = (function() {
 			};
 		
 		crossroads
+			.addRoute('/login', function() {
+				fa.ui.components.setView('login-view');
+			});
+		
+		crossroads
 			.addRoute('/error', function() {
 				fa.ui.components.setView('error-view');
 			});
@@ -96,7 +101,7 @@ fa.ui.routing = (function() {
 	
 	
 	/**
-	 * II. Module variables and functions.
+	 * Variables and functions
 	 */
 	/**
 	 * The active Router instance.
@@ -109,6 +114,8 @@ fa.ui.routing = (function() {
 	var init = function() {
 		fa.assert.equal(router, null);
 		router = new Router();
+		
+		fa.comm.receive('route to', receiveGoTo);
 	};
 	
 	/**
@@ -116,6 +123,8 @@ fa.ui.routing = (function() {
 	 */
 	var destroy = function() {
 		fa.assert.notEqual(router, null);
+		
+		fa.comm.disconnect('route to', receiveGoTo);
 		
 		router.clear();
 		router = null;
@@ -141,9 +150,18 @@ fa.ui.routing = (function() {
 		router.changeSilently(url);
 	};
 	
+	/**
+	 * The same as goTo, but as signal receiver.
+	 * Expects {url}.
+	 */
+	var receiveGoTo = function(load) {
+		goTo(load.url);
+		return Promise.resolve();
+	};
+	
 	
 	/**
-	 * III. Module exports.
+	 * Exports
 	 */
 	return {
 		init: init,

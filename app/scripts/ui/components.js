@@ -28,17 +28,22 @@ fa.ui.components = (function() {
 		activate: function(done) {
 			var self = this;
 			fa.comm
-			.send('get', 'film', {id: self.$parent.routeParam})
-			.then(function(film) {
-				self.id = film.id;
-				self.title = film.title;
-				self.year = film.year;
+			.send('get film', {id: self.$parent.routeParam})
+			.then(function(data) {
+				self.id = data.film.id;
+				self.title = data.film.title;
+				self.year = data.film.year;
 				done();
 			})
 			.catch(function(error) {
-				console.error(error);
+				if(error == 'Login required') fa.ui.routing.goTo('login');
+				else console.error(error);
 			});
 		}
+	});
+	
+	Vue.component('login-view', {
+		template: '#login-view'
 	});
 	
 	Vue.component('error-view', {
@@ -79,12 +84,13 @@ fa.ui.components = (function() {
 					}
 					
 					fa.comm
-					.send('search', 'films', {query: self.searchQuery})
+					.send('search films', {query: self.searchQuery})
 					.then(function(results) {
 						self.searchResults = results;
 					})
 					.catch(function(error) {
-						console.error(error);
+						if(error == 'Login required') fa.ui.routing.goTo('login');
+						else console.error(error);
 					});
 				}
 			}

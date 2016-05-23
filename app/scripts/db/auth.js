@@ -56,8 +56,7 @@ fa.db.auth = (function() {
 		fa.assert.notEqual(token, null);
 		
 		if(token.get() != null) return Promise.resolve();
-		
-		Promise.reject('Login required');
+		else return Promise.reject('Login required');
 	};
 	
 	
@@ -117,8 +116,8 @@ fa.db.auth = (function() {
 		fa.comm.receive('login', login);
 		fa.comm.receive('logout', logout);
 		
-		fa.comm.receive('search films', requireLogin);
-		fa.comm.receive('get film', requireLogin);
+		fa.comm.receive('search films', requireLogin, 4);
+		fa.comm.receive('get film', requireLogin, 4);
 	};
 	
 	var destroy = function() {

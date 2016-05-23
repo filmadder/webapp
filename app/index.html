@@ -38,9 +38,9 @@
 	
 	<template id="search-view">
 		<h2>films</h2>
-		<div v-for="film in $parent.searchResults">
-			<a href="#/film/{{ film.id }}" title="{{ film.title }}">
-				<h1>{{ film.title }}</h1>
+		<div v-for="result in $parent.searchResults">
+			<a href="#/film/{{ result.film.id }}" title="{{ result.film.title }}">
+				<h1>{{ result.film.title }}</h1>
 			</a>
 		</div>
 		<h2>friends</h2>
@@ -52,6 +52,14 @@
 			<h1>{{ title }}</h1>
 			<span>{{ year }}</span>
 		</article>
+	</template>
+	
+	<template id="login-view">
+		<form>
+			<input type="email" />
+			<input type="password" />
+			<button type="submit">login</button>
+		</form>
 	</template>
 	
 	<template id="error-view">

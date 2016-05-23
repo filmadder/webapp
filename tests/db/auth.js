@@ -47,3 +47,13 @@ QUnit.test('create account', function(assert) {
 		done();
 	});
 });
+
+QUnit.test('require login', function(assert) {
+	var done = assert.async();
+	
+	fa.comm.send('get film')
+	.catch(function(error) {
+		assert.equal(error, 'Login required');
+		done();
+	});
+});

@@ -21,7 +21,7 @@ add reply: {comment, text} -> - : error
 
 ## views
 
-route to: {view} -> - : -
+route to: {url} -> - : -
 show error: {text} -> - : -
 show success: {text} -> - : -
 
