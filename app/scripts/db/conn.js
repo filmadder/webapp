@@ -9,52 +9,129 @@ fa.db.conn = (function() {
 	/**
 	 * API calls
 	 * 
-	 * Resolve with ready-to-use objects. Reject with an error message.
+	 * Return Promises that resolve into the JSON data load or reject with the
+	 * respective error.
 	 */
+	var _addAuthToken = function(headers) {
+		var token = fa.db.auth.getToken();
+		if(token) headers['fa-token'] = token;
+		return headers;
+	};
+	
 	var get = function(url) {
+		var headers = _addAuthToken({});
+		
 		return new Promise(function(resolve, reject) {
 			fetch(fa.settings.API_URL+url, {
-				method: 'GET'
+				method: 'GET', headers: headers
 			})
 			.then(function(response) {
 				if(response.ok) {
 					response.json()
-					.then(function(data) {
-						resolve(data);
-					})
+					.then(resolve)
 					.catch(function(error) {
 						fa.logs.error(error);
-						reject({
-							error: 'Server response could not be decoded'
-						});
+						reject('Server response could not be decoded');
 					});
 				}
 				else if(response.status == 400) {
 					response.json()
 					.then(function(data) {
-						reject({
-							'status': 400,
-							'error': data['error']
-						});
+						if('error' in data) reject(data['error']);
+						else reject(response.status);
 					})
 					.catch(function(error) {
 						fa.logs.error(error);
-						reject({
-							error: 'Server response could not be decoded'
-						});
+						reject('Server response could not be decoded');
 					});
 				}
-				else {
-					reject({
-						'status': response.status
-					});
-				}
+				else reject(response.status);
+			})
+			.catch(function(error) {
+				fa.logs.error(error);
+				reject(error);
 			});
 		});
 	};
 	
 	var post = function(url, load) {
+		var headers = _addAuthToken({
+			'content-type': 'application/json'
+		});
 		
+		return new Promise(function(resolve, reject) {
+			fetch(fa.settings.API_URL+url, {
+				method: 'POST',
+				headers: headers,
+				body: JSON.stringify(load)
+			})
+			.then(function(response) {
+				if(response.ok) {
+					response.json()
+					.then(resolve)
+					.catch(function(error) {
+						fa.logs.error(error);
+						reject('Server response could not be decoded');
+					});
+				}
+				else if(response.status == 400) {
+					response.json()
+					.then(function(data) {
+						if('error' in data) reject(data['error']);
+						else reject(response.status);
+					})
+					.catch(function(error) {
+						fa.logs.error(error);
+						reject('Server response could not be decoded');
+					});
+				}
+				else reject(response.status);
+			})
+			.catch(function(error) {
+				fa.logs.error(error);
+				reject(error);
+			});
+		});
+	};
+	
+	var put = function(url, load) {
+		var headers = _addAuthToken({
+			'content-type': 'application/json'
+		});
+		
+		return new Promise(function(resolve, reject) {
+			fetch(fa.settings.API_URL+url, {
+				method: 'PUT',
+				headers: headers,
+				body: JSON.stringify(load)
+			})
+			.then(function(response) {
+				if(response.ok) {
+					response.json()
+					.then(resolve)
+					.catch(function(error) {
+						fa.logs.error(error);
+						reject('Server response could not be decoded');
+					});
+				}
+				else if(response.status == 400) {
+					response.json()
+					.then(function(data) {
+						if('error' in data) reject(data['error']);
+						else reject(response.status);
+					})
+					.catch(function(error) {
+						fa.logs.error(error);
+						reject('Server response could not be decoded');
+					});
+				}
+				else reject(response.status);
+			})
+			.catch(function(error) {
+				fa.logs.error(error);
+				reject(error);
+			});
+		});
 	};
 	
 	
@@ -70,11 +147,11 @@ fa.db.conn = (function() {
 	 * Module turn on/off functions
 	 */
 	var init = function() {
-		
+		return;
 	};
 	
 	var destroy = function() {
-		
+		return;
 	};
 	
 	
@@ -88,7 +165,8 @@ fa.db.conn = (function() {
 		online: online,
 		
 		get: get,
-		post: post
+		post: post,
+		put: put
 	};
 	
 }());

@@ -20,14 +20,41 @@ QUnit.test('get 200', function(assert) {
 	});
 });
 
+QUnit.test('get 200 bad json', function(assert) {
+	assert.expect(1);
+	
+	var done = assert.async();
+	
+	fa.db.conn
+	.get('/api/bad/json/')
+	.catch(function(error) {
+		assert.equal(error, 'Server response could not be decoded');
+		done();
+	});
+});
+
 QUnit.test('get 404', function(assert) {
+	assert.expect(1);
+	
 	var done = assert.async();
 	
 	fa.db.conn
 	.get('/api/dragons/')
 	.catch(function(error) {
-		console.log(error);
-		assert.equal(true, true);
+		assert.equal(error, 404);
+		done();
+	});
+});
+
+QUnit.test('post 200', function(assert) {
+	assert.expect(1);
+	
+	var done = assert.async();
+	
+	fa.db.conn
+	.post('/api/auth/', {answer: 42})
+	.then(function(data) {
+		assert.equal(data['token'], 'implausible-auth-token');
 		done();
 	});
 });

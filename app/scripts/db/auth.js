@@ -53,6 +53,8 @@ fa.db.auth = (function() {
 	 * Rejects signals if the user is not authenticated.
 	 */
 	var requireLogin = function() {
+		fa.assert.notEqual(token, null);
+		
 		if(token.get() != null) return Promise.resolve();
 		
 		Promise.reject('Login required');
@@ -63,9 +65,17 @@ fa.db.auth = (function() {
 	 * Attempts to register a new user account.
 	 */
 	var createAccount = function(load) {
-		if(!db.conn.online()) {
+		fa.assert.notEqual(token, null);
+		
+		if(!fa.db.conn.online()) {
 			return Promise.reject('You must be online in order to create an account');
 		}
+		
+		return fa.db.conn
+		.put('/api/auth/', load)
+		.then(function(data) {
+			token.set(data.token);
+		});
 	};
 	
 	/**
@@ -74,7 +84,9 @@ fa.db.auth = (function() {
 	 * The load must be {email, password}.
 	 */
 	var login = function(load) {
-		if(!db.conn.online()) {
+		fa.assert.notEqual(token, null);
+		
+		if(!fa.db.conn.online()) {
 			return Promise.reject('You must be online in order to login');
 		}
 		
@@ -89,6 +101,7 @@ fa.db.auth = (function() {
 	 * Deletes the auth token.
 	 */
 	var logout = function() {
+		fa.assert.notEqual(token, null);
 		token.remove();
 		return Promise.resolve();
 	};
@@ -126,6 +139,13 @@ fa.db.auth = (function() {
 	return {
 		init: init,
 		destroy: destroy,
+		
+		getToken: function() {
+			return token ? token.get() : null;
+		},
+		clear: function() {
+			if(token) token.remove();
+		}
 	};
 	
 }());
