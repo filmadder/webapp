@@ -23,7 +23,7 @@ var fa = (function() {
 	 */
 	var settings = {
 		DEBUG: true,
-		API_URL: 'localhost:8000'
+		API_URL: 'http://localhost:3000'  // no slash at the end
 	};
 	
 	

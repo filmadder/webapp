@@ -66,7 +66,9 @@ gulp.task('bower', function() {
 			'bower_components/js-signals/dist/signals.min.js',
 			'bower_components/hasher/dist/js/hasher.min.js',
 			'bower_components/crossroads/dist/crossroads.min.js',
-			'bower_components/vue/dist/vue.min.js'
+			'bower_components/vue/dist/vue.min.js',
+			'bower_components/fetch/fetch.js',
+			'bower_components/pythonic-datetime/build/datetime.js'
 		])
 		.pipe(concat('vendor.js'))
 		.pipe(gulp.dest('build/scripts'));

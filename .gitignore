@@ -3,4 +3,6 @@
 /meta/*
 /node_modules/*
 
+access_logs.db
+
 *.swp

@@ -138,3 +138,21 @@ QUnit.test('send unknown signal', function(assert) {
 		done();
 	});
 });
+
+QUnit.test('disconnect', function(assert) {
+	assert.expect(1);
+	
+	var done = assert.async();
+	
+	var calculateAnswer = function() {
+		return Promise.resolve('Come back in 7½ million years.');
+	};
+	
+	fa.comm.receive('calculate answer', calculateAnswer);
+	fa.comm.disconnect('calculate answer', calculateAnswer);
+	
+	fa.comm.send('calculate answer').then(function(data) {
+		assert.equal(data, undefined);
+		done();
+	});
+});

@@ -7,7 +7,7 @@ fa.db.films = (function() {
 	
 	
 	/**
-	 * Signal receivers.
+	 * Receivers
 	 */
 	/**
 	 * Resolves into list of search results.
@@ -51,8 +51,8 @@ fa.db.films = (function() {
 	 * Registers the signals.
 	 */
 	var init = function() {
-		fa.comm.register('search', 'films', searchFilms);
-		fa.comm.register('get', 'film', getFilm);
+		fa.comm.receive('search films', searchFilms);
+		fa.comm.receive('get film', getFilm);
 	};
 	
 	var destroy = function() {
@@ -61,7 +61,7 @@ fa.db.films = (function() {
 	
 	
 	/**
-	 * Module exports.
+	 * Exports
 	 */
 	return {
 		init: init,

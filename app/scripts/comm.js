@@ -58,6 +58,25 @@ fa.comm = (function() {
 		signals.get(predicate).set(priority, handler);
 	};
 	
+	/**
+	 * Removes the signal handler from the signal registry.
+	 */
+	var disconnect = function(predicate, handler) {
+		fa.assert.notEqual(signals, null);
+		
+		if(!signals.has(predicate)) return;
+		
+		for(var [key, value] of signals.get(predicate).entries()) {
+			if(value == handler) {
+				signals.get(predicate).delete(key);
+			}
+		}
+		
+		if(signals.get(predicate).size == 0) {
+			signals.delete(predicate);
+		}
+	};
+	
 	
 	/**
 	 * Inits the module.
@@ -82,8 +101,11 @@ fa.comm = (function() {
 	return {
 		init: init,
 		destroy: destroy,
+		
 		send: send,
-		receive: receive
+		
+		receive: receive,
+		disconnect: disconnect
 	};
 	
 }());
