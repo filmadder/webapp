@@ -17,7 +17,6 @@ fa.ui = (function() {
 		 * The order matters: fa.ui.routing uses fa.ui.keys.
 		 */
 		fa.ui.components.init();
-		// fa.ui.messages.init($('#messages'));
 		fa.ui.routing.init();
 	};
 	
@@ -27,20 +26,15 @@ fa.ui = (function() {
 	 */
 	var destroy = function() {
 		fa.ui.routing.destroy();
-		// fa.ui.messages.destroy();
+		fa.ui.components.destroy();
 	};
 	
 	
 	/**
-	 * Module exports.
-	 * 
-	 * fa.ui.components.* and fa.ui.forms.* need the explicit {} declaration,
-	 * while fa.ui.messages and fa.ui.routing are listed here for completeness.
+	 * Exports
 	 */
 	return {
 		components: {},
-		forms: {},
-		messages: {},
 		routing: {},
 		
 		init: init,

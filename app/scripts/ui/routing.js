@@ -166,6 +166,7 @@ fa.ui.routing = (function() {
 	return {
 		init: init,
 		destroy: destroy,
+		
 		goTo: goTo,
 		changeSilently: changeSilently
 	};

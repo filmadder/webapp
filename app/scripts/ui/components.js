@@ -1,5 +1,12 @@
 /**
  * Contains the global Vue instance and the Vue components.
+ * 
+ * The module makes use of Vue's events for communication between components.
+ * Here is a list of these:
+ * * authenticated
+ * * searched
+ * * erred
+ * * routed
  */
 fa.ui.components = (function() {
 	
@@ -7,19 +14,48 @@ fa.ui.components = (function() {
 	
 	
 	/**
-	 * I. Vue components.
+	 * Search components
 	 */
-	Vue.component('home-view', {
-		template: '#home-view',
+	Vue.component('search-form', {
+		template: '#search-form',
 		data: function() {
-			return {greeting: 'I am home'};
+			return {
+				query: ''
+			};
+		},
+		methods: {
+			search: function() {
+				var self = this;
+				fa.comm
+				.send('search films', {query: self.query})
+				.then(function(results) {
+					self.$dispatch('searched', results);
+				})
+				.catch(function(error) {
+					self.$dispatch('erred', error);
+				});
+			}
 		}
 	});
 	
 	Vue.component('search-view', {
-		template: '#search-view'
+		template: '#search-view',
+		data: function() {
+			return {
+				results: []
+			};
+		},
+		events: {
+			'searched': function(results) {
+				this.results = results;
+			}
+		}
 	});
 	
+	
+	/**
+	 * Film components
+	 */
 	Vue.component('film-view', {
 		template: '#film-view',
 		data: function() {
@@ -36,14 +72,65 @@ fa.ui.components = (function() {
 				done();
 			})
 			.catch(function(error) {
-				if(error == 'Login required') fa.ui.routing.goTo('login');
-				else console.error(error);
+				self.$dispatch('erred', error);
 			});
 		}
 	});
 	
+	
+	/**
+	 * Auth components
+	 */
 	Vue.component('login-view', {
-		template: '#login-view'
+		template: '#login-view',
+		data: function() {
+			return {
+				email: '',
+				password: ''
+			};
+		},
+		methods: {
+			login: function() {
+				var self = this;
+				fa.comm
+				.send('login', {email: self.email, password: self.password})
+				.then(function() {
+					self.$dispatch('authenticated');
+				})
+				.catch(function(error) {
+					self.$dispatch('erred', error);
+				});
+			}
+		}
+	});
+	
+	
+	/**
+	 * General components
+	 */
+	Vue.component('home-view', {
+		template: '#home-view',
+		data: function() {
+			return {greeting: 'I am home'};
+		}
+	});
+	
+	Vue.component('message-bar', {
+		template: '#message-bar',
+		data: function() {
+			return {
+				type: 'error',
+				text: ''
+			};
+		},
+		events: {
+			'erred': function(error) {
+				this.text = error;
+			},
+			'routed': function() {
+				this.text = '';
+			}
+		}
 	});
 	
 	Vue.component('error-view', {
@@ -52,7 +139,7 @@ fa.ui.components = (function() {
 	
 	
 	/**
-	 * II. The global Vue instance.
+	 * The global Vue instance
 	 */
 	/**
 	 * Will hold the global Vue instance.
@@ -62,7 +149,7 @@ fa.ui.components = (function() {
 	
 	/**
 	 * Creates the global Vue instance.
-	 * The latter operates on the <main> element.
+	 * Registers the signal receivers.
 	 */
 	var init = function() {
 		fa.assert.equal(vue, null);
@@ -71,30 +158,29 @@ fa.ui.components = (function() {
 			el: '#fa',
 			data: {
 				currentView: 'home-view',
-				routeParam: null,
-				searchQuery: '',
-				searchResults: []
+				routeParam: null
 			},
-			methods: {
-				search: function() {
-					var self = this;
-					
-					if(self.currentView != 'search-view') {
+			events: {
+				'authenticated': function() {
+					fa.ui.routing.goTo('');
+				},
+				'searched': function(results) {
+					if(this.currentView != 'search-view') {
 						fa.ui.routing.goTo('search');
 					}
-					
-					fa.comm
-					.send('search films', {query: self.searchQuery})
-					.then(function(results) {
-						self.searchResults = results;
-					})
-					.catch(function(error) {
-						if(error == 'Login required') fa.ui.routing.goTo('login');
-						else console.error(error);
-					});
+					this.$broadcast('searched', results);
+				},
+				'erred': function(error) {
+					if(error == 'Login required') {
+						fa.ui.routing.goTo('login');
+					}
+					this.$broadcast('erred', error);
 				}
 			}
 		});
+		
+		fa.comm.receive('show error', showError);
+		fa.comm.receive('show success', showSuccess);
 	};
 	
 	/**
@@ -108,15 +194,51 @@ fa.ui.components = (function() {
 		
 		vue.routeParam = (param) ? param : null;
 		vue.currentView = newView;
+		vue.$broadcast('routed');
+	};
+	
+	/**
+	 * Shows an error message with the given text.
+	 */
+	var showError = function(load) {
+		fa.assert.isTrue('text' in load);
+		fa.assert.notEqual(vue, null);
+		
+		vue.$broadcast('erred', load.text);
+		
+		return Promise.resolve();
+	};
+	
+	/**
+	 * Shows a success message with the given text.
+	 */
+	var showSuccess = function(load) {
+		fa.assert.isTrue('text' in load);
+		fa.assert.notEqual(vue, null);
+		
+		console.log(load.text);
+		return Promise.resolve();
+	};
+	
+	/**
+	 * Disconnects the signal receivers.
+	 */
+	var destroy = function() {
+		fa.comm.disconnect('show error', showError);
+		fa.comm.disconnect('show success', showSuccess);
 	};
 	
 	
 	/**
-	 * III. Module exports.
+	 * Exports
 	 */
 	return {
 		init: init,
-		setView: setView
+		destroy: destroy,
+		
+		setView: setView,
+		showError: showError,
+		showSuccess: showSuccess
 	};
 	
 }());
