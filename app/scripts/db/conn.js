@@ -9,129 +9,60 @@ fa.db.conn = (function() {
 	/**
 	 * API calls
 	 * 
-	 * Return Promises that resolve into the JSON data load or reject with the
-	 * respective error.
+	 * Return Promises that resolve into the JSON data load or reject with
+	 * {code, message}.
 	 */
-	var _addAuthToken = function(headers) {
-		var token = fa.db.auth.getToken();
-		if(token) headers['fa-token'] = token;
-		return headers;
+	var request = function(method, url, load) {
+		var headers = {};
+		var body = null;
+		
+		if(method == 'POST' || method == 'PUT') {
+			headers['content-type'] = 'application/json';
+			body = JSON.stringify(load);
+		}
+		if(fa.db.auth.getToken()) {
+			headers['fa-token'] = fa.db.auth.getToken();
+		}
+		
+		return new Promise(function(resolve, reject) {
+			fetch(fa.settings.API_URL+url, {
+				method: method,
+				headers: headers,
+				body: body
+			})
+			.then(function(response) {
+				response.json()
+				.then(function(data) {
+					if(response.ok)
+						resolve(data);
+					else if('error' in data)
+						reject({code: response.status, message: data['error']});
+					else
+						reject({code: response.status, message: response.statusText});
+				})
+				.catch(function(error) {
+					if(response.ok) resolve({});
+					else
+						reject({code: response.status, message: response.statusText});
+				});
+			})
+			.catch(function(error) {
+				fa.logs.error(error);
+				reject({code: null, message: error.message});
+			});
+		});
 	};
 	
 	var get = function(url) {
-		var headers = _addAuthToken({});
-		
-		return new Promise(function(resolve, reject) {
-			fetch(fa.settings.API_URL+url, {
-				method: 'GET', headers: headers
-			})
-			.then(function(response) {
-				if(response.ok) {
-					response.json()
-					.then(resolve)
-					.catch(function(error) {
-						fa.logs.error(error);
-						reject('Server response could not be decoded');
-					});
-				}
-				else if(response.status == 400) {
-					response.json()
-					.then(function(data) {
-						if('error' in data) reject(data['error']);
-						else reject(response.status);
-					})
-					.catch(function(error) {
-						fa.logs.error(error);
-						reject('Server response could not be decoded');
-					});
-				}
-				else reject(response.status);
-			})
-			.catch(function(error) {
-				fa.logs.error(error);
-				reject(error);
-			});
-		});
+		return request('GET', url);
 	};
 	
 	var post = function(url, load) {
-		var headers = _addAuthToken({
-			'content-type': 'application/json'
-		});
-		
-		return new Promise(function(resolve, reject) {
-			fetch(fa.settings.API_URL+url, {
-				method: 'POST',
-				headers: headers,
-				body: JSON.stringify(load)
-			})
-			.then(function(response) {
-				if(response.ok) {
-					response.json()
-					.then(resolve)
-					.catch(function(error) {
-						fa.logs.error(error);
-						reject('Server response could not be decoded');
-					});
-				}
-				else if(response.status == 400) {
-					response.json()
-					.then(function(data) {
-						if('error' in data) reject(data['error']);
-						else reject(response.status);
-					})
-					.catch(function(error) {
-						fa.logs.error(error);
-						reject('Server response could not be decoded');
-					});
-				}
-				else reject(response.status);
-			})
-			.catch(function(error) {
-				fa.logs.error(error);
-				reject(error);
-			});
-		});
+		return request('POST', url, load);
 	};
 	
 	var put = function(url, load) {
-		var headers = _addAuthToken({
-			'content-type': 'application/json'
-		});
-		
-		return new Promise(function(resolve, reject) {
-			fetch(fa.settings.API_URL+url, {
-				method: 'PUT',
-				headers: headers,
-				body: JSON.stringify(load)
-			})
-			.then(function(response) {
-				if(response.ok) {
-					response.json()
-					.then(resolve)
-					.catch(function(error) {
-						fa.logs.error(error);
-						reject('Server response could not be decoded');
-					});
-				}
-				else if(response.status == 400) {
-					response.json()
-					.then(function(data) {
-						if('error' in data) reject(data['error']);
-						else reject(response.status);
-					})
-					.catch(function(error) {
-						fa.logs.error(error);
-						reject('Server response could not be decoded');
-					});
-				}
-				else reject(response.status);
-			})
-			.catch(function(error) {
-				fa.logs.error(error);
-				reject(error);
-			});
-		});
+		return request('PUT', url, load);
 	};
 	
 	

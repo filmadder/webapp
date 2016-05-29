@@ -20,28 +20,30 @@ QUnit.test('get 200', function(assert) {
 	});
 });
 
-QUnit.test('get 200 bad json', function(assert) {
-	assert.expect(1);
+QUnit.skip('get 200 bad json', function(assert) {
+	assert.expect(2);
 	
 	var done = assert.async();
 	
 	fa.db.conn
 	.get('/api/bad/json/')
 	.catch(function(error) {
-		assert.equal(error, 'Server response could not be decoded');
+		assert.equal(error.code, 200);
+		assert.equal(error.message, 'Here you go Bro');
 		done();
 	});
 });
 
 QUnit.test('get 404', function(assert) {
-	assert.expect(1);
+	assert.expect(2);
 	
 	var done = assert.async();
 	
 	fa.db.conn
 	.get('/api/dragons/')
 	.catch(function(error) {
-		assert.equal(error, 404);
+		assert.equal(error.code, 404);
+		assert.equal(error.message, 'Sorry, not here Bro');
 		done();
 	});
 });

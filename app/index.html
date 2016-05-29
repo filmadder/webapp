@@ -40,9 +40,9 @@
 	<template id="search-view">
 		<div class="search-view">
 			<h2>films</h2>
-			<div v-for="result in result">
-				<a href="#/film/{{ result.film.id }}" title="{{ result.film.title }}">
-					<h1>{{ result.film.title }}</h1>
+			<div v-for="film in results.films">
+				<a href="#/film/{{ film.id }}" title="{{ film.title }}">
+					<h1>{{ film.title }}</h1>
 				</a>
 			</div>
 			<h2>friends</h2>
@@ -112,7 +112,7 @@
 		document.addEventListener('DOMContentLoaded', function() {
 			fa.init({
 				DEBUG: true,
-				API_URL: 'http://localhost:3000'
+				API_URL: 'http://localhost:8000'
 			});
 		});
 	</script>

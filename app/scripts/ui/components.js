@@ -3,10 +3,10 @@
  * 
  * The module makes use of Vue's events for communication between components.
  * Here is a list of these:
- * * authenticated
- * * searched
- * * erred
- * * routed
+ * * authenticated()
+ * * searched(results)
+ * * erred({code, message})
+ * * routed()
  */
 fa.ui.components = (function() {
 	
@@ -125,7 +125,7 @@ fa.ui.components = (function() {
 		},
 		events: {
 			'erred': function(error) {
-				this.text = error;
+				this.text = error.message;
 			},
 			'routed': function() {
 				this.text = '';
@@ -171,7 +171,7 @@ fa.ui.components = (function() {
 					this.$broadcast('searched', results);
 				},
 				'erred': function(error) {
-					if(error == 'Login required') {
+					if(error.code == 403) {
 						fa.ui.routing.goTo('login');
 					}
 					this.$broadcast('erred', error);
@@ -204,7 +204,7 @@ fa.ui.components = (function() {
 		fa.assert.isTrue('text' in load);
 		fa.assert.notEqual(vue, null);
 		
-		vue.$broadcast('erred', load.text);
+		vue.$broadcast('erred', {code: null, message: load.text});
 		
 		return Promise.resolve();
 	};

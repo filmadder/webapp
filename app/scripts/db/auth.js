@@ -65,6 +65,7 @@ fa.db.auth = (function() {
 	 */
 	var createAccount = function(load) {
 		fa.assert.notEqual(token, null);
+		token.remove();
 		
 		if(!fa.db.conn.online()) {
 			return Promise.reject('You must be online in order to create an account');
@@ -84,13 +85,18 @@ fa.db.auth = (function() {
 	 */
 	var login = function(load) {
 		fa.assert.notEqual(token, null);
+		token.remove();
 		
 		if(!fa.db.conn.online()) {
 			return Promise.reject('You must be online in order to login');
 		}
 		
 		return fa.db.conn
-		.post('/api/auth/', load)
+		.post('/api/auth/', {
+			method: 's',
+			email: load.email,
+			password: load.password
+		})
 		.then(function(data) {
 			token.set(data.token);
 		});

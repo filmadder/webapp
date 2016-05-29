@@ -19,7 +19,7 @@ fa.db.films = (function() {
 			.post('/api/search/', {query: args.query})
 			.then(resolve)
 			.catch(function(error) {
-				console.error(error);
+				reject(error);
 			});
 		});
 	};
@@ -35,7 +35,7 @@ fa.db.films = (function() {
 			.get('/api/films/'+ args.id +'/review/')
 			.then(resolve)
 			.catch(function(error) {
-				console.error(error);
+				reject(error);
 			});
 		});
 	};
