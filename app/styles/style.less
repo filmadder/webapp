@@ -1,0 +1,429 @@
+
+@import "bower_components/stellar/stellar";
+
+
+/* mixins */
+
+.box(@p: 0) {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: @p;
+}
+.transition(@prop: all; @dur: 0.3s; @del: 0s; @func: ease;) {
+	-webkit-transition-property: @prop;
+	-moz-transition-property: @prop;
+	-o-transition-property: @prop;
+	transition-property: @prop;
+	-webkit-transition-duration: @dur;
+	-moz-transition-duration: @dur;
+	-o-transition-duration: @dur;
+	transition-duration: @dur;
+	-webkit-transition-delay: @del;
+	-moz-transition-delay: @del;
+	-o-transition-delay: @del;
+	transition-delay: @del;
+	-webkit-transition-timing-function: @func;
+	-moz-transition-timing-function: @func;
+	-o-transition-timing-function: @func;
+	transition-timing-function: @func;
+}
+.size(@h: 0; @w: 0;) {
+	height: @h;
+	width: @w;
+}
+.trim {
+	margin: 0;
+	padding: 0;
+}
+.wrap {
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+
+/* colours */
+
+@greentea: #d2e9e3;
+@blue: #74b3ab;
+@grey: #333;
+
+/* font */
+
+.font(@w: normal; @s: 1em; @f: "Source Sans Pro", sans-serif) {
+	font-weight: @w;
+	font-size: @s;
+	font-family: @f;
+}
+
+/* main */
+
+ul {
+	.trim;
+	list-style: none;
+}
+
+button {
+	.font(@w: 600);
+	background: @blue;
+	border: 2px solid @blue;
+	color: white;
+	border-radius: 20px;
+	outline: none;
+	&:hover,
+	&:focus {
+		background: white;
+		color: @blue;
+	}
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: @grey;
+}
+
+a {
+	.font(@w: 700);
+	color: @grey;
+	text-decoration: none;
+	&:hover,
+	&:focus {
+		text-decoration: underline;
+	}
+}
+
+p, span {
+	.font;
+	color: @grey;
+}
+
+input[type="search"] {
+	.font;
+	border: none;
+	color: @grey;
+	outline: none;
+}
+
+body {
+	font-size: 66,5%;
+}
+
+/* header */
+
+header {
+	.row(@spread; @center);
+	.box(10px;);
+	background: @grey;
+	box-shadow: inset 0 0 1px #000;
+	h1 {
+		.font(@s: 16px);
+		.trim;
+	}
+	ul {
+		.row;
+		a {
+			color: @greentea;
+			margin: 10px;
+		}
+	}
+}
+
+/* global classes */
+
+.image {
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.arrow {
+	display: inline-block;
+	transition: all .15s ease;
+	.stroke {
+		.size(12px; 2px);
+		background: @blue;
+		&:first-child {
+			transform: rotate(-45deg) translateY(3px);
+		}
+		&:nth-child(2) {
+			transform: rotate(45deg) translateY(-3px);
+		}
+	}
+}
+
+.peek {
+	.box(20px 0);
+	section {
+		h3 {
+			.font(@w: 600; @s: 1.1em);
+			color: @blue;
+			margin: 0 0 0 15px;
+		}
+		input[type="checkbox"] {
+			display: none;
+			&:checked ~ ul li {
+				display: inline-block;
+			}
+			&:checked ~ ul {
+				margin: 0 0 20px 0;
+			}
+			&:checked ~ label .arrow {
+				transform: rotate(90deg);
+			}
+		}
+		label {
+			.box(10px 30px);
+			.row(@y: @center);
+			cursor: pointer;
+		}
+		ul {
+			.row;
+			.wrap;
+			.box(0 40px;);
+			li {
+				.row;
+				.wrap;
+				display: none;
+				margin: 5px 0;
+			}
+		}
+		p {
+			margin: 3px 0;
+		}
+		a {
+			margin: 0 8px 0 0;
+			display: inline-block;
+		}
+	}
+	.me-watchlisted,
+	.me-watched {
+		ul {
+			.column;
+		}
+	}
+	.comments {
+		ul {
+			li {
+				margin: 0 0 25px 0;
+			}
+			.nested {
+				.column;
+				margin: 10px 0 0 0;
+				padding: 0 15px;
+				li {
+					margin: 5px 0;
+				}
+			}
+		}
+		a {
+			margin: 0;
+		}
+	}
+}
+
+.followship {
+	background: @greentea;
+	box-shadow: inset 0 0 1px @blue;
+	.box(0 0 20px 0);
+	section {
+		.box(20px 20px 0 20px);
+		h4 {
+			.trim;
+			.font(@w: 700; @s: 1em);
+			color: @blue;
+			text-transform: lowercase;
+		}
+		ul {
+			.row;
+			.wrap;
+			li {
+				margin: 0 8px 0 0;
+			}
+		}
+	}
+}
+
+/* home */
+
+.h-ar {
+	.box(10px 20px);
+	h2 {
+		text-align: center;
+		color: @blue;
+		.font(@w: 600; @s: 0.8em; @f: "Hind" sans-serif);
+	}
+	a {
+		display: inline-block;
+	}
+}
+
+.h-feed {
+	background: @greentea;
+	box-shadow: inset 0 0 1px @blue;
+}
+
+/* search */
+
+.search {
+	.box(20px 0);
+	.column(@center);
+	.s-ar {
+		.column(@center);
+	}
+	.r-ar {
+		.box(20px 0);
+		width: 100%;
+	}
+	input[type="search"] {
+		.box(8px 10px);
+		background: @greentea;
+		width: 300px;
+		max-width: 300px;
+	}
+	a {
+		.box(0 20px);
+		.row(@spread; @center);
+		.size(60px; 100%);
+		&:hover,
+		&:focus {
+			text-decoration: none;
+			background: linear-gradient(
+				to right, @greentea, darken(@greentea, 10%)
+			);
+			.arrow {
+				display: inline-block;
+			}
+		}
+		h2 {
+			.trim;
+			.font(@w: 600; @s: 1.1em;);
+		}
+		.arrow {
+			display: none;
+			.stroke {
+				background: white;
+			}
+		}
+	}
+}
+
+/* film */
+
+.film {
+	h2, h3, h4, h5 {
+		color: @grey;
+		.font(@w: 600; @s: 1em);
+		.trim;
+	}
+	.name-and-status {
+		.row(@spread);
+		.box(20px);
+		h2 {
+			.font(@w: 600; @s: 1.6em);
+			margin: 0;
+		}
+	}
+	.f-details {
+		.row;
+		position: relative;
+		.f-poster {
+			height: 350px;
+			width: 100%;
+			.poster {
+				.size(100%; 100%;);
+				background-image: url('../../images/poster.jpg');
+				background-size: cover;
+				background-position: center;
+			}
+		}
+		.f-info {
+			.box(20px 10px);
+			background: rgba(0, 0, 0, 0.85);
+			width: 100%;
+
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			h3, h4, h5, span {
+				color: @greentea;
+				margin: 10px 0;
+			}
+		}
+	}
+}
+
+/* profile */
+
+.me, .profile {
+	.me-info, .profile-info {
+		background: @greentea;
+		box-shadow: inset 0 0 1px @blue;
+		h2,
+		h3 {
+			.trim;
+			.font;
+		}
+		h2 {
+			.font(@w: 600; @s: 1.2em);
+		}
+		.profile-img {
+			border-radius: 10px;
+			background: @blue;
+		}
+		section {
+			article {
+				margin: 0 0 0 10px;
+			}
+		}
+	}
+}
+
+/* my profile */
+
+.me {
+	.me-info {
+		section {
+			.row(@y: @center);
+			.box(20px);
+			.profile-img {
+				.size(70px; 70px;);
+			}
+			article {
+				h3 {
+					margin: 0 0 0 15px;
+				}
+			}
+			button, p {
+				.naughty(row; @y: @top);
+				margin-left: auto;
+			}
+			p {
+				.font(@w: 700; @s: .9em);
+				.trim;
+				color: @blue;
+				text-transform: lowercase;
+			}
+		}
+	}
+	.recommend {
+		.row(@center; @center);
+		button {
+			margin: 20px;
+		}
+	}
+}
+
+/* friend profile */
+
+.profile {
+	.profile-info {
+		.row;
+		.box(20px);
+		.profile-img {
+			.size(150px; 150px);
+		}
+		section:first-child {
+			.column();
+		}
+		section:nth-child(2) {
+			margin: 0 0 0 20px;
+		}
+	}
+}
