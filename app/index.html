@@ -8,11 +8,9 @@
 	<title>Film adder</title>
 	
 	<link rel="stylesheet" tyle="text/css" media="screen" href="styles/vendor.css" />
-	<link rel="stylesheet" tyle="text/css" media="screen" href="styles/style.css" />
+	<link rel="stylesheet" tyle="text/css" media="screen" href="styles/from-less/style.css" />
 	
-	<link href='https://fonts.googleapis.com/css?family=Raleway:400,500,700,600,800|Lobster|Lobster+Two:400,700' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Lobster|Lobster+Two:400,700,700italic,400italic|Bangers' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Droid+Sans|Fira+Sans:300,400,700|Quicksand' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Hind:400,600,700|PT+Mono|Source+Sans+Pro:400,600,700" rel="stylesheet"> 
 </head>
 
 <body>
@@ -20,8 +18,11 @@
 		<header>
 			<nav>
 				<a href="#/" title="home">home</a>
+				<a href="#/me" title="home">me</a>				
 			</nav>
+			<!--
 			<search-form></search-form>
+			-->
 		</header>
 		<main>
 			<component v-bind:is="currentView" keep-alive></component>
@@ -32,14 +33,16 @@
 	<!-- search components -->
 	<template id="search-form">
 		<form v-on:submit.prevent="search">
+		<!--
 			<input type="search" v-model="query" />
-			<button type="submit">ssss</button>
+		-->
+			<button type="submit">s</button>
 		</form>
 	</template>
 	
 	<template id="search-view">
 		<div class="search-view">
-			<h2>films</h2>
+			<search-form></search-form>
 			<div v-for="film in results.films">
 				<a href="#/film/{{ film.id }}" title="{{ film.title }}">
 					<h1>{{ film.title }}</h1>
@@ -89,7 +92,7 @@
 	<!-- general components -->
 	<template id="home-view">
 		<div class="home-view">
-			<h1>{{ greeting }}</h1>
+			<p>{{ greeting }}</p>
 		</div>
 	</template>
 	

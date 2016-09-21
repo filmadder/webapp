@@ -38,6 +38,15 @@ gulp.task('stylus', function() {
 		.pipe(connect.reload());
 });
 
+var less = require('gulp-less');
+
+gulp.task('less', function() {
+	gulp.src('app/styles/*.less')
+		.pipe(less())
+		.pipe(gulp.dest('build/styles/from-less'))
+		.pipe(connect.reload());
+});
+
 
 // process js
 var concat = require('gulp-concat');
@@ -92,6 +101,7 @@ gulp.task('watch', function() {
 	gulp.watch('app/*.html', ['html']);
 	gulp.watch('app/templates/*.html', ['html']);
 	gulp.watch('app/styles/*.styl', ['stylus']);
+	gulp.watch('app/styles/*.less', ['less']);
 	gulp.watch('app/scripts/**/*.js', ['scripts']);
 });
 
@@ -103,6 +113,7 @@ gulp.task('default', ['clean'], function() {
 		'html',
 		'images',
 		'stylus',
+		'less',
 		'scripts',
 		'connect',
 		'watch'
