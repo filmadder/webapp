@@ -55,9 +55,14 @@ var fa = (function() {
 		fa.db.init();
 		
 		/**
-		 * Enable the UI.
+		 * Enable the views.
 		 */
-		fa.ui.init();
+		fa.views.init();
+		
+		/**
+		 * Enable the routing.
+		 */
+		fa.routing.init();
 	};
 	
 	

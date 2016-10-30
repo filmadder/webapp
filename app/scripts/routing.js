@@ -3,7 +3,7 @@
  * 
  * Encapsulates all interaction with the dependencies Crossroads and Hasher.
  */
-fa.ui.routing = (function() {
+fa.routing = (function() {
 	
 	"use strict";
 	
@@ -37,20 +37,34 @@ fa.ui.routing = (function() {
 	 * Corresponds to urls.py in Django.
 	 */
 	Router.prototype.initRoutes = function() {
+		hier.reg('/outer', 'main', fa.views.outer);
+		hier.reg('/outer/reg', '#view', fa.views.reg);
+		hier.reg('/outer/login', '#view', fa.views.login);
+		
+		hier.reg('/inner', 'main', fa.views.inner);
+		hier.reg('/inner/search', '#view', fa.views.search);
+		hier.reg('/inner/film', '#view', fa.views.film);
+		hier.reg('/inner/home', '#view', fa.views.home);
+		
+		hier.reg('/error', 'main', fa.views.error);
+		
 		crossroads
 			.addRoute('/', function() {
-				fa.ui.components.setView('home-view');
+				hier.add('/inner');
+				hier.add('/inner/home');
 			});
 		
 		crossroads
 			.addRoute('/search', function() {
-				fa.ui.components.setView('search-view');
+				hier.add('/inner');
+				hier.add('/inner/search');
 			});
 		
 		crossroads
 			.addRoute('/film/{id}', function(id) {
 				id = (id) ? parseInt(id) : null;
-				fa.ui.components.setView('film-view', id);
+				hier.add('/inner');
+				hier.add('/inner/film');
 			})
 			.rules = {
 				id: /^[0-9]+$/
@@ -58,12 +72,13 @@ fa.ui.routing = (function() {
 		
 		crossroads
 			.addRoute('/login', function() {
-				fa.ui.components.setView('login-view');
+				hier.add('/outer');
+				hier.add('/outer/login');
 			});
 		
 		crossroads
 			.addRoute('/error', function() {
-				fa.ui.components.setView('error-view');
+				hier.add('/error');
 			});
 		
 		crossroads

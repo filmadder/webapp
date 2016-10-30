@@ -67,9 +67,12 @@ gulp.task('bower', function() {
 			'bower_components/hasher/dist/js/hasher.min.js',
 			'bower_components/crossroads/dist/crossroads.min.js',
 			'bower_components/vue/dist/vue.min.js',
+			'bower_components/mustache.js/mustache.min.js',
 			'bower_components/fetch/fetch.js',
-			'bower_components/pythonic-datetime/build/datetime.js'
+			'bower_components/pythonic-datetime/build/datetime.js',
+			'bower_components/hier/src/hier.js'
 		])
+		.pipe(uglify())
 		.pipe(concat('vendor.js'))
 		.pipe(gulp.dest('build/scripts'));
 });

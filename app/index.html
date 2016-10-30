@@ -16,95 +16,74 @@
 </head>
 
 <body>
-	<div id="fa">
-		<header>
-			<nav>
-				<a href="#/" title="home">home</a>
-			</nav>
-			<search-form></search-form>
-		</header>
-		<main>
-			<component v-bind:is="currentView" keep-alive></component>
-		</main>
-		<message-bar></message-bar>
-	</div>
+	<main></main>
 	
-	<!-- search components -->
-	<template id="search-form">
-		<form v-on:submit.prevent="search">
-			<input type="search" v-model="query" />
-			<button type="submit">ssss</button>
+	<template id="outer-templ">
+		<header>
+			<h1>film adder</h1>
+		</header>
+		<div id="view"></div>
+	</template>
+	
+	<template id="create-account-templ">
+		<form>
+			<input type="email" name="email" required />
+			<input type="text" name="name" required />
+			<input type="password" name="password1" required />
+			<input type="password" name="password2" required />
+			<button type="submit">create account</button>
 		</form>
 	</template>
 	
-	<template id="search-view">
-		<div class="search-view">
-			<h2>films</h2>
-			<div v-for="film in results.films">
-				<a href="#/film/{{ film.id }}" title="{{ film.title }}">
-					<h1>{{ film.title }}</h1>
-				</a>
-			</div>
-			<h2>friends</h2>
-			<p>no friends yet :(</p>
-		</div>
-	</template>
-	<!-- / search components -->
-	
-	<!-- film components -->
-	<template id="film-view">
-		<div class="film-view">
-			<article class="film">
-				<h1>{{ title }}</h1>
-				<span>{{ year }}</span>
-			</article>
-		</div>
-	</template>
-	<!-- / film components -->
-	
-	<!-- auth components -->
-	<template id="login-view">
+	<template id="login-templ">
 		<div class="login-view">
-			<form v-on:submit.prevent="login">
-				<input type="email" v-model="email" lazy required />
-				<input type="password" v-model="password" lazy required />
+			<form>
+				<input type="email" name="email" required />
+				<input type="password" name="pass" required />
 				<button type="submit">login</button>
 			</form>
 		</div>
 	</template>
 	
-	<template id="create-account-view">
-		<div class="create-account-view">
-			<form v-on:submit.prevent="create">
-				<input type="email" v-model="email" lazy required />
-				<input type="text" v-model="name" lazy required />
-				<input type="password" v-model="password1" lazy required />
-				<input type="password" v-model="password2" lazy required />
-				<button type="submit">create account</button>
+	<template id="inner-templ">
+		<header>
+			<nav>
+				<a href="#/" title="home">home</a>
+			</nav>
+			<form id="search-form">
+				<input type="search" name="query" />
+				<button type="submit">ssss</button>
 			</form>
-		</div>
-	</template>
-	<!-- / auth components -->
-	
-	<!-- general components -->
-	<template id="home-view">
-		<div class="home-view">
-			<h1>{{ greeting }}</h1>
-		</div>
+		</header>
+		<div id="view"></div>
 	</template>
 	
-	<template id="message-bar">
-		<div class="message-bar" v-show="text.length">
-			<div v-bind:class="type">{{ text }}</div>
-		</div>
+	<template id="search-templ">
+		<h2>results</h2>
+		{{ #films }}
+		<a href="#/film/{{ id }}" title="{{ title }}">
+			<h1>{{ title }}</h1>
+		</a>
+		{{ /films }}
+		{{ ^films }}
+		<p>nothing found</p>
+		{{ /films }}
 	</template>
 	
-	<template id="error-view">
-		<div class="error-view">
-			<h1>You should not be here!</h1>
-		</div>
+	<template id="film-templ">
+		<article class="film">
+			<h1>{{ title }}</h1>
+			<span>{{ year }}</span>
+		</article>
 	</template>
-	<!-- / general components -->
+	
+	<template id="home-templ">
+		<h1>Hallo!</h1>
+	</template>
+	
+	<template id="error-templ">
+		<h1>You should not be here!</h1>
+	</template>
 	
 	<script src="scripts/vendor.js"></script>
 	<script src="scripts/fa.js"></script>

@@ -6,9 +6,10 @@
     "crossroads": "^0.12.2",
     "hasher": "^1.2.0",
     "js-signals": "^1.0.0",
-    "vue": "^1.0.21",
     "fetch": "^1.0.0",
-    "pythonic-datetime": "^0.0.0"
+    "pythonic-datetime": "^0.0.0",
+    "hier": "https://lab.glag.org/pavelsof/hier.git",
+    "mustache.js": "mustache#^2.2.1"
   },
   "devDependencies": {
     "qunit": "^1.23.1"
