@@ -1,0 +1,9 @@
+<h2>results</h2>
+{{ #films }}
+<a href="#/film/{{ id }}" title="{{ title }}">
+	<h1>{{ title }}</h1>
+</a>
+{{ /films }}
+{{ ^films }}
+<p>nothing found</p>
+{{ /films }}

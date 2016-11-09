@@ -18,72 +18,15 @@
 <body>
 	<main></main>
 	
-	<template id="outer-templ">
-		<header>
-			<h1>film adder</h1>
-		</header>
-		<div id="view"></div>
-	</template>
+	<script id="outer-templ" type="x-mustache"><!partial src="templates/outer.html"></script>
+	<script id="create-account-templ" type="x-mustache"><!partial src="templates/create-account.html"></script>
+	<script id="login-templ" type="x-mustache"><!partial src="templates/login.html"></script>
+	<script id="error-templ" type="x-mustache"><!partial src="templates/error.html"></script>
 	
-	<template id="create-account-templ">
-		<form>
-			<input type="email" name="email" required />
-			<input type="text" name="name" required />
-			<input type="password" name="password1" required />
-			<input type="password" name="password2" required />
-			<button type="submit">create account</button>
-		</form>
-	</template>
-	
-	<template id="login-templ">
-		<div class="login-view">
-			<form>
-				<input type="email" name="email" required />
-				<input type="password" name="pass" required />
-				<button type="submit">login</button>
-			</form>
-		</div>
-	</template>
-	
-	<template id="inner-templ">
-		<header>
-			<nav>
-				<a href="#/" title="home">home</a>
-			</nav>
-			<form id="search-form">
-				<input type="search" name="query" />
-				<button type="submit">ssss</button>
-			</form>
-		</header>
-		<div id="view"></div>
-	</template>
-	
-	<template id="search-templ">
-		<h2>results</h2>
-		{{ #films }}
-		<a href="#/film/{{ id }}" title="{{ title }}">
-			<h1>{{ title }}</h1>
-		</a>
-		{{ /films }}
-		{{ ^films }}
-		<p>nothing found</p>
-		{{ /films }}
-	</template>
-	
-	<template id="film-templ">
-		<article class="film">
-			<h1>{{ title }}</h1>
-			<span>{{ year }}</span>
-		</article>
-	</template>
-	
-	<template id="home-templ">
-		<h1>Hallo!</h1>
-	</template>
-	
-	<template id="error-templ">
-		<h1>You should not be here!</h1>
-	</template>
+	<script id="inner-templ" type="x-mustache"><!partial src="templates/inner.html"></script>
+	<script id="search-templ" type="x-mustache"><!partial src="templates/search.html"></script>
+	<script id="film-templ" type="x-mustache"><!partial src="templates/film.html"></script>
+	<script id="home-templ" type="x-mustache"><!partial src="templates/home.html"></script>
 	
 	<script src="scripts/vendor.js"></script>
 	<script src="scripts/fa.js"></script>
