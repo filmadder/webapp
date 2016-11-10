@@ -79,6 +79,7 @@ fa.views = (function() {
 		});
 	};
 	
+	// inits a search view
 	var createSearch = function(elem) {
 		render(elem, 'search-templ', {films: [{id: 1, title: 'first'}, {id: 2, title: 'second'}]});
 	};

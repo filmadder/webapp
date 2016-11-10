@@ -1,4 +1,9 @@
 #!/bin/bash
+rm -rf build
+mkdir -p build
+mkdir -p build/styles
+mkdir -p build/scripts
+
 bin/build_html.sh
 bin/build_css.sh
 bin/build_js.sh
