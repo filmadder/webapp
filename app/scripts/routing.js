@@ -45,6 +45,7 @@ fa.routing = (function() {
 		hier.reg('/inner/search', '#view', fa.views.search);
 		hier.reg('/inner/film', '#view', fa.views.film);
 		hier.reg('/inner/home', '#view', fa.views.home);
+		hier.reg('/inner/profile', '#view', fa.views.profile);
 		
 		hier.reg('/error', 'main', fa.views.error);
 		
@@ -69,6 +70,12 @@ fa.routing = (function() {
 			.rules = {
 				id: /^[0-9]+$/
 			};
+		
+		crossroads
+			.addRoute('/me', function() {
+				hier.add('/inner');
+				hier.add('/inner/profile');
+			});
 		
 		crossroads
 			.addRoute('/login', function() {

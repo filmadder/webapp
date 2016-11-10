@@ -64,7 +64,7 @@ fa.views = (function() {
 		
 		render(elem, 'inner-templ', {});
 		
-		searchForm = elem.querySelector('#search-form');
+		/*searchForm = elem.querySelector('#search-form');
 		queryField = searchForm.querySelector('[name=query]');
 		
 		searchForm.addEventListener('submit', function(e) {
@@ -76,7 +76,7 @@ fa.views = (function() {
 			.catch(function(error) {
 				console.error(error);
 			});
-		});
+		});*/
 	};
 	
 	// inits a search view
@@ -92,6 +92,11 @@ fa.views = (function() {
 	// inits a home view
 	var createHome = function(elem) {
 		render(elem, 'home-templ', {});
+	};
+	
+	// inits a profile view
+	var createProfile = function(elem) {
+		render(elem, 'profile-templ', {});
 	};
 	
 	// inits an error view
@@ -116,6 +121,7 @@ fa.views = (function() {
 		search: createSearch,
 		film: createFilm,
 		home: createHome,
+		profile: createProfile,
 		
 		error: createError
 	};
