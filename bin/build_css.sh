@@ -1,2 +1,2 @@
 #!/bin/bash
-stylus app/styles/style.styl -o build/styles/style.css
+lessc app/styles/style.less build/styles/style.css
