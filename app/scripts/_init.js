@@ -52,7 +52,7 @@ var fa = (function() {
 		/**
 		 * Enable the server communication and local storage.
 		 */
-		fa.db.init();
+		// fa.db.init();
 		
 		/**
 		 * Enable the views.

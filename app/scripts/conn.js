@@ -1,7 +1,7 @@
 /**
  * Handles the connection to the API.
  */
-fa.db.conn = (function() {
+fa.conn = (function() {
 	
 	"use strict";
 	
@@ -20,8 +20,8 @@ fa.db.conn = (function() {
 			headers['content-type'] = 'application/json';
 			body = JSON.stringify(load);
 		}
-		if(fa.db.auth.getToken()) {
-			headers['fa-token'] = fa.db.auth.getToken();
+		if(fa.auth.getToken()) {
+			headers['fa-token'] = fa.auth.getToken();
 		}
 		
 		return new Promise(function(resolve, reject) {

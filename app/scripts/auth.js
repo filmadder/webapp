@@ -2,7 +2,7 @@
  * Holds the user info.
  * Plays the role of a permission matrix.
  */
-fa.db.auth = (function() {
+fa.auth = (function() {
 	
 	"use strict";
 	
@@ -67,11 +67,11 @@ fa.db.auth = (function() {
 		fa.assert.notEqual(token, null);
 		token.remove();
 		
-		if(!fa.db.conn.online()) {
+		if(!fa.conn.online()) {
 			return Promise.reject('You must be online in order to create an account');
 		}
 		
-		return fa.db.conn
+		return fa.conn
 		.put('/api/auth/', load)
 		.then(function(data) {
 			token.set(data.token);
@@ -87,11 +87,11 @@ fa.db.auth = (function() {
 		fa.assert.notEqual(token, null);
 		token.remove();
 		
-		if(!fa.db.conn.online()) {
+		if(!fa.conn.online()) {
 			return Promise.reject('You must be online in order to login');
 		}
 		
-		return fa.db.conn
+		return fa.conn
 		.post('/api/auth/', {
 			method: 's',
 			email: load.email,

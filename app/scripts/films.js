@@ -1,7 +1,7 @@
 /**
  * Handles film searching.
  */
-fa.db.films = (function() {
+fa.films = (function() {
 	
 	"use strict";
 	
@@ -15,7 +15,7 @@ fa.db.films = (function() {
 	 */
 	var searchFilms = function(args) {
 		return new Promise(function(resolve, reject) {
-			fa.db.conn
+			fa.conn
 			.post('/api/search/', {query: args.query})
 			.then(resolve)
 			.catch(function(error) {
@@ -31,7 +31,7 @@ fa.db.films = (function() {
 	 */
 	var getFilm = function(args) {
 		return new Promise(function(resolve, reject) {
-			fa.db.conn
+			fa.conn
 			.get('/api/films/'+ args.id +'/review/')
 			.then(resolve)
 			.catch(function(error) {
