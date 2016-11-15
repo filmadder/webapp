@@ -60,12 +60,10 @@ fa.views = (function() {
 	
 	// inits an inner view
 	var createInner = function(elem) {
-		var searchForm, queryField;
-		
 		render(elem, 'inner-templ', {});
 		
-		/*searchForm = elem.querySelector('#search-form');
-		queryField = searchForm.querySelector('[name=query]');
+		var searchForm = elem.querySelector('#search-form');
+		var queryField = searchForm.querySelector('[name=query]');
 		
 		searchForm.addEventListener('submit', function(e) {
 			e.preventDefault();
@@ -76,7 +74,7 @@ fa.views = (function() {
 			.catch(function(error) {
 				console.error(error);
 			});
-		});*/
+		});
 	};
 	
 	// inits a search view
@@ -110,9 +108,6 @@ fa.views = (function() {
 	// 
 	
 	return {
-		init: function() {},
-		destroy: function() {},
-		
 		outer: createOuter,
 		reg: createReg,
 		login: createLogin,

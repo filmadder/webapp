@@ -57,7 +57,7 @@ var fa = (function() {
 		/**
 		 * Enable the views.
 		 */
-		fa.views.init();
+		// fa.views.init();
 		
 		/**
 		 * Enable the routing.
