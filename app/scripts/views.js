@@ -20,7 +20,7 @@ fa.views = (function() {
 	// expects {code, message} object and acts accordingly
 	var handleError = function(error) {
 		if(error.code == 403) {
-			fa.routing.goTo('login');
+			fa.routing.go('login');
 		}
 		console.error(error);
 	};
@@ -53,7 +53,7 @@ fa.views = (function() {
 		form.addEventListener('submit', function(e) {
 			e.preventDefault();
 			fa.auth.login(email.value, pass.value).then(function() {
-				fa.routing.goTo('');
+				fa.routing.go('');
 			}).catch(function(error) {
 				console.error(error);
 			});
@@ -90,7 +90,6 @@ fa.views = (function() {
 		
 		fa.films.get(id).then(function(filmData) {
 			film = filmData;
-			console.log(film);
 			render(elem, 'film-templ', film);
 		}).catch(handleError);
 	};
