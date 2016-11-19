@@ -69,11 +69,9 @@ fa.views = (function() {
 		
 		searchForm.addEventListener('submit', function(e) {
 			e.preventDefault();
-			fa.comm.send('search films', {query: queryField.value})
-			.then(function(results) {
+			fa.films.search(queryField.value).then(function(results) {
 				hier.add('/inner/search');  // add results as param
-			})
-			.catch(function(error) {
+			}).catch(function(error) {
 				console.error(error);
 			});
 		});

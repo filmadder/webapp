@@ -3,7 +3,6 @@ cat \
 app/scripts/_init.js \
 app/scripts/logs.js \
 app/scripts/assert.js \
-app/scripts/comm.js \
 app/scripts/conn.js \
 app/scripts/films.js \
 app/scripts/users.js \
