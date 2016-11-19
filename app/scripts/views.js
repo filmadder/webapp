@@ -17,6 +17,14 @@ fa.views = (function() {
 		elem.innerHTML = rendered;
 	};
 	
+	// expects {code, message} object and acts accordingly
+	var handleError = function(error) {
+		if(error.code == 403) {
+			fa.routing.goTo('login');
+		}
+		console.error(error);
+	};
+	
 	
 	// 
 	// view functions
@@ -44,15 +52,9 @@ fa.views = (function() {
 		
 		form.addEventListener('submit', function(e) {
 			e.preventDefault();
-			fa.comm.send('login', {
-				email: email.value,
-				password: pass.value
-			})
-			.then(function() {
-				hier.remove('/login');
-				hier.add('/inner', 'main', createInner);
-			})
-			.catch(function(error) {
+			fa.auth.login(email.value, pass.value).then(function() {
+				fa.routing.goTo('');
+			}).catch(function(error) {
 				console.error(error);
 			});
 		});
@@ -83,8 +85,14 @@ fa.views = (function() {
 	};
 	
 	// inits a film view
-	var createFilm = function(elem) {
-		render(elem, 'film-templ', {title: 'Blackadder', year: 1983});
+	var createFilm = function(elem, id) {
+		var film = {};
+		
+		fa.films.get(id).then(function(filmData) {
+			film = filmData;
+			console.log(film);
+			render(elem, 'film-templ', film);
+		}).catch(handleError);
 	};
 	
 	// inits a home view

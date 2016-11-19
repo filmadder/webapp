@@ -12,7 +12,7 @@ fa.users = (function() {
 		
 		for(var prop in ['id', 'name']) {
 			if(!data.hasOwnProperty(prop)) {
-				throw new Error('Could not create user');
+				throw new Error('Could not deserialise user');
 			}
 		}
 		
@@ -24,13 +24,11 @@ fa.users = (function() {
 	
 	
 	// 
-	// state
+	// exports
 	// 
 	
-	var users = {};
-	
-	users.create = createUser;
-	
-	return users;
+	return {
+		create: createUser
+	};
 	
 }());

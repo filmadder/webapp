@@ -2,7 +2,6 @@ fa.auth = (function() {
 	
 	"use strict";
 	
-	
 	// 
 	// constants
 	// 
@@ -30,9 +29,17 @@ fa.auth = (function() {
 			store = localStorage.getItem(STORAGE_KEY);
 			
 			if(store) {
-				store = JSON.parse(store);
-				token = store.token;
-				user = fa.users.create(store.user);
+				try {
+					store = JSON.parse(store);
+					token = store.token;
+					// user = fa.users.create(store.user);
+					user = null;
+				}
+				catch (error) {
+					console.error(error);
+					token = null;
+					user = null;
+				}
 			}
 			else {
 				token = null;
@@ -92,9 +99,9 @@ fa.auth = (function() {
 		auth.logout();
 		return new Promise(function(resolve, reject) {
 			fa.conn.post('/api/auth/', {
-				email: email, pass: pass
+				method: 's', email: email, password: pass
 			}).then(function(data) {
-				session = createSession(data);
+				session = createSession(data.token, {});
 				resolve();
 			}).catch(reject);
 		});

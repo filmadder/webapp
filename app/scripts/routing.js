@@ -65,7 +65,7 @@ fa.routing = (function() {
 			.addRoute('/film/{id}', function(id) {
 				id = (id) ? parseInt(id) : null;
 				hier.add('/inner');
-				hier.add('/inner/film');
+				hier.add('/inner/film', id);
 			})
 			.rules = {
 				id: /^[0-9]+$/

@@ -1,66 +1,51 @@
-/**
- * Handles film searching.
- */
 fa.films = (function() {
 	
 	"use strict";
 	
 	
-	/**
-	 * Receivers
-	 */
-	/**
-	 * Resolves into [] of search results.
-	 * Expects {query}.
-	 */
-	var searchFilms = function(args) {
+	// 
+	// functions
+	// 
+	
+	// returns a film object from the given json data
+	var createFilm = function(data) {
+		var film = {};
+		
+		if(!fjs.all(function(prop) { return data.hasOwnProperty(prop); }, ['title'])) {
+			throw new Error('Could not deserialise film');
+		}
+		
+		film.title = data.title;
+		
+		return film;
+	};
+	
+	// returns promise that resolves into a film object
+	var getFilm = function(id) {
 		return new Promise(function(resolve, reject) {
-			fa.conn
-			.post('/api/search/', {query: args.query})
-			.then(resolve)
-			.catch(function(error) {
-				reject(error);
-			});
+			fa.conn.get('/api/films/'+ id +'/review/').then(function(data) {
+				resolve(createFilm(data.film));
+			}).catch(reject);
+		});
+	};
+	
+	// returns promise that resolves into a [] of film results
+	var searchFilms = function(query) {
+		return new Promise(function(resolve, reject) {
+			fa.conn.post('/api/search/', {query: query}).then(function(data) {
+				resolve(data);
+			}).catch(reject);
 		});
 	};
 	
 	
-	/**
-	 * Resolves into {} with the film's full info.
-	 * Expects {id}.
-	 */
-	var getFilm = function(args) {
-		return new Promise(function(resolve, reject) {
-			fa.conn
-			.get('/api/films/'+ args.id +'/review/')
-			.then(resolve)
-			.catch(function(error) {
-				reject(error);
-			});
-		});
-	};
+	// 
+	// exports
+	// 
 	
-	
-	/**
-	 * Registers the signals.
-	 */
-	var init = function() {
-		fa.comm.receive('search films', searchFilms);
-		fa.comm.receive('get film', getFilm);
-	};
-	
-	var destroy = function() {
-		fa.comm.disconnect('search films', searchFilms);
-		fa.comm.disconnect('get film', getFilm);
-	};
-	
-	
-	/**
-	 * Exports
-	 */
 	return {
-		init: init,
-		destroy: destroy
+		get: getFilm,
+		search: searchFilms
 	};
 	
 }());

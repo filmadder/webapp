@@ -9,7 +9,8 @@
     "fetch": "^1.0.0",
     "pythonic-datetime": "^0.0.0",
     "hier": "https://lab.glag.org/pavelsof/hier.git",
-    "mustache.js": "mustache#^2.2.1"
+    "mustache.js": "mustache#^2.2.1",
+    "functional.js": "functional-js#^0.8.0"
   },
   "devDependencies": {
     "qunit": "^1.23.1"
