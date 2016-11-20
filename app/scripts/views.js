@@ -69,26 +69,24 @@ fa.views = (function() {
 		
 		searchForm.addEventListener('submit', function(e) {
 			e.preventDefault();
+			fa.routing.go('search');
 			fa.films.search(queryField.value).then(function(results) {
-				hier.add('/inner/search');  // add results as param
-			}).catch(function(error) {
-				console.error(error);
-			});
+				hier.update('/inner/search', results);
+			}).catch(handleError);
 		});
 	};
 	
 	// inits a search view
-	var createSearch = function(elem) {
-		render(elem, 'search-templ', {films: [{id: 1, title: 'first'}, {id: 2, title: 'second'}]});
+	var createSearch = function(elem, results) {
+		if(results) {
+			render(elem, 'search-templ', results);
+		}
 	};
 	
 	// inits a film view
 	var createFilm = function(elem, id) {
-		var film = {};
-		
-		fa.films.get(id).then(function(filmData) {
-			film = filmData;
-			render(elem, 'film-templ', film);
+		fa.films.get(id).then(function(data) {
+			render(elem, 'film-templ', data);
 		}).catch(handleError);
 	};
 	

@@ -86,8 +86,17 @@ fa.routing = (function() {
 	
 	// changes the url and the view accordingly
 	// the url should not start or end with a slash
-	api.go = function(url) {
-		hasher.setHash(url);
+	// if the second arg is set, then the url will be replaced without invoking
+	// the respective view
+	api.go = function(url, silently) {
+		if(silently) {
+			hasher.changed.active = false;
+			hasher.setHash(url);
+			hasher.changed.active = true;
+		}
+		else {
+			hasher.setHash(url);
+		}
 	};
 	
 	return api;

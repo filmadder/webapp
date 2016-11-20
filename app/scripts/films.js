@@ -7,15 +7,16 @@ fa.films = (function() {
 	// functions
 	// 
 	
-	// returns a film object from the given json data
+	// returns a full film object from the given json data
 	var createFilm = function(data) {
 		var film = {};
 		
-		if(!fjs.all(function(prop) { return data.hasOwnProperty(prop); }, ['title'])) {
+		try {
+			film.title = data.title;
+			film.directors = data.directors;
+		} catch (err) {
 			throw new Error('Could not deserialise film');
 		}
-		
-		film.title = data.title;
 		
 		return film;
 	};
@@ -24,7 +25,7 @@ fa.films = (function() {
 	var getFilm = function(id) {
 		return new Promise(function(resolve, reject) {
 			fa.conn.get('/api/films/'+ id +'/review/').then(function(data) {
-				resolve(createFilm(data.film));
+				resolve(data);
 			}).catch(reject);
 		});
 	};

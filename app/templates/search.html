@@ -1,9 +1,9 @@
 <div class="search">
 	<article class="s-ar">
-		<input type="search" placeholder="Type here"/>	
+		<input type="search" placeholder="I am beautiful, move me to the header!" />	
 	</article>
 	<article class="r-ar">
-		{{ #films }}
+		{{# films }}
 		<a href="#/film/{{ id }}" title="{{ title }}">
 			<h2>{{ title }}</h2>
 			<div class="arrow">
@@ -11,9 +11,9 @@
 				<div class="stroke"></div>
 			</div>
 		</a>
-		{{ /films }}
-		{{ ^films }}
+		{{/ films }}
+		{{^ films }}
 		<p>nothing found</p>
-		{{ /films }}
+		{{/ films }}
 	</article>
 </div>

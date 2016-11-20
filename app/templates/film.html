@@ -1,19 +1,19 @@
 <div class="film">
 	<article class="name-and-status">
-		<h2>The Big Bang Theory</h2>
+		<h2>{{ film.title }}</h2>
 		<section class="f-status">
 			<div class="image"></div>
-			<p>watched</p>
+			<p>{{ status }}</p>
 		</section>
 	</article>
 	<article class="f-details">
 		<section class="f-poster">
-			<div class="image poster"></div>
+			<div class="image poster" style="background-image: url({{ film.poster_url }});"></div>
 		</section>
 		<section class="f-info">
-			<h3><span>Director:</span> Chuck Lorrie, Bill Prady</h3>
-			<h4><span>Year:</span> 2007 - present</h4>
-			<h5><span>Actors:</span> Johnny Galecki, Jim Parsons, Kaley Cuoco, Simon..</h5>
+			<h3><span>Director:</span> {{ film.directors }}</h3>
+			<h4><span>Year:</span> {{ film.year }}</h4>
+			<h5><span>Actors:</span> {{ film.actors }}</h5>
 		</section>
 	</article>
 	<article class="recommend">
@@ -30,23 +30,14 @@
 				<h3>Watched by</h3>
 			</label>
 			<ul>
-				<!-- {% for user in watched_by %} -->
+				{{# watchers_past }}
 				<li>
-					<a href="#">@pavelsof</a>
+					<a href="#">@{{ name }}</a>
 				</li>
-				<li>
-					<a href="#">@adderthebot</a>
-				</li>
-				<li>
-					<a href="#">@stela</a>
-				</li>
-				<li>
-					<a href="#">@pavelsofroniev</a>
-				</li>
-				<li>
-					<a href="#">@adderthebot</a>
-				</li>
-				<!-- {% endfor %} -->
+				{{/ watchers_past}}
+				{{^ watchers_past }}
+				<li>nobody</li>
+				{{/ watchers_past }}
 			</ul>
 		</section>
 		<section class="watchlisted-by">
@@ -59,17 +50,14 @@
 				<h3>Watchlisted by</h3>
 			</label>
 			<ul>
-				<!-- {% for user in watchlisted_by %} -->
+				{{# watchers_future }}
 				<li>
-					<a href="#">@pavelsof</a>
+					<a href="#">@{{ name }}</a>
 				</li>
-				<li>
-					<a href="#">@adderthebot</a>
-				</li>
-				<li>
-					<a href="#">@stela</a>
-				</li>
-				<!-- {% endfor %} -->
+				{{/ watchers_future }}
+				{{^ watchers_future }}
+				<li>nobody</li>
+				{{/ watchers_future }}
 			</ul>
 		</section>
 		<section class="comments">
@@ -82,20 +70,23 @@
 				<h3>Comments</h3>
 			</label>
 			<ul>
+				{{# comments }}
 				<li>
-					<a href="#">@pavelsof</a>
-					<p>Sheldon's trademark knock (3 knocks + name, 3 knocks + name, 3 knocks + name) was not established until later in the first season, however, in a scene that pre-dates the start of the show, he is shown doing that knock sequence. </p>
+					<a href="#">@{{ author }}</a>
+					<p>{{ text }}</p>
 					<ul>
+						{{# replies }}
 						<li>
-							<a href="#">@adderthebot</a>
-							<p>Internet fight!!!</p>
+							<a href="#">@{{ author }}</a>
+							<p>{{ text }}</p>
 						</li>
+						{{/ replies }}
 					</ul>
 				</li>
-				<li>
-					<a href="#">@stelaseldano</a>
-					<p>In Season 7, (708) everyone has Thanksgiving at the Wollowitz home (Penny learns she's married to Zach.) Raj is in the kitchen cooking as Mrs. Wollowitz is bedridden from Gout. ("Did someone say pie?") and the refrigerator doors open with hinges on the RIGHT so the camera can't film it's contents. In Season 8, (818) a power failure causes all of Howard's late mother's cooking to thaw, creating a strong emotional reaction from Howard.<br/><br />They decide to have everyone over for one last Mrs. Wollowitz meal. The same pale yellow refrigerator now is hinged on the left side so that the camera can film the inside of the freezer, filled with Brisket, Kugal, Meatloaf, and Chicken soup. Late that same season, (823) Howard, Raj, and Stewart are cleaning the kitchen ("It's A Hard Knock Life" Charnin/ Strouse) and the hinges are back on the right. This is an intentional goof as it's easier and cheaper to not have to expose the interior of the refrigerator; but still, we notice. </p>
-				</li>
+				{{/ comments }}
+				{{^ comments }}
+				<li>not yet</li>
+				{{/ comments }}
 			</ul>
 		</section>
 	</article>
