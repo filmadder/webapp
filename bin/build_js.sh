@@ -7,6 +7,7 @@ app/scripts/conn.js \
 app/scripts/films.js \
 app/scripts/users.js \
 app/scripts/auth.js \
+app/scripts/forms.js \
 app/scripts/views.js \
 app/scripts/routing.js \
 > build/scripts/fa.js

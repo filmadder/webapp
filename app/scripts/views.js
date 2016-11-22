@@ -42,20 +42,14 @@ fa.views = (function() {
 	
 	// inits a login view
 	var createLogin = function(elem) {
-		var form, email, pass;
-		
 		render(elem, 'login-templ', {});
 		
-		form = elem.querySelector('form');
-		email = form.querySelector('[name=email]');
-		pass = form.querySelector('[name=pass]');
-		
-		form.addEventListener('submit', function(e) {
-			e.preventDefault();
-			fa.auth.login(email.value, pass.value).then(function() {
+		var form = fa.forms.create(elem.querySelector('form'));
+		form.onSubmit(function() {
+			fa.auth.login(form.getData()).then(function() {
 				fa.routing.go('');
 			}).catch(function(error) {
-				console.error(error);
+				form.showError(error.message);
 			});
 		});
 	};

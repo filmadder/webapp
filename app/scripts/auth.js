@@ -95,11 +95,11 @@ fa.auth = (function() {
 		});
 	};
 	
-	auth.login = function(email, pass) {
+	auth.login = function(load) {
 		auth.logout();
 		return new Promise(function(resolve, reject) {
 			fa.conn.post('/api/auth/', {
-				method: 's', email: email, password: pass
+				method: 's', email: load['email'], password: load['pass']
 			}).then(function(data) {
 				session = createSession(data.token, {});
 				resolve();
