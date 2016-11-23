@@ -1,6 +1,17 @@
-<form>
+<form novalidate>
 	<div data-fn="error" class="error"></div>
-	<input type="email" name="email" required />
-	<input type="password" name="pass" required />
+	
+	<p>
+		<label for="login-email">email</label>
+		<input type="email" name="email" id="login-email" />
+		<span data-fn="error"></span>
+	</p>
+	
+	<p>
+		<label for="login-pass">pass</label>
+		<input type="password" name="pass" id="login-pass" />
+		<span data-fn="error"></span>
+	</p>
+	
 	<button type="submit">login</button>
 </form>

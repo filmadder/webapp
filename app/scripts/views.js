@@ -37,21 +37,34 @@ fa.views = (function() {
 	
 	// inits a create account view
 	var createReg = function(elem) {
-		render(elem, 'create-account-templ', {});
+		render(elem, 'reg-templ', {});
+		
+		fa.forms.create(elem.querySelector('form'), function(form) {
+			fa.auth.register(form.getData()).then(function() {
+				fa.routing.go('');
+			}).catch(function(error) {
+				form.showError(error.message);
+			});
+		})
+		.add('email', [fa.forms.maxLen(200), fa.forms.email])
+		.add('name', [fa.forms.maxLen(200), fa.forms.minLen(5)])
+		.add('pass1', [fa.forms.maxLen(200), fa.forms.minLen(5)])
+		.add('pass2', fa.forms.equal('pass1'));
 	};
 	
 	// inits a login view
 	var createLogin = function(elem) {
 		render(elem, 'login-templ', {});
 		
-		var form = fa.forms.create(elem.querySelector('form'));
-		form.onSubmit(function() {
+		fa.forms.create(elem.querySelector('form'), function(form) {
 			fa.auth.login(form.getData()).then(function() {
 				fa.routing.go('');
 			}).catch(function(error) {
 				form.showError(error.message);
 			});
-		});
+		})
+		.add('email', [fa.forms.maxLen(200), fa.forms.email])
+		.add('pass', [fa.forms.maxLen(200), fa.forms.minLen(5)]);
 	};
 	
 	// inits an inner view

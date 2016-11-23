@@ -83,11 +83,11 @@ fa.auth = (function() {
 		return session.getToken() ? true : false;
 	};
 	
-	auth.register = function(email, name, pass) {
+	auth.register = function(load) {
 		auth.logout();
 		return new Promise(function(resolve, reject) {
 			fa.conn.put('/api/auth/', {
-				email: email, name: name, pass: pass
+				email: load['email'], name: load['name'], pass: load['pass']
 			}).then(function(data) {
 				session = createSession(data);
 				resolve();

@@ -51,6 +51,11 @@ fa.routing = (function() {
 		hier.add('/outer/login');
 	});
 	
+	crossroads.addRoute('/reg', function() {
+		hier.add('/outer');
+		hier.add('/outer/reg');
+	});
+	
 	crossroads.addRoute('/error', function() {
 		hier.add('/error');
 	});
