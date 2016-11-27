@@ -1,0 +1,161 @@
+@media (max-width: 960px) {
+	/* home */
+
+.h-ar {
+	.box(10px 20px);
+	h2 {
+		text-align: center;
+		color: @blue;
+		.font(@w: 600; @s: 0.8em; @f: "Hind" sans-serif);
+	}
+	a {
+		display: inline-block;
+	}
+}
+
+.h-feed {
+	background: @green;
+	box-shadow: inset 0 0 1px @blue;
+}
+
+
+
+/* film */
+
+.film {
+	h2, h3, h4, h5 {
+		color: @grey;
+		.font(@w: 600; @s: 1em);
+		.trim;
+	}
+	.name-and-status {
+		.row(@spread);
+		.box(20px);
+		h2 {
+			.font(@w: 600; @s: 1.6em);
+			margin: 0;
+		}
+	}
+	.f-details {
+		.row;
+		position: relative;
+		.f-poster {
+			height: 350px;
+			width: 100%;
+			.poster {
+				.size(100%; 100%;);
+				background-size: cover;
+				background-position: center;
+			}
+		}
+		.f-info {
+			.box(20px 10px);
+			background: rgba(0, 0, 0, 0.85);
+			width: 100%;
+
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			h3, h4, h5, span {
+				color: @greentea;
+				margin: 10px 0;
+			}
+		}
+	}
+}
+
+/* profile */
+
+.me, .profile {
+	.me-info, .profile-info {
+		background: @greentea;
+		box-shadow: inset 0 0 1px @blue;
+		h2,
+		h3 {
+			.trim;
+			.font;
+		}
+		h2 {
+			.font(@w: 600; @s: 1.2em);
+		}
+		.profile-img {
+			border-radius: 10px;
+			background: @blue;
+		}
+		section {
+			article {
+				margin: 0 0 0 10px;
+			}
+		}
+	}
+}
+
+/* my profile */
+
+.me {
+	.me-info {
+		section {
+			.row(@y: @center);
+			.box(20px);
+			.profile-img {
+				.size(70px; 70px;);
+			}
+			article {
+				h3 {
+					margin: 0 0 0 15px;
+				}
+			}
+			button, p {
+				.naughty(row; @y: @top);
+				margin-left: auto;
+			}
+			p {
+				.font(@w: 700; @s: .9em);
+				.trim;
+				color: @blue;
+				text-transform: lowercase;
+			}
+		}
+	}
+	.recommend {
+		.row(@center; @center);
+		button {
+			margin: 20px;
+		}
+	}
+}
+
+/* friend profile */
+
+.profile {
+	.profile-info {
+		.row;
+		.box(20px);
+		.profile-img {
+			.size(150px; 150px);
+		}
+		section:first-child {
+			.column();
+		}
+		section:nth-child(2) {
+			margin: 0 0 0 20px;
+		}
+	}
+}
+}
+
+@media (max-width: 740px) {
+	
+}
+
+@media (max-width: 550px) {
+	
+}
+
+@media (max-width: 480px) {
+	
+}
+
+@media (max-width: 320px) {
+
+}

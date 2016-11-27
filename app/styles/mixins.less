@@ -1,0 +1,40 @@
+.box(@p: 0) {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: @p;
+}
+
+.size(@h: 0; @w: 0;) {
+	height: @h;
+	width: @w;
+}
+
+.transition(@prop: all; @dur: 0.3s; @del: 0s; @func: ease;) {
+	-webkit-transition-property: @prop;
+	-moz-transition-property: @prop;
+	-o-transition-property: @prop;
+	transition-property: @prop;
+	-webkit-transition-duration: @dur;
+	-moz-transition-duration: @dur;
+	-o-transition-duration: @dur;
+	transition-duration: @dur;
+	-webkit-transition-delay: @del;
+	-moz-transition-delay: @del;
+	-o-transition-delay: @del;
+	transition-delay: @del;
+	-webkit-transition-timing-function: @func;
+	-moz-transition-timing-function: @func;
+	-o-transition-timing-function: @func;
+	transition-timing-function: @func;
+}
+
+.trim {
+	margin: 0;
+	padding: 0;
+}
+
+.wrap {
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
