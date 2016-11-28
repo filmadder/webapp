@@ -1,7 +1,6 @@
 @import "bower_components/stellar/stellar";
-
 @import "colours";
-@import "media";
+@import "icons";
 @import "mixins";
 
 
@@ -64,17 +63,12 @@ ul {
 /* header */
 
 header {
-	.size(50px; 100%);
-	.row(@spread; @center);
+	.size(40px; 35%);
+	.row(@left; @center);
 
 	background: @green;
 	position: fixed;
 	bottom: 0;
-
-	nav {
-		.row(@center; @center);
-		margin: 0 10px;
-	}
 
 	h1 {
 		.font(@s: 20px);
@@ -83,59 +77,49 @@ header {
 		margin: 0 10px;
 	}
 
-	a {
-		color: white;
-		margin: 10px;
+	nav {
+		.row(@y: @center);
+		margin: 0 5px;
 
-		&.nav-me {
+		.nav-item {
+			.row(@center; @center);
 			.size(30px; 30px;);
 
 			background: white;
 			border-radius: 50%;
 		}
 	}
+
+	a {
+		color: white;
+		margin: 10px;
+	}
 }
+
 
 /* search */
 
 #search-form {
-	.box(0px 0);
-	margin: 0 1px 0 0;
+	position: fixed;
+	bottom: 0;
+	right: 0;
 
 	width: 65%;
 
 	input[type="search"] {
-		.box(12px 12px 12px 50px);
+		.box(9px 11px);
 		background: lighten(@green, 20%);
-
-		font-size: 20px; 
+		border: 1px solid @green;
+		font-size: 16px; 
 		width: 100%;
+
+		&::-moz-placeholder {
+			color: blue;
+		}
 
 		&:focus {
 			background: white;
 		}
-	}
-}
-
-.search.icon {
-	position: absolute;
-	margin-top: 10px;
-	margin-left: 10px;
-	width: 20px;
-	height: 20px;
-	border: solid 2px @grey;
-	border-radius: 100%;
-	-webkit-transform: rotate(-45deg);
-	transform: rotate(-45deg);
-
-	&:before {
-		content: '';
-		position: absolute;
-		top: 20px;
-		left: 9px;
-		height: 12px;
-		width: 2px;
-		background-color: @grey;
 	}
 }
 
@@ -255,3 +239,5 @@ header {
 		}
 	}
 }
+
+@import "media";

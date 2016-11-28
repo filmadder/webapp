@@ -1,13 +1,17 @@
 <div id="view"></div>
 <header>
+	<h1>
+		<a href="#/">fa</a>
+	</h1>
 	<nav>
-		<h1>
-			<a href="#/">film adder</a>
-		</h1>
-		<a href="#/me" class="nav-me" title="my profile"></a>
+		<a href="#/me" class="nav-item" title="my profile">
+			<span class="me icon"></span>
+		</a>
+		<a href="#/watchlist" class="nav-item" title="my profile"></a>
+		<a href="#/watched" class="nav-item" title="my profile"></a>
 	</nav>
-	<form id="search-form">
-		<div class="search icon"></div>
-		<input type="search" name="query" required />
-	</form>
 </header>
+<form id="search-form">
+<!-- 		<div class="search icon"></div>
+-->		<input type="search" name="query" placeholder="Search" required />
+</form>

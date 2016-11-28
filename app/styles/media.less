@@ -14,7 +14,6 @@
 }
 
 .h-feed {
-	background: @green;
 	box-shadow: inset 0 0 1px @blue;
 }
 
@@ -145,6 +144,21 @@
 }
 
 @media (max-width: 740px) {
+
+	header {
+		.row(@spread; @center);
+		.size(40px; 100%);
+
+		position: absolute;
+		top: 0;
+	}
+
+	#search-form {
+		.size(40px; 100%);
+
+		position: fixed;
+		bottom: 0;
+	}
 	
 }
 
