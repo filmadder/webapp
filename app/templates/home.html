@@ -1,35 +1,69 @@
-<div class="h">
-	<article class="h-ar h-notifications">
-		<section>
-			<h2>Notifications</h2>
-			<p><a href="#">@adderthebot</a> is now following you</p>
-			<p><a href="#">@adderthebot</a> recommends you to watch <a href="#">Black Adder(TV seriies)</a></p>
-			<p><a href="#">@pavelsof</a> recommends you to watch <a href="#">Game of Thrones</a></p>
-			<h2>Notifications</h2>
-			<p><a href="#">@adderthebot</a> is now following you</p>
-			<p><a href="#">@adderthebot</a> recommends you to watch <a href="#">Black Adder(TV seriies)</a></p>
-			<p><a href="#">@pavelsof</a> recommends you to watch <a href="#">Game of Thrones</a></p>
+<div class="home">
+
+	<aside>
+		<a href="/">
+			<span class="eye1 icon"></span>
+		</a>
+		<a href="/">
+			<span class="eye2 icon"></span>
+		</a>
+	</aside>
+
+	<section class="h-watchlist">
+
+		<section class="watchlist-items">
+			<article class="watchlist-item">
+				<div class="f-poster">
+					<div class="image poster" style="background-image: url({{ film.poster_url }});"></div>
+				</div>
+				<div class="info-container">
+					<h3>Ghost in the shell</h3>
+					<h4><span>Year:</span> film.year</h4>
+					<h4><span>Genre:</span> Anime</h4>
+					<h4><span>Director:</span> film.directors</h4>
+				</div>
+			</article>
+			<article class="watchlist-item">
+				<div class="f-poster">
+					<div class="image poster" style="background-image: url({{ film.poster_url }});"></div>
+				</div>
+				<div class="info-container">
+					<h3>It crowd</h3>
+					<h4><span>Year:</span> 2006</h4>
+					<h4><span>Genre:</span> Tv series</h4>
+					<h4><span>Director:</span> film.directors</h4>
+				</div>
+			</article>
+			<article class="watchlist-item">
+				<div class="f-poster">
+					<div class="image poster" style="background-image: url({{ film.poster_url }});"></div>
+				</div>
+				<div class="info-container">
+					<h3>Gods must be crazy</h3>
+					<h4><span>Year:</span> film.year</h4>
+					<h4><span>Genre:</span> Drama</h4>
+					<h4><span>Director:</span> film.directors</h4>
+				</div>
+			</article>
 		</section>
-	</article>
-	<article class="h-ar h-feed">
-		<section>
-			<h2>Today</h2>
-			<p><a href="#">@pavelsof</a> added <a href="#">Game of Thrones</a> to watchlist</p>
-			{% endfor %}
-			<p><a href="#">@pavelsof</a> watched <a href="#">The Big Lebowski</a></p>
-			<p><a href="#">@adderthebot</a> watched <a href="#">A film about adders</a></p>
-			<h2>Yesterday</h2>
-			<p><a href="#">@adderthebot</a> added <a href="#">Black Adder(TV series)</a> to watchlist</p>
-			<h2>2 days ago</h2>
-			<p><a href="#">@adderthebot</a> watched <a href="#">Adders (Documentary)</a></p>
-			<h2>Today</h2>
-			<p><a href="#">@pavelsof</a> added <a href="#">Game of Thrones</a> to watchlist</p>
-			<p><a href="#">@pavelsof</a> watched <a href="#">The Big Lebowski</a></p>
-			<p><a href="#">@adderthebot</a> watched <a href="#">A film about adders</a></p>
-			<h2>Yesterday</h2>
-			<p><a href="#">@adderthebot</a> added <a href="#">Black Adder(TV series)</a> to watchlist</p>
-			<h2>2 days ago</h2>
-			<p><a href="#">@adderthebot</a> watched <a href="#">Adders (Documentary)</a></p>
-		</section>
-	</article>
+	</section>
+
+	<section class="h-feed">
+		<article class="feed-item h-notifications">
+			<h2>Updates</h2>
+			<p><a href="#">adderthebot</a> is now following you</p>
+			<p><a href="#">adderthebot</a> recommends you to watch <a href="#">Black Adder(TV seriies)</a></p>
+			<p><a href="#">pavelsof</a> recommends you to watch <a href="#">Game of Thrones</a></p>
+		</article>
+		<!-- <article class="feed-item h-events">
+			<span>Today</span>
+			<p><a href="#">pavelsof</a> added <a href="#">Game of Thrones</a> to watchlist</p>
+			<p><a href="#">pavelsof</a> watched <a href="#">The Big Lebowski</a></p>
+			<p><a href="#">adderthebot</a> watched <a href="#">A film about adders</a></p>
+			<span>Yesterday</span>
+			<p><a href="#">adderthebot</a> added <a href="#">Black Adder(TV series)</a> to watchlist</p>
+			<span>2 days ago</span>
+			<p><a href="#">adderthebot</a> watched <a href="#">Adders (Documentary)</a></p>
+		</article> -->
+	</section>
 </div>
