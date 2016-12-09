@@ -77,9 +77,7 @@ fa.forms = (function() {
 		
 		// checks whether the value is valid
 		field.isValid = function() {
-			var i;
-			
-			for(i = 0; i < validators.length; i++) {
+			for(var i = 0; i < validators.length; i++) {
 				try {
 					validators[i](field);
 				} catch (error) {
@@ -87,7 +85,6 @@ fa.forms = (function() {
 					return false;
 				}
 			}
-			
 			return true;
 		};
 		
@@ -120,9 +117,9 @@ fa.forms = (function() {
 			e.preventDefault();
 			
 			form.hideError();
-			fjs.each('x => x.hideError()', fields);
+			fjs.map('x => x.hideError()', fields);
 			
-			if(fjs.all('x => x.isValid()', fields)) {
+			if(fjs.all('x => x', fjs.map('x => x.isValid()', fields))) {
 				if(submitFunc) submitFunc(form);
 			}
 		});
@@ -137,10 +134,17 @@ fa.forms = (function() {
 			errorElem.innerHTML = '';
 		};
 		
+		// returns the field object corresponding to the given field name
+		form.getField = function(name) {
+			return fjs.first(function(field) {
+				return field.name == name;
+			}, fields);
+		};
+		
 		// register validators for a field
 		// returns form in order to allow chaining
 		form.add = function(name, validators) {
-			var field = fjs.first(function(x) {return x.name == name;}, fields);
+			var field = form.getField(name);
 			if(field) {
 				field.setValidators(validators);
 			}

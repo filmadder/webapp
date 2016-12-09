@@ -18,11 +18,14 @@ fa.views = (function() {
 	};
 	
 	// expects {code, message} object and acts accordingly
-	var handleError = function(error) {
+	// only useful for get promises as it cannot handle 400
+	var handleGetError = function(error) {
 		if(error.code == 403) {
 			fa.routing.go('login');
 		}
-		console.error(error);
+		if(error.code == 404) {
+			fa.routing.go('error');
+		}
 	};
 	
 	
@@ -79,7 +82,7 @@ fa.views = (function() {
 			fa.routing.go('search');
 			fa.films.search(queryField.value).then(function(results) {
 				hier.update('/inner/search', results);
-			}).catch(handleError);
+			}).catch(handleGetError);
 		});
 	};
 	
@@ -94,7 +97,17 @@ fa.views = (function() {
 	var createFilm = function(elem, id) {
 		fa.films.get(id).then(function(data) {
 			render(elem, 'film-templ', data);
-		}).catch(handleError);
+			
+			var replyButtons = elem.querySelectorAll('button[data-fn=reply]');
+			var commentButton = elem.querySelector('button[data-fn=comment]');
+			
+			commentButton.addEventListener('click', function(e) {
+				var div = document.createElement('div');
+				commentButton.parentNode.insertBefore(div, commentButton);
+				render(div, 'comment-form-templ');
+				commentButton.remove();
+			});
+		}).catch(handleGetError);
 	};
 	
 	// inits a home view
