@@ -257,79 +257,79 @@ header {
 	margin: 0 auto;
 	max-width: 1400px;
 
-	position: relative;
+	.h-nav {
+		.row(@y: @center);
+		width: 650px;
 
-	aside {
-		.column(@center);
-
-		position: fixed;
-		top: 50px;
-		left: 50px;
+		h2 {
+			margin: 20px 40px 20px 30px;
+		}
 
 		a {
 			.size(25px; 25px);
+			.transition;
 
 			background: @green;
 			border-radius: 50%;
 			margin: 10px;
-
-			&:first-child {
-				.size(40px; 40px);
-			}
 		}
 	}
 
-	.h-feed {
-		.column(@left; @spread);
-		
-		width: 30%;
-
-		.feed-item {
-			padding: 30px;
-
-			&.h-notifications {
-				background: lighten(@green, 25%);
-				color: white;
-			}
-
-			&.h-events {
-
-				span {
-					.font(@w: bold; @s: 12px);
-					color: @green;
-					display: block;
-					text-align: center;
-					text-transform: uppercase;
-					width: 100%;
-				}
-			}
-		}
-	}
 	
-	.h-watchlist {
-		.box(60px 30px);
+	.h-main {
+		.box(30px);
 		.column(@center; @center);
 
 		width: 70%;
 
-		h2 {
-			max-width: 500px;
-			margin: 20px;
-		}
-
-		.watchlist-items {
+		.items-container {
+			max-width: 650px;
 		}
 
 		.watchlist-item {
+			.box(@p: 30px);
 			.row;
 			margin: 0 0 60px 0;
 
+			&:hover,
+			&:focus {
+				background: linear-gradient(
+					90deg,
+					@green,
+					lighten(@green, 25%));
+			}
+
+			.f-title {
+				font-size: 28px;
+				margin-top: 0;
+			}
+
 			.f-poster {
-				.size(200px; 150px);
+				.size(250px; 200px);
+				min-width: 200px; 
 				margin: 0 50px 0 0;
 
 				background: #999;
 			}
+		}
+	}
+
+	.h-updates {		
+		background: lighten(@green, 25%);
+		position: relative;
+		width: 30%;
+
+		.close.icon {
+			cursor: pointer;
+			position: absolute;
+			top: 20px;
+			right: 20px;
+		}
+
+		.h-notifications {
+			.box(30px);
+
+			color: white;
 		}
 	}
 }
