@@ -75,16 +75,9 @@ header {
 	position: fixed;
 	bottom: 0;
 
+
 	h1 {
 		.font(@s: 18px);
-	}
-
-	&.outer {
-		width: 100%;
-
-		h1 {
-			color: white;
-		}
 	}
 
 	nav {
@@ -102,10 +95,66 @@ header {
 		color: white;
 		margin: 10px;
 	}
+
+	&.outer-header {
+		.size(auto; auto;);
+		.column(@center);
+
+		background: white;
+		margin: 30px;
+		position: static;
+
+		.logo {
+			.size(250px; 250px);
+
+			background: #999;
+		}
+
+		h1 {
+			.font(@w: 900; @s: 40px;);
+			color: @green;
+		}
+	}
 }
 
 #view {
 	.box(0 0 40px 0);
+}
+
+#outer {
+	.column(@center);
+	.size(100vh; 100vw);
+
+	overflow: hidden;
+}
+
+/* form  (login and  register) */
+
+
+#form {
+	.column(@right);
+
+	p {
+
+		label {
+		}
+
+		input {
+			.box(@p: 8px 12px);
+
+			background: @green;
+			border: 2px solid white;
+			margin: 0 0 0 10px;
+			outline: none;
+			width: 270px;
+
+			&:hover,
+			&:focus {
+				border: 2px solid @green;
+				background: white;
+			}
+		}
+	}
 }
 
 
@@ -120,7 +169,7 @@ header {
 
 	input[type="search"] {
 		.box(9px 11px);
-		background: lighten(@green, 30%);
+		background: @lightgreen;
 		border: 1px solid @green;
 		font-size: 16px; 
 		width: 100%;
@@ -311,11 +360,15 @@ header {
 
 				background: #999;
 			}
+
+			p {
+				.font(@w: bold;);
+			}
 		}
 	}
 
 	.h-updates {		
-		background: lighten(@green, 25%);
+		background: @lightgreen;
 		position: relative;
 		width: 30%;
 
