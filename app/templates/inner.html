@@ -1,21 +1,18 @@
-<header>
-	<h1>fa</h1>
-	<nav>
-		<ul>
-			<li>
-				<a href="#/" title="take me home">home</a>
-			</li>
-			<li>
-				<a href="#/me" title="my profile">me</a>
-			</li>
-			<li>
-				<a href="#/search" title="search">search</a>
-			</li>
-		</ul>
-	</nav>
-	<form id="search-form">
-		<input type="search" name="query" required />
-		<button type="submit">ssss</button>
-	</form>
-</header>
 <div id="view"></div>
+
+<header>
+	<h1><a href="#/">film adder</a></h1>
+	<nav>
+		<a href="#/me" class="nav-item" title="me">
+			<span class="me icon"></span>
+		</a>
+		<a href="#/watchlist" class="nav-item" title="updates">
+			<span class="bell icon"></span>
+		</a>
+		<a href="#/watched" class="nav-item" title="my profile"></a>
+	</nav>
+</header>
+<form id="search-form">
+<!-- 		<div class="search icon"></div>
+-->		<input type="search" name="query" placeholder="Search" required />
+</form>

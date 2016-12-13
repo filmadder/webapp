@@ -2,7 +2,6 @@
 	<article class="name-and-status">
 		<h2>{{ film.title }}</h2>
 		<section class="f-status">
-			<div class="image"></div>
 			<p>{{ status }}</p>
 		</section>
 	</article>
@@ -11,9 +10,10 @@
 			<div class="image poster" style="background-image: url({{ film.poster_url }});"></div>
 		</section>
 		<section class="f-info">
+			<h3><span>Genre:</span> Anime</h3>
 			<h3><span>Director:</span> {{ film.directors }}</h3>
-			<h4><span>Year:</span> {{ film.year }}</h4>
-			<h5><span>Actors:</span> {{ film.actors }}</h5>
+			<h3><span>Year:</span> {{ film.year }}</h3>
+			<h3><span>Actors:</span> {{ film.actors }}</h3>
 		</section>
 	</article>
 	<article class="recommend">
