@@ -14,10 +14,10 @@
 			.size(400px; 100%);
 
 			background-position: center;
-			background-color: rgba(0, 0, 0, 0.5);
+			background-color: rgba(255, 255, 255, 0.6);
 			background-blend-mode: multiply;
 			background-size: cover;
-			filter: grayscale(50%);
+			filter: grayscale(100%);
 		}
 
 		.f-title-cont {
@@ -36,13 +36,25 @@
 
 			.f-title {
 				color: white;
-				margin: 0;
+				margin: 0 60px 0 0;
 			}
 
 			.f-year {
 				margin: 0;
 			}
 		}
+
+		.f-status {
+			.box(10px);
+
+			background: white;
+			border-radius: 50%;
+			margin: 20px 20px 40px 20px;
+
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}		
 	}
 
 	.f-more-info {
@@ -58,28 +70,88 @@
 			padding: 5px 0;
 			text-transform: uppercase;
 
+			span {
+				margin: 0 6px 0 0;
+			}
+
 			&.genre {
 				padding: 30px 0 5px 0;
 			}
 		}
 
 		.synopsis-text {
-
 			margin: 0;
 		}
 	}
-	
 
-
-
-	.f-info {
+	.peek {
 		.box(20px);
 
-		p {
-			font-weight: bold;
+		section {
 
-			span {
-				font-weight: normal;
+			h3 {
+				.font(@w: 600; @s: 1.1em);
+				color: @blue;
+				margin: 15px 0 0 15px;
+			}
+
+			.arrow {
+				margin: 15px 0 0 0;
+			}
+
+			ul {
+				.row;
+				.wrap;
+				.box(0 15px;);
+
+				li {
+					.row;
+					.wrap;
+					color: @lightblue;
+					.font(@w: bold);
+
+					margin: 5px 0;
+				}
+
+				&.comments-list {
+
+					li {
+						display: none;
+					}
+				}
+			}
+
+			input[type="checkbox"] {
+				display: none;
+
+				&:checked ~ .comments-list li {
+					display: inline-block;
+				}
+				&:checked ~ ul {
+					margin: 0 0 20px 0;
+				}
+				&:checked ~ label .arrow {
+					transform: rotate(90deg);
+				}
+			}
+
+			label {
+				.box(10px 0);
+				.row(@y: @center);
+				cursor: pointer;
+			}
+
+			.text {
+				.font(@s: 14px;);
+
+				color: @grey;
+				margin: 3px 0;
+			}
+
+			.author {
+				color: @lightblue;
+				display: inline-block;
+				margin: 0 8px 0 0;
 			}
 		}
 	}

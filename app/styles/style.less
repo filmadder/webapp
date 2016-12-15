@@ -33,15 +33,18 @@ body {
 
 button {
 	.font(@w: 600);
-	background: @blue;
-	border: 2px solid @blue;
+	.box(5px 20px);
+
+	background: linear-gradient(
+		to right,
+		lighten(@lightblue, 3%),
+		@lightblue);
+	border: none;
 	color: white;
-	border-radius: 20px;
 	outline: none;
+
 	&:hover,
 	&:focus {
-		background: white;
-		color: @blue;
 	}
 }
 
@@ -131,8 +134,8 @@ header {
 	background: linear-gradient(@yellow, @pink1);
 }
 
-/* form  (login and  register) */
 
+/* form  (login and  register) */
 
 #form {
 	.column(@right);
@@ -175,13 +178,18 @@ header {
 		.size(100%; 100%);
 		.box(9px 12px);
 
-		background: white;
+		background: linear-gradient(
+			lighten(@darkblue, 60%),
+			lighten(@lightblue, 60%));
 
 		&::-moz-placeholder {
 		}
 
+		&:hover,
 		&:focus {
-			background: white;
+			background: linear-gradient(
+				lighten(@darkblue, 60%),
+				white);
 		}
 	}
 }
@@ -204,76 +212,6 @@ header {
 		}
 		&:nth-child(2) {
 			transform: rotate(45deg) translateY(-3px);
-		}
-	}
-}
-
-.peek {
-	.box(20px 0);
-	section {
-		h3 {
-			.font(@w: 600; @s: 1.1em);
-			color: @blue;
-			margin: 0 0 0 15px;
-		}
-		input[type="checkbox"] {
-			display: none;
-			&:checked ~ ul li {
-				display: inline-block;
-			}
-			&:checked ~ ul {
-				margin: 0 0 20px 0;
-			}
-			&:checked ~ label .arrow {
-				transform: rotate(90deg);
-			}
-		}
-		label {
-			.box(10px 30px);
-			.row(@y: @center);
-			cursor: pointer;
-		}
-		ul {
-			.row;
-			.wrap;
-			.box(0 40px;);
-			li {
-				.row;
-				.wrap;
-				display: none;
-				margin: 5px 0;
-			}
-		}
-		p {
-			margin: 3px 0;
-		}
-		a {
-			margin: 0 8px 0 0;
-			display: inline-block;
-		}
-	}
-	.me-watchlisted,
-	.me-watched {
-		ul {
-			.column;
-		}
-	}
-	.comments {
-		ul {
-			li {
-				margin: 0 0 25px 0;
-			}
-			.nested {
-				.column;
-				margin: 10px 0 0 0;
-				padding: 0 15px;
-				li {
-					margin: 5px 0;
-				}
-			}
-		}
-		a {
-			margin: 0;
 		}
 	}
 }

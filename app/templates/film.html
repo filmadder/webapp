@@ -10,6 +10,10 @@
 			<h2 class="f-title">{{ film.title }}</h2>
 			<p class="f-year">{{ film.year }}</p>
 		</article>
+		
+		<article class="f-status">
+			<div class="icon eye1"></div>
+		</article>
 
 	</section>
 
@@ -24,15 +28,9 @@
 	</section>
 	
 	<article class="peek">
+
 		<section class="watched-by">
-			<input type="checkbox" id="watched-by" />
-			<label for="watched-by">
-				<div class="arrow">
-					<div class="stroke"></div>
-					<div class="stroke"></div>
-				</div>
-				<h3>Watched by</h3>
-			</label>
+			<h3>Watched by</h3>
 			<ul>
 				{{# watchers_past }}
 				<li>
@@ -44,15 +42,9 @@
 				{{/ watchers_past }}
 			</ul>
 		</section>
+
 		<section class="watchlisted-by">
-			<input type="checkbox" id="watchlisted-by" />
-			<label for="watchlisted-by">
-				<div class="arrow">
-					<div class="stroke"></div>
-					<div class="stroke"></div>
-				</div>
-				<h3>Watchlisted by</h3>
-			</label>
+			<h3>Watchlisted by</h3>
 			<ul>
 				{{# watchers_future }}
 				<li>
@@ -64,6 +56,7 @@
 				{{/ watchers_future }}
 			</ul>
 		</section>
+
 		<section class="comments">
 			<input type="checkbox" id="comments" />
 			<label for="comments">
@@ -73,16 +66,20 @@
 				</div>
 				<h3>Comments</h3>
 			</label>
-			<ul>
+			<ul class="comments-list">
 				{{# comments }}
+				
 				<li>
-					<a href="#">@{{ author }}</a>
-					<p>{{ text }}</p>
+					<button type="button" data-fn="comment">comment</button>
+				</li>
+				<li>
+					<a href="#" class="author">{{ author }}</a>
+					<p class="text">{{ text }}</p>
 					<ul>
 						{{# replies }}
 						<li>
-							<a href="#">@{{ author }}</a>
-							<p>{{ text }}</p>
+							<a href="#" class="author">{{ author }}</a>
+							<p class="text">{{ text }}</p>
 						</li>
 						{{/ replies }}
 					</ul>
@@ -93,7 +90,6 @@
 				<li>not yet</li>
 				{{/ comments }}
 			</ul>
-			<button type="button" data-fn="comment">add review</button>
 		</section>
 	</article>
 </div>
