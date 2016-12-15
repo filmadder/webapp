@@ -3,6 +3,9 @@
 @import "icons";
 @import "mixins";
 
+@import "film";
+@import "home";
+
 
 /* font */
 
@@ -20,7 +23,7 @@ a, p, h1, h2, h3, h4, h5, h6{
 
 a {
 	.font(@w: 700);
-	color: @grey;
+	color: white;
 	text-decoration: none;
 }
 
@@ -55,7 +58,7 @@ input[type="search"] {
 
 p, span {
 	.font;
-	color: @grey;
+	color: white;
 }
 
 ul {
@@ -71,7 +74,7 @@ header {
 	.size(40px; 35%);
 	.row(@left; @center);
 
-	background: @green;
+	background: linear-gradient(#333, #222);	
 	position: fixed;
 	bottom: 0;
 
@@ -125,7 +128,7 @@ header {
 	.column(@center);
 	.size(100vh; 100vw);
 
-	overflow: hidden;
+	background: linear-gradient(@yellow, @pink1);
 }
 
 /* form  (login and  register) */
@@ -161,18 +164,18 @@ header {
 /* search */
 
 #search-form {
+	background: white;
+	width: 65%;
+
 	position: fixed;
 	bottom: 0;
 	right: 0;
 
-	width: 65%;
-
 	input[type="search"] {
-		.box(9px 11px);
-		background: @lightgreen;
-		border: 1px solid @green;
-		font-size: 16px; 
-		width: 100%;
+		.size(100%; 100%);
+		.box(9px 12px);
+
+		background: white;
 
 		&::-moz-placeholder {
 		}
@@ -293,96 +296,6 @@ header {
 			li {
 				margin: 0 8px 0 0;
 			}
-		}
-	}
-}
-
-/* home */
-
-.home {
-	.row;
-
-	border-top: 2px solid @green;
-	margin: 0 auto;
-	max-width: 1400px;
-
-	.h-nav {
-		.row(@y: @center);
-		width: 650px;
-
-		h2 {
-			margin: 20px 40px 20px 30px;
-		}
-
-		a {
-			.size(25px; 25px);
-			.transition;
-
-			background: @green;
-			border-radius: 50%;
-			margin: 10px;
-		}
-	}
-
-	
-	.h-main {
-		.box(30px);
-		.column(@center; @center);
-
-		width: 70%;
-
-		.items-container {
-			max-width: 650px;
-		}
-
-		.watchlist-item {
-			.box(@p: 30px);
-			.row;
-			margin: 0 0 60px 0;
-
-			&:hover,
-			&:focus {
-				background: linear-gradient(
-					90deg,
-					@green,
-					lighten(@green, 25%));
-			}
-
-			.f-title {
-				font-size: 28px;
-				margin-top: 0;
-			}
-
-			.f-poster {
-				.size(250px; 200px);
-				min-width: 200px; 
-				margin: 0 50px 0 0;
-
-				background: #999;
-			}
-
-			p {
-				.font(@w: bold;);
-			}
-		}
-	}
-
-	.h-updates {		
-		background: @lightgreen;
-		position: relative;
-		width: 30%;
-
-		.close.icon {
-			cursor: pointer;
-			position: absolute;
-			top: 20px;
-			right: 20px;
-		}
-
-		.h-notifications {
-			.box(30px);
-
-			color: white;
 		}
 	}
 }

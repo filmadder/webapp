@@ -1,0 +1,68 @@
+/* home */
+
+.home {
+	.row;
+
+	border-top: 2px solid @green;
+	margin: 0 auto;
+	max-width: 1400px;
+
+	.h-updates {		
+		background: linear-gradient(@lightblue, @darkblue);
+		position: relative;
+		width: 30%;
+
+		h3 {
+			color: white;
+		}
+
+		.close.icon {
+			cursor: pointer;
+			position: absolute;
+			top: 20px;
+			right: 20px;
+		}
+
+		.h-notifications {
+			.box(30px);
+
+			color: white;
+		}
+	}
+	
+	.h-feed {
+		.box(30px);
+		.column(@left; @center);
+
+		.feed-item {
+			padding: 20px 0;
+			.column;
+
+			> a {
+				.row(@y: center);
+			}
+
+			&:hover,
+			&:focus {
+			}
+
+			.f-title {
+				font-size: 20px;
+				margin: 0 0 0 20px;
+			}
+
+			p {
+				.font(@w: bold;);
+
+				color: @grey;
+				font-weight: normal;
+				margin: 3px 0 3px 40px;
+
+				a {
+					color: @darkblue;
+					font-weight: bold;
+				}
+			}
+		}
+	}
+}

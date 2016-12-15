@@ -1,24 +1,28 @@
 <div class="film">
-	<article class="name-and-status">
-		<h2>{{ film.title }}</h2>
-		<section class="f-status">
-			<p>{{ status }}</p>
-		</section>
-	</article>
-	<article class="f-details">
-		<section class="f-poster">
+
+	<section class="f-details">
+
+		<article class="f-poster-cont">
 			<div class="image poster" style="background-image: url({{ film.poster_url }});"></div>
-		</section>
-		<section class="f-info">
-			<h3><span>Genre:</span> Anime</h3>
-			<h3><span>Director:</span> {{ film.directors }}</h3>
-			<h3><span>Year:</span> {{ film.year }}</h3>
-			<h3><span>Actors:</span> {{ film.actors }}</h3>
-		</section>
-	</article>
-	<article class="recommend">
-		<button>recommend</button>
-	</article>
+		</article>
+
+		<article class="f-title-cont">
+			<h2 class="f-title">{{ film.title }}</h2>
+			<p class="f-year">{{ film.year }}</p>
+		</article>
+
+	</section>
+
+	<section class="f-more-info">
+
+		<h3>Synopsis</h3>
+		<p class='synopsis-text'>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram.</p>
+		<h3 class="genre"><span>Genre:</span> Anime</h3>
+		<h3><span>Director:</span> {{ film.directors }}</h3>
+		<h3><span>Actors:</span> {{ film.actors }}</h3>
+
+	</section>
+	
 	<article class="peek">
 		<section class="watched-by">
 			<input type="checkbox" id="watched-by" />
