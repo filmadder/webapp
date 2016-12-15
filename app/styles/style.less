@@ -32,7 +32,7 @@ body {
 }
 
 button {
-	.font(@w: 600);
+	.font(@w: bold);
 	.box(5px 20px);
 
 	background: linear-gradient(
@@ -72,7 +72,6 @@ ul {
 
 /* header */
 
-
 header {
 	.size(40px; 35%);
 	.row(@left; @center);
@@ -106,19 +105,18 @@ header {
 		.size(auto; auto;);
 		.column(@center);
 
-		background: white;
-		margin: 30px;
+		background: transparent;
 		position: static;
 
 		.logo {
-			.size(250px; 250px);
+			.size(150px; 150px);
 
-			background: #999;
+			background: transparent;
 		}
 
 		h1 {
-			.font(@w: 900; @s: 40px;);
-			color: @green;
+			.font(@w: 900; @s: 30px;);
+			color: white;
 		}
 	}
 }
@@ -129,9 +127,13 @@ header {
 
 #outer {
 	.column(@center);
-	.size(100vh; 100vw);
+	min-height: 100vh;
 
-	background: linear-gradient(@yellow, @pink1);
+	background: linear-gradient(@lightblue, @purple);
+}
+
+#view.login {
+	padding: 20px 0 40px 0;
 }
 
 
@@ -141,25 +143,33 @@ header {
 	.column(@right);
 
 	p {
+		.column;
 
 		label {
+			.font(@w: bold; @s: 14px);
+
+			
+			text-transform: uppercase;
 		}
 
 		input {
-			.box(@p: 8px 12px);
+			.box(8px 12px 8px 0);
 
-			background: @green;
-			border: 2px solid white;
-			margin: 0 0 0 10px;
+			background: transparent;
+			border: none;
+			border-bottom: 2px solid white;
+			margin: 0;
 			outline: none;
 			width: 270px;
 
 			&:hover,
 			&:focus {
-				border: 2px solid @green;
-				background: white;
 			}
 		}
+	}
+
+	button {
+		background: transparent;
 	}
 }
 
