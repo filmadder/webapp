@@ -37,8 +37,8 @@ button {
 
 	background: linear-gradient(
 		to right,
-		lighten(@lightblue, 3%),
-		@lightblue);
+		darken(@purple, 6%),
+		@purple);
 	border: none;
 	color: white;
 	outline: none;
@@ -179,8 +179,8 @@ header {
 		.box(9px 12px);
 
 		background: linear-gradient(
-			lighten(@darkblue, 60%),
-			lighten(@lightblue, 60%));
+			lighten(@purple, 38%),
+			lighten(@lightblue, 57%));
 
 		&::-moz-placeholder {
 		}
@@ -188,7 +188,7 @@ header {
 		&:hover,
 		&:focus {
 			background: linear-gradient(
-				lighten(@darkblue, 60%),
+				lighten(@purple, 40%),
 				white);
 		}
 	}
@@ -206,7 +206,7 @@ header {
 	transition: all .15s ease;
 	.stroke {
 		.size(12px; 2px);
-		background: @blue;
+		background: @grey;
 		&:first-child {
 			transform: rotate(-45deg) translateY(3px);
 		}

@@ -14,8 +14,9 @@
 			.size(400px; 100%);
 
 			background-position: center;
-			background-color: rgba(255, 255, 255, 0.6);
-			background-blend-mode: multiply;
+			background: 
+				rgba(255, 255, 255, 0.1);
+			background-blend-mode: screen;
 			background-size: cover;
 			filter: grayscale(100%);
 		}
@@ -23,8 +24,10 @@
 		.f-title-cont {
 			.box(30px 20px);
 
+/*			background: linear-gradient(
+				rgba(0, 168, 196, 0.8), rgba(38, 86, 124, 1));*/
 			background: linear-gradient(
-				rgba(0, 168, 196, 0.8), rgba(38, 86, 124, 1));
+				rgba(0,168,196,0.8), rgba(84, 102, 201, 1));
 			background-blend-mode: multiply;
 			margin: 0;
 			min-height: 70px;
@@ -60,7 +63,7 @@
 	.f-more-info {
 		.box(20px);
 
-		background: @darkblue;
+		background: @purple;
 
 		h3 {
 			.font(@s: 14px; @w: bold);
@@ -90,8 +93,8 @@
 		section {
 
 			h3 {
-				.font(@w: 600; @s: 1.1em);
-				color: @blue;
+				.font(@w: 900; @s: 1.1em);
+				color: @grey;
 				margin: 15px 0 0 15px;
 			}
 
