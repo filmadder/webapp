@@ -32,19 +32,32 @@ body {
 }
 
 button {
-	.font(@w: bold);
+	.font(@w: 600);
 	.box(5px 20px);
 
 	background: linear-gradient(
-		to right,
-		darken(@purple, 6%),
-		@purple);
+			lighten(@purple, 38%),
+			lighten(@lightblue, 57%));
 	border: none;
-	color: white;
+	border-radius: 20px;
+	color: #555;
 	outline: none;
 
-	&:hover,
-	&:focus {
+	&.light {
+		background: linear-gradient(to bottom, darken(@purple, 2%), darken(@purple, 5%));
+		color: white;
+
+		&:hover,
+		&:focus {
+			background: linear-gradient(
+				lighten(@purple, 40%),
+				white);
+			color: @purple;
+		}
+	}
+
+	&.transp {
+		background: transparent;
 	}
 }
 
@@ -166,10 +179,6 @@ header {
 			&:focus {
 			}
 		}
-	}
-
-	button {
-		background: transparent;
 	}
 }
 
