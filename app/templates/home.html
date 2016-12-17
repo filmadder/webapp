@@ -1,60 +1,48 @@
 <div class="home">
 
-	<section class="h-main">
-		<nav class="h-nav">
-			<h2>Watchlist</h2>
-			<a href="/">
-				<span class="eye1 icon"></span>
-			</a>
-			<a href="/">
-				<span class="eye2 icon"></span>
-			</a>
-		</nav>
-
-		<div class="items-container">
-			<a href="/" class="watchlist-item">
-				<div class="f-poster">
-					<div class="image poster" style="background-image: url({{ film.poster_url }});"></div>
-				</div>
-				<div class="info-container">
-					<h3 class="f-title">Ghost in the shell</h3>
-					<p><span>Year:</span> film.year</p>
-					<p><span>Genre:</span> Anime</p>
-					<p><span>Director:</span> film.directors</p>
-				</div>
-			</a>
-			<a href="/" class="watchlist-item">
-				<div class="f-poster">
-					<div class="image poster" style="background-image: url({{ film.poster_url }});"></div>
-				</div>
-				<div class="info-container">
-					<h3 class="f-title">It crowd</h3>
-					<p><span>Year:</span> 2006</p>
-					<p><span>Genre:</span> Tv series</p>
-					<p><span>Director:</span> film.directors</p>
-				</div>
-			</a>
-			<a href="/" class="watchlist-item">
-				<div class="f-poster">
-					<div class="image poster" style="background-image: url({{ film.poster_url }});"></div>
-				</div>
-				<div class="info-container">
-					<h3 class="f-title">Gods must be crazy crazy crazy Gods must be crazy crazy crazy</h3>
-					<p><span>Year:</span> film.year</p>
-					<p><span>Genre:</span> Drama</p>
-					<p><span>Director:</span> film.directors</p>
-				</div>
-			</a>
-		</div>
-	</section>
-
 	<aside class="h-updates">
 		<div class="close icon"></div>
 		<article class="h-notifications">
-			<h2>Updates</h2>
+			<h3>Updates</h3>
 			<p><a href="#">adderthebot</a> is now following you</p>
 			<p><a href="#">adderthebot</a> recommends you to watch <a href="#">Black Adder(TV seriies)</a></p>
 			<p><a href="#">pavelsof</a> recommends you to watch <a href="#">Game of Thrones</a></p>
 		</article>
 	</aside>
+
+	<section class="h-feed">
+
+			<div class="feed-item">
+				<a href="/#/film/1" class="">
+					<div class="icon eye1"></div>
+					<h3 class="f-title">Ghost in the shell</h3>
+				</a>
+				<p><a href="/">jamessulley</a> added to watchlist</p>
+			</div>
+
+			<div class="feed-item">
+				<a href="/" class="">
+					<div class="icon eye1"></div>
+					<h3 class="f-title">Suicide squad</h3>
+				</a>
+				<p><a href="/">mikewazowski</a> added to watchlist</p>
+			</div>
+
+			<div class="feed-item">
+				<a href="/" class="">
+					<div class="icon eye1"></div>
+					<h3 class="f-title">Gods must be crazy</h3>
+				</a>
+				<p><a href="/">randelboggs</a> added to watchlist</p>
+			</div>
+
+			<div class="feed-item">
+				<a href="/" class="">
+					<div class="icon eye1"></div>
+					<h3 class="f-title">Narcos</h3>
+				</a>
+				<p><a href="/">pavelsof</a> added to watchlist</p>
+			</div>									
+	</section>
+
 </div>

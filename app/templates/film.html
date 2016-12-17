@@ -1,34 +1,36 @@
 <div class="film">
-	<article class="name-and-status">
-		<h2>{{ film.title }}</h2>
-		<section class="f-status">
-			<p>{{ status }}</p>
-		</section>
-	</article>
-	<article class="f-details">
-		<section class="f-poster">
+
+	<section class="f-details">
+
+		<article class="f-poster-cont">
 			<div class="image poster" style="background-image: url({{ film.poster_url }});"></div>
-		</section>
-		<section class="f-info">
-			<h3><span>Genre:</span> Anime</h3>
-			<h3><span>Director:</span> {{ film.directors }}</h3>
-			<h3><span>Year:</span> {{ film.year }}</h3>
-			<h3><span>Actors:</span> {{ film.actors }}</h3>
-		</section>
-	</article>
-	<article class="recommend">
-		<button>recommend</button>
-	</article>
+		</article>
+
+		<article class="f-title-cont">
+			<h2 class="f-title">{{ film.title }}</h2>
+			<p class="f-year">{{ film.year }}</p>
+		</article>
+		
+		<article class="f-status">
+			<div class="icon eye1"></div>
+		</article>
+
+	</section>
+
+	<section class="f-more-info">
+
+		<h3>Synopsis</h3>
+		<p class='synopsis-text'>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram.</p>
+		<h3 class="genre"><span>Genre:</span> Anime</h3>
+		<h3><span>Director:</span> {{ film.directors }}</h3>
+		<h3><span>Actors:</span> {{ film.actors }}</h3>
+
+	</section>
+	
 	<article class="peek">
+
 		<section class="watched-by">
-			<input type="checkbox" id="watched-by" />
-			<label for="watched-by">
-				<div class="arrow">
-					<div class="stroke"></div>
-					<div class="stroke"></div>
-				</div>
-				<h3>Watched by</h3>
-			</label>
+			<h3>Watched by</h3>
 			<ul>
 				{{# watchers_past }}
 				<li>
@@ -40,15 +42,9 @@
 				{{/ watchers_past }}
 			</ul>
 		</section>
+
 		<section class="watchlisted-by">
-			<input type="checkbox" id="watchlisted-by" />
-			<label for="watchlisted-by">
-				<div class="arrow">
-					<div class="stroke"></div>
-					<div class="stroke"></div>
-				</div>
-				<h3>Watchlisted by</h3>
-			</label>
+			<h3>Watchlisted by</h3>
 			<ul>
 				{{# watchers_future }}
 				<li>
@@ -60,6 +56,7 @@
 				{{/ watchers_future }}
 			</ul>
 		</section>
+
 		<section class="comments">
 			<input type="checkbox" id="comments" />
 			<label for="comments">
@@ -69,16 +66,20 @@
 				</div>
 				<h3>Comments</h3>
 			</label>
-			<ul>
+			<ul class="comments-list">
 				{{# comments }}
+				
 				<li>
-					<a href="#">@{{ author }}</a>
-					<p>{{ text }}</p>
+					<button type="button" data-fn="comment">comment</button>
+				</li>
+				<li>
+					<a href="#" class="author">{{ author }}</a>
+					<p class="text">{{ text }}</p>
 					<ul>
 						{{# replies }}
 						<li>
-							<a href="#">@{{ author }}</a>
-							<p>{{ text }}</p>
+							<a href="#" class="author">{{ author }}</a>
+							<p class="text">{{ text }}</p>
 						</li>
 						{{/ replies }}
 					</ul>
@@ -89,7 +90,6 @@
 				<li>not yet</li>
 				{{/ comments }}
 			</ul>
-			<button type="button" data-fn="comment">add review</button>
 		</section>
 	</article>
 </div>
