@@ -7,15 +7,15 @@
 	margin: 0 auto;
 	max-width: 1400px;
 
-	.h-updates {		
-		background: linear-gradient(@lightblue, @purple);
-		position: relative;
-		width: 30%;
+	h2 {
+		.font(@w: bold; @s: 18px);
+		
+		margin: 0 0 20px 0;
+		text-transform: uppercase;
+	}
 
-		h2 {
-			color: white;
-			margin: 0 0 20px 0;
-		}
+	.h-updates-cont {
+		position: relative;
 
 		.close.icon {
 			cursor: pointer;
@@ -24,45 +24,48 @@
 			right: 20px;
 		}
 
+		input[type="checkbox"] {
+			display: none;
+
+			&:checked ~ .h-updates {
+				display: none;
+			}
+		}
+	}
+
+	.h-updates {		
+		background: linear-gradient(@lightblue, @purple);
+
+		h2 {
+			color: white;
+			margin: 0 0 20px 0;
+		}
+
 		.h-notifications {
 			.box(30px);
 
 			color: white;
 		}
 	}
-	
-	.h-feed {
+
+	.h-watchlist {
 		.box(30px);
 		.column(@left; @center);
+		width: 100%;
 
-		.feed-item {
-			padding: 20px 0;
-			.column;
+		h2 {
+			color: @purple;
+		}
 
-			> a {
-				.row(@y: center);
-			}
-
-			&:hover,
-			&:focus {
-			}
+		.watchlist-item {
+			.row(@spread);
+			
+			margin: 20px 0;
+			width: 100%;
 
 			.f-title {
 				font-size: 20px;
-				margin: 0 0 0 20px;
-			}
-
-			p {
-				.font(@w: bold;);
-
-				color: #777;
-				font-weight: normal;
-				margin: 3px 0 3px 40px;
-
-				a {
-					color: @lightblue;
-					font-weight: bold;
-				}
+				margin: 0 30px 0 0;
 			}
 		}
 	}

@@ -35,7 +35,7 @@
 
 		<section class="watched-by">
 			<h3>Watched by</h3>
-			<ul>
+			<ul class="watchers-list">
 				{{# watchers_past }}
 				<li>
 					<a href="#">@{{ name }}</a>
@@ -49,10 +49,10 @@
 
 		<section class="watchlisted-by">
 			<h3>Watchlisted by</h3>
-			<ul>
+			<ul class="watchers-list">
 				{{# watchers_future }}
 				<li>
-					<a href="#">@{{ name }}</a>
+					<a href="#">{{ name }}</a>
 				</li>
 				{{/ watchers_future }}
 				{{^ watchers_future }}

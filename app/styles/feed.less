@@ -1,0 +1,44 @@
+.feed {
+	.box(30px);
+	.column(@left; @center);
+	width: 100%;
+
+	h2 {
+		.font(@w: bold; @s: 18px);
+
+		color: @purple;		
+		margin: 0 0 20px 0;
+		text-transform: uppercase;
+	}
+
+	.feed-item {
+		padding: 20px 0;
+		.column;
+
+		> a {
+			.row(@y: center);
+		}
+
+		&:hover,
+		&:focus {
+		}
+
+		.f-title {
+			font-size: 20px;
+			margin: 0 0 0 20px;
+		}
+
+		p {
+			.font(@w: bold;);
+
+			color: @lightgrey;
+			font-weight: normal;
+			margin: 3px 0 3px 40px;
+
+			a {
+				color: @lightblue;
+				font-weight: bold;
+			}
+		}
+	}
+}

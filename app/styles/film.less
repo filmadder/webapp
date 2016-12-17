@@ -1,8 +1,3 @@
-@import "bower_components/stellar/stellar";
-@import "colours";
-@import "icons";
-@import "mixins";
-
 /* film */
 
 .film {
@@ -52,6 +47,7 @@
 
 			background: white;
 			border-radius: 50%;
+			cursor: pointer;
 			margin: 20px 20px 40px 20px;
 
 			position: absolute;
@@ -93,76 +89,6 @@
 
 		.synopsis-text {
 			margin: 0;
-		}
-	}
-
-	.peek {
-		.box(20px);
-
-		section {
-
-			h3 {
-				.font(@w: 900; @s: 1.1em);
-				color: @grey;
-				margin: 15px 0 0 15px;
-			}
-
-			.arrow {
-				margin: 15px 0 0 0;
-			}
-
-			ul {
-				.row;
-				.wrap;
-				.box(0 15px;);
-
-				li {
-					.row;
-					.wrap;
-					color: @lightblue;
-					.font(@w: bold);
-
-					margin: 5px 0;
-				}
-
-				&.comments-list {
-
-					li {
-						display: none;
-					}
-				}
-			}
-
-			input[type="checkbox"] {
-				display: none;
-
-				&:checked ~ .comments-list li {
-					display: inline-block;
-				}
-				&:checked ~ ul {
-					margin: 0 0 20px 0;
-				}
-				&:checked ~ label .arrow {
-					transform: rotate(90deg);
-				}
-			}
-
-			label {
-				.box(10px 0);
-				.row(@y: @center);
-				cursor: pointer;
-			}
-
-			.text {
-				color: @grey;
-				margin: 3px 0;
-			}
-
-			.author {
-				color: @lightblue;
-				display: inline-block;
-				margin: 0 8px 0 0;
-			}
 		}
 	}
 }

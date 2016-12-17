@@ -1,48 +1,56 @@
 <div class="home">
 
-	<aside class="h-updates">
-		<div class="close icon"></div>
-		<article class="h-notifications">
-			<h2>Updates</h2>
-			<p><a href="#">adderthebot</a> is now following you</p>
-			<p><a href="#">adderthebot</a> recommends you to watch <a href="#">Black Adder(TV seriies)</a></p>
-			<p><a href="#">pavelsof</a> recommends you to watch <a href="#">Game of Thrones</a></p>
-		</article>
+	<aside class="h-updates-cont">
+		<input type="checkbox" id="close-updates"/>
+		<label for="close-updates" class="close icon"></label>
+		<section class="h-updates">
+			<article class="h-notifications">
+				<h2>Updates</h2>
+				<p><a href="#">adderthebot</a> is now following you</p>
+				<p><a href="#">adderthebot</a> recommends you to watch <a href="#">Black Adder(TV seriies)</a></p>
+				<p><a href="#">pavelsof</a> recommends you to watch <a href="#">Game of Thrones</a></p>
+			</article>
+			<!-- no updates -->
+		</section>
 	</aside>
 
-	<section class="h-feed">
+	<section class="h-watchlist">
+		<h2>Watchlist</h2>
+		<div class="watchlist-item">
 
-			<div class="feed-item">
-				<a href="/#/film/1" class="">
-					<div class="icon eye1"></div>
-					<h3 class="f-title">Ghost in the shell</h3>
-				</a>
-				<p><a href="/">jamessulley</a> added to watchlist</p>
+			<a href="/#/film/1" class="">
+				<h3 class="f-title">Ghost in the shell</h3>
+			</a>
+			<div class="f-status">
+				<div class="icon eye1"></div>
 			</div>
-
-			<div class="feed-item">
-				<a href="/" class="">
-					<div class="icon eye1"></div>
-					<h3 class="f-title">Suicide squad</h3>
-				</a>
-				<p><a href="/">mikewazowski</a> added to watchlist</p>
+		</div>
+		<div class="watchlist-item">
+			<a href="/" class="">
+				<h3 class="f-title">Suicide squad</h3>
+			</a>
+			<div class="f-status">
+				<div class="icon eye1"></div>
 			</div>
-
-			<div class="feed-item">
-				<a href="/" class="">
-					<div class="icon eye1"></div>
-					<h3 class="f-title">Gods must be crazy</h3>
-				</a>
-				<p><a href="/">randelboggs</a> added to watchlist</p>
+		</div>
+		<div class="watchlist-item">
+			<a href="/" class="">
+				<h3 class="f-title">Gods must be crazy</h3>
+			</a>
+			<div class="f-status">
+				<div class="icon eye1"></div>
 			</div>
+		</div>
 
-			<div class="feed-item">
-				<a href="/" class="">
-					<div class="icon eye1"></div>
-					<h3 class="f-title">Narcos</h3>
-				</a>
-				<p><a href="/">pavelsof</a> added to watchlist</p>
-			</div>									
+		<div class="watchlist-item">
+			<a href="/" class="">
+				<h3 class="f-title">Narcos</h3>
+			</a>
+			<div class="f-status">
+				<div class="icon eye1"></div>
+			</div>
+		</div>
+
+		<!-- no watchlist items -->								
 	</section>
-
 </div>

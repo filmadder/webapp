@@ -114,6 +114,16 @@ fa.views = (function() {
 	var createHome = function(elem) {
 		render(elem, 'home-templ', {});
 	};
+
+	// inits a feed view
+	var createFeed = function(elem) {
+		render(elem, 'feed-templ', {});
+	};
+
+	// inits a feed view
+	var createUpdates = function(elem) {
+		render(elem, 'updates-templ', {});
+	};
 	
 	// inits a profile view
 	var createProfile = function(elem) {
@@ -139,6 +149,8 @@ fa.views = (function() {
 		search: createSearch,
 		film: createFilm,
 		home: createHome,
+		feed: createFeed,
+		updates: createUpdates,
 		profile: createProfile,
 		
 		error: createError
