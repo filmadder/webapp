@@ -7,7 +7,7 @@ fa.auth = (function() {
 	// 
 	
 	// the localStorage key for the auth session
-	// the value should be a {token, user} object
+	// the value should be an auth token
 	var STORAGE_KEY = 'fa_session';
 	
 	
@@ -15,53 +15,27 @@ fa.auth = (function() {
 	// constructors
 	// 
 	
-	// session objects contain the session's token and the user's data
-	// both of these could be null if the user is not authenticated
-	var createSession = function(token, user) {
-		var session = {};
-		var store;
-		
-		if(token && user) {
-			store = {user: user, token: token};
-			localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+	// returns a session object
+	// 
+	// if inited with a token (this is assumed to be valid), it stores it
+	// if inited without token, it will try to recover it from storage
+	var createSession = function(token) {
+		if(token) {
+			localStorage.setItem(STORAGE_KEY, token);
 		}
 		else {
-			store = localStorage.getItem(STORAGE_KEY);
-			
-			if(store) {
-				try {
-					store = JSON.parse(store);
-					token = store.token;
-					// user = fa.users.create(store.user);
-					user = null;
-				}
-				catch (error) {
-					console.error(error);
-					token = null;
-					user = null;
-				}
-			}
-			else {
-				token = null;
-				user = null;
-			}
+			token = localStorage.getItem(STORAGE_KEY);
 		}
 		
-		session.getToken = function() {
-			return token;
+		return {
+			getToken: function() {
+				return token;
+			},
+			destroy: function() {
+				localStorage.removeItem(STORAGE_KEY);
+				token = null;
+			}
 		};
-		
-		session.getUser = function() {
-			return user;
-		};
-		
-		session.destroy = function() {
-			localStorage.removeItem(STORAGE_KEY);
-			token = null;
-			user = null;
-		};
-		
-		return session;
 	};
 	
 	
@@ -75,43 +49,48 @@ fa.auth = (function() {
 	// the public api
 	var auth = {};
 	
+	// returns the auth token
 	auth.getToken = function() {
 		return session.getToken();
 	};
 	
+	// the permission system is simple: either the user can access the inner
+	// views or not; this could be extended in the future
 	auth.hasPerm = function() {
 		return session.getToken() ? true : false;
 	};
 	
+	// returns a promise that resolves when the user is registered and logged
+	// in or rejects with an error
 	auth.register = function(load) {
 		auth.logout();
-		return new Promise(function(resolve, reject) {
-			fa.conn.put('/api/auth/', {
-				email: load['email'], name: load['name'], pass: load['pass']
-			}).then(function(data) {
-				session = createSession(data);
-				resolve();
-			}).catch(reject);
+		return fa.conn.put('/api/auth/', {
+			email: load['email'], name: load['name'], pass: load['pass']
+		}).then(function(data) {
+			session = createSession(data);
+			return fa.ws.open();
 		});
 	};
 	
+	// returns a promise that resolves when the socket connection is ready to
+	// use or rejects with an error
 	auth.login = function(load) {
 		auth.logout();
-		return new Promise(function(resolve, reject) {
-			fa.conn.post('/api/auth/', {
-				method: 's', email: load['email'], password: load['pass']
-			}).then(function(data) {
-				session = createSession(data.token, {});
-				resolve();
-			}).catch(reject);
+		return fa.conn.post('/api/auth/', {
+			method: 's', email: load['email'], password: load['pass']
+		}).then(function(data) {
+			session = createSession(data.token);
+			return fa.ws.open();
 		});
 	};
 	
+	// resets the session and closes the socket connection
 	auth.logout = function() {
 		if(session.getToken()) {
 			session.destroy();
 			session = createSession();
 		}
+		fa.ws.close();
 	};
 	
 	return auth;
