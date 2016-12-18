@@ -4,7 +4,7 @@
 	</article>
 	<article class="r-ar">
 		{{# films }}
-		<a href="#/film/{{ id }}" title="{{ title }}">
+		<a href="#/film/{{ pk }}" title="{{ title }}">
 			<h2>{{ title }}</h2>
 			<div class="arrow">
 				<div class="stroke"></div>
@@ -15,5 +15,9 @@
 		{{^ films }}
 		<p>nothing found</p>
 		{{/ films }}
+	</article>
+	<article class="more-results hidden">
+		More results found!
+		<button>Refresh</button>
 	</article>
 </div>

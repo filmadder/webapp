@@ -4,6 +4,17 @@ fa.ws = (function() {
 	
 	
 	// 
+	// state
+	// 
+	
+	// the currently active socket wrapper
+	var socket = null;
+	
+	// dispatches the incoming messages whenever one arrives
+	var received = new signals.Signal();
+	
+	
+	// 
 	// constructors
 	// 
 	
@@ -91,7 +102,10 @@ fa.ws = (function() {
 					queue.reject(data.id, {code: data.code, message: data.message});
 				}
 				else {
-					queue.resolve(data.id, data);
+					if(data.hasOwnProperty('id')) {
+						queue.resolve(data.id, data);
+					}
+					received.dispatch(data);
 				}
 			}
 			catch (err) {
@@ -155,14 +169,6 @@ fa.ws = (function() {
 	
 	
 	// 
-	// state
-	// 
-	
-	// the currently active socket wrapper
-	var socket = null;
-	
-	
-	// 
 	// functions
 	// 
 	
@@ -214,6 +220,7 @@ fa.ws = (function() {
 	// 
 	
 	return {
+		received: received,
 		open: open,
 		send: send,
 		close: close

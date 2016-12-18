@@ -18,12 +18,12 @@ fa.views = (function() {
 	};
 	
 	// expects {code, message} object and acts accordingly
-	// only useful for get promises as it cannot handle 400
+	// handles forbidden and not_found errors
 	var handleGetError = function(error) {
-		if(error.code == 403) {
+		if(error.code == 'forbidden') {
 			fa.routing.go('login');
 		}
-		if(error.code == 404) {
+		if(error.code == 'not_found') {
 			fa.routing.go('error');
 		}
 	};
@@ -71,6 +71,7 @@ fa.views = (function() {
 	};
 	
 	// inits an inner view
+	// handles the search form
 	var createInner = function(elem) {
 		render(elem, 'inner-templ', {});
 		
@@ -90,6 +91,9 @@ fa.views = (function() {
 	var createSearch = function(elem, results) {
 		if(results) {
 			render(elem, 'search-templ', results);
+			fa.films.onMoreResults(results.query, function() {
+				elem.querySelector('.more-results').classList.remove('hidden');
+			});
 		}
 	};
 	
@@ -114,13 +118,13 @@ fa.views = (function() {
 	var createHome = function(elem) {
 		render(elem, 'home-templ', {});
 	};
-
+	
 	// inits a feed view
 	var createFeed = function(elem) {
 		render(elem, 'feed-templ', {});
 	};
-
-	// inits a feed view
+	
+	// inits an update view
 	var createUpdates = function(elem) {
 		render(elem, 'updates-templ', {});
 	};

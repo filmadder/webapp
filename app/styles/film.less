@@ -20,7 +20,8 @@
 			.box(20px);
 
 			background: linear-gradient(
-				rgba(64, 111, 196, 0.8), @lightpurple);
+				rgba(64, 111, 196, 0.8),
+				@lightpurple);
 			background-blend-mode: multiply;
 			margin: 0;
 			min-height: 70px;
@@ -55,6 +56,29 @@
 			bottom: 0;
 			right: 0;
 		}		
+	}
+
+	.f-synopsis-cont {
+		.box(20px 0);
+
+		background: @lightblue;
+
+		h3 {
+			color: white;
+		}
+
+		input {
+			display: none;
+
+			&:checked ~ .synopsis-text {
+				display: block;
+			}
+		}
+
+		.synopsis-text {
+			display: none;
+			margin: 10px 0;
+		}
 	}
 
 	.f-more-info {

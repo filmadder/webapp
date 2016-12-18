@@ -90,7 +90,7 @@ header {
 	.size(40px; 35%);
 	.row(@left; @center);
 
-	background: @purple;	
+	background: @purple;
 	position: fixed;
 	bottom: 0;
 
@@ -256,6 +256,10 @@ header {
 	}
 }
 
+.hidden {
+	display: none;
+}
+
 .peek {
 	.box(30px);
 
@@ -345,6 +349,7 @@ header {
 		.font(@w: bold; @s: 16px);
 
 		color: @purple;
+
 		margin: 0 0 0 15px;
 		text-transform: uppercase;
 	}
@@ -368,7 +373,6 @@ header {
 		}
 	}
 }
-
 
 
 @import "media";

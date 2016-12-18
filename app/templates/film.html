@@ -18,9 +18,9 @@
 	</section>
 
 	<section class="f-more-info">
-		<h3 class="type-duration">film | 97 min</h3>
+		<h3 class="type-duration">{{ film.omdb_type }} | {{ film.runtime }}</h3>
 		<h4><span>Director:</span> {{ film.directors }}</h4>
-		<h4><span>Writer:</span> film.writers </h4>
+		<h4><span>Writer:</span> {{ film.writers }} </h4>
 		<h4><span>Actors:</span> {{ film.actors }}</h4>
 
 		<div class="f-synopsis-cont arrow-cont">
@@ -32,7 +32,7 @@
 				</div>
 				<h3>synopsis</h3>
 			</label>
-			<p class='synopsis-text'>A cyborg policewoman and her partner hunt a mysterious and powerful hacker called the Puppet Master.</p>
+			<p class='synopsis-text'>{{ film.plot }}</p>
 		</div>
 
 		<div class="recommend-cont">
