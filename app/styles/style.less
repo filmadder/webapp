@@ -41,7 +41,7 @@ button {
 
 	background: linear-gradient(
 			lighten(@purple, 38%),
-			lighten(@lightblue, 57%));
+			lighten(@lightpurple, 57%));
 	border: none;
 	border-radius: 20px;
 	color: @lightgrey;
@@ -50,8 +50,8 @@ button {
 	&.light {
 		background: linear-gradient(
 			to bottom,
-			lighten(@lightblue, 1%), 
-			lighten(@lightblue, 3%));
+			lighten(@lightpurple, 1%), 
+			lighten(@lightpurple, 3%));
 		color: white;
 
 		&:hover,
@@ -59,7 +59,7 @@ button {
 			background: linear-gradient(
 				lighten(@purple, 40%),
 				white);
-			color: @lightblue;
+			color: @lightpurple;
 		}
 	}
 
@@ -71,13 +71,6 @@ button {
 h1, h2, h3, h4, h5, h6 {
 	color: @grey;
 	margin: 0;
-}
-
-input[type="search"] {
-	.font;
-	border: none;
-	color: @grey;
-	outline: none;
 }
 
 p, span {
@@ -97,9 +90,7 @@ header {
 	.size(40px; 35%);
 	.row(@left; @center);
 
-	background: linear-gradient(
-		@lightblue,
-		lighten(@lightblue, 5%));	
+	background: @purple;	
 	position: fixed;
 	bottom: 0;
 
@@ -152,7 +143,7 @@ header {
 	.column(@center);
 	min-height: 100vh;
 
-	background: linear-gradient(@purple, @lightblue);
+	background: linear-gradient(@purple, @lightpurple);
 }
 
 #view.login {
@@ -198,7 +189,6 @@ header {
 #search-form {
 	.size(50px; 100%);
 
-
 	position: fixed;
 	bottom: 0;
 	right: 0;
@@ -208,9 +198,9 @@ header {
 		.box(9px 12px);
 		.font(@w: bold);
 
-		background: linear-gradient(
-			lighten(@purple, 57%),
-			lighten(@lightblue, 60%));
+		background: lighten(@purple, 46%);
+		border: none;
+		outline: none;
 
 		&::-moz-placeholder {
 			.font;
@@ -248,7 +238,8 @@ header {
 
 	.stroke {
 		.size(12px; 2px);
-		background: @lightblue;
+		background: @purple;
+
 		&:first-child {
 			transform: rotate(-45deg) translateY(3px);
 		}
@@ -279,7 +270,7 @@ header {
 				.wrap;
 				.font(@w: bold);
 
-				color: @lightblue;
+				color: @lightpurple;
 				margin: 5px 0;
 			}
 
@@ -288,7 +279,7 @@ header {
 				.wrap;
 
 				a {
-					color: @lightblue;
+					color: @lightpurple;
 				}
 			}
 
@@ -341,7 +332,7 @@ header {
 		}
 
 		.author {
-			color: @lightblue;
+			color: @lightpurple;
 			display: inline-block;
 			margin: 0 8px 0 0;
 		}
@@ -353,7 +344,7 @@ header {
 	h3 {
 		.font(@w: bold; @s: 16px);
 
-		color: @lightblue;
+		color: @purple;
 		margin: 0 0 0 15px;
 		text-transform: uppercase;
 	}
