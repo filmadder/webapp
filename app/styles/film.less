@@ -17,12 +17,10 @@
 		}
 
 		.f-title-cont {
-			.box(30px 20px);
+			.box(20px);
 
-/*			background: linear-gradient(
-				rgba(0, 168, 196, 0.8), rgba(38, 86, 124, 1));*/
 			background: linear-gradient(
-				rgba(0,168,196,0.8), rgba(84, 102, 201, 1));
+				rgba(64, 111, 196, 0.8), @lightpurple);
 			background-blend-mode: multiply;
 			margin: 0;
 			min-height: 70px;
@@ -38,6 +36,9 @@
 			}
 
 			.f-year {
+				.font;
+
+				color: white;
 				margin: 0;
 			}
 		}
@@ -48,7 +49,7 @@
 			background: white;
 			border-radius: 50%;
 			cursor: pointer;
-			margin: 20px 20px 40px 20px;
+			margin: 20px 20px 20px 20px;
 
 			position: absolute;
 			bottom: 0;
@@ -57,38 +58,65 @@
 	}
 
 	.f-more-info {
-		.box(20px);
+		.box(0 20px 20px 20px);
 
-		background: @purple;
+		background: @lightpurple;
 
 		h3 {
-			.font(@s: 14px; @w: bold);
-
 			color: white;
+			padding: 5px 0;
+
+			&.type-duration {
+				.font(@w: bold);
+
+				margin: 0 0 15px 0;
+				text-transform: uppercase;
+			}
+		}
+
+		h4 {
+			color: white;
+			font-weight: bold;
 			margin: 0;
 			padding: 5px 0;
-			text-transform: uppercase;
-
+			
 			span {
+				font-weight: normal;
 				margin: 0 6px 0 0;
 			}
+		}
 
-			&.genre {
-				padding: 30px 0 5px 0;
+
+		.f-synopsis-cont {
+			.box(20px 0);
+
+			background: @lightpurple;
+
+			h3 {
+				color: white;
+			}
+
+			input {
+				display: none;
+
+				&:checked ~ .synopsis-text {
+					display: block;
+				}
+			}
+
+			.synopsis-text {
+				display: none;
+				margin: 10px 0;
 			}
 		}
 
 		.recommend-cont {
-			margin: 50px 0 20px 0;
+			margin: 20px 0;
 
 			.recommend {
 				display: block;
 				margin: 0 auto;
 			}
-		}
-
-		.synopsis-text {
-			margin: 0;
 		}
 	}
 }
