@@ -1,0 +1,40 @@
+.updates-cont {
+	.box(30px);
+
+	h2 {
+		.font(@w: bold; @s: 18px);
+
+		color: @lightblue;		
+		margin: 0 0 20px 0;
+		text-transform: uppercase;
+	}
+
+	.update-item {
+		padding: 20px 0;
+		.column;
+
+		&.recommendation {
+			.row(@spread; @center);
+
+			.recommended-film {
+				margin: 0 30px 0 0;
+			}
+		}
+
+		p {
+			color: @lightgrey;
+			margin: 0;
+		}
+
+		a {
+			color: @lightblue;
+
+			h3 {
+				color: @grey;
+				font-size: 20px;
+			}
+		}
+		
+	}
+	
+}
