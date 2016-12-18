@@ -3,10 +3,12 @@
 @import "icons";
 @import "mixins";
 
+
 @import "home";
 @import "film";
 @import "profile";
 @import "feed";
+@import "updates";
 
 
 /* font */
@@ -46,7 +48,10 @@ button {
 	outline: none;
 
 	&.light {
-		background: linear-gradient(to bottom, darken(@purple, 2%), darken(@purple, 5%));
+		background: linear-gradient(
+			to bottom,
+			lighten(@lightblue, 1%), 
+			lighten(@lightblue, 3%));
 		color: white;
 
 		&:hover,
@@ -54,7 +59,7 @@ button {
 			background: linear-gradient(
 				lighten(@purple, 40%),
 				white);
-			color: @purple;
+			color: @lightblue;
 		}
 	}
 
@@ -92,7 +97,9 @@ header {
 	.size(40px; 35%);
 	.row(@left; @center);
 
-	background: linear-gradient(#333, #222);	
+	background: linear-gradient(
+		@lightblue,
+		lighten(@lightblue, 5%));	
 	position: fixed;
 	bottom: 0;
 
@@ -145,7 +152,7 @@ header {
 	.column(@center);
 	min-height: 100vh;
 
-	background: linear-gradient(@lightblue, @purple);
+	background: linear-gradient(@purple, @lightblue);
 }
 
 #view.login {
@@ -202,7 +209,7 @@ header {
 		.font(@w: bold);
 
 		background: linear-gradient(
-			lighten(@purple, 40%),
+			lighten(@purple, 57%),
 			lighten(@lightblue, 60%));
 
 		&::-moz-placeholder {
@@ -238,9 +245,10 @@ header {
 .arrow {
 	display: inline-block;
 	transition: all .15s ease;
+
 	.stroke {
 		.size(12px; 2px);
-		background: @purple;
+		background: @lightblue;
 		&:first-child {
 			transform: rotate(-45deg) translateY(3px);
 		}
@@ -248,25 +256,20 @@ header {
 			transform: rotate(45deg) translateY(-3px);
 		}
 	}
+
+	&.white-arrow {
+
+		.stroke {
+			background: white;
+		} 
+	}
 }
 
 .peek {
-	.box(20px);
+	.box(30px);
 
 	section {
 		padding: 20px 0;
-
-		h3 {
-			.font(@w: bold; @s: 18px);
-
-			color: @purple;
-			margin: 0 0 0 15px;
-			text-transform: uppercase;
-		}
-
-		.arrow {
-			margin: 0;
-		}
 
 		ul {
 			.box(0 15px;);
@@ -330,16 +333,6 @@ header {
 			&:checked ~ ul {
 				margin: 0 0 20px 0;
 			}
-			&:checked ~ label .arrow {
-				transform: rotate(90deg);
-			}
-		}
-
-		label {
-			.row(@y: @center);
-
-			cursor: pointer;
-			margin: 0;
 		}
 
 		.text {
@@ -354,5 +347,37 @@ header {
 		}
 	}
 }
+
+.arrow-cont {
+
+	h3 {
+		.font(@w: bold; @s: 16px);
+
+		color: @lightblue;
+		margin: 0 0 0 15px;
+		text-transform: uppercase;
+	}
+
+	.arrow {
+		margin: 0;
+	}
+
+	label {
+		.row(@y: @center);
+
+		cursor: pointer;
+		margin: 0;
+	}
+
+	input[type="checkbox"] {
+		display: none;
+
+		&:checked ~ label .arrow {
+			transform: rotate(90deg);
+		}
+	}
+}
+
+
 
 @import "media";
