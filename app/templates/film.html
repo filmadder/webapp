@@ -18,22 +18,32 @@
 	</section>
 
 	<section class="f-more-info">
+		<h4>film type | 97 min</h4>
 
-		<h3>Synopsis</h3>
-		<p class='synopsis-text'>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram.</p>
-		<h3 class="genre"><span>Genre:</span> Anime</h3>
-		<h3><span>Director:</span> {{ film.directors }}</h3>
-		<h3><span>Actors:</span> {{ film.actors }}</h3>
+		<h4><span>Director:</span> {{ film.directors }}</h4>
+		<h4><span>Writer:</span> film.writers </h4>
+		<h4><span>Actors:</span> {{ film.actors }}</h4>
+
+		<div class="f-synopsis-cont arrow-cont">
+			<input type="checkbox" id="synopsis-text"/>		
+			<label for="synopsis-text" class="">
+				<div class="arrow white-arrow">
+					<div class="stroke"></div>
+					<div class="stroke"></div>
+				</div>
+				<h3>synopsis</h3>
+			</label>
+			<p class='synopsis-text'>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram.</p>
+		</div>
 
 		<div class="recommend-cont">
 			<button class="recommend light">recommend</button>
 		</div>
-
 	</section>
+
 	
 	<article class="peek">
-
-		<section class="watched-by">
+		<section class="watched-by arrow-cont">
 			<h3>Watched by</h3>
 			<ul class="watchers-list">
 				{{# watchers_past }}
@@ -46,8 +56,7 @@
 				{{/ watchers_past }}
 			</ul>
 		</section>
-
-		<section class="watchlisted-by">
+		<section class="watchlisted-by arrow-cont">
 			<h3>Watchlisted by</h3>
 			<ul class="watchers-list">
 				{{# watchers_future }}
@@ -60,8 +69,7 @@
 				{{/ watchers_future }}
 			</ul>
 		</section>
-
-		<section class="comments">
+		<section class="comments arrow-cont">
 			<input type="checkbox" id="comments" />
 			<label for="comments">
 				<div class="arrow">
