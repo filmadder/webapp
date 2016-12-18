@@ -29,12 +29,12 @@ fa.routing = (function() {
 		hier.add('/inner');
 		hier.add('/inner/home');
 	});
-
+	
 	crossroads.addRoute('/feed/', function() {
 		hier.add('/inner');
 		hier.add('/inner/feed');
 	});
-
+	
 	crossroads.addRoute('/updates/', function() {
 		hier.add('/inner');
 		hier.add('/inner/updates');

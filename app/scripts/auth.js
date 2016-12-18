@@ -64,7 +64,7 @@ fa.auth = (function() {
 	// in or rejects with an error
 	auth.register = function(load) {
 		auth.logout();
-		return fa.conn.put('/api/auth/', {
+		return fa.http.put('/api/auth/', {
 			email: load['email'], name: load['name'], pass: load['pass']
 		}).then(function(data) {
 			session = createSession(data);
@@ -76,7 +76,7 @@ fa.auth = (function() {
 	// use or rejects with an error
 	auth.login = function(load) {
 		auth.logout();
-		return fa.conn.post('/api/auth/', {
+		return fa.http.post('/api/auth/', {
 			method: 's', email: load['email'], password: load['pass']
 		}).then(function(data) {
 			session = createSession(data.token);

@@ -1,4 +1,4 @@
-fa.conn = (function() {
+fa.http = (function() {
 	
 	"use strict";
 	
