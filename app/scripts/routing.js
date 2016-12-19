@@ -11,7 +11,7 @@ fa.routing = (function() {
 	hier.reg('/outer/login', '#view', fa.views.login);
 	
 	hier.reg('/inner', 'main', fa.views.inner);
-	hier.reg('/inner/search', '#view', fa.views.search);
+	hier.reg('/inner/results', '#view', fa.views.results);
 	hier.reg('/inner/film', '#view', fa.views.film);
 	hier.reg('/inner/home', '#view', fa.views.home);
 	hier.reg('/inner/feed', '#view', fa.views.feed);
@@ -40,9 +40,9 @@ fa.routing = (function() {
 		hier.add('/inner/updates');
 	});
 	
-	crossroads.addRoute('/search', function() {
+	crossroads.addRoute('/results', function() {
 		hier.add('/inner');
-		hier.add('/inner/search');
+		hier.add('/inner/results');
 	});
 	
 	crossroads.addRoute('/film/{id}', function(id) {

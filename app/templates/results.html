@@ -1,0 +1,20 @@
+<div class="results">
+	<h2>Results</h2>
+	<article class="r-ar">
+		{{# films }}
+		<div class="result-cont">
+			<a href="#/film/{{ pk }}" title="{{ title }}"class="result">
+				<h3>{{ title }}</h3>
+				<h4>{{ year }} | {{ directors }}</h4>
+			</a>
+		</div>
+		{{/ films }}
+		{{^ films }}
+		<p>nothing found</p>
+		{{/ films }}
+	</article>
+	<article class="more-results hidden">
+		More results found!
+		<button>Refresh</button>
+	</article>
+</div>

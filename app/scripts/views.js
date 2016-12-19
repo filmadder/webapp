@@ -80,17 +80,17 @@ fa.views = (function() {
 		
 		searchForm.addEventListener('submit', function(e) {
 			e.preventDefault();
-			fa.routing.go('search');
+			fa.routing.go('results');
 			fa.films.search(queryField.value).then(function(results) {
-				hier.update('/inner/search', results);
+				hier.update('/inner/results', results);
 			}).catch(handleGetError);
 		});
 	};
 	
 	// inits a search view
-	var createSearch = function(elem, results) {
+	var createResults = function(elem, results) {
 		if(results) {
-			render(elem, 'search-templ', results);
+			render(elem, 'results-templ', results);
 			fa.films.onMoreResults(results.query, function() {
 				elem.querySelector('.more-results').classList.remove('hidden');
 			});
@@ -150,7 +150,7 @@ fa.views = (function() {
 		login: createLogin,
 		
 		inner: createInner,
-		search: createSearch,
+		results: createResults,
 		film: createFilm,
 		home: createHome,
 		feed: createFeed,

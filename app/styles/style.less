@@ -9,6 +9,7 @@
 @import "profile";
 @import "feed";
 @import "updates";
+@import "results";
 
 
 /* font */
@@ -198,6 +199,7 @@ header {
 		.box(9px 12px);
 		.font(@w: bold);
 
+		color: @grey;
 		background: lighten(@purple, 46%);
 		border: none;
 		outline: none;
@@ -210,12 +212,9 @@ header {
 			.font;
 		}
 
-		&:hover,
-		&:focus {
-			.box(9px 20px);
+		&:hover {
 			.font(@w: bold; @s: 24px);
-
-			color: @grey;
+			.box(9px 20px);
 		}
 	}
 
