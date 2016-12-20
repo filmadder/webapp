@@ -6,14 +6,16 @@
 			<div class="image poster" style="background-image: url({{ film.poster_url }});"></div>
 		</article>
 
-		<article class="f-title-cont">
-			<h2 class="f-title">{{ film.title }}</h2>
-			<h4 class="f-year">{{ film.year }}</h4>
+		<article class="f-main-cont">
+			<div class="title-cont">
+				<h2 class="f-title">{{ film.title }}</h2>
+				<h4 class="f-year">{{ film.year }}</h4>
+			</div>
+			<div class="f-status">
+				<div class="icon watched-icon"></div>
+			</div>
 		</article>
 		
-		<article class="f-status">
-			<div class="icon eye1"></div>
-		</article>
 
 	</section>
 
@@ -24,7 +26,7 @@
 		<h4><span>Actors:</span> {{ film.actors }}</h4>
 
 		<div class="f-synopsis-cont arrow-cont">
-			<input type="checkbox" id="synopsis-text"/>		
+			<input type="checkbox" id="synopsis-text" class="hidden"/>		
 			<label for="synopsis-text" class="">
 				<div class="arrow white-arrow">
 					<div class="stroke"></div>
@@ -69,7 +71,7 @@
 			</ul>
 		</section>
 		<section class="comments arrow-cont">
-			<input type="checkbox" id="comments" />
+			<input type="checkbox" id="comments" class="hidden"/>
 			<label for="comments">
 				<div class="arrow">
 					<div class="stroke"></div>

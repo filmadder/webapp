@@ -16,8 +16,9 @@
 			filter: grayscale(100%);
 		}
 
-		.f-title-cont {
+		.f-main-cont {
 			.box(20px);
+			.row(@spread);
 
 			background: linear-gradient(
 				rgba(64, 111, 196, 0.8),
@@ -33,7 +34,7 @@
 
 			.f-title {
 				color: white;
-				margin: 0 60px 0 0;
+				margin: 0 40px 0 0;
 			}
 
 			.f-year {
@@ -45,16 +46,15 @@
 		}
 
 		.f-status {
-			.box(10px);
+			.size(40px; 40px);
 
-			background: white;
-			border-radius: 50%;
+			min-height: 40px;
+			min-width: 40px;
 			cursor: pointer;
-			margin: 20px 20px 20px 20px;
 
-			position: absolute;
-			bottom: 0;
-			right: 0;
+			.icon {
+				.size(30px; 30px);
+			}
 		}		
 	}
 
@@ -67,8 +67,7 @@
 			color: white;
 		}
 
-		input {
-			display: none;
+		input[type='checkbox'] {
 
 			&:checked ~ .synopsis-text {
 				display: block;
@@ -76,6 +75,7 @@
 		}
 
 		.synopsis-text {
+			color: white;
 			display: none;
 			margin: 10px 0;
 		}
@@ -121,7 +121,6 @@
 			}
 
 			input {
-				display: none;
 
 				&:checked ~ .synopsis-text {
 					display: block;
