@@ -4,14 +4,6 @@
 @import "mixins";
 
 
-@import "home";
-@import "film";
-@import "profile";
-@import "feed";
-@import "updates";
-@import "results";
-
-
 /* font */
 
 .font(@w: normal; @s: 1em; @f: "Source Sans Pro", sans-serif) {
@@ -76,7 +68,6 @@ h1, h2, h3, h4, h5, h6 {
 
 p, span {
 	.font;
-	color: white;
 }
 
 ul {
@@ -163,7 +154,7 @@ header {
 		label {
 			.font(@w: bold; @s: 14px);
 
-			
+			color: white;
 			text-transform: uppercase;
 		}
 
@@ -173,6 +164,7 @@ header {
 			background: transparent;
 			border: none;
 			border-bottom: 2px solid white;
+			color: white;
 			margin: 0;
 			outline: none;
 			width: 270px;
@@ -223,6 +215,40 @@ header {
 		height: 100px;
 	}
 }
+
+
+/* images */
+
+.icon {
+	.size(25px; 25px);
+
+	background-position: center;
+	background-size: cover;
+}
+
+.add-icon {
+	background-image: url(../images/add-thinner.svg);	
+}
+
+.watchlisted-icon {
+	background-image: url(../images/egg.svg);
+}
+
+.watched-icon {
+	background-image: url(../images/fried-egg.svg);
+}
+
+.f-status {
+	.size(36px; 36px;);
+	.box;
+	.column(@center; @center;);
+
+	min-height: 36px;
+	min-width: 36px;
+	background: lighten(@lightpurple, 33%);
+	border-radius: 10px;
+}
+
 
 /* global classes */
 
@@ -316,7 +342,6 @@ header {
 		}
 
 		input[type="checkbox"] {
-			display: none;
 
 			&:checked ~ .comments-list li {
 				display: inline-block;
@@ -365,13 +390,21 @@ header {
 	}
 
 	input[type="checkbox"] {
-		display: none;
 
 		&:checked ~ label .arrow {
 			transform: rotate(90deg);
 		}
 	}
 }
+
+
+
+@import "home";
+@import "film";
+@import "profile";
+@import "feed";
+@import "updates";
+@import "results";
 
 
 @import "media";

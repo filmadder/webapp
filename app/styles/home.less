@@ -25,7 +25,6 @@
 		}
 
 		input[type="checkbox"] {
-			display: none;
 
 			&:checked ~ .h-updates {
 				display: none;
@@ -56,7 +55,7 @@
 		}
 
 		.watchlist-item {
-			.row(@spread);
+			.row(@spread; @center);
 			
 			margin: 20px 0;
 			width: 100%;
