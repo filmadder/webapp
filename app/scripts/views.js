@@ -92,7 +92,11 @@ fa.views = (function() {
 		fa.films.search(params.q).then(function(results) {
 			render(elem, 'results-templ', results);
 			fa.films.onMoreResults(params.q, function() {
-				elem.querySelector('.more-results').classList.remove('hidden');
+				var button = elem.querySelector('.more-results');
+				button.addEventListener('click', function() {
+					hier.update('/inner/results', params);
+				});
+				button.classList.remove('hidden');
 			});
 		}).catch(handleGetError);
 	};
