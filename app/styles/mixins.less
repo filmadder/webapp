@@ -9,6 +9,18 @@
 	font-family: "Source Sans Pro", sans-serif;
 }
 
+.font-upper(@c: white) {
+	.font(@w: 700; @s: 14px);
+	color: @c;
+	text-transform: uppercase;
+}
+
+.font(@w: normal; @s: 16px;) {
+	font-weight: @w;
+	font-size: @s;
+	font-family: "Source Sans Pro", sans-serif;
+}
+
 .size(@h: 0; @w: 0;) {
 	height: @h;
 	width: @w;

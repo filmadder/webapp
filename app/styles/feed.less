@@ -1,19 +1,13 @@
 .feed {
 	.box(30px);
 	.column(@left; @center);
+	
 	width: 100%;
 
-	h2 {
-		.font(@w: bold; @s: 18px);
-
-		color: @purple;		
-		margin: 0 0 20px 0;
-		text-transform: uppercase;
-	}
-
 	.feed-item {
-		padding: 20px 0;
 		.column;
+
+		padding: 20px 0;
 
 		> a {
 			.row(@y: center);
@@ -24,20 +18,20 @@
 		}
 
 		.f-title {
-			font-size: 20px;
 			margin: 0 0 0 15px;
 		}
 
 		p {
-			.font(@w: bold;);
+			.font(bold);
 
 			color: @lightgrey;
 			font-weight: normal;
 			margin: 3px 0 3px 40px;
 
 			a {
+				.font(bold);
+
 				color: @lightpurple;
-				font-weight: bold;
 			}
 		}
 	}

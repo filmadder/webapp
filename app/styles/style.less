@@ -4,32 +4,38 @@
 @import "mixins";
 
 
-/* font */
+/* main styles */
 
-.font(@w: normal; @s: 1em; @f: "Source Sans Pro", sans-serif) {
-	font-weight: @w;
-	font-size: @s;
-	font-family: @f;
+html, body {
+	.trim;
 }
 
-/* main */
-
-a, p, h1, h2, h3, h4, h5, h6{
+h1, h2, h3, h4, h5, h6 {
 	.fontf();
+
+	color: @grey;
+	margin: 0;
 }
 
 a {
-	.font(@w: 700);
+	.font(700);
+
 	color: white;
 	text-decoration: none;
 }
 
-body {
-	font-size: 66,5%;
+p, span, label, li {
+	.font();
+}
+
+ul {
+	.trim;
+	
+	list-style: none;
 }
 
 button {
-	.font(@w: 600);
+	.font(600);
 	.box(5px 20px);
 
 	background: linear-gradient(
@@ -57,20 +63,6 @@ button {
 	}
 }
 
-h1, h2, h3, h4, h5, h6 {
-	color: @grey;
-	margin: 0;
-}
-
-p, span {
-	.font;
-}
-
-ul {
-	.trim;
-	list-style: none;
-}
-
 
 /* header */
 
@@ -81,7 +73,9 @@ header {
 	background: @purple;
 
 	h1 {
-		.font(@s: 18px);
+		.font(700; 18px);
+
+		color: white;
 	}
 
 	nav {
@@ -96,7 +90,6 @@ header {
 	}
 
 	a {
-		color: white;
 		margin: 10px;
 	}
 
@@ -120,6 +113,14 @@ header {
 	}
 }
 
+h2 {
+	.font(bold; 18px);
+
+	color: @purple;
+	margin: 0 0 20px 0;
+	text-transform: uppercase;
+}
+
 #view {
 	.box(0 0 40px 0);
 }
@@ -135,8 +136,7 @@ header {
 	padding: 20px 0 40px 0;
 }
 
-
-/* form  (login and  register) */
+/* form (login and register) */
 
 #form {
 	.column(@right);
@@ -145,10 +145,7 @@ header {
 		.column;
 
 		label {
-			.font(@w: bold; @s: 14px);
-
-			color: white;
-			text-transform: uppercase;
+			.font-upper;
 		}
 
 		input {
@@ -182,7 +179,7 @@ header {
 	input[type="search"] {
 		.size(100%; 100%);
 		.box(9px 12px);
-		.font(@w: bold);
+		.font(700);
 
 		color: @grey;
 		background: lighten(@purple, 46%);
@@ -198,7 +195,7 @@ header {
 		}
 
 		&:hover {
-			.font(@w: bold; @s: 24px);
+			.font(700; 24px);
 			.box(9px 20px);
 		}
 	}
@@ -242,8 +239,10 @@ header {
 	border-radius: 10px;
 }
 
-
-/* global classes */
+.f-title {
+	.font(700; 20px);
+	color: @grey;
+}
 
 .image {
 	background-repeat: no-repeat;
@@ -251,11 +250,13 @@ header {
 }
 
 .arrow {
+	.transition(all; .15s; @func: ease;);
+
 	display: inline-block;
-	transition: all .15s ease;
 
 	.stroke {
 		.size(12px; 2px);
+
 		background: @purple;
 
 		&:first-child {
@@ -290,7 +291,7 @@ header {
 			li {
 				.row;
 				.wrap;
-				.font(@w: bold);
+				.font(700);
 
 				color: @lightpurple;
 				margin: 5px 0;
@@ -309,15 +310,8 @@ header {
 				.column;
 
 				li {
-					width: 100%;
-
 					margin: 20px 0;
-					
-					.f-title {
-						.font(@w: bold; @s: 20px;);
-
-						color: @grey;
-					}
+					width: 100%;
 				}
 			}
 
@@ -360,16 +354,11 @@ header {
 .arrow-cont {
 
 	h3 {
-		.font(@w: bold; @s: 16px);
+		.font(700; 16px);
 
 		color: @purple;
-
 		margin: 0 0 0 15px;
 		text-transform: uppercase;
-	}
-
-	.arrow {
-		margin: 0;
 	}
 
 	label {
@@ -384,6 +373,10 @@ header {
 		&:checked ~ label .arrow {
 			transform: rotate(90deg);
 		}
+	}
+
+	.arrow {
+		margin: 0;
 	}
 }
 
