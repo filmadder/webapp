@@ -81,14 +81,12 @@
 			</label>
 			<ul class="comments-list">
 				{{# comments }}
-				
-				<li>
-					<button type="button" data-fn="comment">comment</button>
-				</li>
-				<li>
+				<li class="comment">
 					<a href="#" class="author">{{ author }}</a>
 					<p class="text">{{ text }}</p>
-					<ul>
+					<button type="button" data-fn="reply">reply</button>
+
+					<ul class="replies">
 						{{# replies }}
 						<li>
 							<a href="#" class="author">{{ author }}</a>
@@ -96,7 +94,6 @@
 						</li>
 						{{/ replies }}
 					</ul>
-					<button type="button" data-fn="reply">reply</button>
 				</li>
 				{{/ comments }}
 				{{^ comments }}

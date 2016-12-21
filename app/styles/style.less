@@ -43,8 +43,8 @@ button {
 	&.light {
 		background: linear-gradient(
 			to bottom,
-			lighten(@lightpurple, 3%), 
-			lighten(@lightpurple, 5%));
+			lighten(@lightpurple, 4%), 
+			lighten(@lightpurple, 6%));
 		color: white;
 
 		&:hover,
@@ -54,10 +54,6 @@ button {
 				white);
 			color: @lightpurple;
 		}
-	}
-
-	&.transp {
-		background: transparent;
 	}
 }
 
@@ -79,13 +75,10 @@ ul {
 /* header */
 
 header {
-	.size(40px; 35%);
-	.row(@left; @center);
+	.row(@spread; @center);
+	.size(40px; 100%);
 
 	background: @purple;
-	position: fixed;
-	bottom: 0;
-
 
 	h1 {
 		.font(@s: 18px);
@@ -330,13 +323,10 @@ header {
 
 			&.comments-list,
 			&.film-list {
+				padding: 0 0 0 15px;
 
 				li {
 					display: none;
-
-					&:first-child {
-						margin: 40px 0 20px 0;
-					}
 				}
 			}
 		}
