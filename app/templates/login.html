@@ -1,21 +1,17 @@
 <form novalidate id="form">
 	<div data-fn="error" class="error"></div>
-	
 	<p>
 		<label for="login-email">email</label>
+		<span data-fn="error" class="error"></span>
 		<input type="email" name="email" id="login-email" />
-		<span data-fn="error"></span>
 	</p>
-	
 	<p>
 		<label for="login-pass">password</label>
+		<span data-fn="error" class="error"></span>
 		<input type="password" name="pass" id="login-pass" />
-		<span data-fn="error"></span>
 	</p>
-	
 	<button type="submit" class="light">login</button>
 </form>
-
 <section class="wrong-form">
 	<p>Don't have an account?</p>
 	<a href="/#/reg">go to register</a>
