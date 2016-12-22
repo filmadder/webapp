@@ -1,0 +1,90 @@
+.settings {
+	.box(30px);
+
+	.settings-items {
+		.column;
+
+		.settings-item {
+			margin: 20px 0 40px 0;
+
+			.change {
+				color: @lightgrey;
+				cursor: pointer;
+			}
+
+			p {
+				.font(700; 20px);
+				color: @grey;
+				margin: 5px 0 20px 0;
+			}
+		}
+	}
+
+	h3 {
+		.font-upper;
+
+		color: @purple;
+
+		&:nth-child(2) {
+			margin: 40px 0 10px 0;
+		}
+	}
+
+
+	input[type="checkbox"] {
+		display: none;
+
+		&#change-password:checked ~ .new-password-cont {
+			.column;
+		}
+
+		&#change-password:checked ~ label[for="change-password"] {
+			display: none;
+		}
+
+		&#change-username:checked ~ .new-username-cont {
+			.column;
+		}
+
+		&#change-username:checked ~ label[for="change-username"] {
+			display: none;
+		}
+	}
+
+	.new-password-cont,
+	.new-username-cont {
+		display: none;
+		margin: 40px 0 0 0;
+
+		li {
+			.column;
+			margin: 0 0 20px 0;
+		}
+
+		label {
+			.font-upper;
+
+			color: @purple;
+		}
+
+		input {
+			.box(8px 12px 8px 0);
+
+			border: none;
+			border-bottom: 2px solid @purple;
+			color: @grey;
+			margin: 0;
+			outline: none;
+			width: 270px;
+
+			&:hover,
+			&:focus {
+			}
+		}
+
+		button {
+			.naughty(column; @right);
+			margin: 20px 0 0 0;
+		}
+	}
+}
