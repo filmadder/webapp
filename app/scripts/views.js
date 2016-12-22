@@ -71,30 +71,34 @@ fa.views = (function() {
 	};
 	
 	// inits an inner view
-	// handles the search form
+	// includes the search form
 	var createInner = function(elem) {
 		render(elem, 'inner-templ', {});
 		
 		var searchForm = elem.querySelector('#search-form');
-		var queryField = searchForm.querySelector('[name=query]');
+		var queryField = searchForm.querySelector('[name=q]');
 		
 		searchForm.addEventListener('submit', function(e) {
 			e.preventDefault();
-			fa.routing.go('results');
-			fa.films.search(queryField.value).then(function(results) {
-				hier.update('/inner/results', results);
-			}).catch(handleGetError);
+			fa.routing.go('search/?q='+encodeURIComponent(queryField.value));
 		});
 	};
 	
-	// inits a search view
-	var createResults = function(elem, results) {
-		if(results) {
+	// inits a search results view
+	var createResults = function(elem, params) {
+		if(!params) return;
+		if(!params.hasOwnProperty('q')) fa.routing.go('error');
+		
+		fa.films.search(params.q).then(function(results) {
 			render(elem, 'results-templ', results);
-			fa.films.onMoreResults(results.query, function() {
-				elem.querySelector('.more-results').classList.remove('hidden');
+			fa.films.onMoreResults(params.q, function() {
+				var button = elem.querySelector('.more-results');
+				button.addEventListener('click', function() {
+					hier.update('/inner/results', params);
+				});
+				button.classList.remove('hidden');
 			});
-		}
+		}).catch(handleGetError);
 	};
 	
 	// inits a film view

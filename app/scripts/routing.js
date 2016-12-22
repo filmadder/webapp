@@ -40,9 +40,10 @@ fa.routing = (function() {
 		hier.add('/inner/updates');
 	});
 	
-	crossroads.addRoute('/results', function() {
+	crossroads.addRoute('/search/{?query}/', function(query) {
 		hier.add('/inner');
 		hier.add('/inner/results');
+		hier.update('/inner/results', query);
 	});
 	
 	crossroads.addRoute('/film/{id}', function(id) {
