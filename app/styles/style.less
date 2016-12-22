@@ -51,7 +51,8 @@ button {
 			to bottom,
 			lighten(@lightpurple, 4%), 
 			lighten(@lightpurple, 6%));
-		color: white;
+/*		border: 1px solid rgba(255, 255, 255, 0.2);
+*/		color: white;
 
 		&:hover,
 		&:focus {
@@ -380,7 +381,16 @@ h2 {
 	}
 }
 
+.wrong-form {
+	.column(@right);
+	margin: 40px 0;
 
+	p {
+		.trim;
+
+		color: white;
+	}
+}
 
 @import "home";
 @import "film";
