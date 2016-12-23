@@ -38,28 +38,32 @@ button {
 	.font(600);
 	.box(5px 20px);
 
-	background: linear-gradient(
-			lighten(@purple, 40%),
-			lighten(@lightpurple, 60%));
 	border: none;
 	border-radius: 20px;
-	color: @lightgrey;
 	outline: none;
 
-	&.light {
+	&.dark {
 		background: linear-gradient(
 			to bottom,
 			lighten(@lightpurple, 4%), 
 			lighten(@lightpurple, 6%));
-/*		border: 1px solid rgba(255, 255, 255, 0.2);
-*/		color: white;
+		color: white;		
 
 		&:hover,
 		&:focus {
-			background: linear-gradient(
-				lighten(@purple, 40%),
-				white);
+			background: white;
 			color: @lightpurple;
+		}
+	}
+
+	&.light {
+		background: lighten(@lightpurple, 33%);
+		color: @lightpurple;
+
+		&:hover,
+		&:focus {
+			background: @lightpurple;
+			color: white;
 		}
 	}
 }
