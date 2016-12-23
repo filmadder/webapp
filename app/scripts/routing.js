@@ -17,6 +17,7 @@ fa.routing = (function() {
 	hier.reg('/inner/feed', '#view', fa.views.feed);
 	hier.reg('/inner/updates', '#view', fa.views.updates);
 	hier.reg('/inner/profile', '#view', fa.views.profile);
+	hier.reg('/inner/settings', '#view', fa.views.settings);
 	
 	hier.reg('/error', 'main', fa.views.error);
 	
@@ -57,6 +58,11 @@ fa.routing = (function() {
 	crossroads.addRoute('/me', function() {
 		hier.add('/inner');
 		hier.add('/inner/profile');
+	});
+
+	crossroads.addRoute('/settings', function() {
+		hier.add('/inner');
+		hier.add('/inner/settings');
 	});
 	
 	crossroads.addRoute('/login', function() {

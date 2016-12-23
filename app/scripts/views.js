@@ -137,6 +137,11 @@ fa.views = (function() {
 	var createProfile = function(elem) {
 		render(elem, 'profile-templ', {});
 	};
+
+	// inits a settings view
+	var createSettings = function(elem) {
+		render(elem, 'settings-templ', {});
+	};
 	
 	// inits an error view
 	var createError = function(elem) {
@@ -160,6 +165,7 @@ fa.views = (function() {
 		feed: createFeed,
 		updates: createUpdates,
 		profile: createProfile,
+		settings: createSettings,
 		
 		error: createError
 	};
