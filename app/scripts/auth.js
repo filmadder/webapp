@@ -64,10 +64,11 @@ fa.auth = (function() {
 	// in or rejects with an error
 	auth.register = function(load) {
 		auth.logout();
-		return fa.http.put('/api/auth/', {
-			email: load['email'], name: load['name'], pass: load['pass']
+		return fa.http.put('/auth/', {
+			email: load['email'], name: load['name'],
+			password1: load['pass1'], password2: load['pass2']
 		}).then(function(data) {
-			session = createSession(data);
+			session = createSession(data.token);
 			return fa.ws.open();
 		});
 	};
@@ -76,7 +77,7 @@ fa.auth = (function() {
 	// use or rejects with an error
 	auth.login = function(load) {
 		auth.logout();
-		return fa.http.post('/api/auth/', {
+		return fa.http.post('/auth/', {
 			method: 's', email: load['email'], password: load['pass']
 		}).then(function(data) {
 			session = createSession(data.token);
