@@ -1,12 +1,14 @@
 .updates-cont {
 	.box(30px);
+	.column(@left; @center);
 
 	.update-item {
 		padding: 20px 0;
-		.column;
+		.column();
 
 		&.recommendation {
 			.row(@spread; @top);
+			width: 100%;
 
 			.recommended-film {
 				margin: 0 30px 0 0;
