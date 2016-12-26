@@ -7,8 +7,8 @@ var fa = (function() {
 	// the values here are the defauls values
 	var settings = {
 		DEBUG: true,
-		HTTP_API_URL: 'http://localhost:3000',  // no slash at the end
-		SOCKET_API_URL: 'ws://localhost:3000'   // no slash at the end
+		HTTP_API_URL: 'https://api.filmadder.com',  // no slash at the end
+		SOCKET_API_URL: 'wss://api.filmadder.com/socket'   // no slash at the end
 	};
 	
 	
