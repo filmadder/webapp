@@ -10,9 +10,10 @@
 				<h4 class="year">{{ film.year }}</h4>
 			</div>
 			<div class="status-cont">
-				<div class="status-btn current">
+				<label for="status-switcher" class="status-btn current">
 					<div class="icon add-icon change-status"></div>
-				</div>
+				</label>
+				<input type="checkbox" id="status-switcher" />
 				<div class="options">
 					<div class="status-btn option">
 						<div class="icon watchlisted-icon"></div>
@@ -41,9 +42,9 @@
 			</label>
 			<p class='synopsis-text'>{{ film.plot }}</p>
 		</div>
-		<div class="recommend-cont">
+		<!-- <div class="recommend-cont">
 			<button class="recommend dark">recommend</button>
-		</div>
+		</div> -->
 	</section>
 
 	<article class="peek">

@@ -302,8 +302,16 @@ h2 {
 .status-cont {
 	position: relative;
 
+	input#status-switcher {
+		display: none;
+
+		&:checked ~ .options {
+			.column(@center; @spread);
+		}
+	}
+
 	.options {
-		.column(@y: @spread);
+		display: none;
 		height: 160px;
 
 		background: rgba(64, 111, 196, 0.8);
@@ -321,10 +329,11 @@ h2 {
 	.box;
 	.column(@center; @center;);
 
-	min-height: 36px;
-	min-width: 36px;
 	background: lighten(@lightpurple, 33%);
 	border-radius: 10px;
+	cursor: pointer;
+	min-height: 36px;
+	min-width: 36px;
 }
 
 /* listed films font */
