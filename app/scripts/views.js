@@ -81,6 +81,7 @@ fa.views = (function() {
 		searchForm.addEventListener('submit', function(e) {
 			e.preventDefault();
 			fa.routing.go('search/?q='+encodeURIComponent(queryField.value));
+			queryField.blur();
 		});
 	};
 	
