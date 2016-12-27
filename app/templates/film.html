@@ -9,11 +9,17 @@
 				<h2 class="title">{{ film.title }}</h2>
 				<h4 class="year">{{ film.year }}</h4>
 			</div>
-			<div class="f-status">
-				<div class="icon watchlisted-icon change-status"></div>
-				<div class="hidden" data-status="container-{{ film.pk }}">
-					<div class="option option-1">asdf</div>
-					<div class="option option-2">qwer</div>
+			<div class="status-cont">
+				<div class="status-btn">
+					<div class="icon add-icon change-status"></div>
+					<div class="options">
+						<div class="status-btn option">
+							<div class="icon watchlisted-icon"></div>
+						</div>
+						<div class="status-btn option">
+							<div class="icon watched-icon"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</article>

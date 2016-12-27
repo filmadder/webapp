@@ -229,7 +229,7 @@ h2 {
 		&:hover {
 			.font(700; 20px);
 			background: white;
-			border-top: 1px solid @lightpurple;
+			border-top: 2px solid @lightpurple;
 
 			&::-moz-placeholder {
 				.font(@s: 20px);
@@ -297,7 +297,29 @@ h2 {
 	background-image: url(../images/profile2.svg);
 }
 
-.f-status {
+/* status */
+
+.status-cont {
+
+	.status-btn {
+		position: relative;
+	}	
+
+	.options {
+		.column(@y: @spread);
+		height: 160px;
+
+		background: rgba(64, 111, 196, 0.8);
+		border-radius: 10px;
+		padding: 10px;
+
+		position: absolute;
+		top: -70px;
+		right:  -10px;
+	}
+}
+ 
+.status-btn {
 	.size(42px; 42px;);
 	.box;
 	.column(@center; @center;);
@@ -307,6 +329,8 @@ h2 {
 	background: lighten(@lightpurple, 33%);
 	border-radius: 10px;
 }
+
+/* listed films font */
 
 .f-title {
 	.font(700; 20px);
