@@ -155,10 +155,23 @@ h2 {
 #form {
 	.column(@right);
 
+	/* field error */
+
 	.error {
+		.font(700;);
 		color: darken(@purple, 15%);
-		font-weight: bold;
-		padding: 3px 0 0 0;
+
+		&.field {
+			padding: 3px 0 0 0;
+		}
+
+		&.form {
+			.box(5px;);
+			.font(700; 18px);
+			.naughty(column; @left);
+
+			color: lighten(yellow, 25%);
+		}
 	}
 
 	p {
@@ -215,14 +228,18 @@ h2 {
 		}
 
 		&:hover {
-			.font(700; 24px);
-			.box(9px 20px);
-		}
-	}
+			.font(700; 20px);
+			background: white;
+			border-top: 1px solid @lightpurple;
 
-	&:hover,
-	&:focus {
-		height: 100px;
+			&::-moz-placeholder {
+				.font(@s: 20px);
+			}
+
+			&::-webkit-input-placeholder {
+				.font(@s: 20px);
+			}
+		}
 	}
 }
 
