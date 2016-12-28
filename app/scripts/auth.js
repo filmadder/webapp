@@ -7,7 +7,7 @@ fa.auth = (function() {
 	// 
 	
 	// the localStorage key for the auth session
-	// the value should be an auth token
+	// the value should be a {token, user: {pk, name}} object
 	var STORAGE_KEY = 'fa_session';
 	
 	
@@ -17,24 +17,60 @@ fa.auth = (function() {
 	
 	// returns a session object
 	// 
-	// if inited with a token (this is assumed to be valid), it stores it
-	// if inited without token, it will try to recover it from storage
-	var createSession = function(token) {
-		if(token) {
-			localStorage.setItem(STORAGE_KEY, token);
+	// if inited with params (these are assumed to be valid), it stores them
+	// if inited without params, it will try to recover them from storage
+	var createSession = function(token, user) {
+		
+		// tries to recover token and user from storage
+		// throws an error if unsuccessful
+		var recover = function() {
+			var store = localStorage.getItem(STORAGE_KEY);
+			if(!store) {
+				throw new Error();
+			}
+			
+			store = JSON.parse(store);
+			
+			token = store.token;
+			user = store.user;
+			if(!token || !user || !user.pk || !user.name) {
+				throw new Error();
+			}
+		};
+		
+		// removes any stored session from storage and resets token and user to
+		// some default values
+		var destroy = function() {
+			localStorage.removeItem(STORAGE_KEY);
+			token = null;
+			user = {pk: 0, name: ''};
+		};
+		
+		// init the session
+		// 
+		// if token and user are given, use them
+		// otherwise, try to recover them from storage
+		if(token && user) {
+			localStorage.setItem(STORAGE_KEY,
+					JSON.stringify({token: token, user: user}));
 		}
 		else {
-			token = localStorage.getItem(STORAGE_KEY);
+			try {
+				recover();
+			} catch (e) {
+				destroy();
+			}
 		}
 		
+		// the session object
 		return {
 			getToken: function() {
 				return token;
 			},
-			destroy: function() {
-				localStorage.removeItem(STORAGE_KEY);
-				token = null;
-			}
+			getUser: function() {
+				return user;
+			},
+			destroy: destroy
 		};
 	};
 	
@@ -60,6 +96,12 @@ fa.auth = (function() {
 		return session.getToken() ? true : false;
 	};
 	
+	// returns {pk, name} for the logged in user
+	// returns {0, ''} if there is not such
+	auth.getUser = function() {
+		return session.getUser();
+	};
+	
 	// returns a promise that resolves when the user is registered and logged
 	// in or rejects with an error
 	auth.register = function(load) {
@@ -68,7 +110,7 @@ fa.auth = (function() {
 			email: load['email'], name: load['name'],
 			password1: load['pass1'], password2: load['pass2']
 		}).then(function(data) {
-			session = createSession(data.token);
+			session = createSession(data.token, data.user);
 			return fa.ws.open();
 		});
 	};
@@ -80,7 +122,7 @@ fa.auth = (function() {
 		return fa.http.post('/auth/', {
 			method: 's', email: load['email'], password: load['pass']
 		}).then(function(data) {
-			session = createSession(data.token);
+			session = createSession(data.token, data.user);
 			return fa.ws.open();
 		});
 	};

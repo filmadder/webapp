@@ -65,9 +65,9 @@ fa.routing = (function() {
 	
 	crossroads.addRoute('/me', function() {
 		hier.add('/inner');
-		hier.add('/inner/profile');
+		hier.add('/inner/profile', fa.auth.getUser().pk);
 	});
-
+	
 	crossroads.addRoute('/settings', function() {
 		hier.add('/inner');
 		hier.add('/inner/settings');

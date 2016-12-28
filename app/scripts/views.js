@@ -205,6 +205,10 @@ fa.views = (function() {
 	// inits a settings view
 	var createSettings = function(elem) {
 		render(elem, 'settings-templ', {});
+		elem.querySelector('[data-fn=logout]').addEventListener('click', function() {
+			fa.auth.logout();
+			fa.routing.go('login');
+		});
 	};
 	
 	// inits an error view
