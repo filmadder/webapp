@@ -9,9 +9,12 @@
 			</div>
 		</article>
 
-		{{# is_self }}
-		<button class="dark">stg</button>
-		{{/ is_self }}
+		<!-- if my prfofile -->
+		<!-- <button class="dark">settings</button> -->
+		<!-- endif -->
+		<div class="status-btn add-friend">
+			<div class="icon add-icon"></div>
+		</div>
 	</section>
 
 	<article class="peek">
@@ -24,7 +27,6 @@
 				</div>
 				<h3>Watched</h3>
 			</label>
-			
 			<ul class="film-list">
 				{{# films_past }}
 				<li>
@@ -49,7 +51,6 @@
 				</div>
 				<h3>Watchlisted</h3>
 			</label>
-
 			<ul class="film-list">
 				{{# films_future }}
 				<li>

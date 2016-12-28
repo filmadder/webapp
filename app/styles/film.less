@@ -6,22 +6,21 @@
 		position: relative;
 
 		.poster {
-			.size(400px; 100%);
+			.size(450px; 100%);
 
-			background-position: center;
-			background: 
-				rgba(255, 255, 255, 0.1);
-			background-blend-mode: screen;
+			background-position: center center;
+			background-repeat: no-repeat;
 			background-size: cover;
-			filter: grayscale(100%);
+			/*-webkit-filter: grayscale(1);
+			filter: grayscale(100%);*/
 		}
 
 		.f-main-cont {
-			.box(20px);
-			.row(@spread);
+			.box(30px 20px);
+			.row(@spread;);
 
 			background: linear-gradient(
-				rgba(64, 111, 196, 0.8),
+				rgba(64, 111, 196, 0.9),
 				@lightpurple);
 			background-blend-mode: multiply;
 			margin: 0;
@@ -35,12 +34,12 @@
 			.title {
 				.font(700; 24px);
 				color: white;
-				margin: 0 40px 0 0;
+				margin: 0 30px 0 0;
 				text-transform: none;
 			}
 
 			.year {
-				.font;
+				.font(@s: 18px);
 
 				color: white;
 				margin: 0;
@@ -48,10 +47,8 @@
 		}
 
 		.f-status {
-			.size(40px; 40px);
-
-			min-height: 40px;
-			min-width: 40px;
+			min-height: 42px;
+			min-width: 42px;
 			cursor: pointer;
 
 			.icon {
@@ -61,7 +58,7 @@
 	}
 
 	.f-synopsis-cont {
-		.box(20px 0);
+		.box(50px 0);
 
 		h3 {
 			color: white;
@@ -93,19 +90,23 @@
 			&.type-duration {
 				.font(@w: bold);
 
-				margin: 0 0 15px 0;
+				margin: 0 0 0 0;
 				text-transform: uppercase;
 			}
 		}
 
 		h4 {
+			.font(bold; 10px);
+
 			color: white;
+			font-size: 16px;
 			font-weight: bold;
 			margin: 0;
 			padding: 5px 0;
 			
 			span {
-				font-weight: normal;
+				.font(normal; 16px);
+
 				margin: 0 6px 0 0;
 			}
 		}

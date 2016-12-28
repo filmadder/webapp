@@ -1,3 +1,35 @@
+.animation(@name; @dur: 0; @func: ease; @del: 0; @itr; @direct;) {
+	-webkit-animation-name: @name;
+	-moz-animation-name: @name;
+	-o-animation-name: @name;
+	animation-name: @name;
+
+	-webkit-animation-duration: @dur;
+	-moz-animation-duration: @dur;
+	-o-animation-duration: @dur;
+	animation-duration: @dur;
+
+	-webkit-animation-timing-function: @func;
+	-moz-animation-timing-function: @func;
+	-o-animation-timing-function: @func;
+	animation-timing-function: @func;
+
+	-webkit-animation-delay: @del;
+	-moz-animation-delay: @del;
+	-o-animation-delay: @del;
+	animation-delay: @del;
+
+	-webkit-animation-iteration-count: @itr;
+	-moz-animation-iteration-count: @itr;
+	-o-animation-iteration-count: @itr;
+	animation-iteration-count: @itr;
+
+	-webkit-animation-direction: @direct;
+	-moz-animation-direction: @direct;
+	-o-animation-direction: @direct;
+	animation-direction: @direct;
+}
+
 .box(@p: 0) {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
