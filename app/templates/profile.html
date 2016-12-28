@@ -1,24 +1,20 @@
 <div class="profile">
-
 	<section class="p-intro">
-
 		<article>
-			<h2 class="username">stelaseldano</h2>
+			<h2 class="username">{{ user.name }}</h2>
 			<div class="p-stats">
-				<p><span>125</span> watched</p>
-				<p><span>53</span> watchlisted</p>
-				<p><span>17</span> comments</p>
+				<p><span>{{ films_past.length }}</span> watched</p>
+				<p><span>{{ films_future.length }}</span> watchlisted</p>
+				<!--p><span>17</span> comments</p-->
 			</div>
 		</article>
 
-		<!-- if my prfofile -->
+		{{# is_self }}
 		<button class="dark">stg</button>
-		<!-- endif -->
-
+		{{/ is_self }}
 	</section>
 
 	<article class="peek">
-
 		<section class="watched arrow-cont">
 			<input type="checkbox" id="watched" class="hidden"/>
 			<label for="watched">
@@ -28,31 +24,19 @@
 				</div>
 				<h3>Watched</h3>
 			</label>
+			
 			<ul class="film-list">
+				{{# films_past }}
 				<li>
-					<a href="#" class="f-title">Before Sunrise</a>
-					<!-- if my profile -->
-					<div class="f-status">
-						<div class="icon watched-icon"></div>
-					</div>
-					<!-- endif -->
+					<a href="#/film/{{ pk }}" class="f-title">{{ title }}</a>
 				</li>
-				<li>
-					<a href="#" class="f-title">Before Sunset</a>
-				</li>
-				<li>
-					<a href="#" class="f-title">Waking Life</a>
-				</li>
-				<li>
-					<a href="#" class="f-title">The Big Bang Theory</a>
-				</li>
-				<li>
-					<a href="#" class="f-title">12 Angry Men</a>
-				</li>
+				{{/ films_past }}
+				{{^ films_past }}
 				<li class="nothing-to-display">
 					<h3>Nothing in your watched yet</h3>
 					<p>Search for a film you have seen and add them to your watched.</p>
 				</li>
+				{{/ films_past }}
 			</ul>
 		</section>
 
@@ -67,19 +51,17 @@
 			</label>
 
 			<ul class="film-list">
+				{{# films_future }}
 				<li>
-					<a href="#" class="f-title">The Godfather</a>
+					<a href="#/film/{{ pk }}" class="f-title">{{ title }}</a>
 				</li>
-				<li>
-					<a href="#" class="f-title">12 Naughty Children</a>
-				</li>
-				<li>
-					<a href="#" class="f-title">Ghost in the Shell</a>
-				</li>
+				{{/ films_future }}
+				{{^ films_future }}
 				<li class="nothing-to-display">
 					<h3>Nothing in your watchlist yet</h3>
 					<p>Search for a film you wish to watch and add it to your watchlist.</p>
 				</li>
+				{{/ films_future }}
 			</ul>
 		</section>
 	</article>

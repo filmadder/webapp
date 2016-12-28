@@ -4,22 +4,12 @@ fa.users = (function() {
 	
 	
 	// 
-	// constructors
+	// functions
 	// 
 	
-	var createUser = function(data) {
-		var user = {};
-		
-		for(var prop in ['id', 'name']) {
-			if(!data.hasOwnProperty(prop)) {
-				throw new Error('Could not deserialise user');
-			}
-		}
-		
-		user.id = data.id;
-		user.name = data.name;
-		
-		return user;
+	// returns promise that resolves into a user object
+	var getUser = function(id) {
+		return fa.ws.send('get_user', {user: id});
 	};
 	
 	
@@ -28,7 +18,7 @@ fa.users = (function() {
 	// 
 	
 	return {
-		create: createUser
+		get: getUser
 	};
 	
 }());

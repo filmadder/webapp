@@ -123,21 +123,26 @@ fa.views = (function() {
 		render(elem, 'home-templ', {});
 	};
 	
-	// inits a feed view
-	var createFeed = function(elem) {
-		render(elem, 'feed-templ', {});
-	};
-	
 	// inits an update view
 	var createUpdates = function(elem) {
 		render(elem, 'updates-templ', {});
 	};
 	
-	// inits a profile view
-	var createProfile = function(elem) {
-		render(elem, 'profile-templ', {});
+	// inits a feed view
+	var createFeed = function(elem) {
+		fa.feed.getPage(0).then(function(data) {
+			render(elem, 'feed-templ', data);
+		}).catch(handleGetError);
 	};
-
+	
+	// inits a profile view
+	var createProfile = function(elem, id) {
+		fa.users.get(id).then(function(data) {
+			data.is_self = false;
+			render(elem, 'profile-templ', data);
+		}).catch(handleGetError);
+	};
+	
 	// inits a settings view
 	var createSettings = function(elem) {
 		render(elem, 'settings-templ', {});
@@ -159,11 +164,11 @@ fa.views = (function() {
 		login: createLogin,
 		
 		inner: createInner,
+		home: createHome,
+		updates: createUpdates,
+		feed: createFeed,
 		results: createResults,
 		film: createFilm,
-		home: createHome,
-		feed: createFeed,
-		updates: createUpdates,
 		profile: createProfile,
 		settings: createSettings,
 		
