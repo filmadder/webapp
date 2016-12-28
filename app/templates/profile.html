@@ -1,27 +1,41 @@
 <div class="profile">
-
 	<section class="p-intro">
-
 		<article>
-			<h2 class="username">stelaseldano</h2>
+			<h2 class="username">{{ user.name }}</h2>
 			<div class="p-stats">
-				<p><span>125</span> watched</p>
-				<p><span>53</span> watchlisted</p>
-				<p><span>17</span> comments</p>
+				<p><span>{{ user.filmsPast.length }}</span> watched</p>
+				<p><span>{{ user.filmsFuture.length }}</span> watchlisted</p>
+				<!--p><span>17</span> comments</p-->
 			</div>
 		</article>
-
-		<!-- if my prfofile -->
-		<!-- <button class="dark">settings</button> -->
-		<!-- endif -->
-		<div class="status-btn add-friend">
+		
+		{{# user.status.unknown }}
+		<button type="button" data-fn="request-friend" class="dark">add friend</button>
+		{{/ user.status.unknown }}
+		
+		{{# user.status.waiting }}
+		<button type="button" data-fn="accept-friend" class="dark">accept</button>
+		<button type="button" data-fn="reject-friend" class="dark">reject</button>
+		{{/ user.status.waiting }}
+		
+		{{# user.status.asked }}
+		has not responded to request
+		{{/ user.status.asked }}
+		
+		{{# user.status.friend }}
+		✓ friends
+		{{/ user.status.friend }}
+		
+		{{# user.status.self }}
+		<a href="#/settings" class="dark">settings</a>
+		{{/ user.status.self }}
+		
+		<!--div class="status-btn add-friend">
 			<div class="icon add-icon"></div>
-		</div>
-
+		</div-->
 	</section>
 
 	<article class="peek">
-
 		<section class="watched arrow-cont">
 			<input type="checkbox" id="watched" class="hidden"/>
 			<label for="watched">
@@ -32,25 +46,17 @@
 				<h3>Watched</h3>
 			</label>
 			<ul class="film-list">
+				{{# user.filmsPast }}
 				<li>
-					<a href="#" class="f-title">Before Sunrise</a>
+					<a href="#/film/{{ pk }}" class="f-title">{{ title }}</a>
 				</li>
-				<li>
-					<a href="#" class="f-title">Before Sunset</a>
-				</li>
-				<li>
-					<a href="#" class="f-title">Waking Life</a>
-				</li>
-				<li>
-					<a href="#" class="f-title">The Big Bang Theory</a>
-				</li>
-				<li>
-					<a href="#" class="f-title">12 Angry Men</a>
-				</li>
+				{{/ user.filmsPast }}
+				{{^ user.filmsPast }}
 				<li class="nothing-to-display">
 					<h3>Nothing in your watched yet</h3>
 					<p>Search for a film you have seen and add them to your watched.</p>
 				</li>
+				{{/ user.filmsPast }}
 			</ul>
 		</section>
 
@@ -63,21 +69,18 @@
 				</div>
 				<h3>Watchlisted</h3>
 			</label>
-
 			<ul class="film-list">
+				{{# user.filmsFuture }}
 				<li>
-					<a href="#" class="f-title">The Godfather</a>
+					<a href="#/film/{{ pk }}" class="f-title">{{ title }}</a>
 				</li>
-				<li>
-					<a href="#" class="f-title">12 Naughty Children</a>
-				</li>
-				<li>
-					<a href="#" class="f-title">Ghost in the Shell</a>
-				</li>
+				{{/ user.filmsFuture }}
+				{{^ user.filmsFuture }}
 				<li class="nothing-to-display">
 					<h3>Nothing in your watchlist yet</h3>
 					<p>Search for a film you wish to watch and add it to your watchlist.</p>
 				</li>
+				{{/ user.filmsFuture }}
 			</ul>
 		</section>
 	</article>
