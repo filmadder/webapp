@@ -34,7 +34,16 @@ ul {
 	list-style: none;
 }
 
-button {
+html,
+a,
+button,
+label {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+button,
+.btn {
 	.font(600);
 	.box(5px 20px);
 
@@ -101,9 +110,8 @@ header {
 
 		.nav-item {
 			.row(@center; @center);
-			.size(30px; 30px;);
 
-			margin: 3px 6px;
+			margin: 3px 8px;
 		}
 
 		a {
@@ -226,7 +234,8 @@ h2 {
 			.font;
 		}
 
-		&:hover {
+		&:hover,
+		&:focus {
 			.font(700; 20px);
 			background: white;
 		}
@@ -401,6 +410,24 @@ h2 {
 				.row;
 				.wrap;
 
+				li {
+					margin: 3px 6px 3px 0;
+				}
+
+				a {
+					color: @lightpurple;
+				}
+			}
+
+			&.friends-list {
+				.row;
+				.wrap;
+
+				li {
+					display: none;
+					margin: 3px 6px 3px 0;
+				}
+
 				a {
 					color: @lightpurple;
 				}
@@ -430,9 +457,18 @@ h2 {
 			&:checked ~ .comments-list li {
 				display: inline-block;
 			}
+
 			&:checked ~ .film-list li {
 				.row(@spread; @center);
 			}
+
+			&:checked ~ .friends-list {
+
+				li {
+					display: inline;
+				}
+			}
+
 			&:checked ~ ul {
 				margin: 0 0 20px 0;
 			}
@@ -492,17 +528,19 @@ h2 {
 }
 
 .nothing-to-display {
+	margin: 40px 0 0 0;
 
 	h3 {
 		.font(700; 20px);
 
 		color: @grey;
-		margin: 20px 0;
+		margin: 20px 0 10px 0;
 		text-transform: none;
 	}
 
 	p {
 		color: @lightgrey;
+		margin: 0;
 	}
 }
 

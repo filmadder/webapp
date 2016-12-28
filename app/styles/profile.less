@@ -27,19 +27,32 @@
 			}
 		}
 
-		.add-friend {
-			.size(36px; 36px);
+		.p-buttons {
+			.column(@center);
 
-			.add-icon {
-				.size(25px; 25px);
+			max-width: 120px;
+
+			button {
+				margin: 0 0 10px 0;
+			}
+
+			p {
+				.font(bold);
+
+				color: darken(@purple, 15%);
 			}
 		}
 	}
 
-	.film-list {
+	.film-list,
+	.friends-list {
 
 		.f-title {
 			margin: 0 30px 0 0;
+		}
+
+		.nothing-to-display {
+			margin: 10px 0 0 0;
 		}
 	}
 }

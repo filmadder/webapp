@@ -53,10 +53,10 @@
 			<h3>Watched by</h3>
 			<ul class="watchers-list">
 				{{# watchers_past }}
-				<li>
-					<a href="#">@{{ name }}</a>
-				</li>
 				{{/ watchers_past}}
+				<li>
+					<a href="#">{{ name }}</a>
+				</li>
 				{{^ watchers_past }}
 				<li>nobody</li>
 				{{/ watchers_past }}

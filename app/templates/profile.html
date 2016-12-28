@@ -9,36 +9,35 @@
 			</div>
 		</article>
 		
-		{{# user.status.unknown }}
-		<button type="button" data-fn="request-friend" class="dark">add friend</button>
-		{{/ user.status.unknown }}
-		
-		{{# user.status.waiting }}
-		<button type="button" data-fn="accept-friend" class="dark">accept</button>
-		<button type="button" data-fn="reject-friend" class="dark">reject</button>
-		{{/ user.status.waiting }}
-		
-		{{# user.status.asked }}
-		has not responded to request
-		{{/ user.status.asked }}
-		
-		{{# user.status.friend }}
-		✓ friends
-		{{/ user.status.friend }}
-		
-		{{# user.status.self }}
-		<a href="#/settings" class="dark">settings</a>
-		{{/ user.status.self }}
-		
-		<!--div class="status-btn add-friend">
-			<div class="icon add-icon"></div>
-		</div-->
+		<article class="p-buttons">
+			{{# user.status.unknown }}
+			<button type="button" data-fn="request-friend" class="dark">add friend</button>
+			{{/ user.status.unknown }}
+			
+			{{# user.status.waiting }}
+			<p>friendship</p>
+			<button type="button" data-fn="accept-friend" class="dark">accept</button>
+			<button type="button" data-fn="reject-friend" class="dark">reject</button>
+			{{/ user.status.waiting }}
+			
+			{{# user.status.asked }}
+			<p>friendship request sent</p>
+			{{/ user.status.asked }}
+			
+			{{# user.status.friend }}
+			<p>✓ friends</p>
+			{{/ user.status.friend }}
+			
+			{{# user.status.self }}
+			<a href="#/settings" class="btn dark">settings</a>
+			{{/ user.status.self }}
+		</article>
 	</section>
 
 	<article class="peek">
 		<section class="watched arrow-cont">
-			<input type="checkbox" id="watched" class="hidden"/>
-			<label for="watched">
+			<input type="checkbox" id="peek-watched" class="hidden"/>
+			<label for="peek-watched">
 				<div class="arrow">
 					<div class="stroke"></div>
 					<div class="stroke"></div>
@@ -53,16 +52,18 @@
 				{{/ user.filmsPast }}
 				{{^ user.filmsPast }}
 				<li class="nothing-to-display">
-					<h3>Nothing in your watched yet</h3>
-					<p>Search for a film you have seen and add them to your watched.</p>
+					<h3>No watched films</h3>
+					{{# user.status.self }}
+					<p>Search for films you have seen and add them to your watched.</p>
+					{{/ user.status.self }}
 				</li>
 				{{/ user.filmsPast }}
 			</ul>
 		</section>
 
 		<section class="watchlisted arrow-cont">
-			<input type="checkbox" id="watchlisted" class="hidden"/>
-			<label for="watchlisted">
+			<input type="checkbox" id="peek-watchlisted" class="hidden"/>
+			<label for="peek-watchlisted">
 				<div class="arrow">
 					<div class="stroke"></div>
 					<div class="stroke"></div>
@@ -77,10 +78,41 @@
 				{{/ user.filmsFuture }}
 				{{^ user.filmsFuture }}
 				<li class="nothing-to-display">
-					<h3>Nothing in your watchlist yet</h3>
+					<h3>No watchlisted films</h3>
+					{{# user.status.self }}
 					<p>Search for a film you wish to watch and add it to your watchlist.</p>
+					{{/ user.status.self }}
 				</li>
 				{{/ user.filmsFuture }}
+			</ul>
+		</section>
+
+		<section class="friends arrow-cont">
+			<input type="checkbox" id="peek-friends" class="hidden"/>
+			<label for="peek-friends">
+				<div class="arrow">
+					<div class="stroke"></div>
+					<div class="stroke"></div>
+				</div>
+				<h3>Friends</h3>
+			</label>
+			<ul class="friends-list">
+				{{# user.friends }}
+				<li>
+					<a href="#/user/{{ pk }}">name</a>
+				</li>
+				{{/ user.friends }}
+				{{^ user.friends }}
+				{{# user.status.self }}
+				<li class="nothing-to-display">
+					<h3>No friends</h3>
+					<p>Search for friends</p>
+				</li>
+				{{/ user.status.self }}
+				{{^ user.status.self }}
+				<li>nobody</li>
+				{{/ user.status.self}}
+				{{/ user.friends }}
 			</ul>
 		</section>
 	</article>
