@@ -2,42 +2,10 @@
 
 	<h2>Friends' activity</h2>
 
-	<div class="feed-items-cont">
-		<div class="feed-item">
-			<a href="/#/film/1" class="">
-				<div class="icon watchlisted-icon"></div>
-				<h3 class="f-title">Ghost in the shell</h3>
-			</a>
-			<p><a href="/">jamessulley</a> added to watchlist</p>
-		</div>
-
-		<div class="feed-item">
-			<a href="/" class="">
-				<div class="icon watched-icon"></div>
-				<h3 class="f-title">Suicide squad</h3>
-			</a>
-			<p><a href="/">mikewazowski</a> added to watched</p>
-		</div>
-
-		<div class="feed-item">
-			<a href="/" class="">
-				<div class="icon watchlisted-icon"></div>
-				<h3 class="f-title">Gods must be crazy</h3>
-			</a>
-			<p><a href="/">randelboggs</a> added to watchlist</p>
-		</div>
-
-		<div class="feed-item">
-			<a href="/" class="">
-				<div class="icon watched-icon"></div>
-				<h3 class="f-title">Narcos</h3>
-			</a>
-			<p><a href="/">pavelsof</a> added to watched</p>
-		</div>
-	</div>
-	<!-- if no feed items / friends -->
+	{{# isEmpty }}
 	<div class="nothing-to-display">
 		<h3>Nothing in your feed yet</h3>
 		<p>Add friends and see what films they are watching.</p>
-	</div>									
+	</div>
+	{{/ isEmpty }}
 </div>

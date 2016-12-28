@@ -1,0 +1,28 @@
+{{# items }}
+<div class="feed-item">
+	{{# type.addedToWatched }}
+	<a href="#/film/{{ film.pk }}" class="">
+		<div class="icon watchlisted-icon"></div>
+		<h3 class="f-title">{{ film.title }}</h3>
+	</a>
+	<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> added to watched</p>
+	{{/ type.addedToWatched }}
+	
+	{{# type.addedToWatchlist }}
+	<a href="#/film/{{ film.pk }}" class="">
+		<div class="icon watchlisted-icon"></div>
+		<h3 class="f-title">{{ film.title }}</h3>
+	</a>
+	<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> added to watchlist</p>
+	{{/ type.addedToWatchlist }}
+	
+	{{# type.becameFriends }}
+	<p>
+		<a href="#/user/{{ userA.pk }}">{{ userA.name }}</a>
+		and
+		<a href="#/user/{{ userB.pk }}">{{ userB.name }}</a>
+		became friends
+	</p>
+	{{/ type.becameFriends }}
+</div>
+{{/ items }}
