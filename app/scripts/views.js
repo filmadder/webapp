@@ -132,15 +132,36 @@ fa.views = (function() {
 	// inits a feed view
 	var createFeed = function(elem) {
 		fa.feed.getPage(0).then(function(data) {
+			console.log(data);
 			render(elem, 'feed-templ', data);
 		}).catch(handleGetError);
 	};
 	
 	// inits a profile view
 	var createProfile = function(elem, id) {
-		fa.users.get(id).then(function(data) {
-			data.is_self = false;
-			render(elem, 'profile-templ', data);
+		fa.users.get(id).then(function(user) {
+			render(elem, 'profile-templ', {user: user});
+			
+			if(user.status.unknown) {
+				elem.querySelector('[data-fn=request-friend]').addEventListener('click', function() {
+					user.requestFriendship().then(function() {
+						hier.update('/inner/profile', id);
+					}).catch(console.error);
+				});
+			}
+			
+			else if(user.status.waiting) {
+				elem.querySelector('[data-fn=accept-friend]').addEventListener('click', function() {
+					user.acceptFriendship().then(function() {
+						hier.update('/inner/profile', id);
+					}).catch(console.error);
+				});
+				elem.querySelector('[data-fn=reject-friend]').addEventListener('click', function() {
+					user.rejectFriendship().then(function() {
+						hier.update('/inner/profile', id);
+					}).catch(console.error);
+				});
+			}
 		}).catch(handleGetError);
 	};
 	
