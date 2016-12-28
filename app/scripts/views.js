@@ -2,6 +2,22 @@ fa.views = (function() {
 	
 	"use strict";
 	
+	
+	// 
+	// signals
+	// 
+	
+	// dispatches when the user scrolls to the bottom of the page
+	// used by the feed and updates views
+	var scrolledToBottom = new signals.Signal();
+	
+	window.addEventListener('scroll', function() {
+		if(window.innerHeight + document.body.scrollTop >= document.body.scrollHeight) {
+			scrolledToBottom.dispatch();
+		}
+	});
+	
+	
 	// 
 	// helper functions
 	// 
@@ -23,9 +39,10 @@ fa.views = (function() {
 		if(error.code == 'forbidden') {
 			fa.routing.go('login');
 		}
-		if(error.code == 'not_found') {
+		else if(error.code == 'not_found') {
 			fa.routing.go('error');
 		}
+		else console.error(error);
 	};
 	
 	
@@ -131,9 +148,29 @@ fa.views = (function() {
 	
 	// inits a feed view
 	var createFeed = function(elem) {
-		fa.feed.getPage(0).then(function(data) {
-			console.log(data);
-			render(elem, 'feed-templ', data);
+		fa.feed.get().then(function(feed) {
+			var isEmpty = (feed.firstItems.length == 0);
+			
+			render(elem, 'feed-templ', {isEmpty: isEmpty});
+			
+			var appendItems = function(items) {
+				var div = document.createElement('div');
+				render(div, 'feed-items-templ', {items: items});
+				elem.appendChild(div);
+				
+				scrolledToBottom.addOnce(function() {
+					feed.loadMore().then(function(newItems) {
+						if(newItems.length > 0) {
+							appendItems(newItems);
+						}
+					}).catch(handleGetError);
+				});
+			};
+			
+			if(!isEmpty) {
+				appendItems(feed.firstItems);
+			}
+			
 		}).catch(handleGetError);
 	};
 	
@@ -168,6 +205,10 @@ fa.views = (function() {
 	// inits a settings view
 	var createSettings = function(elem) {
 		render(elem, 'settings-templ', {});
+		elem.querySelector('[data-fn=logout]').addEventListener('click', function() {
+			fa.auth.logout();
+			fa.routing.go('login');
+		});
 	};
 	
 	// inits an error view
