@@ -121,10 +121,48 @@ fa.views = (function() {
 	
 	// inits a film view
 	var createFilm = function(elem, id) {
-		fa.films.get(id).then(function(data) {
-			render(elem, 'film-templ', data);
+		fa.films.get(id).then(function(film) {
+			render(elem, 'film-templ', {film: film});
 			
-			var replyButtons = elem.querySelectorAll('button[data-fn=reply]');
+			var statusOpts = elem.querySelector('[data-fn=status-opts]');
+			
+			var addWatchedButton = elem.querySelector('[data-fn=add-watched]');
+			var addWatchlistButton = elem.querySelector('[data-fn=add-watchlist]');
+			var removeListButton = elem.querySelector('[data-fn=remove-list]');
+			
+			elem.querySelector('[data-fn=open-status-opts]').addEventListener('click', function() {
+				statusOpts.classList.remove('hidden');
+			});
+			
+			elem.querySelector('[data-fn=close-status-opts]').addEventListener('click', function() {
+				statusOpts.classList.add('hidden');
+			});
+			
+			if(addWatchedButton) {
+				addWatchedButton.addEventListener('click', function() {
+					film.addToWatched().then(function() {
+						hier.update('/inner/film', id);
+					}).catch(console.error);
+				});
+			}
+			
+			if(addWatchlistButton) {
+				addWatchlistButton.addEventListener('click', function() {
+					film.addToWatchlist().then(function() {
+						hier.update('/inner/film', id);
+					}).catch(console.error);
+				});
+			}
+			
+			if(removeListButton) {
+				removeListButton.addEventListener('click', function() {
+					film.removeFromList().then(function() {
+						hier.update('/inner/film', id);
+					}).catch(console.error);
+				});
+			}
+			
+			/*var replyButtons = elem.querySelectorAll('button[data-fn=reply]');
 			var commentButton = elem.querySelector('button[data-fn=comment]');
 			
 			commentButton.addEventListener('click', function(e) {
@@ -132,7 +170,7 @@ fa.views = (function() {
 				commentButton.parentNode.insertBefore(div, commentButton);
 				render(div, 'comment-form-templ');
 				commentButton.remove();
-			});
+			});*/
 		}).catch(handleGetError);
 	};
 	
