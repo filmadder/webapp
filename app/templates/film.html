@@ -1,8 +1,7 @@
 <div class="film">
-
 	<section class="f-details">
 		<article class="f-poster-cont">
-			<div class="image poster" style="background-image: url({{ film.poster_url }});"></div>
+			<div class="image poster" style="background-image: url({{ film.posterUrl }});"></div>
 		</article>
 		<article class="f-main-cont">
 			<div class="title-cont">
@@ -10,25 +9,53 @@
 				<h4 class="year">{{ film.year }}</h4>
 			</div>
 			<div class="status-cont">
-				<label for="status-switcher" class="status-btn current">
-					<div class="icon add-icon change-status"></div>
-				</label>
-				<input type="checkbox" id="status-switcher" />
-				<div class="options">
+				{{# film.status.unknown }}
+				unknown
+				<button type="button" data-fn="open-status-opts" class="icon add-icon change-status"></button>
+				<div data-fn="status-opts" class="options hidden">
 					<div class="status-btn option">
-						<div class="icon watchlisted-icon"></div>
+						<button type="button" data-fn="add-watchlist" class="icon watchlisted-icon">unbroken</button>
 					</div>
-					<div class="icon close dark option"></div>
+					<button type="button" data-fn="close-status-opts" class="icon close dark option">minus</button>
 					<div class="status-btn option">
-						<div class="icon watched-icon"></div>
+						<button type="button" data-fn="add-watched" class="icon watched-icon">omelette</button>
 					</div>
 				</div>
+				{{/ film.status.unknown }}
+				
+				{{# film.status.watched }}
+				watched
+				<button type="button" data-fn="open-status-opts" class="icon add-icon change-status"></button>
+				<div data-fn="status-opts" class="options hidden">
+					<div class="status-btn option">
+						<button type="button" data-fn="add-watchlist" class="icon watchlisted-icon">unbroken</button>
+					</div>
+					<button type="button" data-fn="close-status-opts" class="icon dark watched-icon option">omelette</button>
+					<div class="status-btn option">
+						<button type="button" data-fn="remove-list" class="icon">minus</button>
+					</div>
+				</div>
+				{{/ film.status.watched }}
+				
+				{{# film.status.watchlisted }}
+				watchlist
+				<button type="button" data-fn="open-status-opts" class="icon add-icon change-status"></button>
+				<div data-fn="status-opts" class="options hidden">
+					<div class="status-btn option">
+						<button type="button" data-fn="add-watched" class="icon watched-icon">omelette</button>
+					</div>
+					<button type="button" data-fn="close-status-opts" class="icon dark watchlisted-icon option">unbroken</button>
+					<div class="status-btn option">
+						<button type="button" data-fn="remove-list" class="icon">minus</button>
+					</div>
+				</div>
+				{{/ film.status.watchlisted }}
 			</div>
 		</article>
 	</section>
 
 	<section class="f-more-info">
-		<h3 class="type-duration">{{ film.omdb_type }} | {{ film.runtime }}</h3>
+		<h3 class="type-duration">{{ film.omdbType }} | {{ film.runtime }}</h3>
 		<h4><span>Director:</span> {{ film.directors }}</h4>
 		<h4><span>Writer:</span> {{ film.writers }} </h4>
 		<h4><span>Actors:</span> {{ film.actors }}</h4>
@@ -52,27 +79,27 @@
 		<section class="watched-by arrow-cont">
 			<h3>Watched by</h3>
 			<ul class="watchers-list">
-				{{# watchers_past }}
+				{{# film.watchersPast }}
 				<li>
 					<a href="#">{{ name }}</a>
 				</li>
-				{{/ watchers_past}}
-				{{^ watchers_past }}
+				{{/ film.watchersPast}}
+				{{^ film.watchersPast }}
 				<li>nobody</li>
-				{{/ watchers_past }}
+				{{/ film.watchersPast }}
 			</ul>
 		</section>
 		<section class="watchlisted-by arrow-cont">
 			<h3>Watchlisted by</h3>
 			<ul class="watchers-list">
-				{{# watchers_future }}
+				{{# film.watchersFuture }}
 				<li>
 					<a href="#">{{ name }}</a>
 				</li>
-				{{/ watchers_future }}
-				{{^ watchers_future }}
+				{{/ film.watchersFuture }}
+				{{^ film.watchersFuture }}
 				<li>nobody</li>
-				{{/ watchers_future }}
+				{{/ film.watchersFuture }}
 			</ul>
 		</section>
 		<section class="comments arrow-cont">
@@ -85,7 +112,7 @@
 				<h3>Comments</h3>
 			</label>
 			<ul class="comments-list">
-				{{# comments }}
+				{{# film.comments }}
 				<li class="comment">
 					<a href="#" class="author">{{ author }}</a>
 					<p class="text">{{ text }}</p>
@@ -100,10 +127,10 @@
 						{{/ replies }}
 					</ul>
 				</li>
-				{{/ comments }}
-				{{^ comments }}
+				{{/ film.comments }}
+				{{^ film.comments }}
 				<li>not yet</li>
-				{{/ comments }}
+				{{/ film.comments }}
 			</ul>
 		</section>
 	</article>
