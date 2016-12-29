@@ -104,7 +104,6 @@ fa.views = (function() {
 	
 	// inits a search results view
 	var createResults = function(elem, params) {
-		if(!params) return;
 		if(!params.hasOwnProperty('q')) fa.routing.go('error');
 		
 		fa.films.search(params.q).then(function(results) {
