@@ -1,64 +1,103 @@
 <div class="film">
 	<section class="f-details">
 		<article class="f-poster-cont">
+			{{# film.posterUrl }}
 			<div class="image poster" style="background-image: url({{ film.posterUrl }});"></div>
+			{{/ film.posterUrl }}
+			{{^ film.posterUrl }}
+			<div class="no-poster">
+				<h3>No poster</h3>
+			</div>
+			{{/ film.posterUrl }}
 		</article>
 		<article class="f-main-cont">
 			<div class="title-cont">
 				<h2 class="title">{{ film.title }}</h2>
 				<h4 class="year">{{ film.year }}</h4>
 			</div>
+
+			{{# film.status.unknown }}
 			<div class="status-cont">
-				{{# film.status.unknown }}
-				unknown
-				<button type="button" data-fn="open-status-opts" class="icon add-icon change-status"></button>
-				<div data-fn="status-opts" class="options hidden">
+				<div class="status-btn current">
+					<button type="submit"
+							data-fn="open-status-opts"
+							class="icon add-icon status-icon"></button>
+				</div>
+				<div data-fn="status-opts" class="options hidden-options">
 					<div class="status-btn option">
-						<button type="button" data-fn="add-watchlist" class="icon watchlisted-icon">unbroken</button>
+						<button type="submit"
+								data-fn="add-watchlist" class="icon watchlisted-icon status-icon"></button>
 					</div>
-					<button type="button" data-fn="close-status-opts" class="icon close dark option">minus</button>
+					<div data-fn="close-status-opts" class="icon close dark option"></div>
 					<div class="status-btn option">
-						<button type="button" data-fn="add-watched" class="icon watched-icon">omelette</button>
+						<button type="submit"
+								data-fn="add-watched"
+								class="icon watched-icon status-icon"></button>
 					</div>
 				</div>
-				{{/ film.status.unknown }}
-				
-				{{# film.status.watched }}
-				watched
-				<button type="button" data-fn="open-status-opts" class="icon add-icon change-status"></button>
-				<div data-fn="status-opts" class="options hidden">
-					<div class="status-btn option">
-						<button type="button" data-fn="add-watchlist" class="icon watchlisted-icon">unbroken</button>
-					</div>
-					<button type="button" data-fn="close-status-opts" class="icon dark watched-icon option">omelette</button>
-					<div class="status-btn option">
-						<button type="button" data-fn="remove-list" class="icon">minus</button>
-					</div>
-				</div>
-				{{/ film.status.watched }}
-				
-				{{# film.status.watchlisted }}
-				watchlist
-				<button type="button" data-fn="open-status-opts" class="icon add-icon change-status"></button>
-				<div data-fn="status-opts" class="options hidden">
-					<div class="status-btn option">
-						<button type="button" data-fn="add-watched" class="icon watched-icon">omelette</button>
-					</div>
-					<button type="button" data-fn="close-status-opts" class="icon dark watchlisted-icon option">unbroken</button>
-					<div class="status-btn option">
-						<button type="button" data-fn="remove-list" class="icon">minus</button>
-					</div>
-				</div>
-				{{/ film.status.watchlisted }}
 			</div>
+			{{/ film.status.unknown }}
+
+			{{# film.status.watched }}
+			<div class="status-cont">
+				<div class="status-btn current">
+					<button type="submit"
+							data-fn="open-status-opts"
+							class="icon watched-icon status-icon"></button>
+				</div>
+				<div data-fn="status-opts" class="options hidden-options">
+					<div class="status-btn option">
+						<button type="submit"
+								data-fn="add-watchlist"
+								class="icon watchlisted-icon status-icon"></button>
+					</div>
+					<div data-fn="close-status-opts" class="icon close dark option"></div>
+					<div class="status-btn option">
+						<button type="submit"
+								data-fn="remove-list"
+								class="icon feed-icon"></button>
+					</div>
+				</div>
+			</div>
+			{{/ film.status.watched }}
+
+			{{# film.status.watchlisted }}
+			<div class="status-cont">
+				<div class="status-btn current">
+					<button type="submit"
+							data-fn="open-status-opts"
+							class="icon watchlisted-icon status-icon"></button>
+				</div>
+				<div data-fn="status-opts" class="options hidden-options">
+					<div class="status-btn option">
+						<button type="submit"
+								data-fn="add-watched"
+								class="icon watched-icon status-icon"></button>
+					</div>
+					<div data-fn="close-status-opts" class="icon close dark option"></div>
+					<div class="status-btn option">
+						<button type="submit"
+								data-fn="remove-list"
+								class="icon feed-icon"></button>
+					</div>
+				</div>
+			</div>
+			{{/ film.status.watchlisted }}
 		</article>
 	</section>
 
 	<section class="f-more-info">
-		<h3 class="type-duration">{{ film.omdbType }} | {{ film.runtime }}</h3>
+		<h3 class="type-duration">{{ film.omdbType }} {{# film.runtime }}| {{ film.runtime }}</h3>{{/ film.runtime}}
+		{{# film.directors }}
 		<h4><span>Director:</span> {{ film.directors }}</h4>
+		{{/ film.directors }}
+		{{# film.writers }}
 		<h4><span>Writer:</span> {{ film.writers }} </h4>
+		{{/ film.writers }}
+		{{# film.actors }}
 		<h4><span>Actors:</span> {{ film.actors }}</h4>
+		{{/ film.actors }}
+		{{# film.plot }}
 		<div class="f-synopsis-cont arrow-cont">
 			<input type="checkbox" id="synopsis-text" class="hidden"/>		
 			<label for="synopsis-text" class="">
@@ -70,6 +109,7 @@
 			</label>
 			<p class='synopsis-text'>{{ film.plot }}</p>
 		</div>
+		{{/ film.plot }}
 		<!-- <div class="recommend-cont">
 			<button class="recommend dark">recommend</button>
 		</div> -->

@@ -130,11 +130,11 @@ fa.views = (function() {
 			var removeListButton = elem.querySelector('[data-fn=remove-list]');
 			
 			elem.querySelector('[data-fn=open-status-opts]').addEventListener('click', function() {
-				statusOpts.classList.remove('hidden');
+				statusOpts.classList.remove('hidden-options');
 			});
 			
 			elem.querySelector('[data-fn=close-status-opts]').addEventListener('click', function() {
-				statusOpts.classList.add('hidden');
+				statusOpts.classList.add('hidden-options');
 			});
 			
 			if(addWatchedButton) {

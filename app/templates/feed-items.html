@@ -2,7 +2,7 @@
 <div class="feed-item">
 	{{# type.addedToWatched }}
 	<a href="#/film/{{ film.pk }}" class="">
-		<div class="icon watchlisted-icon"></div>
+		<div class="icon watched-icon"></div>
 		<h3 class="f-title">{{ film.title }}</h3>
 	</a>
 	<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> added to watched</p>
@@ -17,11 +17,10 @@
 	{{/ type.addedToWatchlist }}
 	
 	{{# type.becameFriends }}
-	<p>
+	<p class="friendship">
 		<a href="#/user/{{ userA.pk }}">{{ userA.name }}</a>
-		and
+		is friends with
 		<a href="#/user/{{ userB.pk }}">{{ userB.name }}</a>
-		became friends
 	</p>
 	{{/ type.becameFriends }}
 </div>
