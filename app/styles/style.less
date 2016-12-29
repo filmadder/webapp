@@ -92,7 +92,7 @@ header {
 		margin: 0 0 0 10px;
 
 		.logo {
-			.size(38px; 38px);
+			.size(33px; 33px);
 		}
 
 		h1 {
@@ -255,10 +255,11 @@ h2 {
 }
 
 .icon {
-	.size(30px; 30px);
+	.size(36px; 36px);
 
 	background-position: center;
-	background-size: cover;
+	background-repeat: no-repeat;
+	background-size: contain;
 }
 
 .nav-icon {
@@ -278,9 +279,13 @@ h2 {
 
 .watched-icon {
 	background-image: url(../images/fried-egg.svg);
+	width: 42px;
 }
 
-.feed-icon {
+
+/* currently not in use */
+
+/*.feed-icon {
 	.size(20px; 50px;);
 
 	background-image: url(../images/feed2.svg);
@@ -292,60 +297,66 @@ h2 {
 
 .profile-icon {
 	background-image: url(../images/profile2.svg);
-}
+}*/
 
 /* status */
 
 .status-cont {
 	position: relative;
 
-	input#status-switcher {
-		display: none;
-
-		&:checked ~ .options {
-			.size(140px; 42px);
-
-			background: white;
-			margin-top: 0;
-			z-index: 0;
-
-			.option {
-				.column(@center; @center;);
-			}
-		}
-	}
-
 	.options {
 		.column(@center; @spread);
-		.transition;
-		.size(0; 42px);
+		.size(160px; 46px);
+		.transition(@del: 0.075s;);
 
+		background: white;
 		border-radius: 10px;
-		margin-top: 70px;
+		margin-top: 0;
 		padding: 10px;
-		z-index: -1;
+		z-index: 0;
 
 		position: absolute;
 		top: -60px;
 		right:  -10px;
+		
+		.option {
+			.transition(@dur: 0; @del: 0.075s;);
+
+			opacity: 1;
+		}
+	}
+
+	.hidden-options {
+		.size(0; 46px);
+
+		margin-top: 80px;
+		z-index: -1;
 
 		.option {
-			cursor: pointer;
-			display: none;
+			.transition(@dur: 0; @del: 0.075s;);
+
+			opacity: 0;
 		}
 	}
 }
  
 .status-btn {
-	.size(42px; 42px;);
+	.size(46px; 46px;);
 	.box;
-	.column(@center; @center;);
+	.column(@center; @center);
 
 	background: lighten(@lightpurple, 33%);
 	border-radius: 10px;
-	cursor: pointer;
-	min-height: 36px;
-	min-width: 36px;
+	min-height: 46px;
+	min-width: 46px;
+
+	.status-icon {
+		.trim;
+
+		border: none;
+		outline: none;
+		background-color: transparent;
+	}
 }
 
 /* listed films font */
