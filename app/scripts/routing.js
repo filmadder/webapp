@@ -43,14 +43,15 @@ fa.routing = (function() {
 	
 	crossroads.addRoute('/search/{?query}', function(query) {
 		hier.add('/inner');
-		hier.add('/inner/results');
-		hier.update('/inner/results', query);
+		if(hier.has('/inner/results')) hier.update('/inner/results', query);
+		else hier.add('/inner/results', query);
 	});
 	
 	crossroads.addRoute('/film/{id}', function(id) {
 		id = (id) ? parseInt(id) : null;
 		hier.add('/inner');
-		hier.add('/inner/film', id);
+		if(hier.has('/inner/film')) hier.update('/inner/film', id);
+		else hier.add('/inner/film', id);
 	}).rules = {
 		id: /^[0-9]+$/
 	};
@@ -58,14 +59,17 @@ fa.routing = (function() {
 	crossroads.addRoute('/user/{id}', function(id) {
 		id = (id) ? parseInt(id) : 0;
 		hier.add('/inner');
-		hier.add('/inner/profile', id);
+		if(hier.has('/inner/profile')) hier.update('/inner/profile', id);
+		else hier.add('/inner/profile', id);
 	}).rules = {
 		id: /^[0-9]+$/
 	};
 	
 	crossroads.addRoute('/me', function() {
+		var id = fa.auth.getUser().pk;
 		hier.add('/inner');
-		hier.add('/inner/profile', fa.auth.getUser().pk);
+		if(hier.has('/inner/profile')) hier.update('/inner/profile', id);
+		else hier.add('/inner/profile', id);
 	});
 	
 	crossroads.addRoute('/settings', function() {
