@@ -1,0 +1,23 @@
+{{# items }}
+	{{# type.newFriend }}
+	<div class="update-item">
+		<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> is now your friend</p>
+	</div>
+	{{/ type.newFriend }}
+	
+	{{# type.newFriendReq }}
+	<div class="update-item">
+		<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> wants to be friend with you</p>
+	</div>
+	{{/ type.newFriendReq }}
+	
+	{{# type.newReply }}
+	<div class="update-item">
+		<p>
+			<a href="#/user/{{ user.pk }}">{{ user.name }}</a>
+			replied to your comment on
+			<a href="#/film/{{ film.pk }}">{{ film.title }}</a>
+		</p>
+	</div>
+	{{/ type.newReply }}
+{{/ items }}

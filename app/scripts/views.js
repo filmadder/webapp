@@ -181,7 +181,30 @@ fa.views = (function() {
 	
 	// inits an update view
 	var createUpdates = function(elem) {
-		render(elem, 'updates-templ', {});
+		fa.updates.get().then(function(updates) {
+			var isEmpty = (updates.firstItems.length == 0);
+			
+			render(elem, 'updates-templ', {});
+			
+			var appendItems = function(items) {
+				var div = document.createElement('div');
+				render(div, 'update-items-templ', {items: items});
+				elem.firstChild.appendChild(div);
+				
+				scrolledToBottom.addOnce(function() {
+					updates.loadMore().then(function(newItems) {
+						if(newItems.length > 0) {
+							appendItems(newItems);
+						}
+					}).catch(handleGetError);
+				});
+			};
+			
+			if(!isEmpty) {
+				appendItems(updates.firstItems);
+			}
+			
+		}).catch(handleGetError);
 	};
 	
 	// inits a feed view
