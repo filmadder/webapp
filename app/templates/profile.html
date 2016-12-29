@@ -99,14 +99,14 @@
 			<ul class="friends-list">
 				{{# user.friends }}
 				<li>
-					<a href="#/user/{{ pk }}">name</a>
+					<a href="#/user/{{ pk }}">{{ name }}</a>
 				</li>
 				{{/ user.friends }}
 				{{^ user.friends }}
 				{{# user.status.self }}
 				<li class="nothing-to-display">
 					<h3>No friends</h3>
-					<p>Search for friends</p>
+					<p>Search for friends using <strong>u!</strong> in the query, for example: <strong>thebotadder u!</strong></p>
 				</li>
 				{{/ user.status.self }}
 				{{^ user.status.self }}

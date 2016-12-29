@@ -110,6 +110,7 @@ header {
 
 		.nav-item {
 			.row(@center; @center);
+			.font(600;);
 
 			margin: 3px 8px;
 		}
@@ -139,7 +140,7 @@ h2 {
 	.font(bold; 18px);
 
 	color: @purple;
-	margin: 0 0 20px 0;
+	margin: 10px 0 20px 0;
 	text-transform: uppercase;
 }
 
@@ -198,10 +199,6 @@ h2 {
 			margin: 0;
 			outline: none;
 			width: 270px;
-
-			&:hover,
-			&:focus {
-			}
 		}
 	}
 }
@@ -388,6 +385,9 @@ h2 {
 	display: none;
 }
 
+
+/* arrow opener */
+
 .peek {
 	.box(30px);
 
@@ -411,7 +411,7 @@ h2 {
 				.wrap;
 
 				li {
-					margin: 3px 6px 3px 0;
+					margin: 3px 10px 3px 0;
 				}
 
 				a {
@@ -422,10 +422,11 @@ h2 {
 			&.friends-list {
 				.row;
 				.wrap;
+				padding: 0 15px 0 17px;
 
 				li {
 					display: none;
-					margin: 3px 6px 3px 0;
+					margin: 3px 10px 3px 0;
 				}
 
 				a {
@@ -534,13 +535,17 @@ h2 {
 		.font(700; 20px);
 
 		color: @grey;
-		margin: 20px 0 10px 0;
+		margin: 0 0 20px 0;
 		text-transform: none;
 	}
 
 	p {
 		color: @lightgrey;
 		margin: 0;
+
+		strong {
+			color: @grey;
+		}
 	}
 }
 

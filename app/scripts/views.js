@@ -156,7 +156,7 @@ fa.views = (function() {
 			var appendItems = function(items) {
 				var div = document.createElement('div');
 				render(div, 'feed-items-templ', {items: items});
-				elem.appendChild(div);
+				elem.firstChild.appendChild(div);
 				
 				scrolledToBottom.addOnce(function() {
 					feed.loadMore().then(function(newItems) {

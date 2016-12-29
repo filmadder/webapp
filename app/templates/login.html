@@ -1,14 +1,14 @@
-<form novalidate id="form">
+<form novalidate autocomplete="off" id="form">
 	<p data-fn="error" class="form error"></p>
 	<p>
 		<label for="login-email">email</label>
 		<span data-fn="error" class="field error"></span>
-		<input type="email" name="email" id="login-email" />
+		<input novalidate autocomplete="off" type="email" name="email" id="login-email" />
 	</p>
 	<p>
 		<label for="login-pass">password</label>
 		<span data-fn="error" class="field error"></span>
-		<input type="password" name="pass" id="login-pass" />
+		<input novalidate type="password" name="pass" id="login-pass" />
 	</p>
 	<button type="submit" class="dark">login</button>
 </form>
