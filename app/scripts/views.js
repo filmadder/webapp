@@ -285,7 +285,7 @@ fa.views = (function() {
 	
 	// inits an error view
 	var createError = function(elem) {
-		render(elem, 'error-templ', {});
+		render(elem, 'error-404-templ', {});
 	};
 	
 	
