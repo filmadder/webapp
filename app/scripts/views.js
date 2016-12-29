@@ -176,7 +176,18 @@ fa.views = (function() {
 	
 	// inits a home view
 	var createHome = function(elem) {
-		render(elem, 'home-templ', {});
+		fa.users.get(fa.auth.getUser().pk).then(function(user) {
+			render(elem, 'home-templ', {watchlist: user.filmsPast});
+			
+			fa.updates.getUnread().then(function(updates) {
+				if(updates.length > 0) {
+					var div = document.createElement('div');
+					render(div, 'home-updates-templ', {items: updates});
+					elem.firstChild.insertBefore(div.firstChild,
+							elem.firstChild.firstChild);
+				}
+			}).catch(handleGetError);
+		}).catch(handleGetError);
 	};
 	
 	// inits an update view
