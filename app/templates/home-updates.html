@@ -1,0 +1,24 @@
+<aside class="h-updates-cont">
+	<input type="checkbox" id="close-updates" class="hidden"/>
+	<label for="close-updates" class="close icon"></label>
+	<section class="h-updates">
+		<h2>Recent updates</h2>
+		{{# items }}
+			{{# type.newFriend }}
+			<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> is now your friend</p>
+			{{/ type.newFriend }}
+			
+			{{# type.newFriendReq }}
+			<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> wants to be friend with you</p>
+			{{/ type.newFriendReq }}
+			
+			{{# type.newReply }}
+			<p>
+				<a href="#/user/{{ user.pk }}">{{ user.name }}</a>
+				replied to your comment on
+				<a href="#/film/{{ film.pk }}">{{ film.title }}</a>
+			</p>
+			{{/ type.newReply }}
+		{{/ items }}
+	</section>
+</aside>
