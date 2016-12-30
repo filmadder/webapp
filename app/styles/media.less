@@ -93,10 +93,10 @@
 
 	.film {
 		position: relative;
+		background: lighten(@purple, 46%);
 
 		.f-details {
-			height: 100%;
-			width: 50%;
+			.size(100%; 60%);
 
 			.f-poster-cont {
 				.size(~"calc(100vh - 90px)"; 100%);
@@ -117,14 +117,14 @@
 			}
 
 			.f-main-cont {
+				.size(300px; 100%);
+
 				background: linear-gradient(
-					rgba(64, 111, 196, 0.6),
-					rgba(95, 156, 221, 0.8));
+					rgba(64, 111, 196, 0.5),
+					rgba(64, 111, 196, 0.8));
+				padding: 150px 50px 0 50px; 
 
 				top: 0;
-				height: 300px;
-				width: 100%;
-				padding: 150px 50px 0 50px; 
 
 				.title {
 					font-size: 28px;
@@ -133,13 +133,13 @@
 		}
 
 		.f-more-info {
-			.size(auto, 50%);
+			.size(auto, 60%);
 
 			min-height: ~"calc(100vh - 350px)";
 
 			background: linear-gradient(
-				rgba(95, 156, 221, 0.8),
-				rgba(95, 156, 221, 1));
+				rgba(64, 111, 192, 0.8),
+				rgba(95, 156, 221, 0.95));
 			padding: 0 50px;
 
 			position: absolute;
@@ -154,12 +154,19 @@
 		}
 
 		.peek {
-			width: 50%;
+			width: 40%;
 			max-width: 550px;
 
 			position: absolute;
-			left: 50%;
+			left: 60%;
 			top: 0;
 		}
+	}
+
+	.error-message,
+	.action-message {
+		width: 40%;
+
+		margin: 0 30%; 
 	}
 }
