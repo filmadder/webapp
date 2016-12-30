@@ -24,6 +24,17 @@ fa.http = (function() {
 		return op;
 	};
 	
+	// returns one of the app's error codes based on the given http status
+	// helper for the handleResponse function
+	var translateStatus = function(status) {
+		switch(status) {
+			case 400: return 'bad_input';
+			case 403: return 'forbidden';
+			case 404: return 'not_found';
+			default: return 'bug';
+		}
+	};
+	
 	// returns promise that resolves for 200 and rejects otherwise
 	// helper for the request function
 	var handleResponse = function(response) {
@@ -34,17 +45,20 @@ fa.http = (function() {
 				response.json().then(function(data) {
 					if(response.ok) resolve(data);
 					else reject({
-						code: response.status,
+						code: translateStatus(response.status),
 						message: data.error
 					});
 				}).catch(function(error) {
-					reject({code: response.status, message: error.message});
+					reject({
+						code: translateStatus(response.status),
+						message: error.message
+					});
 				});
 			}
 			else {
 				if(response.ok) resolve();
 				else reject({
-					code: response.status,
+					code: translateStatus(response.status),
 					message: response.statusText
 				});
 			}
@@ -62,7 +76,7 @@ fa.http = (function() {
 			fetch(url, options).then(function(response) {
 				handleResponse(response).then(resolve).catch(reject);
 			}).catch(function(error) {  // http request could not be fulfilled
-				reject({code: null, message: error.message});
+				reject({code: 'pending', message: error.message});
 			});
 		});
 	};

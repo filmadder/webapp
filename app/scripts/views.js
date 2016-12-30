@@ -34,15 +34,30 @@ fa.views = (function() {
 	};
 	
 	// expects {code, message} object and acts accordingly
-	// handles forbidden and not_found errors
-	var handleGetError = function(error) {
+	// for forbidden and not_found redirects the view
+	// for bad_input, pending and bug shows error message
+	var handleError = function(error) {
 		if(error.code == 'forbidden') {
 			fa.routing.go('login');
 		}
 		else if(error.code == 'not_found') {
 			fa.routing.go('error');
 		}
-		else console.error(error);
+		else {
+			if(hier.has('/mes')) {
+				hier.update('/mes', {type: 'error', code: error.code});
+			} else {
+				hier.add('/mes', {type: 'error', code: error.code});
+			}
+		}
+	};
+	
+	// if there is an error/success message, it will be removed
+	var removeMessage = function() {
+		if(hier.has('/mes')) {
+			hier.remove('/mes');
+			document.getElementById('message-cont').innerHTML = '';
+		}
 	};
 	
 	
@@ -63,7 +78,11 @@ fa.views = (function() {
 			fa.auth.register(form.getData()).then(function() {
 				fa.routing.go('');
 			}).catch(function(error) {
-				form.showError(error.message);
+				if(error.code == 'bad_input') {
+					removeMessage();
+					form.showError(error.message);
+				}
+				else handleError(error);
 			});
 		})
 		.add('email', [fa.forms.maxLen(200), fa.forms.email])
@@ -80,7 +99,11 @@ fa.views = (function() {
 			fa.auth.login(form.getData()).then(function() {
 				fa.routing.go('');
 			}).catch(function(error) {
-				form.showError(error.message);
+				if(error.code == 'bad_input') {
+					removeMessage();
+					form.showError(error.message);
+				}
+				else handleError(error);
 			});
 		})
 		.add('email', [fa.forms.maxLen(200), fa.forms.email])
@@ -115,7 +138,7 @@ fa.views = (function() {
 				});
 				button.classList.remove('hidden');
 			});
-		}).catch(handleGetError);
+		}).catch(handleError);
 	};
 	
 	// inits a film view
@@ -141,7 +164,7 @@ fa.views = (function() {
 				addWatchedButton.addEventListener('click', function() {
 					film.addToWatched().then(function() {
 						hier.update('/inner/film', id);
-					}).catch(console.error);
+					}).catch(handleError);
 				});
 			}
 			
@@ -149,7 +172,7 @@ fa.views = (function() {
 				addWatchlistButton.addEventListener('click', function() {
 					film.addToWatchlist().then(function() {
 						hier.update('/inner/film', id);
-					}).catch(console.error);
+					}).catch(handleError);
 				});
 			}
 			
@@ -157,7 +180,7 @@ fa.views = (function() {
 				removeListButton.addEventListener('click', function() {
 					film.removeFromList().then(function() {
 						hier.update('/inner/film', id);
-					}).catch(console.error);
+					}).catch(handleError);
 				});
 			}
 			
@@ -170,7 +193,7 @@ fa.views = (function() {
 				render(div, 'comment-form-templ');
 				commentButton.remove();
 			});*/
-		}).catch(handleGetError);
+		}).catch(handleError);
 	};
 	
 	// inits a home view
@@ -185,8 +208,8 @@ fa.views = (function() {
 					elem.firstChild.insertBefore(div.firstChild,
 							elem.firstChild.firstChild);
 				}
-			}).catch(handleGetError);
-		}).catch(handleGetError);
+			}).catch(handleError);
+		}).catch(handleError);
 	};
 	
 	// inits an update view
@@ -206,7 +229,7 @@ fa.views = (function() {
 						if(newItems.length > 0) {
 							appendItems(newItems);
 						}
-					}).catch(handleGetError);
+					}).catch(handleError);
 				});
 			};
 			
@@ -214,7 +237,7 @@ fa.views = (function() {
 				appendItems(updates.firstItems);
 			}
 			
-		}).catch(handleGetError);
+		}).catch(handleError);
 	};
 	
 	// inits a feed view
@@ -234,7 +257,7 @@ fa.views = (function() {
 						if(newItems.length > 0) {
 							appendItems(newItems);
 						}
-					}).catch(handleGetError);
+					}).catch(handleError);
 				});
 			};
 			
@@ -242,7 +265,7 @@ fa.views = (function() {
 				appendItems(feed.firstItems);
 			}
 			
-		}).catch(handleGetError);
+		}).catch(handleError);
 	};
 	
 	// inits a profile view
@@ -254,7 +277,7 @@ fa.views = (function() {
 				elem.querySelector('[data-fn=request-friend]').addEventListener('click', function() {
 					user.requestFriendship().then(function() {
 						hier.update('/inner/profile', id);
-					}).catch(console.error);
+					}).catch(handleError);
 				});
 			}
 			
@@ -262,15 +285,15 @@ fa.views = (function() {
 				elem.querySelector('[data-fn=accept-friend]').addEventListener('click', function() {
 					user.acceptFriendship().then(function() {
 						hier.update('/inner/profile', id);
-					}).catch(console.error);
+					}).catch(handleError);
 				});
 				elem.querySelector('[data-fn=reject-friend]').addEventListener('click', function() {
 					user.rejectFriendship().then(function() {
 						hier.update('/inner/profile', id);
-					}).catch(console.error);
+					}).catch(handleError);
 				});
 			}
-		}).catch(handleGetError);
+		}).catch(handleError);
 	};
 	
 	// inits a settings view
@@ -283,8 +306,27 @@ fa.views = (function() {
 	};
 	
 	// inits an error view
+	// for the time being, this is the 404 view only
 	var createError = function(elem) {
 		render(elem, 'error-404-templ', {});
+	};
+	
+	// inits a message view
+	// expects {type: error, code} for error messages
+	// expects {type: success, text} for success messages
+	var createMessage = function(elem, params) {
+		if(params.type == 'error') {
+			render(elem, 'error-message-templ', {
+				code: {
+					pending: (params.code == 'pending'),
+					bug: (params.code == 'bug'),
+					badInput: (params.code == 'bad_input')
+				}
+			});
+		}
+		else if(params.type == 'success') {
+			
+		}
 	};
 	
 	
@@ -306,7 +348,8 @@ fa.views = (function() {
 		profile: createProfile,
 		settings: createSettings,
 		
-		error: createError
+		error: createError,
+		message: createMessage
 	};
 	
 }());

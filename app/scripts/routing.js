@@ -2,6 +2,7 @@ fa.routing = (function() {
 	
 	"use strict";
 	
+	
 	// 
 	// setup hier
 	// 
@@ -20,6 +21,7 @@ fa.routing = (function() {
 	hier.reg('/inner/settings', '#view', fa.views.settings);
 	
 	hier.reg('/error', 'main', fa.views.error);
+	hier.reg('/mes', '#message-cont', fa.views.message);
 	
 	
 	// 
@@ -110,6 +112,13 @@ fa.routing = (function() {
 	
 	hasher.initialized.add(parseHash);
 	hasher.changed.add(parseHash);
+	
+	hasher.changed.add(function() {
+		if(hier.has('/mes')) {
+			hier.remove('/mes');
+			document.getElementById('message-cont').innerHTML = '';
+		}
+	});
 	
 	
 	// 
