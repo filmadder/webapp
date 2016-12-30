@@ -1,6 +1,13 @@
 <div class="error-message">
-	<!-- connection lost -->
-	<h4>lost connection to server</h4>
-	<!-- bug happened -->
+	{{# code.pending }}
+	<h4>no connection to server</h4>
+	{{/ code.pending }}
+	
+	{{# code.bug }}
 	<h4>something went wrong</h4>
+	{{/ code.bug }}
+	
+	{{# code.badInput }}
+	<h4>you cannot pass!</h4>
+	{{/ code.badInput }}
 </div>

@@ -121,7 +121,7 @@
 			<ul class="watchers-list">
 				{{# film.watchersPast }}
 				<li>
-					<a href="#">{{ name }}</a>
+					<a href="#/user/{{ pk }}">{{ name }}</a>
 				</li>
 				{{/ film.watchersPast}}
 				{{^ film.watchersPast }}
@@ -134,7 +134,7 @@
 			<ul class="watchers-list">
 				{{# film.watchersFuture }}
 				<li>
-					<a href="#">{{ name }}</a>
+					<a href="#/user/{{ pk }}">{{ name }}</a>
 				</li>
 				{{/ film.watchersFuture }}
 				{{^ film.watchersFuture }}
