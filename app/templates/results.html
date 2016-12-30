@@ -3,7 +3,7 @@
 	<article class="results-cont">
 		{{# items }}
 		<div class="result-cont">
-			<a href="#/film/{{ pk }}" title="{{ title }}"class="result">
+			<a href="#/film/{{ pk }}" title="{{ title }}"class="result film">
 				<h3 class="f-title">{{ title }}</h3>
 				<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 			</a>
@@ -19,7 +19,7 @@
 	<article class="results-cont">
 		{{# items }}
 		<div class="result-cont">
-			<a href="#/user/{{ pk }}" title="{{ name }}"class="result">
+			<a href="#/user/{{ pk }}" title="{{ name }}"class="result user">
 				<h3>{{ name }}</h3>
 			</a>
 		</div>
