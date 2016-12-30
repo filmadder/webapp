@@ -136,6 +136,9 @@ header {
 	}
 }
 
+
+/* view's headings */
+
 h2 {
 	.font(bold; 18px);
 
@@ -216,7 +219,7 @@ h2 {
 	input[type="search"] {
 		.size(100%; 100%);
 		.box(9px 12px);
-		.font(700);
+		.font();
 
 		color: @grey;
 		background: lighten(@purple, 46%);
@@ -255,7 +258,7 @@ h2 {
 }
 
 .icon {
-	.size(36px; 36px);
+	.size(32px; 32px);
 
 	background-position: center;
 	background-repeat: no-repeat;
@@ -280,6 +283,15 @@ h2 {
 .watched-icon {
 	background-image: url(../images/fried-egg.svg);
 	width: 42px;
+}
+
+.remove-icon {
+	.size(32px; 32px;);
+	background-image: url(../images/bin.svg);
+}
+
+.settings-icon {
+	background-image: url(../images/settings1.svg);
 }
 
 
@@ -456,7 +468,7 @@ h2 {
 
 			&.comments-list,
 			&.film-list {
-				padding: 0 0 0 15px;
+				padding: 10px 0 0 15px;
 
 				li {
 					display: none;
@@ -482,7 +494,6 @@ h2 {
 			}
 
 			&:checked ~ ul {
-				margin: 0 0 20px 0;
 			}
 		}
 

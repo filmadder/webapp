@@ -1,18 +1,18 @@
 {{# items }}
 <div class="feed-item">
 	{{# type.addedToWatched }}
-	<a href="#/film/{{ film.pk }}" class="">
+	<h3>
 		<div class="icon watched-icon"></div>
-		<h3 class="f-title">{{ film.title }}</h3>
-	</a>
+		<a class="f-title" href="#/film/{{ film.pk }}">{{ film.title }}</a>
+	</h3>
 	<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> added to watched</p>
 	{{/ type.addedToWatched }}
 	
 	{{# type.addedToWatchlist }}
-	<a href="#/film/{{ film.pk }}" class="">
+	<h3>
 		<div class="icon watchlisted-icon"></div>
-		<h3 class="f-title">{{ film.title }}</h3>
-	</a>
+		<a class="f-title" href="#/film/{{ film.pk }}">{{ film.title }}</a>
+	</h3>
 	<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> added to watchlist</p>
 	{{/ type.addedToWatchlist }}
 	
