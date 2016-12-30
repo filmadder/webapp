@@ -165,7 +165,7 @@ h2 {
 /* form (login and register) */
 
 #form {
-	.column(@right);
+	.column(@center);
 
 	/* field error */
 
@@ -180,6 +180,7 @@ h2 {
 		&.form {
 			.font(700; 18px);
 			.naughty(column; @left);
+			.box(0 20px);
 
 			margin: 20px 0 10px 0;
 		}
@@ -203,6 +204,10 @@ h2 {
 			outline: none;
 			width: 270px;
 		}
+	}
+
+	button {
+		.naughty(column; @right);
 	}
 }
 
@@ -541,6 +546,7 @@ h2 {
 
 .wrong-form {
 	.column(@right);
+
 	margin: 40px 0 20px 0;
 
 	p {
