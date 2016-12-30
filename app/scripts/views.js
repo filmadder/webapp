@@ -129,15 +129,24 @@ fa.views = (function() {
 	var createResults = function(elem, params) {
 		if(!params.hasOwnProperty('q')) fa.routing.go('error');
 		
-		fa.films.search(params.q).then(function(results) {
-			render(elem, 'results-templ', results);
-			fa.films.onMoreResults(params.q, function() {
-				var button = elem.querySelector('.more-results');
-				button.addEventListener('click', function() {
-					hier.update('/inner/results', params);
-				});
-				button.classList.remove('hidden');
+		fa.search.search(params.q).then(function(res) {
+			render(elem, 'results-templ', {
+				type: {
+					films: (res.type == 'films'),
+					users: (res.type == 'users')
+				},
+				items: res.items
 			});
+			
+			if(res.type == 'films') {
+				fa.films.onMoreResults(params.q, function() {
+					var button = elem.querySelector('.more-results');
+					button.addEventListener('click', function() {
+						hier.update('/inner/results', params);
+					});
+					button.classList.remove('hidden');
+				});
+			}
 		}).catch(handleError);
 	};
 	
