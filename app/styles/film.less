@@ -2,6 +2,7 @@
 
 .film {
 
+	/* poster, title, year, status*/
 	.f-details {
 		position: relative;
 
@@ -11,6 +12,7 @@
 			background-position: top center;
 			background-repeat: no-repeat;
 			background-size: cover;
+
 			/*-webkit-filter: grayscale(1);
 			filter: grayscale(100%);*/
 		}
@@ -19,6 +21,7 @@
 			.size(200px; 100%);
 			.column(@center; @top);
 
+			background: white;
 			margin: 60px 0 0 0;
 		}
 
@@ -64,27 +67,7 @@
 		}		
 	}
 
-	.f-synopsis-cont {
-		.box(50px 0);
-
-		h3 {
-			color: white;
-		}
-
-		input[type='checkbox'] {
-
-			&:checked ~ .synopsis-text {
-				display: block;
-			}
-		}
-
-		.synopsis-text {
-			color: white;
-			display: none;
-			margin: 10px 0;
-		}
-	}
-
+	/* director, wtiter, actors, synopsis */
 	.f-more-info {
 		.box(0 20px 20px 20px);
 
@@ -136,6 +119,7 @@
 			}
 
 			.synopsis-text {
+				color: white;
 				display: none;
 				margin: 10px 0;
 			}
@@ -151,17 +135,77 @@
 		}
 	}
 
+	.peek {
+		padding: 30px 0;
+
+		.watched-by,
+		.watchlisted-by {
+			padding: 20px 20px;
+		}
+
+		li {
+			margin: 0 22px; 
+		}
+
+		.comments {
+
+			label {
+				padding: 0 20px;
+			}
+		}
+	}
+
 	.comments {
 
 		.comments-list {
-			padding: 15px 0 0 15px;
+			.column;
 
 			.text {
-				font-size: 14px;
+				color: @grey;
 			}
 
-			.comment {
-				margin: 0 0 15px 0;
+			padding: 0;
+
+			li {
+				padding: 15px 0 15px 15px;
+			}
+
+			button {
+				.naughty(column; @center);
+			}
+
+			.comment-form {
+				.column;
+
+				margin: 0 20px;
+				width: ~"calc(100% - 40px)";
+
+				p {
+					margin: 20px 0;
+					width: 100%;
+				}
+
+				textarea {
+					.box(9px 15px);
+
+					border: none;
+					border-radius: 10px;
+					outline: none;
+					resize: none;
+					width: 100%;
+
+					&::-moz-placeholder {
+						color: #999;
+					}
+
+					&::-webkit-input-placeholder  {
+						color: #999;
+					}
+				}
+
+				button {
+					.naughty(column; @right);
+				}
 			}
 		}
 	}

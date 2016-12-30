@@ -219,7 +219,7 @@ fa.views = (function() {
 	// inits a home view
 	var createHome = function(elem) {
 		fa.users.get(fa.auth.getUser().pk).then(function(user) {
-			render(elem, 'home-templ', {watchlist: user.filmsPast});
+			render(elem, 'home-templ', {watchlist: user.filmsFuture});
 			
 			fa.updates.getUnread().then(function(updates) {
 				if(updates.length > 0) {
