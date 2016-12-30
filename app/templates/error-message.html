@@ -1,13 +1,21 @@
 <div class="error-message">
-	{{# code.pending }}
-	<h4>no connection to server</h4>
-	{{/ code.pending }}
+	{{# code.badInput }}
+	<h4>you cannot pass!</h4>
+	{{/ code.badInput }}
 	
 	{{# code.bug }}
 	<h4>something went wrong</h4>
 	{{/ code.bug }}
 	
-	{{# code.badInput }}
-	<h4>you cannot pass!</h4>
-	{{/ code.badInput }}
+	{{# code.forbidden }}
+	<h4>forbidden</h4>
+	{{/ code.forbidden }}
+	
+	{{# code.notFound }}
+	<h4>not found</h4>
+	{{/ code.notFound }}
+	
+	{{# code.pending }}
+	<h4>no connection to server</h4>
+	{{/ code.pending }}
 </div>
