@@ -1,17 +1,35 @@
 <div class="results">
+	{{# type.films }}
 	<article class="results-cont">
-		{{# films }}
+		{{# items }}
 		<div class="result-cont">
 			<a href="#/film/{{ pk }}" title="{{ title }}"class="result">
 				<h3>{{ title }}</h3>
 				<h4>{{ year }} | {{ directors }}</h4>
 			</a>
 		</div>
-		{{/ films }}
-		{{^ films }}
+		{{/ items }}
+		{{^ items }}
 		<p>nothing found</p>
-		{{/ films }}
+		{{/ items }}
 	</article>
+	{{/ type.films }}
+	
+	{{# type.users }}
+	<article class="results-cont">
+		{{# items }}
+		<div class="result-cont">
+			<a href="#/user/{{ pk }}" title="{{ name }}"class="result">
+				<h3>{{ name }}</h3>
+			</a>
+		</div>
+		{{/ items }}
+		{{^ items }}
+		<p>nothing found</p>
+		{{/ items }}
+	</article>
+	{{/ type.users }}
+	
 	<article class="more-results hidden">
 		More results found!
 		<button type="button" class="light">Refresh</button>

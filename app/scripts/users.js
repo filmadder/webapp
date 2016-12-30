@@ -43,11 +43,16 @@ fa.users = (function() {
 		return user;
 	};
 	
-	// returns promise that resolves into a user object
+	// returns a promise that resolves into a user object
 	var getUser = function(id) {
 		return fa.ws.send('get_user', {user: id}).then(function(data) {
 			return Promise.resolve(createUser(data));
 		});
+	};
+	
+	// returns a promise that resolves into a {query, users} object
+	var searchUsers = function(query) {
+		return fa.ws.send('search_users', {query: query});
 	};
 	
 	
@@ -56,7 +61,8 @@ fa.users = (function() {
 	// 
 	
 	return {
-		get: getUser
+		get: getUser,
+		search: searchUsers
 	};
 	
 }());
