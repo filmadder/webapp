@@ -15,14 +15,8 @@
     "del": "^1.2.0",
     "easymock": "^0.2.18",
     "ecstatic": "^2.1.0",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-connect": "^3.1.0",
-    "gulp-less": "^3.1.0",
-    "gulp-stylus": "^2.3.1",
-    "gulp-uglify": "^1.5.3",
     "html-partials-compiler": "^1.0.7",
-    "less": "^2.7.1",
-    "stylus": "^0.54.5"
-  }
+    "less": "^2.7.1"
+  },
+  "dependencies": {}
 }

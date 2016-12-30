@@ -10,7 +10,7 @@ fa.http = (function() {
 	// returns {method, headers, body}, ready to be plugged into fetch
 	// helper for the request function
 	var getOptions = function(method, load) {
-		var op = {'method': method, 'headers': {}};
+		var op = {'method': method, 'headers': {}, 'credentials': 'omit'};
 		
 		if(fa.auth.hasPerm()) {
 			op['headers']['fa-token'] = fa.auth.getToken();
