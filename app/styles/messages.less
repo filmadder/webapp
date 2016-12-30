@@ -20,20 +20,28 @@
 .action-message {
 	.size(60px; 80%);
 
-	background: @grey;
 	margin: 0 10%;
-
-	position: fixed;
-	left: 0;
-	bottom: 70px; 
 
 	h4 {
 		.font;
 
 		background: @grey;
+		border-radius: 20px;
+		display: block;
 		color: white;
+		padding: 10px 5px;
 		text-align: center;
-		padding: 20px 5px;
-
 	}
+}
+
+.error-message {
+	position: fixed;
+	left: 0;
+	bottom: 70px; 
+}
+
+.action-message {
+	position: fixed;
+	top: 100px;
+	left: 0;
 }

@@ -4,8 +4,8 @@
 		{{# items }}
 		<div class="result-cont">
 			<a href="#/film/{{ pk }}" title="{{ title }}"class="result">
-				<h3>{{ title }}</h3>
-				<h4>{{ year }} | {{ directors }}</h4>
+				<h3 class="f-title">{{ title }}</h3>
+				<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 			</a>
 		</div>
 		{{/ items }}
