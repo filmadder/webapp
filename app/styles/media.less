@@ -1,0 +1,165 @@
+@import "bower_components/stellar/stellar";
+@import "colours";
+@import "icons";
+@import "mixins";
+
+@media (min-width: 740px) {
+
+	.f-title {
+
+		&:hover,
+		&:focus {
+			color: @lightpurple;
+		}
+	}
+
+	header {
+
+		.heading {
+			margin: 0 0 0 30px;
+		}
+
+		nav {
+			margin: 0 30px 0 0;
+
+			.nav-item {
+				.transition;
+
+				border-radius: 20px;
+				padding: 3px 10px;
+
+				&:hover,
+				&:focus {
+					background: @lightpurple;
+				} 
+			}
+		}
+	}
+
+	.feed,
+	.updates-cont,
+	.results {
+		max-width: 550px;
+		margin: 0 auto;
+	}
+
+	.home {
+
+		.h-updates-cont {
+
+			.h-updates {
+				.box(30px);
+
+				max-width: 550px;
+				margin: 0 auto;
+			}
+		}
+
+		.h-watchlist {
+			max-width: 550px;
+			margin: 0 auto;
+		}
+	}
+
+	.profile {
+
+		.p-intro {
+			.box(30px);
+
+			margin: 0 auto;
+			max-width: 550px;
+
+			.username {
+				margin: 0 0 20px 0;
+			}
+		}
+
+		.peek {
+			margin: 0 auto;
+			max-width: 550px;
+		}
+	}
+
+	.feed {
+
+		.feed-item {
+		}
+	}
+
+	.settings {
+		margin: 0 auto;
+		max-width: 550px;
+	}
+
+	.film {
+		position: relative;
+
+		.f-details {
+			height: 100%;
+			width: 50%;
+
+			.f-poster-cont {
+				.size(~"calc(100vh - 90px)"; 100%);
+			}
+
+			.poster {
+				.size(100%; 100%);
+
+				background-position: top center;
+			}
+
+			.no-poster {
+				margin: 0;
+
+				h3 {
+					display: none;
+				}
+			}
+
+			.f-main-cont {
+				background: linear-gradient(
+					rgba(64, 111, 196, 0.6),
+					rgba(95, 156, 221, 0.8));
+
+				top: 0;
+				height: 300px;
+				width: 100%;
+				padding: 150px 50px 0 50px; 
+
+				.title {
+					font-size: 28px;
+				}
+			}
+		}
+
+		.f-more-info {
+			.size(auto, 50%);
+
+			min-height: ~"calc(100vh - 350px)";
+
+			background: linear-gradient(
+				rgba(95, 156, 221, 0.8),
+				rgba(95, 156, 221, 1));
+			padding: 0 50px;
+
+			position: absolute;
+			top: 300px;
+			left: 0;
+
+			.f-synopsis-cont {
+				background: transparent;
+
+				padding-bottom: 60px;
+			}
+		}
+
+		.peek {
+			width: 50%;
+			max-width: 550px;
+
+			position: absolute;
+			left: 50%;
+			top: 0;
+		}
+	}
+}

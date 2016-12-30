@@ -1,38 +1,40 @@
 <div class="profile">
-	<section class="p-intro">
-		<article>
-			<h2 class="username">{{ user.name }}</h2>
-			<div class="p-stats">
-				<p><span>{{ user.filmsPast.length }}</span> watched</p>
-				<p><span>{{ user.filmsFuture.length }}</span> watchlisted</p>
-				<!--p><span>17</span> comments</p-->
-			</div>
-		</article>
-		
-		<article class="p-buttons">
-			{{# user.status.unknown }}
-			<button type="button" data-fn="request-friend" class="dark">add friend</button>
-			{{/ user.status.unknown }}
+	<div class="p-intro-cont">
+		<section class="p-intro">
+			<article>
+				<h2 class="username">{{ user.name }}</h2>
+				<div class="p-stats">
+					<p><span>{{ user.filmsPast.length }}</span> watched</p>
+					<p><span>{{ user.filmsFuture.length }}</span> watchlisted</p>
+					<!--p><span>17</span> comments</p-->
+				</div>
+			</article>
 			
-			{{# user.status.waiting }}
-			<p>friendship</p>
-			<button type="button" data-fn="accept-friend" class="dark">accept</button>
-			<button type="button" data-fn="reject-friend" class="dark">reject</button>
-			{{/ user.status.waiting }}
-			
-			{{# user.status.asked }}
-			<p>friendship request sent</p>
-			{{/ user.status.asked }}
-			
-			{{# user.status.friend }}
-			<p>✓ friends</p>
-			{{/ user.status.friend }}
-			
-			{{# user.status.self }}
-			<a href="#/settings" class="icon settings-icon"></a>
-			{{/ user.status.self }}
-		</article>
-	</section>
+			<article class="p-buttons p-relationship">
+				{{# user.status.unknown }}
+				<button type="button" data-fn="request-friend" class="dark">add friend</button>
+				{{/ user.status.unknown }}
+				
+				{{# user.status.waiting }}
+				<p>friendship</p>
+				<button type="button" data-fn="accept-friend" class="dark">accept</button>
+				<button type="button" data-fn="reject-friend" class="dark">reject</button>
+				{{/ user.status.waiting }}
+				
+				{{# user.status.asked }}
+				<p>friendship request sent</p>
+				{{/ user.status.asked }}
+				
+				{{# user.status.friend }}
+				<p>✓ friends</p>
+				{{/ user.status.friend }}
+				
+				{{# user.status.self }}
+				<a href="#/settings" title="account settings" class="icon settings-icon"></a>
+				{{/ user.status.self }}
+			</article>
+		</section>
+	</div>
 
 	<article class="peek">
 		<section class="watched arrow-cont">
