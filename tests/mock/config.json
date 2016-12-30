@@ -1,8 +1,0 @@
-{
-	"cors": true,
-	"routes": [
-		"/api/films/:pk/review/",
-		"/api/films/:pk/comment/",
-		"/api/films/:pk/reply/"
-	]
-}
