@@ -17,6 +17,11 @@ fa.views = (function() {
 		}
 	});
 	
+	// dirty fix to prevent feed items appearing while scrolling through a film
+	hasher.changed.add(function() {
+		scrolledToBottom.removeAll();
+	});
+	
 	
 	// 
 	// helper functions
@@ -44,12 +49,15 @@ fa.views = (function() {
 			fa.routing.go('error');
 		}
 		else {
-			if(hier.has('/mes')) {
-				hier.update('/mes', {type: 'error', code: error.code});
-			} else {
-				hier.add('/mes', {type: 'error', code: error.code});
-			}
+			addMessage({type: 'error', code: error.code});
 		}
+	};
+	
+	// shows the specified message
+	// the params are passed unaltered to the createMessage view
+	var addMessage = function(params) {
+		if(hier.has('/mes')) hier.update('/mes', params);
+		else hier.add('/mes', params);
 	};
 	
 	// if there is an error/success message, it will be removed
@@ -82,7 +90,7 @@ fa.views = (function() {
 					removeMessage();
 					form.showError(error.message);
 				}
-				else handleError(error);
+				else addMessage({type: 'error', code: error.code});
 			});
 		})
 		.add('email', [fa.forms.maxLen(200), fa.forms.email])
@@ -103,7 +111,7 @@ fa.views = (function() {
 					removeMessage();
 					form.showError(error.message);
 				}
-				else handleError(error);
+				else addMessage({type: 'error', code: error.code});
 			});
 		})
 		.add('email', [fa.forms.maxLen(200), fa.forms.email])
@@ -173,6 +181,7 @@ fa.views = (function() {
 				addWatchedButton.addEventListener('click', function() {
 					film.addToWatched().then(function() {
 						hier.update('/inner/film', id);
+						addMessage({type: 'success', text: 'marked as watched'});
 					}).catch(handleError);
 				});
 			}
@@ -181,6 +190,7 @@ fa.views = (function() {
 				addWatchlistButton.addEventListener('click', function() {
 					film.addToWatchlist().then(function() {
 						hier.update('/inner/film', id);
+						addMessage({type: 'success', text: 'added to watchlist'});
 					}).catch(handleError);
 				});
 			}
@@ -189,6 +199,7 @@ fa.views = (function() {
 				removeListButton.addEventListener('click', function() {
 					film.removeFromList().then(function() {
 						hier.update('/inner/film', id);
+						addMessage({type: 'success', text: 'removed'});
 					}).catch(handleError);
 				});
 			}
@@ -327,14 +338,19 @@ fa.views = (function() {
 		if(params.type == 'error') {
 			render(elem, 'error-message-templ', {
 				code: {
-					pending: (params.code == 'pending'),
+					badInput: (params.code == 'bad_input'),
 					bug: (params.code == 'bug'),
-					badInput: (params.code == 'bad_input')
+					forbidden: (params.code == 'forbidden'),
+					notFound: (params.code == 'not_found'),
+					pending: (params.code == 'pending')
 				}
 			});
 		}
 		else if(params.type == 'success') {
-			
+			render(elem, 'success-message-templ', {
+				text: params.text
+			});
+			window.setTimeout(removeMessage, 1500);
 		}
 	};
 	
