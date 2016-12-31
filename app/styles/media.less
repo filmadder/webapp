@@ -5,6 +5,10 @@
 
 @media (min-width: 740px) {
 
+	#view {
+		background: @lightblue;
+	}
+
 	.f-title {
 
 		&:hover,
@@ -100,7 +104,6 @@
 
 	.film {
 		position: relative;
-		background: lighten(@purple, 46%);
 
 		.f-details {
 			.size(100%; 60%);
@@ -161,8 +164,9 @@
 		}
 
 		.peek {
-			width: 40%;
+			padding: 30px;
 			max-width: 550px;
+			width: 40%;
 
 			position: absolute;
 			left: 60%;
