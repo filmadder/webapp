@@ -126,7 +126,7 @@ header {
 		.column(@center);
 
 		background: transparent;
-		margin: 40px 0 0 0;
+		margin: 20px 0 0 0;
 		position: static;
 
 		h1 {
@@ -165,7 +165,7 @@ h2 {
 #view.login {
 	background: transparent;
 	min-height: auto;
-	padding: 20px 0 40px 0;
+	padding: 10px 0 40px 0;
 }
 
 /* form (login and register) */
@@ -173,9 +173,16 @@ h2 {
 #form {
 	.column(@center);
 
+	h2 {
+		.font(@s: 14px);
+
+		color: white;
+		margin: 10px 0;
+	}
 
 	.error {
 		.font(700;);
+
 		color: darken(@purple, 15%);
 
 		/* field error */
@@ -190,7 +197,7 @@ h2 {
 			.font(700; 18px);
 			.naughty(column; @left);
 
-			margin: 20px 0 10px 0;
+			margin: 10px 0;
 		}
 	}
 
@@ -573,6 +580,10 @@ h2 {
 		.trim;
 
 		color: white;
+
+		a {
+			font-weight: 600;
+		}
 	}
 }
 
