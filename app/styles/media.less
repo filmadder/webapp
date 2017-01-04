@@ -7,6 +7,7 @@
 
 	#view {
 		background: @lightblue;
+		padding: 40px 0 0 0;
 	}
 
 	.f-title {
@@ -18,12 +19,14 @@
 	}
 
 	header {
+		position: fixed;
+		z-index: 1000;
 
 		.heading {
 			margin: 0 0 0 30px;
 
 			.logo {
-				.size(42px; 42px);
+				.size(40px; 40px);
 			}
 		}
 
@@ -33,7 +36,7 @@
 			.nav-item {
 				.transition;
 
-				margin: 0 5px;
+				margin: 0;
 				padding: 10px 15px;
 
 				&:hover,
