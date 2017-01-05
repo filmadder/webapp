@@ -28,6 +28,10 @@ p, span, label, li {
 	.font();
 }
 
+p {
+	color: @grey;
+}
+
 ul {
 	.trim;
 	
@@ -52,10 +56,8 @@ button,
 	outline: none;
 
 	&.dark {
-		background: linear-gradient(
-			to bottom,
-			lighten(@lightpurple, 4%), 
-			lighten(@lightpurple, 6%));
+		border: 2px solid white;
+		background: transparent;
 		color: white;		
 
 		&:hover,
@@ -66,7 +68,8 @@ button,
 	}
 
 	&.light {
-		background: white;
+		background: transparent;
+		border: 2px solid @lightpurple;
 		color: @lightpurple;
 
 		&:hover,
@@ -110,9 +113,15 @@ header {
 
 		.nav-item {
 			.row(@center; @center);
-			.font(600;);
+			.font(400);
 
-			margin: 3px 8px;
+			margin: 0;
+			padding: 5px 8px;
+
+			&:hover,
+			&:focus {
+				.font(700;);
+			} 
 		}
 
 		a {
@@ -141,7 +150,7 @@ header {
 /* view's headings */
 
 h2 {
-	.font(bold; 18px);
+	.font(normal; 16px);
 
 	color: @purple;
 	margin: 10px 0 20px 0;
@@ -151,8 +160,6 @@ h2 {
 #view {
 	.box(0 0 40px 0);
 
-	background: lighten(@purple, 46%);
-	background: @lightblue;
 	min-height: ~"calc(100vh - 50px)";
 }
 
@@ -245,6 +252,7 @@ h2 {
 		color: @grey;
 		
 		border: none;
+		border-top: 2px solid @lightpurple;
 		outline: none;
 
 		&::-moz-placeholder {
@@ -289,12 +297,12 @@ h2 {
 	min-width: 32px;
 }
 
-.nav-icon {
+/*.nav-icon {
 	.size(20px; 20px);
 
 	background-position: center;
 	background-size: cover;
-}
+}*/
 
 .add-icon {
 	background-image: url(../images/add-thinner.svg);	
@@ -401,6 +409,11 @@ h2 {
 .f-title {
 	.font(700; 20px);
 	color: @grey;
+
+	&:hover,
+	&:focus {
+		color: @lightpurple;
+	}
 }
 
 .arrow {
@@ -460,6 +473,11 @@ h2 {
 
 				li {
 					margin: 3px 10px 3px 0;
+
+					
+					&.nobody {
+						color: @purple;
+					}
 				}
 
 				a {
@@ -509,6 +527,10 @@ h2 {
 
 			&:checked ~ .film-list li {
 				.row(@spread; @center);
+
+				&.nothing-to-display {
+					.column;
+				}
 			}
 
 			&:checked ~ .friends-list {
@@ -594,7 +616,7 @@ h2 {
 	h3 {
 		.font(700; 20px);
 
-		color: @grey;
+		color: @purple;
 		margin: 0 0 20px 0;
 		text-transform: none;
 	}

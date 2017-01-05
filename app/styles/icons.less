@@ -22,11 +22,14 @@
 
 .close.icon {
 	color: white;
-	position: relative;
 	margin-top: 0;
 	margin-left: 0;
 	width: 20px;
 	height: 20px;
+
+	position: absolute;
+	top: 80px;
+	left: 23px;
 
 	&:before {
 		content: '';
@@ -54,7 +57,7 @@
 	&:focus {
 		transition: all .15s ease;
 		-webkit-transform: rotate(-90deg);
-		transform: rotate(-90deg);
+		transform: rotate(-90deg)  translateX(11px) translateY(-1px);
 	}
 
 	&.dark {

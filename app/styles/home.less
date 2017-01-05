@@ -8,13 +8,15 @@
 
 	.h-updates-cont {
 		position: relative;
+		background: @lightpurple;
 		width: 100%;
 
 		.close.icon {
 			cursor: pointer;
+
 			position: absolute;
-			top: 20px;
-			right: 20px;
+			top: 30px;
+			left: ~"calc(100% - 40px)";
 		}
 
 		input[type="checkbox"] {
@@ -27,16 +29,10 @@
 				display: none;
 			}
 		}
-	}
-
-	.h-updates-cont {		
-		.box(30px);
-		width: 100%;
-
-		background: @lightpurple;
 
 		.h-updates {
 			color: white;
+			margin: 30px 30px;
 		}
 
 		h2 {
