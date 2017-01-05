@@ -10,7 +10,7 @@
 		</div>
 		{{/ items }}
 		{{^ items }}
-		<h3>No films found so far, wait a bit</h3>
+		<h3 class="message">No films found so far, wait a bit</h3>
 		{{/ items }}
 	</article>
 	{{/ type.films }}
@@ -25,13 +25,13 @@
 		</div>
 		{{/ items }}
 		{{^ items }}
-		<h3>No users found</h3>
+		<h3 class="message">No users found</h3>
 		{{/ items }}
 	</article>
 	{{/ type.users }}
 	
 	<article class="more-results hidden">
-		<h3>More results found!</h3>
+		<h3 class="message">More results found!</h3>
 		<button type="button" class="light">Refresh</button>
 	</article>
 </div>
