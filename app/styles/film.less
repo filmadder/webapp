@@ -41,6 +41,11 @@
 			bottom: 0;
 			left: 0;
 
+			.cont {
+				width: 100%;
+				.row(@spread);
+			}
+
 			.title {
 				.font(700; 24px);
 				color: white;
@@ -53,6 +58,15 @@
 
 				color: white;
 				margin: 0;
+			}
+
+			.type-duration {
+				.font(@w: bold);
+
+				color: white;
+				padding: 15px 0 0 0;
+				margin: 0 0 0 0;
+				text-transform: uppercase;
 			}
 		}
 
@@ -76,13 +90,6 @@
 		h3 {
 			color: white;
 			padding: 5px 0;
-
-			&.type-duration {
-				.font(@w: bold);
-
-				margin: 0 0 0 0;
-				text-transform: uppercase;
-			}
 		}
 
 		h4 {

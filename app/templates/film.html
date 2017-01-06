@@ -11,10 +11,13 @@
 			{{/ film.posterUrl }}
 		</article>
 		<article class="f-main-cont">
+			<div class="cont">
 			<div class="title-cont">
 				<h2 class="title">{{ film.title }}</h2>
 				<h4 class="year">{{ film.year }}</h4>
+				<h3 class="type-duration">{{ film.omdbType }} {{# film.runtime }}| {{ film.runtime }}</h3>{{/ film.runtime}}
 			</div>
+
 
 			{{# film.status.unknown }}
 			<div class="status-cont">
@@ -83,11 +86,12 @@
 				</div>
 			</div>
 			{{/ film.status.watchlisted }}
+			</div>
 		</article>
 	</section>
 
 	<section class="f-more-info">
-		<h3 class="type-duration">{{ film.omdbType }} {{# film.runtime }}| {{ film.runtime }}</h3>{{/ film.runtime}}
+		
 		{{# film.directors }}
 		<h4><span>Director:</span> {{ film.directors }}</h4>
 		{{/ film.directors }}

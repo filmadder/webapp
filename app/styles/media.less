@@ -126,74 +126,80 @@
 	}
 
 	.film {
-		position: relative;
 
 		.f-details {
-			.size(100%; 60%);
-
-			.f-poster-cont {
-				.size(~"calc(100vh - 90px)"; 100%);
-			}
+			background-color: black;
 
 			.poster {
-				.size(100%; 100%);
+				.size(450px; 40%);
 
 				background-position: center center;
-			}
-
-			.no-poster {
-				margin: 0;
-
-				h3 {
-					display: none;
-				}
+				background-size: contain;
 			}
 
 			.f-main-cont {
-				.size(300px; 100%);
+				.size(450px, 100%);
+				.row(@spread; @center);
 
 				background: linear-gradient(
-					rgba(64, 111, 196, 0.3),
-					rgba(64, 111, 196, 0.8));
-				padding: 120px 50px 0 50px; 
+					rgba(0, 0, 0, 0.1),
+					rgba(0, 0, 0, 0.5));
+				padding: 20px 80px;
 
-				top: 0;
+				.cont {
+					.row(@spread);
+
+					margin: 0 0 0 45%;
+					max-width: 840px;
+					width: 840px;
+				}
 
 				.title {
-					font-size: 28px;
+					font-size: 42px;
+					margin: 0 80px 0 0;
 				}
+
+				.year {
+					font-size: 26px;
+				}
+
+				.status-cont {
+					margin: 15px 0 0 0;
+				}
+
 			}
 		}
 
 		.f-more-info {
-			.size(auto, 60%);
+			padding: 30px 80px;
 
-			min-height: ~"calc(100vh - 350px)";
-
-			background: linear-gradient(
-				rgba(64, 111, 192, 0.8),
-				rgba(95, 156, 221, 0.95));
-			padding: 0 50px;
-
-			position: absolute;
-			top: 300px;
-			left: 0;
+			h4 {
+				max-width: 740px;
+			}
 
 			.f-synopsis-cont {
-				background: transparent;
 
-				padding-bottom: 60px;
+				.synopsis-text {
+					max-width: 740px;
+				}
 			}
 		}
 
 		.peek {
-			padding: 30px 30px 60px 30px;
-			max-width: 550px;
-			width: 40%;
+			.row;
 
-			position: absolute;
-			left: 60%;
-			top: 0;
+			padding: 40px 60px;
+			width: 100%;
+
+			.watched-by,
+			.watchlisted-by {
+				flex: 2;
+			}
+
+			.comments {
+				flex: 5;
+				padding: 20px 40px;
+			}
 		}
 	}
 
