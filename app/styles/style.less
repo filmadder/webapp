@@ -85,7 +85,7 @@ button,
 
 header {
 	.row(@spread; @center);
-	.size(40px; 100%);
+	.size(44px; 100%);
 
 	background: @purple;
 
@@ -95,7 +95,7 @@ header {
 		margin: 0 0 0 10px;
 
 		.logo {
-			.size(33px; 33px);
+			.size(38px; 38px);
 		}
 
 		h1 {
@@ -238,7 +238,9 @@ h2 {
 /* search */
 
 #search-form {
-	.size(50px; 100%);
+	.size(44px; 100%);
+	.box;
+	.transition;
 
 	position: fixed;
 	bottom: 0;
@@ -265,10 +267,23 @@ h2 {
 
 		&:hover,
 		&:focus {
-			.font(700; 20px);
+			.font(700; 24px);
 
 			background: white;
+
+			&::-moz-placeholder {
+				.font(@s: 24px);
+			}
+
+			&::-webkit-input-placeholder {
+				.font(@s: 24px);
+			}
 		}
+	}
+
+	&:hover,
+	&:focus {
+		height: 100px;
 	}
 }
 
