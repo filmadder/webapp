@@ -3,7 +3,54 @@
 @import "icons";
 @import "mixins";
 
-@media (min-width: 740px) {
+
+
+@media (min-width: 550px) {
+
+	.film {
+
+		.f-details {
+
+			.f-poster-cont {
+				background: black;
+			}
+
+			.poster {
+				.size(450px; 50%);
+
+				background-size: contain;
+				margin: 0 auto;
+			}
+
+			.f-main-cont {
+
+				.cont {
+					margin: 0 auto;
+					max-width: 720px;
+				}
+
+				.title {
+					margin: 0 80px 0 0;
+				}
+			}
+		}
+
+		.f-more-info {
+
+			.cont {
+				margin: 0 auto;
+				max-width: 720px;
+			}
+		}
+
+		.peek {
+			margin: 0 auto;
+			max-width: 760px;
+		}
+	}
+}
+
+@media (min-width: 960px) {
 
 	li, p {
 		color: @grey;
@@ -125,6 +172,7 @@
 		max-width: 550px;
 	}
 
+
 	.film {
 
 		.f-details {
@@ -135,6 +183,19 @@
 
 				background-position: center center;
 				background-size: contain;
+				margin: 0;
+			}
+
+			.no-poster {
+				.column(@left; @center);
+
+				h3 {
+					margin: 0 0 0 100px;					
+				}
+
+				.logo {
+					margin: 0 0 0 100px;
+				}
 			}
 
 			.f-main-cont {
@@ -173,6 +234,11 @@
 		.f-more-info {
 			padding: 30px 80px;
 
+			.cont {
+				max-width: 1400px;
+				margin: 0 auto;
+			}
+
 			h4 {
 				max-width: 740px;
 			}
@@ -189,6 +255,8 @@
 			.row;
 
 			padding: 40px 60px;
+			max-width: 1400px;
+			margin: 0 auto;
 			width: 100%;
 
 			.watched-by,

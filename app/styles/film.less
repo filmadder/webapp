@@ -18,23 +18,32 @@
 		}
 
 		.no-poster {
-			.size(200px; 100%);
-			.column(@center; @top);
+			.size(450px; 100%);
+			.column(@center; @center);
 
-			background: white;
-			margin: 60px 0 0 0;
+			background: @purple;
+
+			h3 {
+				color: white;
+			}
+
+			.logo {
+				.size(86px; 86px);
+
+				margin: 0 0 100px 0;
+			}
 		}
 
 		.f-main-cont {
-			.box(30px 20px);
-			.row(@spread;);
+			.box(30px 20px 60px 20px);
+			.row(@spread; @bottom);
 
 			background: linear-gradient(
-				rgba(64, 111, 196, 0.9),
-				@lightpurple);
+				rgba(0, 0, 0, 0.2),
+				rgba(0, 0, 0, 1));
 			background-blend-mode: multiply;
 			margin: 0;
-			min-height: 70px;
+			height: 450px;
 			width: 100%;
 
 			position: absolute;
@@ -68,6 +77,19 @@
 				margin: 0 0 0 0;
 				text-transform: uppercase;
 			}
+
+			&.no-poster-main-cont {
+				.size(450px; 100%);
+
+
+				background: linear-gradient(
+					rgba(64, 111, 196, 1),
+					@lightpurple);
+
+				background: linear-gradient(
+					rgba(0, 0, 0, 0.2),
+					rgba(0, 0, 0, 1));
+			}
 		}
 
 		.f-status {
@@ -83,7 +105,7 @@
 
 	/* director, wtiter, actors, synopsis */
 	.f-more-info {
-		.box(0 20px 20px 20px);
+		.box(20px);
 
 		background: @lightpurple;
 

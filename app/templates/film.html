@@ -7,10 +7,16 @@
 			{{^ film.posterUrl }}
 			<div class="no-poster">
 				<h3>No poster</h3>
+				<div class="image logo"></div>
 			</div>
 			{{/ film.posterUrl }}
 		</article>
+		{{# film.posterUrl}}
 		<article class="f-main-cont">
+		{{/ film.posterUrl}}
+		{{^ film.posterUrl}}
+		<article class="f-main-cont no-poster-main-cont">
+		{{/ film.posterUrl}}
 			<div class="cont">
 			<div class="title-cont">
 				<h2 class="title">{{ film.title }}</h2>
@@ -92,31 +98,33 @@
 
 	<section class="f-more-info">
 		
-		{{# film.directors }}
-		<h4><span>Director:</span> {{ film.directors }}</h4>
-		{{/ film.directors }}
-		{{# film.writers }}
-		<h4><span>Writer:</span> {{ film.writers }} </h4>
-		{{/ film.writers }}
-		{{# film.actors }}
-		<h4><span>Actors:</span> {{ film.actors }}</h4>
-		{{/ film.actors }}
-		{{# film.plot }}
-		<div class="f-synopsis-cont arrow-cont">
-			<input type="checkbox" id="synopsis-text" class="hidden"/>		
-			<label for="synopsis-text" class="">
-				<div class="arrow white-arrow">
-					<div class="stroke"></div>
-					<div class="stroke"></div>
-				</div>
-				<h3>synopsis</h3>
-			</label>
-			<p class='synopsis-text'>{{ film.plot }}</p>
+		<div class="cont">
+			{{# film.directors }}
+			<h4><span>Director:</span> {{ film.directors }}</h4>
+			{{/ film.directors }}
+			{{# film.writers }}
+			<h4><span>Writer:</span> {{ film.writers }} </h4>
+			{{/ film.writers }}
+			{{# film.actors }}
+			<h4><span>Actors:</span> {{ film.actors }}</h4>
+			{{/ film.actors }}
+			{{# film.plot }}
+			<div class="f-synopsis-cont arrow-cont">
+				<input type="checkbox" id="synopsis-text" class="hidden"/>		
+				<label for="synopsis-text" class="">
+					<div class="arrow white-arrow">
+						<div class="stroke"></div>
+						<div class="stroke"></div>
+					</div>
+					<h3>synopsis</h3>
+				</label>
+				<p class='synopsis-text'>{{ film.plot }}</p>
+			</div>
+			{{/ film.plot }}
+			<!-- <div class="recommend-cont">
+				<button class="recommend dark">recommend</button>
+			</div> -->
 		</div>
-		{{/ film.plot }}
-		<!-- <div class="recommend-cont">
-			<button class="recommend dark">recommend</button>
-		</div> -->
 	</section>
 
 	<article class="peek">
