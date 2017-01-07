@@ -7,6 +7,56 @@
 
 @media (min-width: 550px) {
 
+	li, p {
+		color: @grey;
+	}
+
+	#view {
+		padding: 40px 0 50px 0;
+	}
+
+	.f-title {
+
+		&:hover,
+		&:focus {
+			color: @lightpurple;
+		}
+	}
+
+	header {
+		position: fixed;
+		z-index: 1000;
+
+		.heading {
+			margin: 0 0 0 30px;
+
+			.logo {
+				.size(40px; 40px);
+			}
+		}
+
+		nav {
+			margin: 0 30px 0 0;
+
+			.nav-item {
+				.transition;
+
+				padding: 12px;
+
+				&:hover,
+				&:focus {
+					.font;
+
+					background: @lightpurple;
+				}
+			}
+		}
+
+		&.outer-header {
+			margin: 50px 0 0 0;
+		}
+	}
+
 	.film {
 
 		.f-details {
@@ -36,8 +86,10 @@
 				.status-cont {
 
 					.close.icon {
-						&:before,
-						&:after {
+						&:hover,
+						&:focus {
+							transition: none;
+							transform: none;
 						}
 					}
 				}
@@ -111,47 +163,6 @@
 }
 
 @media (min-width: 960px) {
-
-	li, p {
-		color: @grey;
-	}
-
-	#view {
-		padding: 40px 0 50px 0;
-	}
-
-	.f-title {
-
-		&:hover,
-		&:focus {
-			color: @lightpurple;
-		}
-	}
-
-	header {
-		position: fixed;
-		z-index: 1000;
-
-		.heading {
-			margin: 0 0 0 30px;
-
-			.logo {
-				.size(40px; 40px);
-			}
-		}
-
-		nav {
-			margin: 0 30px 0 0;
-
-			.nav-item {
-				margin: 0 5px;
-			}
-		}
-
-		&.outer-header {
-			margin: 50px 0 0 0;
-		}
-	}
 
 	#search-form {
 
@@ -258,7 +269,7 @@
 				}
 
 				.status-cont {
-					margin: 15px 0 0 0;
+					margin: 10px 0 0 0;
 				}
 
 			}
