@@ -25,7 +25,8 @@
 
 	header {
 		position: fixed;
-		z-index: 1000;
+		top: 0;
+		left: 0;
 
 		.heading {
 			margin: 0 0 0 30px;
@@ -41,18 +42,18 @@
 			.nav-item {
 				.transition;
 
-				padding: 12px;
+				padding: 13px;
 
 				&:hover,
 				&:focus {
-					.font(@s: 14px);
-
 					background: @lightpurple;
+					color: white;
 				}
 			}
 		}
 
 		&.outer-header {
+			border: 0;
 			margin: 50px 0 0 0;
 		}
 	}
