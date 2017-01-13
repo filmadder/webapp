@@ -97,10 +97,6 @@ fa.routing = (function() {
 		hasher.replaceHash('error');
 	});
 	
-	crossroads.routed.add(function() {
-		window.scroll(0, 0);
-	});
-	
 	
 	// 
 	// setup hasher

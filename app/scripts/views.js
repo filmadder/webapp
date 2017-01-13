@@ -83,6 +83,7 @@ fa.views = (function() {
 	// inits a create account view
 	var createReg = function(elem) {
 		render(elem, 'reg-templ', {});
+		window.scroll(0, 0);
 		
 		fa.forms.create(elem.querySelector('form'), function(form) {
 			fa.auth.register(form.getData()).then(function() {
@@ -104,6 +105,7 @@ fa.views = (function() {
 	// inits a login view
 	var createLogin = function(elem) {
 		render(elem, 'login-templ', {});
+		window.scroll(0, 0);
 		
 		fa.forms.create(elem.querySelector('form'), function(form) {
 			fa.auth.login(form.getData()).then(function() {
@@ -147,6 +149,7 @@ fa.views = (function() {
 				},
 				items: res.items
 			});
+			window.scroll(0, 0);
 			
 			if(res.type == 'films') {
 				fa.films.onMoreResults(params.q, function() {
@@ -164,6 +167,7 @@ fa.views = (function() {
 	var createFilm = function(elem, id) {
 		fa.films.get(id).then(function(film) {
 			render(elem, 'film-templ', {film: film});
+			window.scroll(0, 0);
 			
 			var statusOpts = elem.querySelector('[data-fn=status-opts]');
 			
@@ -222,6 +226,7 @@ fa.views = (function() {
 	var createHome = function(elem) {
 		fa.users.get(fa.auth.getUser().pk).then(function(user) {
 			render(elem, 'home-templ', {watchlist: user.filmsFuture});
+			window.scroll(0, 0);
 			
 			fa.updates.getUnread().then(function(updates) {
 				if(updates.length > 0) {
@@ -240,6 +245,7 @@ fa.views = (function() {
 			var isEmpty = (updates.firstItems.length == 0);
 			
 			render(elem, 'updates-templ', {isEmpty: isEmpty});
+			window.scroll(0, 0);
 			
 			var appendItems = function(items) {
 				var div = document.createElement('div');
@@ -268,6 +274,7 @@ fa.views = (function() {
 			var isEmpty = (feed.firstItems.length == 0);
 			
 			render(elem, 'feed-templ', {isEmpty: isEmpty});
+			window.scroll(0, 0);
 			
 			var appendItems = function(items) {
 				var div = document.createElement('div');
@@ -294,6 +301,7 @@ fa.views = (function() {
 	var createProfile = function(elem, id) {
 		fa.users.get(id).then(function(user) {
 			render(elem, 'profile-templ', {user: user});
+			window.scroll(0, 0);
 			
 			if(user.status.unknown) {
 				elem.querySelector('[data-fn=request-friend]').addEventListener('click', function() {
@@ -321,6 +329,8 @@ fa.views = (function() {
 	// inits a settings view
 	var createSettings = function(elem) {
 		render(elem, 'settings-templ', {});
+		window.scroll(0, 0);
+		
 		elem.querySelector('[data-fn=logout]').addEventListener('click', function() {
 			fa.auth.logout();
 			fa.routing.go('login');
@@ -331,6 +341,7 @@ fa.views = (function() {
 	// for the time being, this is the 404 view only
 	var createError = function(elem) {
 		render(elem, 'error-404-templ', {});
+		window.scroll(0, 0);
 	};
 	
 	// inits a message view
