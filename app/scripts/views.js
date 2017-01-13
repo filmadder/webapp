@@ -11,8 +11,10 @@ fa.views = (function() {
 	// used by the feed and updates views
 	var scrolledToBottom = new signals.Signal();
 	
+	// window.pageYOffset is better than document.body.scrollTop
+	// http://stackoverflow.com/questions/28633221
 	window.addEventListener('scroll', function() {
-		if(window.innerHeight + document.body.scrollTop >= document.body.scrollHeight) {
+		if(window.innerHeight + window.pageYOffset >= document.body.scrollHeight) {
 			scrolledToBottom.dispatch();
 		}
 	});
