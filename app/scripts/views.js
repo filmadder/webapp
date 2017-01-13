@@ -25,6 +25,17 @@ fa.views = (function() {
 	});
 	
 	
+	// dispatches when a view is successfully rendered
+	// used to reset the scroll and to update the inner navigation
+	// for the latter: inner views dispatch with their nav IDs
+	var renderedView = new signals.Signal();
+	
+	// reset the scroll 
+	renderedView.add(function() {
+		window.scroll(0, 0);
+	});
+	
+	
 	// 
 	// helper functions
 	// 
@@ -83,7 +94,7 @@ fa.views = (function() {
 	// inits a create account view
 	var createReg = function(elem) {
 		render(elem, 'reg-templ', {});
-		window.scroll(0, 0);
+		renderedView.dispatch();
 		
 		fa.forms.create(elem.querySelector('form'), function(form) {
 			fa.auth.register(form.getData()).then(function() {
@@ -105,7 +116,7 @@ fa.views = (function() {
 	// inits a login view
 	var createLogin = function(elem) {
 		render(elem, 'login-templ', {});
-		window.scroll(0, 0);
+		renderedView.dispatch();
 		
 		fa.forms.create(elem.querySelector('form'), function(form) {
 			fa.auth.login(form.getData()).then(function() {
@@ -123,12 +134,24 @@ fa.views = (function() {
 	};
 	
 	// inits an inner view
-	// includes the search form
+	// includes the navigation and the search form
 	var createInner = function(elem) {
 		render(elem, 'inner-templ', {});
 		
+		var navLinks = elem.querySelectorAll('header nav a');
 		var searchForm = elem.querySelector('#search-form');
 		var queryField = searchForm.querySelector('[name=q]');
+		
+		renderedView.add(function(navName) {
+			for(var i = 0; i < navLinks.length; i++) {
+				if(navLinks[i].dataset.nav == navName) {
+					navLinks[i].classList.add('clicked');
+				}
+				else {
+					navLinks[i].classList.remove('clicked');
+				}
+			}
+		});
 		
 		searchForm.addEventListener('submit', function(e) {
 			e.preventDefault();
@@ -149,7 +172,7 @@ fa.views = (function() {
 				},
 				items: res.items
 			});
-			window.scroll(0, 0);
+			renderedView.dispatch();
 			
 			if(res.type == 'films') {
 				fa.films.onMoreResults(params.q, function() {
@@ -167,7 +190,7 @@ fa.views = (function() {
 	var createFilm = function(elem, id) {
 		fa.films.get(id).then(function(film) {
 			render(elem, 'film-templ', {film: film});
-			window.scroll(0, 0);
+			renderedView.dispatch();
 			
 			var statusOpts = elem.querySelector('[data-fn=status-opts]');
 			
@@ -226,7 +249,7 @@ fa.views = (function() {
 	var createHome = function(elem) {
 		fa.users.get(fa.auth.getUser().pk).then(function(user) {
 			render(elem, 'home-templ', {watchlist: user.filmsFuture});
-			window.scroll(0, 0);
+			renderedView.dispatch();
 			
 			fa.updates.getUnread().then(function(updates) {
 				if(updates.length > 0) {
@@ -245,7 +268,7 @@ fa.views = (function() {
 			var isEmpty = (updates.firstItems.length == 0);
 			
 			render(elem, 'updates-templ', {isEmpty: isEmpty});
-			window.scroll(0, 0);
+			renderedView.dispatch('updates');
 			
 			var appendItems = function(items) {
 				var div = document.createElement('div');
@@ -274,7 +297,7 @@ fa.views = (function() {
 			var isEmpty = (feed.firstItems.length == 0);
 			
 			render(elem, 'feed-templ', {isEmpty: isEmpty});
-			window.scroll(0, 0);
+			renderedView.dispatch('feed');
 			
 			var appendItems = function(items) {
 				var div = document.createElement('div');
@@ -301,7 +324,7 @@ fa.views = (function() {
 	var createProfile = function(elem, id) {
 		fa.users.get(id).then(function(user) {
 			render(elem, 'profile-templ', {user: user});
-			window.scroll(0, 0);
+			renderedView.dispatch(user.status.self ? 'me' : 'user');
 			
 			if(user.status.unknown) {
 				elem.querySelector('[data-fn=request-friend]').addEventListener('click', function() {
@@ -329,7 +352,7 @@ fa.views = (function() {
 	// inits a settings view
 	var createSettings = function(elem) {
 		render(elem, 'settings-templ', {});
-		window.scroll(0, 0);
+		renderedView.dispatch('profile');
 		
 		elem.querySelector('[data-fn=logout]').addEventListener('click', function() {
 			fa.auth.logout();
@@ -341,7 +364,7 @@ fa.views = (function() {
 	// for the time being, this is the 404 view only
 	var createError = function(elem) {
 		render(elem, 'error-404-templ', {});
-		window.scroll(0, 0);
+		renderedView.dispatch();
 	};
 	
 	// inits a message view
