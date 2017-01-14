@@ -6,6 +6,20 @@
 		.box(30px);
 		
 		background: @lightpurple;
+		position: relative;
+
+		&:before {
+			.size(0; 0);
+
+			display: block;
+			content: "";
+			border-top: 30px solid @lightpurple;
+			border-left: 100vw solid transparent;
+
+			position: absolute;
+			bottom: -30px;
+			left: 0;
+		}
 	}
 
 	.p-intro {
