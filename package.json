@@ -16,7 +16,9 @@
     "easymock": "^0.2.18",
     "ecstatic": "^2.1.0",
     "html-partials-compiler": "^1.0.7",
-    "less": "^2.7.1"
+    "less": "^2.7.1",
+    "less-plugin-clean-css": "^1.5.1",
+    "uglify-js": "^2.7.5"
   },
   "dependencies": {}
 }
