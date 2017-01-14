@@ -11,8 +11,10 @@ fa.views = (function() {
 	// used by the feed and updates views
 	var scrolledToBottom = new signals.Signal();
 	
+	// window.pageYOffset is better than document.body.scrollTop
+	// http://stackoverflow.com/questions/28633221
 	window.addEventListener('scroll', function() {
-		if(window.innerHeight + document.body.scrollTop >= document.body.scrollHeight) {
+		if(window.innerHeight + window.pageYOffset >= document.body.scrollHeight) {
 			scrolledToBottom.dispatch();
 		}
 	});
@@ -20,6 +22,17 @@ fa.views = (function() {
 	// dirty fix to prevent feed items appearing while scrolling through a film
 	hasher.changed.add(function() {
 		scrolledToBottom.removeAll();
+	});
+	
+	
+	// dispatches when a view is successfully rendered
+	// used to reset the scroll and to update the inner navigation
+	// for the latter: inner views dispatch with their nav IDs
+	var renderedView = new signals.Signal();
+	
+	// reset the scroll 
+	renderedView.add(function() {
+		window.scroll(0, 0);
 	});
 	
 	
@@ -81,6 +94,7 @@ fa.views = (function() {
 	// inits a create account view
 	var createReg = function(elem) {
 		render(elem, 'reg-templ', {});
+		renderedView.dispatch();
 		
 		fa.forms.create(elem.querySelector('form'), function(form) {
 			fa.auth.register(form.getData()).then(function() {
@@ -102,6 +116,7 @@ fa.views = (function() {
 	// inits a login view
 	var createLogin = function(elem) {
 		render(elem, 'login-templ', {});
+		renderedView.dispatch();
 		
 		fa.forms.create(elem.querySelector('form'), function(form) {
 			fa.auth.login(form.getData()).then(function() {
@@ -119,12 +134,24 @@ fa.views = (function() {
 	};
 	
 	// inits an inner view
-	// includes the search form
+	// includes the navigation and the search form
 	var createInner = function(elem) {
 		render(elem, 'inner-templ', {});
 		
+		var navLinks = elem.querySelectorAll('header nav a');
 		var searchForm = elem.querySelector('#search-form');
 		var queryField = searchForm.querySelector('[name=q]');
+		
+		renderedView.add(function(navName) {
+			for(var i = 0; i < navLinks.length; i++) {
+				if(navLinks[i].dataset.nav == navName) {
+					navLinks[i].classList.add('clicked');
+				}
+				else {
+					navLinks[i].classList.remove('clicked');
+				}
+			}
+		});
 		
 		searchForm.addEventListener('submit', function(e) {
 			e.preventDefault();
@@ -145,6 +172,7 @@ fa.views = (function() {
 				},
 				items: res.items
 			});
+			renderedView.dispatch();
 			
 			if(res.type == 'films') {
 				fa.films.onMoreResults(params.q, function() {
@@ -162,6 +190,7 @@ fa.views = (function() {
 	var createFilm = function(elem, id) {
 		fa.films.get(id).then(function(film) {
 			render(elem, 'film-templ', {film: film});
+			renderedView.dispatch();
 			
 			var statusOpts = elem.querySelector('[data-fn=status-opts]');
 			
@@ -220,6 +249,7 @@ fa.views = (function() {
 	var createHome = function(elem) {
 		fa.users.get(fa.auth.getUser().pk).then(function(user) {
 			render(elem, 'home-templ', {watchlist: user.filmsFuture});
+			renderedView.dispatch();
 			
 			fa.updates.getUnread().then(function(updates) {
 				if(updates.length > 0) {
@@ -238,6 +268,7 @@ fa.views = (function() {
 			var isEmpty = (updates.firstItems.length == 0);
 			
 			render(elem, 'updates-templ', {isEmpty: isEmpty});
+			renderedView.dispatch('updates');
 			
 			var appendItems = function(items) {
 				var div = document.createElement('div');
@@ -266,6 +297,7 @@ fa.views = (function() {
 			var isEmpty = (feed.firstItems.length == 0);
 			
 			render(elem, 'feed-templ', {isEmpty: isEmpty});
+			renderedView.dispatch('feed');
 			
 			var appendItems = function(items) {
 				var div = document.createElement('div');
@@ -292,6 +324,7 @@ fa.views = (function() {
 	var createProfile = function(elem, id) {
 		fa.users.get(id).then(function(user) {
 			render(elem, 'profile-templ', {user: user});
+			renderedView.dispatch(user.status.self ? 'me' : 'user');
 			
 			if(user.status.unknown) {
 				elem.querySelector('[data-fn=request-friend]').addEventListener('click', function() {
@@ -319,6 +352,8 @@ fa.views = (function() {
 	// inits a settings view
 	var createSettings = function(elem) {
 		render(elem, 'settings-templ', {});
+		renderedView.dispatch('profile');
+		
 		elem.querySelector('[data-fn=logout]').addEventListener('click', function() {
 			fa.auth.logout();
 			fa.routing.go('login');
@@ -329,6 +364,7 @@ fa.views = (function() {
 	// for the time being, this is the 404 view only
 	var createError = function(elem) {
 		render(elem, 'error-404-templ', {});
+		renderedView.dispatch();
 	};
 	
 	// inits a message view
