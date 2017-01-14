@@ -1,2 +1,2 @@
 #!/bin/bash
-lessc app/styles/style.less build/styles/style.css
+lessc --clean-css app/styles/style.less build/styles/style.css
