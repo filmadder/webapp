@@ -7,11 +7,13 @@
 	<h3>Comments<span class="comments-number">{{ comments.length }}</span></h3>
 </label>
 <ul class="comments-list">
-	<li>
-		<label>
-			<input type="checkbox" data-fn="show-spoilers"
-				{{# spoilersOk }}checked{{/ spoilersOk }} />
-			show spoilers?
+	<li class="spoilers-input-cont">
+		<input type="checkbox" id="show-spoilers" data-fn="show-spoilers" {{# spoilersOk }}checked{{/ spoilersOk }} />
+		<label for="show-spoilers">
+			<span>show comments with spoilers</span>
+			<span class="checkbox">
+				<span class="tick"></span>
+			</span>
 		</label>
 	</li>
 	{{# comments }}
@@ -43,12 +45,12 @@
 			<span data-fn="error"></span>
 		</p>
 		<p class="spoilers-input-cont">
-			<input type="checkbox" id="spoilers" name="spoilers" checked />
-			<label for="spoilers">
+			<input type="checkbox" id="has-spoilers" name="spoilers" checked />
+			<label for="has-spoilers">
+				<span>this comment has spoilers</span>
 				<span class="checkbox">
 					<span class="tick"></span>
 				</span>
-				<span>has spoilers?</span>
 			</label>
 			<span data-fn="error"></span>
 		</p>

@@ -575,7 +575,7 @@ h2 {
 
 			&.comments-list,
 			&.film-list {
-				padding: 10px 0 0 15px;
+				padding: 10px 15px 0 15px;
 
 				li {
 					display: none;
@@ -586,7 +586,7 @@ h2 {
 		input[type="checkbox"] {
 
 			&:checked ~ .comments-list li {
-				display: inline-block;
+				display: block;
 			}
 
 			&:checked ~ .film-list li {
@@ -690,6 +690,7 @@ h2 {
 @import "feed";
 @import "updates";
 @import "results";
+@import "comments";
 @import "settings";
 @import "messages";
 
