@@ -3,28 +3,16 @@
 		<section class="p-intro">
 			<article>
 				<h2 class="username">{{ user.name }}</h2>
+				{{# user.showData }}
 				<div class="p-stats">
 					<p><span>{{ user.filmsPast.length }}</span> watched</p>
 					<p><span>{{ user.filmsFuture.length }}</span> watchlisted</p>
 					<!--p><span>17</span> comments</p-->
 				</div>
+				{{/ user.showData }}
 			</article>
 			
 			<article class="p-buttons p-relationship">
-				{{# user.status.unknown }}
-				<button type="button" data-fn="request-friend" class="dark">add friend</button>
-				{{/ user.status.unknown }}
-				
-				{{# user.status.waiting }}
-				<p>friendship</p>
-				<button type="button" data-fn="accept-friend" class="dark">accept</button>
-				<button type="button" data-fn="reject-friend" class="dark">reject</button>
-				{{/ user.status.waiting }}
-				
-				{{# user.status.asked }}
-				<p>friendship request sent</p>
-				{{/ user.status.asked }}
-				
 				{{# user.status.friend }}
 				<p>✓ friends</p>
 				{{/ user.status.friend }}
@@ -35,7 +23,29 @@
 			</article>
 		</section>
 	</div>
-
+	
+	{{# user.status.unknown }}
+	<article class="no-peek">
+		<p>do you know {{ user.name }}?</p>
+		<button type="button" data-fn="request-friend" class="dark">add friend</button>
+	</article>
+	{{/ user.status.unknown }}
+	
+	{{# user.status.waiting }}
+	<article class="no-peek">
+		<p>{{ user.name }} has asked to be friends with you!</p>
+		<button type="button" data-fn="accept-friend" class="dark">accept</button>
+		<button type="button" data-fn="reject-friend" class="dark">reject</button>
+	</article>
+	{{/ user.status.waiting }}
+	
+	{{# user.status.asked }}
+	<article class="no-peek">
+		<p>you have asked {{ user.name }} to be friends with you</p>
+	</article>
+	{{/ user.status.asked }}
+	
+	{{# user.showData }}
 	<article class="peek">
 		<section class="watched arrow-cont">
 			<input type="checkbox" id="peek-watched" class="hidden"/>
@@ -124,4 +134,5 @@
 			</ul>
 		</section>
 	</article>
+	{{/ user.showData }}
 </div>
