@@ -80,12 +80,14 @@ fa.films = (function() {
 		});
 	};
 	
-	// returns a promise that just resolves or rejects with an error
+	// returns a promise that resolves into the re-newed film object
 	var postComment = function(filmId, comment, hasSpoilers) {
 		return fa.ws.send('post_comment', {
 			film: filmId,
 			text: comment,
 			has_spoilers: hasSpoilers
+		}).then(function() {
+			return getFilm(filmId);
 		});
 	};
 	
