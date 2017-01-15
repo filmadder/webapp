@@ -108,8 +108,8 @@ fa.views = (function() {
 			});
 		})
 		.add('email', [fa.forms.maxLen(200), fa.forms.email])
-		.add('name', [fa.forms.maxLen(200), fa.forms.minLen(6)])
-		.add('pass1', [fa.forms.maxLen(200), fa.forms.minLen(6)])
+		.add('name', [fa.forms.maxLen(200), fa.forms.minLen(5)])
+		.add('pass1', [fa.forms.maxLen(200), fa.forms.minLen(5)])
 		.add('pass2', fa.forms.equal('pass1'));
 	};
 	
@@ -130,7 +130,7 @@ fa.views = (function() {
 			});
 		})
 		.add('email', [fa.forms.maxLen(200), fa.forms.email])
-		.add('pass', [fa.forms.maxLen(200), fa.forms.minLen(6)]);
+		.add('pass', [fa.forms.maxLen(200), fa.forms.minLen(5)]);
 	};
 	
 	// inits an inner view
@@ -192,6 +192,10 @@ fa.views = (function() {
 			render(elem, 'film-templ', {film: film});
 			renderedView.dispatch();
 			
+			// comments
+			hier.add('/inner/film/comments', {film: film, spoilersOk: false});
+			
+			// film status
 			var statusOpts = elem.querySelector('[data-fn=status-opts]');
 			
 			var addWatchedButton = elem.querySelector('[data-fn=add-watched]');
@@ -232,23 +236,48 @@ fa.views = (function() {
 					}).catch(handleError);
 				});
 			}
-			
-			// comment form
-			fa.forms.create(elem.querySelector('form'), function(form) {
-				var data = form.getData();
-				fa.films.postComment(id, data.comment, data.spoilers).then(function() {
-					hier.update('/inner/film', id);
-				}).catch(function(error) {
-					if(error.code == 'bad_input') {
-						removeMessage();
-						form.showError(error.message);
-					}
-					else addMessage({type: 'error', code: error.code});
-				});
-			})
-			.add('comment', [fa.forms.minLen(6)])
-			.add('spoilers', []);
 		}).catch(handleError);
+	};
+	
+	// inits a film comments view
+	// expects a {film, spoilersOk} object as its params param
+	var createComments = function(elem, params) {
+		var comments = (params.spoilersOk)
+			? params.film.comments
+			: fjs.filter('x => !x.has_spoilers', params.film.comments);
+		
+		render(elem, 'comments-templ', {
+			comments: comments,
+			film: {title: params.film.title},
+			spoilersOk: params.spoilersOk});
+		
+		// show/hide spoiler comments
+		var spoilersCheck = elem.querySelector('[data-fn=show-spoilers]');
+		spoilersCheck.addEventListener('change', function(e) {
+			hier.update('/inner/film/comments', {
+				film: params.film,
+				spoilersOk: spoilersCheck.checked});
+		});
+		
+		// comment form
+		fa.forms.create(elem.querySelector('form'), function(form) {
+			var data = form.getData();
+			var id = params.film.pk;
+			
+			fa.films.postComment(id, data.comment, data.spoilers).then(function(film) {
+				hier.update('/inner/film/comments', {
+					film: film,
+					spoilersOk: data.spoilers});
+			}).catch(function(error) {
+				if(error.code == 'bad_input') {
+					removeMessage();
+					form.showError(error.message);
+				}
+				else addMessage({type: 'error', code: error.code});
+			});
+		})
+		.add('comment', [fa.forms.minLen(6)])
+		.add('spoilers', []);
 	};
 	
 	// inits a home view
@@ -414,6 +443,7 @@ fa.views = (function() {
 		feed: createFeed,
 		results: createResults,
 		film: createFilm,
+		comments: createComments,
 		profile: createProfile,
 		settings: createSettings,
 		

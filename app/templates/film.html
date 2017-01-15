@@ -154,61 +154,6 @@
 				{{/ film.watchersFuture }}
 			</ul>
 		</section>
-		<section class="comments arrow-cont">
-			<input type="checkbox" id="comments" class="hidden"/>
-			<label for="comments">
-				<div class="arrow">
-					<div class="stroke"></div>
-					<div class="stroke"></div>
-				</div>
-				<h3>Comments<span class="comments-number">{{ film.comments.length }}</span></h3>
-			</label>
-			<ul class="comments-list">
-				<li>
-					
-				</li>
-				{{# film.comments }}
-				<li class="comment">
-					<a href="#/user/{{ author.pk }}" class="author">{{ author.name }}<abbr class="date" title="data">15.01.2017</abbr></a>
-					<p class="text">{{ text }}</p>
-					<!-- <button type="button" class="light" data-fn="reply">reply</button>
-
-					<ul class="replies">
-						{{# replies }}
-						<li>
-							<a href="#/user/{{ author.pk }}" class="author">{{ author.name }}</a>
-							<p class="text">{{ text }}</p>
-						</li>
-						{{/ replies }}
-					</ul> -->
-				</li>
-				{{/ film.comments }}
-				{{^ film.comments }}
-				<li>
-					Not yet
-					<p class="text">Your comments are visible only by your friends. Likewise, you can see only your friends' comments.</p>
-				</li>
-				{{/ film.comments }}
-				<!-- <button type="button" class="light" data-fn="reply">leave a comment</button> -->
-				<form novalidate autocomplete="off" class="comment-form">
-					<div data-fn="error" class="error"></div>
-					<p>
-						<textarea name="comment" rows="4" placeholder="Share your thoughts on {{ film.title }}"></textarea>
-						<span data-fn="error"></span>
-					</p>
-					<p class="spoilers-input-cont">
-							<input type="checkbox" id="spoilers" name="spoilers" />
-							<label for="spoilers">
-								<span class="checkbox">
-									<span class="tick"></span>
-								</span>
-								<span>has spoilers?</span>
-							</label>
-							<span data-fn="error"></span>
-					</p>
-					<button type="submit" class="light">comment</button>
-				</form>
-			</ul>
-		</section>
+		<section class="comments arrow-cont"></section>
 	</article>
 </div>

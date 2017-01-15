@@ -17,6 +17,7 @@ fa.routing = (function() {
 	hier.reg('/inner/feed', '#view', fa.views.feed);
 	hier.reg('/inner/results', '#view', fa.views.results);
 	hier.reg('/inner/film', '#view', fa.views.film);
+	hier.reg('/inner/film/comments', 'section.comments', fa.views.comments);
 	hier.reg('/inner/profile', '#view', fa.views.profile);
 	hier.reg('/inner/settings', '#view', fa.views.settings);
 	
