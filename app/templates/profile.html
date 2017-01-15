@@ -26,7 +26,8 @@
 	
 	{{# user.status.unknown }}
 	<article class="no-peek">
-		<p>do you know {{ user.name }}?</p>
+		<h2>You are not friends</h2>
+		<p>Do you want to become friends with {{ user.name }}?</p>
 		<button type="button" data-fn="request-friend" class="dark">add friend</button>
 	</article>
 	{{/ user.status.unknown }}
@@ -41,7 +42,8 @@
 	
 	{{# user.status.asked }}
 	<article class="no-peek">
-		<p>you have asked {{ user.name }} to be friends with you</p>
+		<h2>Friend request sent</h2>
+		<p>you have asked <strong>{{ user.name }}</strong> to be friends with you</p>
 	</article>
 	{{/ user.status.asked }}
 	
