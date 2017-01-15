@@ -252,7 +252,7 @@ h2 {
 /* search */
 
 #search-form {
-	.size(100px; 100%);
+	.size(44px; 100%);
 	.box;
 
 	position: fixed;
@@ -268,8 +268,11 @@ h2 {
 		border: none;
 		border-top: 2px solid @lightpurple;
 		color: @grey;
-		margin-top: 56px;
-		outline: none;
+/*		margin-top: 56px;
+*/		outline: none;
+
+		position: fixed;
+		bottom: 0;
 
 		&::-moz-placeholder {
 			.font;
@@ -284,8 +287,8 @@ h2 {
 			.font(700; 24px);
 
 			background: white;
-			margin-top: 0;
-			height: 100px;
+/*			margin-top: 0;
+*/			height: 100px;
 
 			&::-moz-placeholder {
 				.font(@s: 24px);
@@ -423,7 +426,9 @@ h2 {
 	.column(@center; @center);
 
 	background: @lightblue;
+	background: white;
 	border-radius: 10px;
+	border: 2px solid @purple;
 	min-height: 46px;
 	min-width: 46px;
 
@@ -433,6 +438,13 @@ h2 {
 		border: none;
 		outline: none;
 		background-color: transparent;
+	}
+
+	&.current {
+		border: 2px solid white;
+	}
+
+	&:hover {
 	}
 }
 
@@ -514,6 +526,11 @@ h2 {
 
 				a {
 					color: @lightpurple;
+
+					&:hover,
+					&:focus {
+						color: @purple;
+					}
 				}
 			}
 
@@ -529,6 +546,11 @@ h2 {
 
 				a {
 					color: @lightpurple;
+
+					&:hover,
+					&:focus {
+						color: @purple;
+					}
 				}
 			}
 
