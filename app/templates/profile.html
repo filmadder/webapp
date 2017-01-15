@@ -4,17 +4,17 @@
 			<article>
 				<h2 class="username">{{ user.name }}</h2>
 				{{# user.showData }}
-				<div class="p-stats">
+				<!-- <div class="p-stats">
 					<p><span>{{ user.filmsPast.length }}</span> watched</p>
 					<p><span>{{ user.filmsFuture.length }}</span> watchlisted</p>
-					<!--p><span>17</span> comments</p-->
-				</div>
+				</div> -->
 				{{/ user.showData }}
 			</article>
 			
 			<article class="p-buttons p-relationship">
 				{{# user.status.friend }}
-				<p>✓ friends</p>
+				<p>you are friends</p>
+				<button class="dark">remove</button>
 				{{/ user.status.friend }}
 				
 				{{# user.status.self }}
@@ -28,15 +28,18 @@
 	<article class="no-peek">
 		<h2>You are not friends</h2>
 		<p>Do you want to become friends with {{ user.name }}?</p>
-		<button type="button" data-fn="request-friend" class="dark">add friend</button>
+		<button type="button" data-fn="request-friend" class="light">add friend</button>
 	</article>
 	{{/ user.status.unknown }}
 	
 	{{# user.status.waiting }}
 	<article class="no-peek">
-		<p>{{ user.name }} has asked to be friends with you!</p>
-		<button type="button" data-fn="accept-friend" class="light">accept</button>
-		<button type="button" data-fn="reject-friend" class="light">reject</button>
+		<h2>Friend request received</h2>
+		<p>{{ user.name }} wants to be friends with you</p>
+		<p>
+			<button type="button" data-fn="accept-friend" class="light">accept</button>
+			<button type="button" data-fn="reject-friend" class="light">reject</button>
+		</p>
 	</article>
 	{{/ user.status.waiting }}
 	
@@ -56,7 +59,7 @@
 					<div class="stroke"></div>
 					<div class="stroke"></div>
 				</div>
-				<h3>Watched</h3>
+				<h3>Watched<span class="number">{{ user.filmsPast.length }}</span></h3>
 			</label>
 			<ul class="film-list">
 				{{# user.filmsPast }}
@@ -85,7 +88,7 @@
 					<div class="stroke"></div>
 					<div class="stroke"></div>
 				</div>
-				<h3>Watchlisted</h3>
+				<h3>Watchlisted<span class="number">{{ user.filmsFuture.length }}</span></h3>
 			</label>
 			<ul class="film-list">
 				{{# user.filmsFuture }}
@@ -114,7 +117,7 @@
 					<div class="stroke"></div>
 					<div class="stroke"></div>
 				</div>
-				<h3>Friends</h3>
+				<h3>Friends<span class="number">{{ user.friends.length }}</span></h3>
 			</label>
 			<ul class="friends-list">
 				{{# user.friends }}
