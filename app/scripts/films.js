@@ -60,14 +60,14 @@ fa.films = (function() {
 		return film;
 	};
 	
-	// returns promise that resolves into a film object
+	// returns a promise that resolves into a film object
 	var getFilm = function(id) {
 		return fa.ws.send('get_film', {film: id}).then(function(data) {
 			return Promise.resolve(createFilm(data));
 		});
 	};
 	
-	// returns promise that resolves into a [] of film results
+	// returns a promise that resolves into a [] of film results
 	var searchFilms = function(query) {
 		return fa.ws.send('search_films', {query: query});
 	};
@@ -80,6 +80,15 @@ fa.films = (function() {
 		});
 	};
 	
+	// returns a promise that just resolves or rejects with an error
+	var postComment = function(filmId, comment, hasSpoilers) {
+		return fa.ws.send('post_comment', {
+			film: filmId,
+			text: comment,
+			has_spoilers: hasSpoilers
+		});
+	};
+	
 	
 	// 
 	// exports
@@ -87,8 +96,11 @@ fa.films = (function() {
 	
 	return {
 		get: getFilm,
+		
 		search: searchFilms,
-		onMoreResults: onMoreResults
+		onMoreResults: onMoreResults,
+		
+		postComment: postComment
 	};
 	
 }());

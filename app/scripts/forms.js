@@ -52,7 +52,11 @@ fa.forms = (function() {
 		field.name = fieldElem.name;
 		
 		// returns the current value
+		// for checkbox inputs, this is a boolean
 		field.getValue = function() {
+			if(fieldElem.tagName == 'INPUT' && fieldElem.type == 'checkbox') {
+				return fieldElem.checked;
+			}
 			return fieldElem.value;
 		};
 		

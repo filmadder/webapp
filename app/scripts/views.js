@@ -233,15 +233,21 @@ fa.views = (function() {
 				});
 			}
 			
-			/*var replyButtons = elem.querySelectorAll('button[data-fn=reply]');
-			var commentButton = elem.querySelector('button[data-fn=comment]');
-			
-			commentButton.addEventListener('click', function(e) {
-				var div = document.createElement('div');
-				commentButton.parentNode.insertBefore(div, commentButton);
-				render(div, 'comment-form-templ');
-				commentButton.remove();
-			});*/
+			// comment form
+			fa.forms.create(elem.querySelector('form'), function(form) {
+				var data = form.getData();
+				fa.films.postComment(id, data.comment, data.spoilers).then(function() {
+					hier.update('/inner/film', id);
+				}).catch(function(error) {
+					if(error.code == 'bad_input') {
+						removeMessage();
+						form.showError(error.message);
+					}
+					else addMessage({type: 'error', code: error.code});
+				});
+			})
+			.add('comment', [fa.forms.minLen(5)])
+			.add('spoilers', []);
 		}).catch(handleError);
 	};
 	

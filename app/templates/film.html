@@ -187,11 +187,18 @@
 				</li>
 				{{/ film.comments }}
 				<!-- <button type="button" class="light" data-fn="reply">leave a comment</button> -->
-				<form novalidate class="comment-form">
+				<form novalidate autocomplete="off" class="comment-form">
 					<div data-fn="error" class="error"></div>
 					<p>
 						<textarea name="comment" rows="4" placeholder="Share your thoughts on {{ film.title }}"></textarea>
 						<span data-fn="error"></span>
+					</p>
+					<p>
+						<label>
+							<input type="checkbox" name="spoilers" checked />
+							has spoilers?
+							<span data-fn="error"></span>
+						</label>
 					</p>
 					<button type="submit" class="light">comment</button>
 				</form>
