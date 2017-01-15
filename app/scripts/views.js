@@ -108,8 +108,8 @@ fa.views = (function() {
 			});
 		})
 		.add('email', [fa.forms.maxLen(200), fa.forms.email])
-		.add('name', [fa.forms.maxLen(200), fa.forms.minLen(5)])
-		.add('pass1', [fa.forms.maxLen(200), fa.forms.minLen(5)])
+		.add('name', [fa.forms.maxLen(200), fa.forms.minLen(6)])
+		.add('pass1', [fa.forms.maxLen(200), fa.forms.minLen(6)])
 		.add('pass2', fa.forms.equal('pass1'));
 	};
 	
@@ -130,7 +130,7 @@ fa.views = (function() {
 			});
 		})
 		.add('email', [fa.forms.maxLen(200), fa.forms.email])
-		.add('pass', [fa.forms.maxLen(200), fa.forms.minLen(5)]);
+		.add('pass', [fa.forms.maxLen(200), fa.forms.minLen(6)]);
 	};
 	
 	// inits an inner view
@@ -246,7 +246,7 @@ fa.views = (function() {
 					else addMessage({type: 'error', code: error.code});
 				});
 			})
-			.add('comment', [fa.forms.minLen(5)])
+			.add('comment', [fa.forms.minLen(6)])
 			.add('spoilers', []);
 		}).catch(handleError);
 	};
@@ -329,6 +329,8 @@ fa.views = (function() {
 	// inits a profile view
 	var createProfile = function(elem, id) {
 		fa.users.get(id).then(function(user) {
+			user.showData = (user.status.self || user.status.friend);
+			
 			render(elem, 'profile-templ', {user: user});
 			renderedView.dispatch(user.status.self ? 'me' : 'user');
 			

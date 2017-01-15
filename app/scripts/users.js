@@ -12,10 +12,7 @@ fa.users = (function() {
 	var createUser = function(data) {
 		var user = {
 			pk: data.user.pk,
-			name: data.user.name,
-			filmsPast: data.films_past,
-			filmsFuture: data.films_future,
-			friends: data.friends
+			name: data.user.name
 		};
 		
 		user.status = {
@@ -38,6 +35,11 @@ fa.users = (function() {
 			user.rejectFriendship = function() {
 				return fa.ws.send('reject_friendship', {user: user.pk});
 			};
+		}
+		else if(user.status.friend || user.status.self) {
+			user.filmsPast = data.films_past;
+			user.filmsFuture = data.films_future;
+			user.friends = data.friends;
 		}
 		
 		return user;
