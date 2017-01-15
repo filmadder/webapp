@@ -244,7 +244,7 @@ fa.views = (function() {
 	var createComments = function(elem, params) {
 		var comments = (params.spoilersOk)
 			? params.film.comments
-			: fjs.filter('x => !x.has_spoilers', params.film.comments);
+			: fjs.filter('x => !x.hasSpoilers', params.film.comments);
 		
 		render(elem, 'comments-templ', {
 			comments: comments,

@@ -18,7 +18,8 @@
 	</li>
 	{{# comments }}
 	<li class="comment">
-		<a href="#/user/{{ author.pk }}" class="author">{{ author.name }}<abbr class="date" title="data">15.01.2017</abbr></a>
+		<a href="#/user/{{ author.pk }}" class="author">{{ author.name }}</a>
+		<abbr class="date" title="{{ posted.iso }}">{{ posted.ago }}</abbr>
 		<p class="text">{{ text }}</p>
 		<!-- <button type="button" class="light" data-fn="reply">reply</button>
 		<ul class="replies">
@@ -37,7 +38,6 @@
 		<p class="text">Your comments are visible only by your friends. Likewise, you can see only your friends' comments.</p>
 	</li>
 	{{/ comments }}
-	<!-- <button type="button" class="light" data-fn="reply">leave a comment</button> -->
 	<form novalidate autocomplete="off" class="comment-form">
 		<div data-fn="error" class="error"></div>
 		<p>

@@ -10,7 +10,7 @@ fa.updates = (function() {
 	// constructs and returns an update item object from the backend data
 	var createItem = function(data) {
 		var item = {
-			created: data.created
+			created: fa.utils.humaniseTime(data.created)
 		};
 		
 		item.type = {

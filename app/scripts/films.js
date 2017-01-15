@@ -20,6 +20,19 @@ fa.films = (function() {
 	// functions
 	// 
 	
+	// constructs and returns a comment object from backend data
+	// helper for createFilm()
+	var createComment = function(data) {
+		return {
+			pk: data.pk,
+			author: data.author,
+			text: data.text,
+			hasSpoilers: data.has_spoilers,
+			posted: fa.utils.humaniseTime(data.posted),
+			replies: data.replies
+		};
+	};
+	
 	// constructs and returns a film object from backend data
 	// helper for getFilm()
 	var createFilm = function(data) {
@@ -38,7 +51,7 @@ fa.films = (function() {
 			posterUrl: data.film.poster_url,
 			watchersPast: data.watchers_past,
 			watchersFuture: data.watchers_future,
-			comments: data.comments
+			comments: fjs.map(createComment, data.comments)
 		};
 		
 		film.status = {

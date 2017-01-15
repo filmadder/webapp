@@ -10,7 +10,7 @@ fa.feed = (function() {
 	// constructs and returns a feed item object from the backend data
 	var createItem = function(data) {
 		var item = {
-			created: data.created
+			created: fa.utils.humaniseTime(data.created)
 		};
 		
 		item.type = {
