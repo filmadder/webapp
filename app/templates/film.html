@@ -161,12 +161,15 @@
 					<div class="stroke"></div>
 					<div class="stroke"></div>
 				</div>
-				<h3>Comments</h3>
+				<h3>Comments<span class="comments-number">{{ film.comments.length }}</span></h3>
 			</label>
 			<ul class="comments-list">
+				<li>
+					
+				</li>
 				{{# film.comments }}
 				<li class="comment">
-					<a href="#/user/{{ author.pk }}" class="author">{{ author.name }}</a>
+					<a href="#/user/{{ author.pk }}" class="author">{{ author.name }}<abbr class="date" title="data">15.01.2017</abbr></a>
 					<p class="text">{{ text }}</p>
 					<!-- <button type="button" class="light" data-fn="reply">reply</button>
 
@@ -193,12 +196,15 @@
 						<textarea name="comment" rows="4" placeholder="Share your thoughts on {{ film.title }}"></textarea>
 						<span data-fn="error"></span>
 					</p>
-					<p>
-						<label>
-							<input type="checkbox" name="spoilers" checked />
-							has spoilers?
+					<p class="spoilers-input-cont">
+							<input type="checkbox" id="spoilers" name="spoilers" />
+							<label for="spoilers">
+								<span class="checkbox">
+									<span class="tick"></span>
+								</span>
+								<span>has spoilers?</span>
+							</label>
 							<span data-fn="error"></span>
-						</label>
 					</p>
 					<button type="submit" class="light">comment</button>
 				</form>

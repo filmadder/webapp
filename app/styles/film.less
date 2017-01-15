@@ -217,17 +217,46 @@
 
 	.comments {
 
+		.comments-number {
+
+			color: white;
+			border-radius: 3px;
+			display: inline-block;
+			background: @purple;
+			padding: 0 6px;
+			margin: 0 0 0 10px;
+		}
+
 		.comments-list {
 			.column;
 
 			.text {
 				color: @grey;
+				margin: 3px 0;
+			}
+
+			.date {
+				.font(400; 14px);
+
+				border: none;
+				color: @lightgrey;
+				margin: 0 0 0 10px;
+
+			}
+
+			.author {
+				color: @lightpurple;
+				display: inline-block;
+				margin: 0;
 			}
 
 			padding: 0;
 
 			li {
-				padding: 15px 0 15px 15px;
+				.box(15px 37px);
+
+				margin: 0;
+				width: 100%;
 			}
 
 			button {
@@ -236,13 +265,16 @@
 
 			.comment-form {
 				.column;
+				.box(20px);
 
-				margin: 20px;
+				margin: 20px 0 0 0;
 				width: ~"calc(100% - 40px)";
+				width: 100%;
 
 				p {
-					margin: 20px 0;
+					margin: 0;
 					width: 100%;
+
 				}
 
 				textarea {
@@ -255,16 +287,87 @@
 					width: 100%;
 
 					&::-moz-placeholder {
-						color: #999;
+						color: @lightpurple;
 					}
 
 					&::-webkit-input-placeholder  {
-						color: #999;
+						color: @lightpurple;
 					}
+				}
+
+				.spoilers-input-cont {
+					.row(@right; @center);
+
+					label {
+						padding: 0;
+						margin: 10px;
+
+						span {
+							font-weight: bold;
+							color: @lightpurple;
+						}
+
+						.checkbox {
+							.box();
+							.size(30px; 30px);
+
+							border: 5px solid @lightpurple;
+							border-radius: 50%;
+							display: inline-block;
+							margin: 0 10px 0 0;
+
+							position: relative;
+
+							.tick {
+								.size(16px; 4px;);
+
+								background: white;
+								display: none;
+								transform: rotate(45deg);
+
+								position: absolute;
+								top: 3px;
+								left: 10px;
+
+								&:before {
+									.size(10px; 4px);
+
+									background: white;
+									display: block;
+									content: "";
+									transform: rotate(-90deg);
+
+									position: absolute;
+									top: 9px;
+									left: -3px;
+								}
+
+							} 
+						}
+					}
+
+					input[type="checkbox"] {
+						display: none;
+
+						&:checked ~ label {
+
+							.checkbox {
+								
+								background: @lightpurple;
+
+								.tick {
+									display: block;
+								}
+							}
+						}
+					}
+
 				}
 
 				button {
 					.naughty(column; @right);
+
+					margin: 20px 10px 0 0;
 				}
 			}
 		}
