@@ -33,11 +33,11 @@
 	{{/ type.becameFriends }}
 	
 	{{# type.wroteComment }}
-	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	<h3>
 		<a class="f-title" href="#/film/{{ film.pk }}">{{ film.title }}</a>
 	</h3>
 	<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> wrote comment</p>
+	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.wroteComment }}
 </div>
 {{/ items }}
