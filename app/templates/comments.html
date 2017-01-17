@@ -19,7 +19,7 @@
 	{{# comments }}
 	<li class="comment">
 		<a href="#/user/{{ author.pk }}" class="author">{{ author.name }}</a>
-		<abbr class="date" title="{{ posted.iso }}">{{ posted.ago }}</abbr>
+		<abbr class="timestamp" title="{{ posted.iso }}">{{ posted.ago }}</abbr>
 		<p class="text">{{ text }}</p>
 		<!-- <button type="button" class="light" data-fn="reply">reply</button>
 		<ul class="replies">

@@ -1,16 +1,16 @@
 .feed {
 	.box(30px);
-	.column(@left; @center);
+	.column(@center; @center);
 	
 	width: 100%;
 
 	.feed-item {
 		.column;
 
-		padding: 15px 0;
+		padding: 20px 0;
 
 		> h3 {
-			.row();
+			.row(@y: @center);
 		}
 
 		.f-title {
@@ -42,6 +42,12 @@
 			&.friendship {
 				margin: 0;
 			}
+		}
+
+		.timestamp {
+			.naughty(column; @center;);
+
+			margin: 0 0 5px 0;
 		}
 	}
 }

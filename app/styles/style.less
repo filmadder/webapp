@@ -87,38 +87,42 @@ header {
 	.row(@spread; @center);
 	.size(44px; 100%);
 
-	background: white;
-	border-bottom: 2px solid @lightpurple;
-	z-index: 1000;
+	background: transparent;
+	z-index: 10;
 
 	position: fixed;
 	top: 0;
-	left: 0;
+	right: 0;
 
 	.heading {
-		.row(@y: center);
+		.column(@center; @center);
 
 		background: @purple;
-		padding: 12px 10px;
-		margin: 0 0 0 12px;
+		margin: 0 auto;
+		padding: 0 10px;
+		height: 44px;
+		z-index: 10;
+
+		position: fixed;
+		top: 10px;
+		right: 0;
 
 		.logo {
-			.size(38px; 38px);
-
+			.size(30px; 30px);
 		}
 
-		h1 {
+		/*h1 {
 			.font(700; 18px);
 
-			color: @purple;
-			margin: 0 0 0 5px;
-		}
+			color: white;
+		}*/
 
 	}
 
 	nav {
 		.row(@y: @center);
 
+		display: none;
 		margin: 0 4px 0 20px;
 
 		.nav-item {
@@ -173,7 +177,7 @@ h2 {
 }
 
 #view {
-	.box(40px 0);
+	.box(0 0 40px 0);
 
 	min-height: ~"calc(100vh - 50px)";
 }
@@ -663,6 +667,19 @@ h2 {
 	.arrow {
 		margin: 0;
 	}
+}
+
+.timestamp {
+	.font(400; 14px);
+
+	border-bottom: none;
+	color: @lightgrey;
+	cursor: default;
+
+	&[title] {
+		border: none;
+	}
+
 }
 
 .wrong-form {
