@@ -25,7 +25,11 @@ fa.films = (function() {
 	var createComment = function(data) {
 		return {
 			pk: data.pk,
-			author: data.author,
+			author: {
+				pk: data.author.pk,
+				name: data.author.name,
+				self: (data.author.pk == fa.auth.getUser().pk)
+			},
 			text: data.text,
 			hasSpoilers: data.has_spoilers,
 			posted: fa.utils.humaniseTime(data.posted),
@@ -104,6 +108,14 @@ fa.films = (function() {
 		});
 	};
 	
+	// returns a promise that resolves with nothing
+	var deleteComment = function(filmId, commentId) {
+		return fa.ws.send('delete_comment', {
+			film: filmId,
+			comment: commentId
+		});
+	};
+	
 	
 	// 
 	// exports
@@ -115,7 +127,8 @@ fa.films = (function() {
 		search: searchFilms,
 		onMoreResults: onMoreResults,
 		
-		postComment: postComment
+		postComment: postComment,
+		deleteComment: deleteComment
 	};
 	
 }());

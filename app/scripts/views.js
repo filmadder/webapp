@@ -193,6 +193,10 @@ fa.views = (function() {
 			renderedView.dispatch();
 			
 			// comments
+			// the force-add is needed in case of an update of /inner/film
+			if(hier.has('/inner/film/comments')) {
+				hier.remove('/inner/film/comments');
+			}
 			hier.add('/inner/film/comments', {film: film, spoilersOk: false});
 			
 			// film status
@@ -278,6 +282,19 @@ fa.views = (function() {
 		})
 		.add('comment', [fa.forms.minLen(6)])
 		.add('spoilers', []);
+		
+		// delete comment buttons
+		var delButtons = elem.querySelectorAll('button[data-fn=del-comment]');
+		for(var i = 0; i < delButtons.length; i++) {
+			delButtons[i].addEventListener('click', function(e) {
+				fa.films.deleteComment(params.film.pk, e.target.dataset.comment).then(function() {
+					hier.update('/inner/film', params.film.pk);
+					addMessage({type: 'success', text: 'comment removed'});
+				}).catch(function(error) {
+					addMessage({type: 'error', code: error.code});
+				});
+			});
+		}
 	};
 	
 	// inits a home view
