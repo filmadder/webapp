@@ -16,16 +16,17 @@ fa.feed = (function() {
 		item.type = {
 			addedToWatched: (data.type == 'a'),
 			addedToWatchlist: (data.type == 'u'),
-			becameFriends: (data.type == 'f')
+			becameFriends: (data.type == 'f'),
+			wroteComment: (data.type == 'c')
 		};
 		
-		if(item.type.addedToWatched || item.type.addedToWatchlist) {
-			item.user = data.user;
-			item.film = data.film;
-		}
-		else if(item.type.becameFriends) {
+		if(item.type.becameFriends) {
 			item.userA = data.user_a;
 			item.userB = data.user_b;
+		}
+		else {
+			item.user = data.user;
+			item.film = data.film;
 		}
 		
 		return item;
