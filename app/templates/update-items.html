@@ -2,12 +2,14 @@
 	{{# type.newFriend }}
 	<div class="update-item">
 		<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> and you are now friends</p>
+		<p><abbr class="date" title="{{ created.iso }}">{{ created.ago }}</abbr></p>
 	</div>
 	{{/ type.newFriend }}
 	
 	{{# type.newFriendReq }}
 	<div class="update-item">
 		<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> wants to be friends with you</p>
+		<p><abbr class="date" title="{{ created.iso }}">{{ created.ago }}</abbr></p>
 	</div>
 	{{/ type.newFriendReq }}
 	
@@ -18,6 +20,7 @@
 			replied to your comment on
 			<a href="#/film/{{ film.pk }}">{{ film.title }}</a>
 		</p>
+		<p><abbr class="date" title="{{ created.iso }}">{{ created.ago }}</abbr></p>
 	</div>
 	{{/ type.newReply }}
 {{/ items }}
