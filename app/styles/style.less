@@ -92,10 +92,10 @@ header {
 
 	.heading {
 
-		padding: 0 0 0 20px;
+		padding: 0 0 0 18px;
 
 		.logo {
-			.size(35px; 35px);
+			.size(38px; 38px);
 		}
 
 		/*h1 {
@@ -117,15 +117,17 @@ header {
 			.font(700; 14px);
 			.transition;
 
+			border-radius: 3px;
 			color: white;
 			margin: 0;
 			padding: 5px 8px;
 			text-transform: uppercase;
 
 			&:hover,
-			&:focus {
-				color: white;
-				background: @lightpurple;
+			&:focus,
+			.clicked {
+				color: @lightpurple;
+				background: white;
 			} 
 		}
 
@@ -313,7 +315,7 @@ h2 {
 }
 
 .icon {
-	.size(32px; 32px);
+	.size(34px; 34px);
 
 	background-position: center;
 	background-repeat: no-repeat;
@@ -426,8 +428,8 @@ h2 {
 	background: @lightblue;
 	background: white;
 	border-radius: 10px;
-	border: 2px solid @purple;
-	min-height: 46px;
+/*	border: 2px solid @purple;
+*/	min-height: 46px;
 	min-width: 46px;
 
 	.status-icon {
@@ -443,6 +445,7 @@ h2 {
 	}
 
 	&:hover {
+		background: @lightblue;
 	}
 }
 
@@ -631,7 +634,7 @@ h2 {
 			color: white;
 			border-radius: 3px;
 			display: inline-block;
-			background: @purple;
+			background: @lightpurple;
 			padding: 0 6px;
 			margin: 0 0 0 10px;
 		}
