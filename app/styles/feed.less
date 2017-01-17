@@ -1,32 +1,41 @@
 .feed {
 	.box(30px);
-	.column(@center; @center);
+	.column(@left; @center);
 	
 	width: 100%;
 
+	div {
+		width: 100%;
+	}
+
 	.feed-item {
-		.column;
+		.column(@center);
 
 		padding: 20px 0;
 
+
 		> h3 {
-			.row(@y: @center);
+			.column(@center; @center);
 		}
 
 		.f-title {
-			margin: 0 0 0 15px;
+			margin: 0 0 0 0;
+			text-align: center;
 		}
 
 		.icon {
-			.size(30px; 30px);
+			.size(40px; 40px);
+
+			margin: 0 0 6px 0;
 		}
 
 		p {
 			.font(bold);
-
+/*			.naughty(column; @left);
+*/
 			color: @grey;
 			font-weight: normal;
-			margin: 3px 0 3px 48px;
+			margin: 3px 0 3px 0;
 
 			a {
 				.font(bold);
@@ -47,7 +56,7 @@
 		.timestamp {
 			.naughty(column; @center;);
 
-			margin: 0 0 5px 0;
+			margin: 3px 0 0 0;
 		}
 	}
 }

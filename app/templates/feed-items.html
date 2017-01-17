@@ -1,30 +1,35 @@
 {{# items }}
 <div class="feed-item">
 	{{# type.addedToWatched }}
-	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	<h3>
 		<div class="icon watched-icon"></div>
 		<a class="f-title" href="#/film/{{ film.pk }}">{{ film.title }}</a>
 	</h3>
-	<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> added to watched</p>
+	<p>
+		<a href="#/user/{{ user.pk }}">{{ user.name }}</a> added to watched
+	</p>
+		<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatched }}
 	
 	{{# type.addedToWatchlist }}
-	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	<h3>
 		<div class="icon watchlisted-icon"></div>
 		<a class="f-title" href="#/film/{{ film.pk }}">{{ film.title }}</a>
 	</h3>
-	<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> added to watchlist</p>
+	<p>
+		<a href="#/user/{{ user.pk }}">{{ user.name }}</a> added to watchlist
+	</p>
+		<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatchlist }}
 	
 	{{# type.becameFriends }}
-	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	<p class="friendship">
 		<a href="#/user/{{ userA.pk }}">{{ userA.name }}</a>
-		is friends with
+		and 
 		<a href="#/user/{{ userB.pk }}">{{ userB.name }}</a>
+		became friends
 	</p>
+		<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.becameFriends }}
 </div>
 {{/ items }}
