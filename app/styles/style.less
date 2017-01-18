@@ -689,6 +689,41 @@ h2 {
 	}
 }
 
+
+.internal-feed-links {
+	.row(@center);
+
+	margin: 0 0 30px 0;
+	width: 100%;
+
+	a {
+		.font(700; 14px);
+		.box;
+		.transition;
+
+		background: @lightpurple;
+		border-bottom: 2px solid @lightpurple;
+		color: white;
+		padding: 8px;
+		text-align: center;
+		text-transform: uppercase;
+		width: 50%;
+
+
+		&:hover,
+		&:focus,
+		.clicked {
+			background: @lightpurple;
+			color: white;
+		}
+	}
+
+	.selected {
+		color: @lightpurple;
+		background: white;
+	}	
+}
+
 .nothing-to-display {
 	margin: 10px 0 0 0;
 

@@ -1,12 +1,13 @@
 .updates-cont {
-	.box(30px);
+	.box(0 0 30px 0);
 	.column(@center; @center);
 
+	width: 100%;
+
 	.update-item {
+		.box(20px 30px);
 		.column(@center);
 		
-		padding: 20px 0;
-
 		&.recommendation {
 			.row(@spread; @top);
 			width: 100%;
