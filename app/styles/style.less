@@ -693,22 +693,47 @@ h2 {
 .internal-feed-links {
 	.row(@center);
 
-	margin: 0 0 40px 0;
+	background: @lightpurple;
+	margin: 0 0 50px 0;
 	width: 100%;
+
+	position: relative;
+
+	&:before {
+		.size(0; 0);
+
+		display: block;
+		content: "";
+		border-top: 15px solid @lightpurple;
+		border-right: 100vw solid transparent;
+
+		position: absolute;
+		bottom: -15px;
+		left: 0;
+	}
 
 	a {
 		.font(700; 14px);
 		.box;
 		.transition;
 
-		background: @lightpurple;
 		color: white;
-		height: 44px;
-		padding: 14px 8px;
+		border: 2px solid white;
+		margin: 25px 0;
 		text-align: center;
 		text-transform: uppercase;
-		width: 50%;
 
+		&:first-child {
+			border-top-left-radius: 20px;
+			border-bottom-left-radius: 20px;
+			padding: 5px 12px 5px 20px;
+		}
+
+		&:nth-child(2) {
+			border-top-right-radius: 20px;
+			border-bottom-right-radius: 20px;
+			padding: 5px 20px 5px 12px;
+		}
 
 		&:hover,
 		&:focus,
