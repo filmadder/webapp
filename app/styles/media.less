@@ -12,7 +12,14 @@
 	}
 
 	#view {
-		padding: 40px 0 50px 0;
+		padding: 44px 0 50px 0;
+	}
+
+	.internal-feed-links {
+
+		a {
+			font-size: 15px;
+		}
 	}
 
 	.f-title {
@@ -24,6 +31,9 @@
 	}
 
 	header {
+		border-bottom: 2px solid white;
+		z-index: 1;
+		
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -40,15 +50,9 @@
 			margin: 0 30px 0 0;
 
 			.nav-item {
-				.transition;
+				.font(700; 15px);
 
-				padding: 13px;
-
-				&:hover,
-				&:focus {
-					background: @lightpurple;
-					color: white;
-				}
+				margin: 0 0 0 12px;
 			}
 		}
 

@@ -81,14 +81,22 @@ button,
 }
 
 
+.wrapper {
+	margin: 0 auto;
+	max-width: 1400px;
+}
+
 /* header */
 
 header {
-	.row(@spread; @center);
 	.size(44px; 100%);
 
 	border-bottom: 2px solid white;
 	background: @lightpurple;
+
+	.wrapper {
+		.row(@spread; @center);
+	}
 
 	.heading {
 
@@ -351,7 +359,11 @@ h2 {
 }
 
 .settings-icon {
-	background-image: url(../images/settings1.svg);
+	background-image: url(../images/settings.svg);
+}
+
+.comment-icon {
+	background-image: url(../images/comment.svg);
 }
 
 
