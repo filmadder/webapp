@@ -380,7 +380,7 @@ h2 {
 	.options {
 		.column(@center; @spread);
 		.size(160px; 46px);
-		.transition(@dur: 0.15s; @del: 0);
+		.transition(@dur: 0.1s; @del: 0);
 
 		background: white;
 		border-radius: 10px;
@@ -395,7 +395,7 @@ h2 {
 		right:  -10px;
 		
 		.option {
-			.transition(@dur: 0.1s; @del: 0.1s;);
+			.transition(@dur: 0.075s; @del: 0.075s;);
 
 			opacity: 1;
 		}
@@ -406,14 +406,14 @@ h2 {
 
 	.hidden-options {
 		.size(0; 46px);
-		.transition(@dur: 0.15s; @del: 0.1s);
+		.transition(@dur: 0.075s; @del: 0.05s);
 
 		margin: 80px 0;
 		opacity: 0;
 		z-index: -1;
 
 		.option {
-			.transition(@dur: 0.15s; @del: 0s;);
+			.transition(@dur: 0.075s; @del: 0s;);
 
 			opacity: 0;
 		}
