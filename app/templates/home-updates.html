@@ -6,12 +6,12 @@
 		{{# items }}
 			{{# type.newFriend }}
 			<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> is now your friend</p>
-			<p><abbr class="date" title="{{ created.iso }}">{{ created.ago }}</abbr></p>
+			<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 			{{/ type.newFriend }}
 			
 			{{# type.newFriendReq }}
 			<p><a href="#/user/{{ user.pk }}">{{ user.name }}</a> wants to be friends with you</p>
-			<p><abbr class="date" title="{{ created.iso }}">{{ created.ago }}</abbr></p>
+			<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 			{{/ type.newFriendReq }}
 			
 			{{# type.newReply }}
@@ -20,8 +20,17 @@
 				replied to your comment on
 				<a href="#/film/{{ film.pk }}">{{ film.title }}</a>
 			</p>
-			<p><abbr class="date" title="{{ created.iso }}">{{ created.ago }}</abbr></p>
+			<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 			{{/ type.newReply }}
+			<!-- friend's recommendations-->
+			<!--
+			<p>
+				<a href="#/user/{{ user.pk }}">{{ user.name }}</a>
+				recommends you to watch
+				<a href="#/film/{{ film.pk }}">{{ film.title }}</a>
+			</p>
+			<abbr class="timestamp"></abbr>
+			 -->
 		{{/ items }}
 	</section>
 </aside>
