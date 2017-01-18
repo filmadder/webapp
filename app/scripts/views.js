@@ -193,10 +193,6 @@ fa.views = (function() {
 			renderedView.dispatch();
 			
 			// comments
-			// the force-add is needed in case of an update of /inner/film
-			if(hier.has('/inner/film/comments')) {
-				hier.remove('/inner/film/comments');
-			}
 			hier.add('/inner/film/comments', {film: film, spoilersOk: false});
 			
 			// film status
