@@ -96,7 +96,7 @@ fa.views = (function() {
 		render(elem, 'reg-templ', {});
 		renderedView.dispatch();
 		
-		fa.forms.create(elem.querySelector('form'), function(form) {
+		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.register(form.getData()).then(function() {
 				fa.routing.go('');
 			}).catch(function(error) {
@@ -118,7 +118,7 @@ fa.views = (function() {
 		render(elem, 'login-templ', {});
 		renderedView.dispatch();
 		
-		fa.forms.create(elem.querySelector('form'), function(form) {
+		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.login(form.getData()).then(function() {
 				fa.routing.go('');
 			}).catch(function(error) {
@@ -138,20 +138,22 @@ fa.views = (function() {
 	var createInner = function(elem) {
 		render(elem, 'inner-templ', {});
 		
-		var navLinks = elem.querySelectorAll('header nav a');
-		var searchForm = elem.querySelector('#search-form');
-		var queryField = searchForm.querySelector('[name=q]');
+		// header nav
+		var navLinks = fa.dom.filter('header nav a', elem);
 		
 		renderedView.add(function(navName) {
-			for(var i = 0; i < navLinks.length; i++) {
-				if(navLinks[i].dataset.nav == navName) {
-					navLinks[i].classList.add('clicked');
+			fjs.map(function(link) {
+				if(link.dataset.nav == navName) {
+					link.classList.add('clicked');
+				} else {
+					link.classList.remove('clicked');
 				}
-				else {
-					navLinks[i].classList.remove('clicked');
-				}
-			}
+			}, navLinks);
 		});
+		
+		// search form
+		var searchForm = fa.dom.get('#search-form', elem);
+		var queryField = fa.dom.get('[name=q]', searchForm);
 		
 		searchForm.addEventListener('submit', function(e) {
 			e.preventDefault();
@@ -176,7 +178,7 @@ fa.views = (function() {
 			
 			if(res.type == 'films') {
 				fa.films.onMoreResults(params.q, function() {
-					var button = elem.querySelector('.more-results');
+					var button = fa.dom.get('.more-results', elem);
 					button.addEventListener('click', function() {
 						hier.update('/inner/results', params);
 					});
@@ -196,46 +198,33 @@ fa.views = (function() {
 			hier.add('/inner/film/comments', {film: film, spoilersOk: false});
 			
 			// film status
-			var statusOpts = elem.querySelector('[data-fn=status-opts]');
+			var statusOpts = fa.dom.get('[data-fn=status-opts]', elem);
 			
-			var addWatchedButton = elem.querySelector('[data-fn=add-watched]');
-			var addWatchlistButton = elem.querySelector('[data-fn=add-watchlist]');
-			var removeListButton = elem.querySelector('[data-fn=remove-list]');
-			
-			elem.querySelector('[data-fn=open-status-opts]').addEventListener('click', function() {
+			fa.dom.on(fa.dom.get('[data-fn=open-status-opts]', elem), 'click', function() {
 				statusOpts.classList.remove('hidden-options');
 			});
-			
-			elem.querySelector('[data-fn=close-status-opts]').addEventListener('click', function() {
+			fa.dom.on(fa.dom.get('[data-fn=close-status-opts]', elem), 'click', function() {
 				statusOpts.classList.add('hidden-options');
 			});
 			
-			if(addWatchedButton) {
-				addWatchedButton.addEventListener('click', function() {
-					film.addToWatched().then(function() {
-						hier.update('/inner/film', id);
-						addMessage({type: 'success', text: 'marked as watched'});
-					}).catch(handleError);
-				});
-			}
-			
-			if(addWatchlistButton) {
-				addWatchlistButton.addEventListener('click', function() {
-					film.addToWatchlist().then(function() {
-						hier.update('/inner/film', id);
-						addMessage({type: 'success', text: 'added to watchlist'});
-					}).catch(handleError);
-				});
-			}
-			
-			if(removeListButton) {
-				removeListButton.addEventListener('click', function() {
-					film.removeFromList().then(function() {
-						hier.update('/inner/film', id);
-						addMessage({type: 'success', text: 'removed'});
-					}).catch(handleError);
-				});
-			}
+			fa.dom.on('[data-fn=add-watched]', 'click', function() {
+				film.addToWatched().then(function() {
+					hier.update('/inner/film', id);
+					addMessage({type: 'success', text: 'marked as watched'});
+				}).catch(handleError);
+			});
+			fa.dom.on('[data-fn=add-watchlist]', 'click', function() {
+				film.addToWatchlist().then(function() {
+					hier.update('/inner/film', id);
+					addMessage({type: 'success', text: 'added to watchlist'});
+				}).catch(handleError);
+			});
+			fa.dom.on('[data-fn=remove-list]', 'click', function() {
+				film.removeFromList().then(function() {
+					hier.update('/inner/film', id);
+					addMessage({type: 'success', text: 'removed'});
+				}).catch(handleError);
+			});
 		}).catch(handleError);
 	};
 	
@@ -252,15 +241,14 @@ fa.views = (function() {
 			spoilersOk: params.spoilersOk});
 		
 		// show/hide spoiler comments
-		var spoilersCheck = elem.querySelector('[data-fn=show-spoilers]');
-		spoilersCheck.addEventListener('change', function(e) {
+		fa.dom.on('[data-fn=show-spoilers]', 'change', function(e) {
 			hier.update('/inner/film/comments', {
 				film: params.film,
-				spoilersOk: spoilersCheck.checked});
+				spoilersOk: e.target.checked});
 		});
 		
 		// comment form
-		fa.forms.create(elem.querySelector('form'), function(form) {
+		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			var data = form.getData();
 			var id = params.film.pk;
 			
@@ -280,17 +268,14 @@ fa.views = (function() {
 		.add('spoilers', []);
 		
 		// delete comment buttons
-		var delButtons = elem.querySelectorAll('button[data-fn=del-comment]');
-		for(var i = 0; i < delButtons.length; i++) {
-			delButtons[i].addEventListener('click', function(e) {
-				fa.films.deleteComment(params.film.pk, e.target.dataset.comment).then(function() {
-					hier.update('/inner/film', params.film.pk);
-					addMessage({type: 'success', text: 'comment removed'});
-				}).catch(function(error) {
-					addMessage({type: 'error', code: error.code});
-				});
+		fa.dom.on('button[data-fn=del-comment]', 'click', function(e) {
+			fa.films.deleteComment(params.film.pk, e.target.dataset.comment).then(function() {
+				hier.update('/inner/film', params.film.pk);
+				addMessage({type: 'success', text: 'comment removed'});
+			}).catch(function(error) {
+				addMessage({type: 'error', code: error.code});
 			});
-		}
+		});
 	};
 	
 	// inits a home view
@@ -376,35 +361,30 @@ fa.views = (function() {
 			render(elem, 'profile-templ', {user: user});
 			renderedView.dispatch(user.status.self ? 'me' : 'user');
 			
-			if(user.status.unknown) {
-				elem.querySelector('[data-fn=request-friend]').addEventListener('click', function() {
-					user.requestFriendship().then(function() {
-						hier.update('/inner/profile', id);
-					}).catch(handleError);
-				});
-			}
-			
-			else if(user.status.waiting) {
-				elem.querySelector('[data-fn=accept-friend]').addEventListener('click', function() {
-					user.acceptFriendship().then(function() {
-						hier.update('/inner/profile', id);
-					}).catch(handleError);
-				});
-				elem.querySelector('[data-fn=reject-friend]').addEventListener('click', function() {
-					user.rejectFriendship().then(function() {
-						hier.update('/inner/profile', id);
-					}).catch(handleError);
-				});
-			}
+			fa.dom.on('[data-fn=request-friend]', 'click', function() {
+				user.requestFriendship().then(function() {
+					hier.update('/inner/profile', id);
+				}).catch(handleError);
+			});
+			fa.dom.on('[data-fn=accept-friend]', 'click', function() {
+				user.acceptFriendship().then(function() {
+					hier.update('/inner/profile', id);
+				}).catch(handleError);
+			});
+			fa.dom.on('[data-fn=reject-friend]', 'click', function() {
+				user.rejectFriendship().then(function() {
+					hier.update('/inner/profile', id);
+				}).catch(handleError);
+			});
 		}).catch(handleError);
 	};
 	
 	// inits a settings view
 	var createSettings = function(elem) {
 		render(elem, 'settings-templ', {});
-		renderedView.dispatch('profile');
+		renderedView.dispatch('me');
 		
-		elem.querySelector('[data-fn=logout]').addEventListener('click', function() {
+		fa.dom.on('[data-fn=logout]', 'click', function() {
 			fa.auth.logout();
 			fa.routing.go('login');
 		});

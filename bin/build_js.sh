@@ -4,6 +4,7 @@ uglifyjs \
 	app/scripts/logs.js \
 	app/scripts/http.js \
 	app/scripts/ws.js \
+	app/scripts/dom.js \
 	app/scripts/films.js \
 	app/scripts/users.js \
 	app/scripts/updates.js \
