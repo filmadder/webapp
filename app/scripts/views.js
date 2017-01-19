@@ -166,9 +166,11 @@ fa.views = (function() {
 	var createResults = function(elem, params) {
 		if(!params.hasOwnProperty('q')) fa.routing.go('error');
 		
-		render(elem, 'loading-templ', {});
+		var ready = false;
 		
 		fa.search.search(params.q).then(function(res) {
+			ready = true;
+			
 			render(elem, 'results-templ', {
 				type: {
 					films: (res.type == 'films'),
@@ -188,12 +190,19 @@ fa.views = (function() {
 				});
 			}
 		}).catch(handleError);
+		
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
 	};
 	
 	// inits a film view
 	var createFilm = function(elem, id) {
-		render(elem, 'loading-templ', {});
+		var ready = false;
+		
 		fa.films.get(id).then(function(film) {
+			ready = true;
+			
 			render(elem, 'film-templ', {film: film});
 			renderedView.dispatch();
 			
@@ -229,6 +238,10 @@ fa.views = (function() {
 				}).catch(handleError);
 			});
 		}).catch(handleError);
+		
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
 	};
 	
 	// inits a film comments view
@@ -283,9 +296,11 @@ fa.views = (function() {
 	
 	// inits a home view
 	var createHome = function(elem) {
-		render(elem, 'loading-templ', {});
+		var ready = false;
 		
 		fa.users.get(fa.auth.getUser().pk).then(function(user) {
+			ready = true;
+			
 			render(elem, 'home-templ', {watchlist: user.filmsFuture});
 			renderedView.dispatch();
 			
@@ -298,13 +313,19 @@ fa.views = (function() {
 				}
 			}).catch(handleError);
 		}).catch(handleError);
+		
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
 	};
 	
 	// inits an update view
 	var createUpdates = function(elem) {
-		render(elem, 'loading-templ', {});
+		var ready = false;
 		
 		fa.updates.get().then(function(updates) {
+			ready = true;
+			
 			var isEmpty = (updates.firstItems.length == 0);
 			
 			render(elem, 'updates-templ', {isEmpty: isEmpty});
@@ -329,13 +350,19 @@ fa.views = (function() {
 			}
 			
 		}).catch(handleError);
+		
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
 	};
 	
 	// inits a feed view
 	var createFeed = function(elem) {
-		render(elem, 'loading-templ', {});
+		var ready = false;
 		
 		fa.feed.get().then(function(feed) {
+			ready = true;
+			
 			var isEmpty = (feed.firstItems.length == 0);
 			
 			render(elem, 'feed-templ', {isEmpty: isEmpty});
@@ -360,13 +387,19 @@ fa.views = (function() {
 			}
 			
 		}).catch(handleError);
+		
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
 	};
 	
 	// inits a profile view
 	var createProfile = function(elem, id) {
-		render(elem, 'loading-templ', {});
+		var ready = false;
 		
 		fa.users.get(id).then(function(user) {
+			ready = true;
+			
 			user.showData = (user.status.self || user.status.friend);
 			
 			render(elem, 'profile-templ', {user: user});
@@ -388,6 +421,10 @@ fa.views = (function() {
 				}).catch(handleError);
 			});
 		}).catch(handleError);
+		
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
 	};
 	
 	// inits a settings view
