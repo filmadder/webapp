@@ -166,6 +166,8 @@ fa.views = (function() {
 	var createResults = function(elem, params) {
 		if(!params.hasOwnProperty('q')) fa.routing.go('error');
 		
+		render(elem, 'loading-templ', {});
+		
 		fa.search.search(params.q).then(function(res) {
 			render(elem, 'results-templ', {
 				type: {
@@ -190,6 +192,7 @@ fa.views = (function() {
 	
 	// inits a film view
 	var createFilm = function(elem, id) {
+		render(elem, 'loading-templ', {});
 		fa.films.get(id).then(function(film) {
 			render(elem, 'film-templ', {film: film});
 			renderedView.dispatch();
@@ -280,6 +283,8 @@ fa.views = (function() {
 	
 	// inits a home view
 	var createHome = function(elem) {
+		render(elem, 'loading-templ', {});
+		
 		fa.users.get(fa.auth.getUser().pk).then(function(user) {
 			render(elem, 'home-templ', {watchlist: user.filmsFuture});
 			renderedView.dispatch();
@@ -297,6 +302,8 @@ fa.views = (function() {
 	
 	// inits an update view
 	var createUpdates = function(elem) {
+		render(elem, 'loading-templ', {});
+		
 		fa.updates.get().then(function(updates) {
 			var isEmpty = (updates.firstItems.length == 0);
 			
@@ -326,6 +333,8 @@ fa.views = (function() {
 	
 	// inits a feed view
 	var createFeed = function(elem) {
+		render(elem, 'loading-templ', {});
+		
 		fa.feed.get().then(function(feed) {
 			var isEmpty = (feed.firstItems.length == 0);
 			
@@ -355,6 +364,8 @@ fa.views = (function() {
 	
 	// inits a profile view
 	var createProfile = function(elem, id) {
+		render(elem, 'loading-templ', {});
+		
 		fa.users.get(id).then(function(user) {
 			user.showData = (user.status.self || user.status.friend);
 			
@@ -388,6 +399,13 @@ fa.views = (function() {
 			fa.auth.logout();
 			fa.routing.go('login');
 		});
+	};
+	
+	// creates a loading view
+	// this is the snake chasing its tail :D
+	var createLoading = function(elem) {
+		render(elem, 'loading-templ', {});
+		renderedView.dispatch();
 	};
 	
 	// inits an error view
@@ -439,6 +457,7 @@ fa.views = (function() {
 		comments: createComments,
 		profile: createProfile,
 		settings: createSettings,
+		loading: createLoading,
 		
 		error: createError,
 		message: createMessage
