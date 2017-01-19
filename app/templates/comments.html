@@ -18,11 +18,14 @@
 	</li>
 	{{# comments }}
 	<li class="comment">
-		<a href="#/user/{{ author.pk }}" class="author">{{ author.name }}</a>
-		<abbr class="timestamp" title="{{ posted.iso }}">{{ posted.ago }}</abbr>
-		{{# author.self }}
-		<button type="button" class="light" data-fn="del-comment" data-comment="{{ pk }}">delete</button>
-		{{/ author.self }}
+		<div class="meta">
+			<a href="#/user/{{ author.pk }}" class="author">{{ author.name }}</a>
+			<abbr class="timestamp" title="{{ posted.iso }}">{{ posted.ago }}</abbr>
+			{{# author.self }}
+			<button type="button" class="icon remove-icon remove-btn" data-fn="del-comment" data-comment="{{ pk }}">
+				</button>
+			{{/ author.self }}
+		</div>
 		<p class="text">{{ text }}</p>
 		<!-- <button type="button" class="light" data-fn="reply">reply</button>
 		<ul class="replies">

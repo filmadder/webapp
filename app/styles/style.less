@@ -81,6 +81,10 @@ button,
 }
 
 
+.hidden {
+	display: none;
+}
+
 .wrapper {
 	margin: 0 auto;
 	max-width: 1400px;
@@ -179,6 +183,7 @@ h2 {
 	min-height: ~"calc(100vh - 50px)";
 }
 
+/* reg and login header */
 #outer {
 	.column(@center);
 	min-height: 100vh;
@@ -270,8 +275,7 @@ h2 {
 		border: none;
 		border-top: 2px solid @lightpurple;
 		color: @grey;
-/*		margin-top: 56px;
-*/		outline: none;
+		outline: none;
 
 		position: fixed;
 		bottom: 0;
@@ -310,7 +314,6 @@ h2 {
 
 /* images */
 
-
 .image {
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -322,6 +325,8 @@ h2 {
 	background-image: url(../images/logo4.svg);
 }
 
+/* icons */
+
 .icon {
 	.size(34px; 34px);
 
@@ -332,12 +337,6 @@ h2 {
 	min-width: 32px;
 }
 
-/*.nav-icon {
-	.size(20px; 20px);
-
-	background-position: center;
-	background-size: cover;
-}*/
 
 .add-icon {
 	background-image: url(../images/add-thinner.svg);	
@@ -359,39 +358,25 @@ h2 {
 }
 
 .settings-icon {
-	background-image: url(../images/settings.svg);
+	background-image: url(../images/settings2.svg);
 }
 
 .comment-icon {
 	background-image: url(../images/comment.svg);
 }
 
+.friendship-icon {
+	background-image: url(../images/friendship.svg);
+}
+
 .loading-icon {
 	.size(60px; 60px);
 
-	
 	background-image: url(../images/loader2.svg);
 	animation: spin 1.2s ease-out infinite;
 }
 
-
-/* currently not in use */
-
-/*.feed-icon {
-	.size(20px; 50px;);
-
-	background-image: url(../images/feed2.svg);
-}
-
-.updates-icon {
-	background-image: url(../images/updates2.svg);
-}
-
-.profile-icon {
-	background-image: url(../images/profile2.svg);
-}*/
-
-/* status */
+/* change status animation */
 
 .status-cont {
 	position: relative;
@@ -439,7 +424,9 @@ h2 {
 		}
 	}
 }
- 
+
+/* film view's status btn looks */
+
 .status-btn {
 	.size(46px; 46px;);
 	.box;
@@ -448,8 +435,7 @@ h2 {
 	background: @lightblue;
 	background: white;
 	border-radius: 10px;
-/*	border: 2px solid @purple;
-*/	min-height: 46px;
+	min-height: 46px;
 	min-width: 46px;
 
 	.status-icon {
@@ -469,7 +455,7 @@ h2 {
 	}
 }
 
-/* listed films font */
+/* film titles in lists */
 
 .f-title {
 	.font(700; 22px);
@@ -480,6 +466,8 @@ h2 {
 		color: @lightpurple;
 	}
 }
+
+/* arrow that rotates when clicked */
 
 .arrow {
 	.transition(all; .15s; @func: ease;);
@@ -507,12 +495,7 @@ h2 {
 	}
 }
 
-.hidden {
-	display: none;
-}
-
-
-/* arrow opener */
+/* arrow opener (opens hidden sections) */
 
 .peek {
 	.box(30px);
@@ -630,7 +613,7 @@ h2 {
 	}
 }
 
-
+/* arrow that rotates together with the title it accompanies */
 .arrow-cont {
 
 	h3 {
@@ -640,13 +623,6 @@ h2 {
 		color: @purple;
 		margin: 0 0 0 15px;
 		text-transform: uppercase;
-
-		.icon {
-			.size(24px; 24px);
-
-			display: inline-block;
-			margin: 0 5px 0 0;
-		}
 
 		.number {
 			.font(700; 14px);
@@ -679,6 +655,7 @@ h2 {
 	}
 }
 
+/* datetimes */
 .timestamp {
 	.font(400; 12px);
 
@@ -693,6 +670,7 @@ h2 {
 
 }
 
+/* login and reg section leading to the other */
 .wrong-form {
 	.column(@right);
 
@@ -709,7 +687,7 @@ h2 {
 	}
 }
 
-
+/* feed and (updates) tab-like internal links */
 .internal-feed-links {
 	.row(@center);
 
@@ -768,6 +746,7 @@ h2 {
 	}	
 }
 
+/* this is what appears if there is no content to be displayed */
 .nothing-to-display {
 	margin: 10px 0 0 0;
 
