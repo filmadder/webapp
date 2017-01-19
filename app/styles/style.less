@@ -369,9 +369,9 @@ h2 {
 
 .loading-icon {
 	.size(60px; 60px);
+	.animation(spin; 1.5s; ease-out; 0s; infinite; normal);
 
 	background-image: url(../images/loader2.svg);
-	animation: spin 1.2s ease-out infinite;
 }
 
 /* change status animation */
@@ -695,19 +695,6 @@ h2 {
 
 	position: relative;
 
-	&:before {
-		.size(0; 0);
-
-		display: block;
-		content: "";
-		border-top: 15px solid @purple;
-		border-right: 100vw solid transparent;
-
-		position: absolute;
-		bottom: -15px;
-		left: 0;
-	}
-
 	a {
 		.font(700; 14px);
 		.box;
@@ -715,7 +702,7 @@ h2 {
 
 		color: white;
 		border: 2px solid white;
-		margin: 25px 0;
+		margin: 20px 0;
 		text-align: center;
 		text-transform: uppercase;
 
@@ -742,6 +729,15 @@ h2 {
 		color: @lightpurple;
 		background: white;
 	}	
+}
+
+.loading-cont {
+	margin: 50px 0;
+	width: 100%;
+
+	.loading-icon {
+		margin: 0 auto;
+	}
 }
 
 /* this is what appears if there is no content to be displayed */
