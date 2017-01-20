@@ -99,6 +99,7 @@ fa.views = (function() {
 		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.register(form.getData()).then(function() {
 				fa.routing.go('');
+				addMessage({type: 'success', text: 'you are now an adder!'});
 			}).catch(function(error) {
 				if(error.code == 'bad_input') {
 					removeMessage();
