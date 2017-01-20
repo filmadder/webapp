@@ -13,8 +13,9 @@ fa.routing = (function() {
 	
 	hier.reg('/inner', 'main', fa.views.inner);
 	hier.reg('/inner/home', '#view', fa.views.home);
-	hier.reg('/inner/updates', '#view', fa.views.updates);
-	hier.reg('/inner/feed', '#view', fa.views.feed);
+	hier.reg('/inner/news', '#view', fa.views.news);
+	hier.reg('/inner/news/updates', '#news-cont', fa.views.updates);
+	hier.reg('/inner/news/feed', '#news-cont', fa.views.feed);
 	hier.reg('/inner/results', '#view', fa.views.results);
 	hier.reg('/inner/film', '#view', fa.views.film);
 	hier.reg('/inner/film/comments', 'section.comments', fa.views.comments);
@@ -34,14 +35,16 @@ fa.routing = (function() {
 		hier.add('/inner/home');
 	});
 	
-	crossroads.addRoute('/updates', function() {
+	crossroads.addRoute('/feed/me', function() {
 		hier.add('/inner');
-		hier.add('/inner/updates');
+		hier.add('/inner/news');
+		hier.add('/inner/news/updates');
 	});
 	
-	crossroads.addRoute('/feed', function() {
+	crossroads.addRoute('/feed/friends', function() {
 		hier.add('/inner');
-		hier.add('/inner/feed');
+		hier.add('/inner/news');
+		hier.add('/inner/news/feed');
 	});
 	
 	crossroads.addRoute('/search/{?query}', function(query) {

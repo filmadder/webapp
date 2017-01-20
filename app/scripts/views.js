@@ -142,6 +142,7 @@ fa.views = (function() {
 		var navLinks = fa.dom.filter('header nav a', elem);
 		
 		renderedView.add(function(navName) {
+			if(navName == 'updates' || navName == 'feed') navName = 'news';
 			fjs.map(function(link) {
 				if(link.dataset.nav == navName) {
 					link.classList.add('clicked');
@@ -319,6 +320,24 @@ fa.views = (function() {
 		}, 500);
 	};
 	
+	// inits a news view
+	// this is the container for the updates and friend's activity views
+	var createNews = function(elem) {
+		render(elem, 'news-templ', {});
+		
+		var navLinks = fa.dom.filter('.internal-feed-links a', elem);
+		
+		renderedView.add(function(navName) {
+			fjs.map(function(link) {
+				if(link.dataset.nav == navName) {
+					link.classList.add('selected');
+				} else {
+					link.classList.remove('selected');
+				}
+			}, navLinks);
+		});
+	};
+	
 	// inits an update view
 	var createUpdates = function(elem) {
 		var ready = false;
@@ -487,6 +506,7 @@ fa.views = (function() {
 		
 		inner: createInner,
 		home: createHome,
+		news: createNews,
 		updates: createUpdates,
 		feed: createFeed,
 		results: createResults,
