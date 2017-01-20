@@ -208,7 +208,7 @@ fa.views = (function() {
 			renderedView.dispatch();
 			
 			// comments
-			hier.add('/inner/film/comments', {film: film, spoilersOk: false});
+			hier.add('/inner/film/comments', {film: film, spoilersOk: false, open: false});
 			
 			// film status
 			var statusOpts = fa.dom.get('[data-fn=status-opts]', elem);
@@ -246,22 +246,20 @@ fa.views = (function() {
 	};
 	
 	// inits a film comments view
-	// expects a {film, spoilersOk} object as its params param
+	// expects a {film, spoilersOk, open} object as its params param
 	var createComments = function(elem, params) {
 		var comments = (params.spoilersOk)
 			? params.film.comments
 			: fjs.filter('x => !x.hasSpoilers', params.film.comments);
 		
 		render(elem, 'comments-templ', {
-			comments: comments,
-			film: {title: params.film.title},
-			spoilersOk: params.spoilersOk});
+			comments: comments, film: {title: params.film.title},
+			spoilersOk: params.spoilersOk, open: params.open });
 		
 		// show/hide spoiler comments
 		fa.dom.on('[data-fn=show-spoilers]', 'change', function(e) {
 			hier.update('/inner/film/comments', {
-				film: params.film,
-				spoilersOk: e.target.checked});
+				film: params.film, spoilersOk: e.target.checked, open: true});
 		});
 		
 		// comment form
@@ -271,8 +269,7 @@ fa.views = (function() {
 			
 			fa.films.postComment(id, data.comment, data.spoilers).then(function(film) {
 				hier.update('/inner/film/comments', {
-					film: film,
-					spoilersOk: data.spoilers});
+					film: film, spoilersOk: data.spoilers, open: true});
 			}).catch(function(error) {
 				if(error.code == 'bad_input') {
 					removeMessage();
