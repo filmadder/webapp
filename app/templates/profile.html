@@ -72,9 +72,9 @@
 				{{/ user.filmsPast }}
 				{{^ user.filmsPast }}
 				<li class="nothing-to-display">
-					<h3>No watched films</h3>
+					<h3>Nothing in watched films</h3>
 					{{# user.status.self }}
-					<p>Search for films you have seen and add them to your watched.</p>
+					<p>Search for films you have seen and add them to your watched films.</p>
 					{{/ user.status.self }}
 				</li>
 				{{/ user.filmsPast }}
@@ -101,7 +101,7 @@
 				{{/ user.filmsFuture }}
 				{{^ user.filmsFuture }}
 				<li class="nothing-to-display">
-					<h3>No watchlisted films</h3>
+					<h3>Nothing in watchlisted films</h3>
 					{{# user.status.self }}
 					<p>Search for a film you wish to watch and add it to your watchlist.</p>
 					{{/ user.status.self }}
@@ -129,7 +129,7 @@
 				{{# user.status.self }}
 				<li class="nothing-to-display">
 					<h3>No friends</h3>
-					<p>Search for friends using <strong>u!</strong> in the query, for example: <strong>adderthebot u!</strong></p>
+					<p>Search for friends using <strong>u!</strong> in the query, for example <strong>adderthebot u!</strong></p>
 				</li>
 				{{/ user.status.self }}
 				{{^ user.status.self }}
