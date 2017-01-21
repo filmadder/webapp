@@ -99,6 +99,7 @@ fa.views = (function() {
 		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.register(form.getData()).then(function() {
 				fa.routing.go('');
+				addMessage({type: 'success', text: 'you are now an adder!'});
 			}).catch(function(error) {
 				if(error.code == 'bad_input') {
 					removeMessage();
@@ -142,6 +143,7 @@ fa.views = (function() {
 		var navLinks = fa.dom.filter('header nav a', elem);
 		
 		renderedView.add(function(navName) {
+			if(navName == 'updates' || navName == 'feed') navName = 'news';
 			fjs.map(function(link) {
 				if(link.dataset.nav == navName) {
 					link.classList.add('clicked');
@@ -166,9 +168,11 @@ fa.views = (function() {
 	var createResults = function(elem, params) {
 		if(!params.hasOwnProperty('q')) fa.routing.go('error');
 		
-		render(elem, 'loading-templ', {});
+		var ready = false;
 		
 		fa.search.search(params.q).then(function(res) {
+			ready = true;
+			
 			render(elem, 'results-templ', {
 				type: {
 					films: (res.type == 'films'),
@@ -188,17 +192,24 @@ fa.views = (function() {
 				});
 			}
 		}).catch(handleError);
+		
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
 	};
 	
 	// inits a film view
 	var createFilm = function(elem, id) {
-		render(elem, 'loading-templ', {});
+		var ready = false;
+		
 		fa.films.get(id).then(function(film) {
+			ready = true;
+			
 			render(elem, 'film-templ', {film: film});
 			renderedView.dispatch();
 			
 			// comments
-			hier.add('/inner/film/comments', {film: film, spoilersOk: false});
+			hier.add('/inner/film/comments', {film: film, spoilersOk: false, open: false});
 			
 			// film status
 			var statusOpts = fa.dom.get('[data-fn=status-opts]', elem);
@@ -229,25 +240,27 @@ fa.views = (function() {
 				}).catch(handleError);
 			});
 		}).catch(handleError);
+		
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
 	};
 	
 	// inits a film comments view
-	// expects a {film, spoilersOk} object as its params param
+	// expects a {film, spoilersOk, open} object as its params param
 	var createComments = function(elem, params) {
 		var comments = (params.spoilersOk)
 			? params.film.comments
 			: fjs.filter('x => !x.hasSpoilers', params.film.comments);
 		
 		render(elem, 'comments-templ', {
-			comments: comments,
-			film: {title: params.film.title},
-			spoilersOk: params.spoilersOk});
+			comments: comments, film: {title: params.film.title},
+			spoilersOk: params.spoilersOk, open: params.open });
 		
 		// show/hide spoiler comments
 		fa.dom.on('[data-fn=show-spoilers]', 'change', function(e) {
 			hier.update('/inner/film/comments', {
-				film: params.film,
-				spoilersOk: e.target.checked});
+				film: params.film, spoilersOk: e.target.checked, open: true});
 		});
 		
 		// comment form
@@ -257,8 +270,7 @@ fa.views = (function() {
 			
 			fa.films.postComment(id, data.comment, data.spoilers).then(function(film) {
 				hier.update('/inner/film/comments', {
-					film: film,
-					spoilersOk: data.spoilers});
+					film: film, spoilersOk: data.spoilers, open: true});
 			}).catch(function(error) {
 				if(error.code == 'bad_input') {
 					removeMessage();
@@ -283,9 +295,11 @@ fa.views = (function() {
 	
 	// inits a home view
 	var createHome = function(elem) {
-		render(elem, 'loading-templ', {});
+		var ready = false;
 		
 		fa.users.get(fa.auth.getUser().pk).then(function(user) {
+			ready = true;
+			
 			render(elem, 'home-templ', {watchlist: user.filmsFuture});
 			renderedView.dispatch();
 			
@@ -298,13 +312,37 @@ fa.views = (function() {
 				}
 			}).catch(handleError);
 		}).catch(handleError);
+		
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
+	};
+	
+	// inits a news view
+	// this is the container for the updates and friend's activity views
+	var createNews = function(elem) {
+		render(elem, 'news-templ', {});
+		
+		var navLinks = fa.dom.filter('.internal-feed-links a', elem);
+		
+		renderedView.add(function(navName) {
+			fjs.map(function(link) {
+				if(link.dataset.nav == navName) {
+					link.classList.add('selected');
+				} else {
+					link.classList.remove('selected');
+				}
+			}, navLinks);
+		});
 	};
 	
 	// inits an update view
 	var createUpdates = function(elem) {
-		render(elem, 'loading-templ', {});
+		var ready = false;
 		
 		fa.updates.get().then(function(updates) {
+			ready = true;
+			
 			var isEmpty = (updates.firstItems.length == 0);
 			
 			render(elem, 'updates-templ', {isEmpty: isEmpty});
@@ -329,13 +367,19 @@ fa.views = (function() {
 			}
 			
 		}).catch(handleError);
+		
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
 	};
 	
 	// inits a feed view
 	var createFeed = function(elem) {
-		render(elem, 'loading-templ', {});
+		var ready = false;
 		
 		fa.feed.get().then(function(feed) {
+			ready = true;
+			
 			var isEmpty = (feed.firstItems.length == 0);
 			
 			render(elem, 'feed-templ', {isEmpty: isEmpty});
@@ -360,13 +404,19 @@ fa.views = (function() {
 			}
 			
 		}).catch(handleError);
+		
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
 	};
 	
 	// inits a profile view
 	var createProfile = function(elem, id) {
-		render(elem, 'loading-templ', {});
+		var ready = false;
 		
 		fa.users.get(id).then(function(user) {
+			ready = true;
+			
 			user.showData = (user.status.self || user.status.friend);
 			
 			render(elem, 'profile-templ', {user: user});
@@ -388,6 +438,10 @@ fa.views = (function() {
 				}).catch(handleError);
 			});
 		}).catch(handleError);
+		
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
 	};
 	
 	// inits a settings view
@@ -450,6 +504,7 @@ fa.views = (function() {
 		
 		inner: createInner,
 		home: createHome,
+		news: createNews,
 		updates: createUpdates,
 		feed: createFeed,
 		results: createResults,

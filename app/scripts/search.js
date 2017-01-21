@@ -12,7 +12,7 @@ fa.search = (function() {
 	var isBang = function(string) {
 		if(string[0] == '!' || string[string.length-1] == '!') {
 			string = (string[0] == '!') ? string.slice(1) : string.slice(0, -1);
-			return fjs.any(function(x) {return x === string;}, ['u', 'user']);
+			return fjs.any(function(x) {return x === string.toLowerCase();}, ['u', 'user']);
 		}
 		return false;
 	};
