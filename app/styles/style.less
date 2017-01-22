@@ -1,3 +1,4 @@
+@import (inline) "bower_components/normalize-css/normalize.css";
 @import "bower_components/stellar/stellar";
 @import "colours";
 @import "icons";
@@ -270,8 +271,10 @@ h2 {
 		.font(700);
 		.transition;
 
-		border: none;
+		-webkit-appearance: none;
 		border-radius: 0;
+
+		border: none;
 		border-top: 2px solid @lightpurple;
 		box-shadow: none;
 		color: @grey;
