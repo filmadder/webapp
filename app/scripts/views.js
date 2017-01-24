@@ -494,6 +494,15 @@ fa.views = (function() {
 	
 	
 	// 
+	// hier hooks
+	// 
+	
+	// hier.on('pre-remove', function(path, view) {
+	// 	console.log(path);
+	// });
+	
+	
+	// 
 	// exports
 	// 
 	
