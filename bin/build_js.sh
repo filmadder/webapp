@@ -10,6 +10,7 @@ uglifyjs \
 	app/scripts/updates.js \
 	app/scripts/feed.js \
 	app/scripts/search.js \
+	app/scripts/history.js \
 	app/scripts/auth.js \
 	app/scripts/forms.js \
 	app/scripts/views.js \

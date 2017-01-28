@@ -81,33 +81,6 @@ fa.views = (function() {
 		}
 	};
 	
-	// adds the given state to the local storage
-	var setState = function(viewId, state) {
-		var key = 'fa_state_' + viewId;
-		
-		try {
-			localStorage.setItem(key, JSON.stringify(state));
-		} catch (error) {
-			console.error(error);
-		}
-	};
-	
-	// returns the state of the specified view or null
-	var getState = function(viewId) {
-		var key = 'fa_state_' + viewId;
-		var value = localStorage.getItem(key);
-		
-		if(value) {
-			try {
-				return JSON.parse(value);
-			} catch (error) {
-				console.error(error);
-			}
-		}
-		
-		return null;
-	};
-	
 	
 	// 
 	// view functions
@@ -196,7 +169,7 @@ fa.views = (function() {
 		if(!params.hasOwnProperty('q')) fa.routing.go('error');
 		
 		var ready = false;
-		var state = getState('results');
+		var state = fa.history.getState('results');
 		
 		fa.search.search(params.q).then(function(res) {
 			ready = true;
@@ -231,7 +204,7 @@ fa.views = (function() {
 		
 		return {
 			remove: function() {
-				setState('results', { scroll: window.pageYOffset });
+				fa.history.setState('results', { scroll: window.pageYOffset });
 			}
 		};
 	};
@@ -414,8 +387,10 @@ fa.views = (function() {
 	// inits a feed view
 	var createFeed = function(elem) {
 		var ready = false;
+		var state = fa.history.getState('feed');
+		var numPages = (state) ? state.numPages : 1;
 		
-		fa.feed.get().then(function(feed) {
+		fa.feed.get(numPages).then(function(feed) {
 			ready = true;
 			
 			var isEmpty = (feed.firstItems.length == 0);
@@ -430,6 +405,7 @@ fa.views = (function() {
 				
 				scrolledToBottom.addOnce(function() {
 					feed.loadMore().then(function(newItems) {
+						numPages = feed.getNumPages();
 						if(newItems.length > 0) {
 							appendItems(newItems);
 						}
@@ -441,11 +417,27 @@ fa.views = (function() {
 				appendItems(feed.firstItems);
 			}
 			
+			if(state) {
+				window.scroll(0, state.scroll);
+			}
 		}).catch(handleError);
 		
 		window.setTimeout(function() {
 			if(!ready) render(elem, 'loading-templ', {});
 		}, 500);
+		
+		return {
+			remove: function() {
+				if(!window.pageYOffset) {
+					numPages = 1;  // avoid loading too many feed items
+				}
+				
+				fa.history.setState('feed', {
+					numPages: numPages,
+					scroll: window.pageYOffset
+				});
+			}
+		};
 	};
 	
 	// inits a profile view
