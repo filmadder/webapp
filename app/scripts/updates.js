@@ -42,7 +42,7 @@ fa.updates = (function() {
 		// resolves into a list of update items
 		updates.loadMore = function() {
 			page += 1;
-			return fa.ws.send('get_updates', {page: page}).then(function(data) {
+			return fa.ws.send('get_updates', {page: page, per_page: 20}).then(function(data) {
 				return Promise.resolve(fjs.map(createItem, data.items));
 			});
 		};
@@ -52,7 +52,7 @@ fa.updates = (function() {
 	
 	// returns a promise that resolves into an updates object
 	var getUpdates = function() {
-		return fa.ws.send('get_updates', {page: 0}).then(function(data) {
+		return fa.ws.send('get_updates', {page: 0, per_page: 20}).then(function(data) {
 			return Promise.resolve(createUpdates(data));
 		});
 	};
@@ -60,7 +60,7 @@ fa.updates = (function() {
 	// returns a promise that resolves into [] of update items that have not
 	// been marked as read yet
 	var getUnreadUpdates = function() {
-		return fa.ws.send('get_updates', {page: -1}).then(function(data) {
+		return fa.ws.send('get_updates', {page: -1, per_page: 20}).then(function(data) {
 			return Promise.resolve(fjs.map(createItem, data.items));
 		});
 	};

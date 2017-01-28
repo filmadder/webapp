@@ -42,7 +42,7 @@ fa.feed = (function() {
 		// resolves into a list of feed items
 		feed.loadMore = function() {
 			page += 1;
-			return fa.ws.send('get_feed', {page: page}).then(function(data) {
+			return fa.ws.send('get_feed', {page: page, per_page: 20}).then(function(data) {
 				return Promise.resolve(fjs.map(createItem, data.items));
 			});
 		};
@@ -52,7 +52,7 @@ fa.feed = (function() {
 	
 	// returns promise that resolves into a feed object
 	var getFeed = function() {
-		return fa.ws.send('get_feed', {page: 0}).then(function(data) {
+		return fa.ws.send('get_feed', {page: 0, per_page: 20}).then(function(data) {
 			return Promise.resolve(createFeed(data));
 		});
 	};
