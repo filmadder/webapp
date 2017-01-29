@@ -26,14 +26,9 @@ fa.views = (function() {
 	
 	
 	// dispatches when a view is successfully rendered
-	// used to reset the scroll and to update the inner navigation
-	// for the latter: inner views dispatch with their nav IDs
+	// used to update the inner navigation, that is why inner views dispatch
+	// with their nav IDs
 	var renderedView = new signals.Signal();
-	
-	// reset the scroll 
-	renderedView.add(function() {
-		window.scroll(0, 0);
-	});
 	
 	
 	// 
@@ -78,6 +73,18 @@ fa.views = (function() {
 		if(hier.has('/mes')) {
 			hier.remove('/mes');
 			document.getElementById('message-cont').innerHTML = '';
+		}
+	};
+	
+	// returns boolean indicating whether the specified checkbox input is
+	// checked or not; if the input does not exist, returns false
+	// 
+	// helper for setting the history states
+	var getCheckState = function(inputId, elem) {
+		try {
+			return fa.dom.get(inputId, elem).checked;
+		} catch (error) {
+			return false;
 		}
 	};
 	
@@ -171,6 +178,15 @@ fa.views = (function() {
 		var ready = false;
 		var state = fa.history.getState('results');
 		
+		// shows the more results button
+		var showMoreResults = function() {
+			var button = fa.dom.get('.more-results', elem);
+			button.addEventListener('click', function() {
+				hier.update('/inner/results', params);
+			});
+			button.classList.remove('hidden');
+		};
+		
 		fa.search.search(params.q).then(function(res) {
 			ready = true;
 			
@@ -183,18 +199,18 @@ fa.views = (function() {
 			});
 			renderedView.dispatch();
 			
-			if(res.type == 'films') {
-				fa.films.onMoreResults(params.q, function() {
-					var button = fa.dom.get('.more-results', elem);
-					button.addEventListener('click', function() {
-						hier.update('/inner/results', params);
-					});
-					button.classList.remove('hidden');
-				});
-			}
-			
 			if(state) {
 				window.scroll(0, state.scroll);
+			} else {
+				window.scroll(0, 0);
+			}
+			
+			if(res.type == 'films') {
+				fa.films.gotMoreResults.addOnce(function(mesQuery) {
+					if(mesQuery == params.q) {
+						showMoreResults();
+					}
+				});
 			}
 		}).catch(handleError);
 		
@@ -204,6 +220,7 @@ fa.views = (function() {
 		
 		return {
 			remove: function() {
+				fa.films.gotMoreResults.removeAll();
 				fa.history.setState('results', { scroll: window.pageYOffset });
 			}
 		};
@@ -257,8 +274,12 @@ fa.views = (function() {
 			});
 			
 			if(state) {
-				fa.dom.get('#synopsis-text', elem).checked = state.checkSynopsis;
+				try {
+					fa.dom.get('#synopsis-text', elem).checked = state.checkSynopsis;
+				} catch (error) {}
 				window.scroll(0, state.scroll);
+			} else {
+				window.scroll(0, 0);
 			}
 		}).catch(handleError);
 		
@@ -271,9 +292,9 @@ fa.views = (function() {
 				if(!ready) return;
 				fa.history.setState('film:'+id.toString(), {
 					scroll: window.pageYOffset,
-					checkSynopsis: fa.dom.get('#synopsis-text', elem).checked,
-					checkComments: fa.dom.get('#comments', elem).checked,
-					checkSpoilers: fa.dom.get('#show-spoilers', elem).checked
+					checkSynopsis: getCheckState('#synopsis-text', elem),
+					checkComments: getCheckState('#comments', elem),
+					checkSpoilers: getCheckState('#show-spoilers', elem)
 				});
 			}
 		};
@@ -337,6 +358,12 @@ fa.views = (function() {
 			render(elem, 'home-templ', {watchlist: user.filmsFuture});
 			renderedView.dispatch();
 			
+			if(state) {
+				window.scroll(0, state.scroll);
+			} else {
+				window.scroll(0, 0);
+			}
+			
 			fa.updates.getUnread().then(function(updates) {
 				if(updates.length > 0) {
 					var div = document.createElement('div');
@@ -345,10 +372,6 @@ fa.views = (function() {
 							elem.firstChild.firstChild);
 				}
 			}).catch(handleError);
-			
-			if(state) {
-				window.scroll(0, state.scroll);
-			}
 		}).catch(handleError);
 		
 		window.setTimeout(function() {
@@ -391,6 +414,7 @@ fa.views = (function() {
 			
 			render(elem, 'updates-templ', {isEmpty: isEmpty});
 			renderedView.dispatch('updates');
+			window.scroll(0, 0);
 			
 			var appendItems = function(items) {
 				var div = document.createElement('div');
@@ -452,6 +476,8 @@ fa.views = (function() {
 			
 			if(state) {
 				window.scroll(0, state.scroll);
+			} else {
+				window.scroll(0, 0);
 			}
 		}).catch(handleError);
 		
@@ -503,10 +529,14 @@ fa.views = (function() {
 			});
 			
 			if(state) {
-				fa.dom.get('#peek-watched', elem).checked = state.checkWatched;
-				fa.dom.get('#peek-watchlisted', elem).checked = state.checkWatchlist;
-				fa.dom.get('#peek-friends', elem).checked = state.checkFriends;
+				try {
+					fa.dom.get('#peek-watched', elem).checked = state.checkWatched;
+					fa.dom.get('#peek-watchlisted', elem).checked = state.checkWatchlist;
+					fa.dom.get('#peek-friends', elem).checked = state.checkFriends;
+				} catch (error) {}
 				window.scroll(0, state.scroll);
+			} else {
+				window.scroll(0, 0);
 			}
 		}).catch(handleError);
 		
@@ -519,9 +549,9 @@ fa.views = (function() {
 				if(!ready) return;
 				fa.history.setState('profile:'+id.toString(), {
 					scroll: window.pageYOffset,
-					checkWatched: fa.dom.get('#peek-watched', elem).checked,
-					checkWatchlist: fa.dom.get('#peek-watchlisted', elem).checked,
-					checkFriends: fa.dom.get('#peek-friends', elem).checked
+					checkWatched: getCheckState('#peek-watched', elem),
+					checkWatchlist: getCheckState('#peek-watchlisted', elem),
+					checkFriends: getCheckState('#peek-friends', elem)
 				});
 			}
 		};
@@ -531,6 +561,7 @@ fa.views = (function() {
 	var createSettings = function(elem) {
 		render(elem, 'settings-templ', {});
 		renderedView.dispatch('me');
+		window.scroll(0, 0);
 		
 		fa.dom.on('[data-fn=logout]', 'click', function() {
 			fa.auth.logout();
@@ -538,18 +569,12 @@ fa.views = (function() {
 		});
 	};
 	
-	// creates a loading view
-	// this is the snake chasing its tail :D
-	var createLoading = function(elem) {
-		render(elem, 'loading-templ', {});
-		renderedView.dispatch();
-	};
-	
 	// inits an error view
 	// for the time being, this is the 404 view only
 	var createError = function(elem) {
 		render(elem, 'error-404-templ', {});
 		renderedView.dispatch();
+		window.scroll(0, 0);
 	};
 	
 	// inits a message view
@@ -608,7 +633,6 @@ fa.views = (function() {
 		comments: createComments,
 		profile: createProfile,
 		settings: createSettings,
-		loading: createLoading,
 		
 		error: createError,
 		message: createMessage

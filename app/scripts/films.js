@@ -7,6 +7,8 @@ fa.films = (function() {
 	// state
 	// 
 	
+	// dispatches when the server found more search results
+	// dispatches with the query for which those results were found
 	var gotMoreResults = new signals.Signal();
 	
 	fa.ws.received.add(function(message) {
@@ -89,14 +91,6 @@ fa.films = (function() {
 		return fa.ws.send('search_films', {query: query});
 	};
 	
-	// invokes the callback if the server found more search results
-	var onMoreResults = function(query, callback) {
-		gotMoreResults.removeAll();
-		gotMoreResults.add(function(mesQuery) {
-			if(mesQuery == query) callback();
-		});
-	};
-	
 	// returns a promise that resolves into the re-newed film object
 	var postComment = function(filmId, comment, hasSpoilers) {
 		return fa.ws.send('post_comment', {
@@ -125,7 +119,7 @@ fa.films = (function() {
 		get: getFilm,
 		
 		search: searchFilms,
-		onMoreResults: onMoreResults,
+		gotMoreResults: gotMoreResults,
 		
 		postComment: postComment,
 		deleteComment: deleteComment
