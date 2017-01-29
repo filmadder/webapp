@@ -119,6 +119,12 @@ fa.views = (function() {
 		.add('name', [fa.forms.maxLen(200), fa.forms.minLen(5)])
 		.add('pass1', [fa.forms.maxLen(200), fa.forms.minLen(5)])
 		.add('pass2', fa.forms.equal('pass1'));
+		
+		return {
+			remove: function() {
+				elem.innerHTML = '';
+			}
+		};
 	};
 	
 	// inits a login view
@@ -139,6 +145,12 @@ fa.views = (function() {
 		})
 		.add('email', [fa.forms.maxLen(200), fa.forms.email])
 		.add('pass', [fa.forms.maxLen(200), fa.forms.minLen(5)]);
+		
+		return {
+			remove: function() {
+				elem.innerHTML = '';
+			}
+		};
 	};
 	
 	// inits an inner view
@@ -222,6 +234,7 @@ fa.views = (function() {
 			remove: function() {
 				fa.films.gotMoreResults.removeAll();
 				fa.history.setState('results', { scroll: window.pageYOffset });
+				elem.innerHTML = '';
 			}
 		};
 	};
@@ -296,6 +309,7 @@ fa.views = (function() {
 					checkComments: getCheckState('#comments', elem),
 					checkSpoilers: getCheckState('#show-spoilers', elem)
 				});
+				elem.innerHTML = '';
 			}
 		};
 	};
@@ -381,6 +395,7 @@ fa.views = (function() {
 		return {
 			remove: function() {
 				fa.history.setState('home', { scroll: window.pageYOffset });
+				elem.innerHTML = '';
 			}
 		};
 	};
@@ -439,6 +454,12 @@ fa.views = (function() {
 		window.setTimeout(function() {
 			if(!ready) render(elem, 'loading-templ', {});
 		}, 500);
+		
+		return {
+			remove: function() {
+				elem.innerHTML = '';
+			}
+		};
 	};
 	
 	// inits a feed view
@@ -495,6 +516,8 @@ fa.views = (function() {
 					numPages: numPages,
 					scroll: window.pageYOffset
 				});
+				
+				elem.innerHTML = '';
 			}
 		};
 	};
@@ -553,6 +576,7 @@ fa.views = (function() {
 					checkWatchlist: getCheckState('#peek-watchlisted', elem),
 					checkFriends: getCheckState('#peek-friends', elem)
 				});
+				elem.innerHTML = '';
 			}
 		};
 	};
@@ -567,6 +591,12 @@ fa.views = (function() {
 			fa.auth.logout();
 			fa.routing.go('login');
 		});
+		
+		return {
+			remove: function() {
+				elem.innerHTML = '';
+			}
+		};
 	};
 	
 	// inits an error view
@@ -575,6 +605,12 @@ fa.views = (function() {
 		render(elem, 'error-404-templ', {});
 		renderedView.dispatch();
 		window.scroll(0, 0);
+		
+		return {
+			remove: function() {
+				elem.innerHTML = '';
+			}
+		};
 	};
 	
 	// inits a message view
