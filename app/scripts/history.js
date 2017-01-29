@@ -36,6 +36,7 @@ fa.history = (function() {
 				sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 			} catch (error) {
 				console.error(error);
+				sessionStorage.clear();
 			}
 		};
 		

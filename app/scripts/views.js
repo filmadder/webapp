@@ -212,6 +212,7 @@ fa.views = (function() {
 	// inits a film view
 	var createFilm = function(elem, id) {
 		var ready = false;
+		var state = fa.history.getState('film:'+id.toString());
 		
 		fa.films.get(id).then(function(film) {
 			ready = true;
@@ -220,7 +221,11 @@ fa.views = (function() {
 			renderedView.dispatch();
 			
 			// comments
-			hier.add('/inner/film/comments', {film: film, spoilersOk: false, open: false});
+			hier.add('/inner/film/comments', {
+				film: film,
+				spoilersOk: (state && state.checkSpoilers) ? true : false,
+				open: (state && state.checkComments) ? true : false
+			});
 			
 			// film status
 			var statusOpts = fa.dom.get('[data-fn=status-opts]', elem);
@@ -250,11 +255,28 @@ fa.views = (function() {
 					addMessage({type: 'success', text: 'removed'});
 				}).catch(handleError);
 			});
+			
+			if(state) {
+				fa.dom.get('#synopsis-text', elem).checked = state.checkSynopsis;
+				window.scroll(0, state.scroll);
+			}
 		}).catch(handleError);
 		
 		window.setTimeout(function() {
 			if(!ready) render(elem, 'loading-templ', {});
 		}, 500);
+		
+		return {
+			remove: function() {
+				if(!ready) return;
+				fa.history.setState('film:'+id.toString(), {
+					scroll: window.pageYOffset,
+					checkSynopsis: fa.dom.get('#synopsis-text', elem).checked,
+					checkComments: fa.dom.get('#comments', elem).checked,
+					checkSpoilers: fa.dom.get('#show-spoilers', elem).checked
+				});
+			}
+		};
 	};
 	
 	// inits a film comments view
@@ -307,6 +329,7 @@ fa.views = (function() {
 	// inits a home view
 	var createHome = function(elem) {
 		var ready = false;
+		var state = fa.history.getState('home');
 		
 		fa.users.get(fa.auth.getUser().pk).then(function(user) {
 			ready = true;
@@ -322,11 +345,21 @@ fa.views = (function() {
 							elem.firstChild.firstChild);
 				}
 			}).catch(handleError);
+			
+			if(state) {
+				window.scroll(0, state.scroll);
+			}
 		}).catch(handleError);
 		
 		window.setTimeout(function() {
 			if(!ready) render(elem, 'loading-templ', {});
 		}, 500);
+		
+		return {
+			remove: function() {
+				fa.history.setState('home', { scroll: window.pageYOffset });
+			}
+		};
 	};
 	
 	// inits a news view
@@ -443,6 +476,7 @@ fa.views = (function() {
 	// inits a profile view
 	var createProfile = function(elem, id) {
 		var ready = false;
+		var state = fa.history.getState('profile:'+id.toString());
 		
 		fa.users.get(id).then(function(user) {
 			ready = true;
@@ -467,11 +501,30 @@ fa.views = (function() {
 					hier.update('/inner/profile', id);
 				}).catch(handleError);
 			});
+			
+			if(state) {
+				fa.dom.get('#peek-watched', elem).checked = state.checkWatched;
+				fa.dom.get('#peek-watchlisted', elem).checked = state.checkWatchlist;
+				fa.dom.get('#peek-friends', elem).checked = state.checkFriends;
+				window.scroll(0, state.scroll);
+			}
 		}).catch(handleError);
 		
 		window.setTimeout(function() {
 			if(!ready) render(elem, 'loading-templ', {});
 		}, 500);
+		
+		return {
+			remove: function() {
+				if(!ready) return;
+				fa.history.setState('profile:'+id.toString(), {
+					scroll: window.pageYOffset,
+					checkWatched: fa.dom.get('#peek-watched', elem).checked,
+					checkWatchlist: fa.dom.get('#peek-watchlisted', elem).checked,
+					checkFriends: fa.dom.get('#peek-friends', elem).checked
+				});
+			}
+		};
 	};
 	
 	// inits a settings view
