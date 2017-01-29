@@ -421,15 +421,16 @@ fa.views = (function() {
 	// inits an update view
 	var createUpdates = function(elem) {
 		var ready = false;
+		var state = fa.history.getState('updates');
+		var numPages = (state) ? state.numPages : 1;
 		
-		fa.updates.get().then(function(updates) {
+		fa.updates.get(numPages).then(function(updates) {
 			ready = true;
 			
 			var isEmpty = (updates.firstItems.length == 0);
 			
 			render(elem, 'updates-templ', {isEmpty: isEmpty});
 			renderedView.dispatch('updates');
-			window.scroll(0, 0);
 			
 			var appendItems = function(items) {
 				var div = document.createElement('div');
@@ -438,6 +439,7 @@ fa.views = (function() {
 				
 				scrolledToBottom.addOnce(function() {
 					updates.loadMore().then(function(newItems) {
+						numPages = updates.getNumPages();
 						if(newItems.length > 0) {
 							appendItems(newItems);
 						}
@@ -449,6 +451,11 @@ fa.views = (function() {
 				appendItems(updates.firstItems);
 			}
 			
+			if(state) {
+				window.scroll(0, state.scroll);
+			} else {
+				window.scroll(0, 0);
+			}
 		}).catch(handleError);
 		
 		window.setTimeout(function() {
@@ -457,6 +464,15 @@ fa.views = (function() {
 		
 		return {
 			remove: function() {
+				if(!window.pageYOffset) {
+					numPages = 1;  // avoid loading too many feed items
+				}
+				
+				fa.history.setState('updates', {
+					numPages: numPages,
+					scroll: window.pageYOffset
+				});
+				
 				elem.innerHTML = '';
 			}
 		};

@@ -33,9 +33,12 @@ fa.updates = (function() {
 	};
 	
 	// constructs and returns an updates object from the backend data
+	// 
+	// the page var keeps track of how many pages have been already loaded; it
+	// counts from 0 as this is what the backend expects
 	var createUpdates = function(data) {
 		var updates = {};
-		var page = 0;
+		var page = Math.ceil(data.items.length / 20) - 1;
 		
 		updates.firstItems = fjs.map(createItem, data.items);
 		
@@ -47,12 +50,22 @@ fa.updates = (function() {
 			});
 		};
 		
+		// returns the number of pages that have been loaded so far
+		updates.getNumPages = function() {
+			return page + 1;
+		};
+		
 		return updates;
 	};
 	
 	// returns a promise that resolves into an updates object
-	var getUpdates = function() {
-		return fa.ws.send('get_updates', {page: 0, per_page: 20}).then(function(data) {
+	// 
+	// if given, the argument specifies the number of pages that the updates
+	// object will start with; by default one page of updates will be loaded
+	var getUpdates = function(pages) {
+		var perPage = (pages) ? 20 * pages : 20;
+		
+		return fa.ws.send('get_updates', {page: 0, per_page: perPage}).then(function(data) {
 			return Promise.resolve(createUpdates(data));
 		});
 	};
