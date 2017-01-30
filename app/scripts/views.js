@@ -392,6 +392,7 @@ fa.views = (function() {
 					render(div, 'home-updates-templ', {items: updates});
 					elem.firstChild.insertBefore(div.firstChild,
 							elem.firstChild.firstChild);
+					fa.dom.get('.new-update', elem).classList.remove('hidden');
 				}
 			}).catch(handleError);
 		}).catch(handleError);
