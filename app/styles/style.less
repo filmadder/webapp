@@ -746,6 +746,7 @@ h2 {
 	}	
 }
 
+/* loading between the views (the snake)*/
 .loading-cont {
 	margin: 50px 0;
 	width: 100%;
@@ -753,6 +754,67 @@ h2 {
 	.loading-icon {
 		margin: 0 auto;
 	}
+}
+
+/* loading button */
+.loading {
+	background: @lightpurple; 
+	position: relative;
+
+	&.dark {
+		color: transparent;
+
+		&:hover,
+		&:focus {
+			background: transparent;
+			color: transparent;
+		}
+
+		&:before {
+			background: white;
+		}
+	}
+
+	&.light {
+		color: transparent;
+
+		&:hover,
+		&:focus {
+			background: transparent;
+			color: transparent;
+		}
+
+		&:before {
+			background: @lightpurple;
+		}
+	}
+
+	&:before {
+		.size(13px; 13px);
+		.animation(loading; 1s; ease-in-out; 0; infinite; alternate);
+
+		border-radius: 50%;
+		content: "";
+		display: block;
+		visibility: visible;
+
+		position: absolute;
+		top: 8px;
+	}
+
+
+	/*&:after {
+		.font;
+
+		color: white;
+		display: inline-block;
+		content: "loading";
+		visibility: visible;
+
+		position: absolute;
+		top: 0;
+		right: 10px;
+	} */
 }
 
 /* this is what appears if there is no content to be displayed */

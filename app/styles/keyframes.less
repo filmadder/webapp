@@ -21,3 +21,33 @@
 		transform: rotate(360deg);
 	}
 }
+
+@-webkit-keyframes loading {
+	0% {
+		right: 5px;
+	}
+
+	100% {
+		right: ~"calc(100% - 18px)";
+	}
+}
+
+@keyframes loading {
+	0% {
+		right: 5px;
+		width: 10px;
+	}
+
+	15% {
+		width: 13px;
+	}
+
+	85% {
+		width: 13px;
+	}
+
+	100% {
+		right: ~"calc(100% - 18px)";
+		width: 10px;
+	}
+}
