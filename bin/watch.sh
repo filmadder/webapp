@@ -3,6 +3,8 @@ rm -rf build
 mkdir -p build
 mkdir -p build/styles
 mkdir -p build/scripts
+
+cp -r app/fonts -t build
 cp -r app/images -t build
 
 bin/build_html.sh

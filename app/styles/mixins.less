@@ -1,3 +1,41 @@
+/* fonts */
+@font-face {
+	font-family: 'Source Sans Pro';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Source Sans Pro'), local('SourceSansPro-Regular'),
+		url('../fonts/source-sans-pro-v9-latin-ext_latin-regular.woff2') format('woff2'),
+		url('../fonts/source-sans-pro-v9-latin-ext_latin-regular.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Source Sans Pro';
+	font-style: normal;
+	font-weight: 600;
+	src: local('Source Sans Pro Semibold'), local('SourceSansPro-Semibold'),
+		url('../fonts/source-sans-pro-v9-latin-ext_latin-600.woff2') format('woff2'),
+		url('../fonts/source-sans-pro-v9-latin-ext_latin-600.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Source Sans Pro';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'),
+		url('../fonts/source-sans-pro-v9-latin-ext_latin-700.woff2') format('woff2'),
+		url('../fonts/source-sans-pro-v9-latin-ext_latin-700.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'PT Sans';
+	font-style: normal;
+	font-weight: 700;
+	src: local('PT Sans Bold'), local('PTSans-Bold'),
+		url('../fonts/pt-sans-v8-cyrillic-ext_cyrillic-700.woff2') format('woff2'),
+		url('../fonts/pt-sans-v8-cyrillic-ext_cyrillic-700.woff') format('woff');
+}
+
+
 .animation(@name; @dur: 0; @func: ease; @del: 0; @itr; @direct;) {
 	-webkit-animation-name: @name;
 	-moz-animation-name: @name;
