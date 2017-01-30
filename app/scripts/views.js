@@ -180,14 +180,19 @@ fa.views = (function() {
 		
 		searchForm.addEventListener('submit', function(e) {
 			e.preventDefault();
-			fa.routing.go('search/?q='+encodeURIComponent(queryField.value));
-			queryField.blur();
+			if(queryField.value) {
+				fa.routing.go('search/?q='+encodeURIComponent(queryField.value));
+				queryField.blur();
+			}
 		});
 	};
 	
 	// inits a search results view
 	var createResults = function(elem, params) {
-		if(!params.hasOwnProperty('q')) fa.routing.go('error');
+		if(!params.hasOwnProperty('q') || !params.q) {
+			fa.routing.go('error');
+			return;
+		}
 		
 		var ready = false;
 		var state = fa.history.getState('results');
