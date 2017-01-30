@@ -113,6 +113,7 @@ fa.views = (function() {
 					form.showError(error.message);
 				}
 				else addMessage({type: 'error', code: error.code});
+				form.enable();
 			});
 		})
 		.add('email', [fa.forms.maxLen(200), fa.forms.email])
@@ -141,6 +142,7 @@ fa.views = (function() {
 					form.showError(error.message);
 				}
 				else addMessage({type: 'error', code: error.code});
+				form.enable();
 			});
 		})
 		.add('email', [fa.forms.maxLen(200), fa.forms.email])
@@ -345,6 +347,7 @@ fa.views = (function() {
 					form.showError(error.message);
 				}
 				else addMessage({type: 'error', code: error.code});
+				form.enable();
 			});
 		})
 		.add('comment', [fa.forms.minLen(6)])

@@ -1,7 +1,7 @@
 // usage:
 // var form = fa.forms.create(elem.querySelector('form'));
-// form.add('[name=email]', [fa.forms.email]);
-// form.add('[name=pass]', [fa.forms.minLen(1)]);
+// form.add('email', [fa.forms.email]);
+// form.add('pass', [fa.forms.minLen(1)]);
 fa.forms = (function() {
 	
 	"use strict";
@@ -113,20 +113,41 @@ fa.forms = (function() {
 	var createForm = function(formElem) {
 		var form = {};
 		
-		var errorElem = formElem.querySelector('[data-fn=error]');
+		var errorElem = fa.dom.get('[data-fn=error]', formElem);
+		var submitButton = fa.dom.get('[type=submit]', formElem);
+		
 		var fields = createFieldList(formElem);
 		var submitFunc = fjs.isFunction(arguments[1]) ? arguments[1] : null;
 		
-		formElem.addEventListener('submit', function(e) {
+		// disables and validates the form
+		// if any of the fields is invalid enables the form back
+		// otherwise invokes submitFunc() and returns; enabling the form back
+		// in this case is left to the submitFunc
+		// 
+		// attached in form.enable()
+		var submitEventListener = function(e) {
 			e.preventDefault();
+			
+			form.disable();
 			
 			form.hideError();
 			fjs.map('x => x.hideError()', fields);
 			
 			if(fjs.all('x => x', fjs.map('x => x.isValid()', fields))) {
-				if(submitFunc) submitFunc(form);
+				if(submitFunc) {
+					submitFunc(form);
+					return;
+				}
 			}
-		});
+			
+			form.enable();
+		};
+		
+		// register a handler which is called when the form is submitted and
+		// all the field values seem valid
+		form.onSubmit = function(func) {
+			submitFunc = func;
+		};
 		
 		// shows an error message
 		form.showError = function(error) {
@@ -164,11 +185,22 @@ fa.forms = (function() {
 			}, {}, fields);
 		};
 		
-		// register a handler which is called when the form is submitted and
-		// all the field values seem valid
-		form.onSubmit = function(func) {
-			submitFunc = func;
+		// disables the submit button and detaches the submit event listener
+		form.disable = function() {
+			submitButton.disabled = true;
+			submitButton.classList.add('loading');
+			fa.dom.off(formElem, 'submit', submitEventListener);
 		};
+		
+		// enables the submit button and attaches the submit event listener
+		form.enable = function() {
+			fa.dom.on(formElem, 'submit', submitEventListener);
+			submitButton.classList.remove('loading');
+			submitButton.disabled = false;
+		};
+		
+		// add the event listener
+		form.enable();
 		
 		return form;
 	};

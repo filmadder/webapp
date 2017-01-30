@@ -83,6 +83,26 @@ fa.dom = (function() {
 		}
 	};
 	
+	// wrapper around removeEventListener
+	// 
+	// otherwise identical to its on() counterpart
+	var off = function(elem, eventType, callback) {
+		var i;
+		
+		if(fjs.isString(elem)) {
+			elem = filter(elem);
+		}
+		
+		if(fjs.isArray(elem)) {
+			for(i = 0; i < elem.length; i++) {
+				elem[i].addEventListener(eventType, callback, false);
+			}
+		}
+		else {
+			elem.removeEventListener(eventType, callback, false);
+		}
+	};
+	
 	
 	// 
 	// exports
@@ -91,7 +111,8 @@ fa.dom = (function() {
 	return {
 		get: get,
 		filter: filter,
-		on: on
+		on: on,
+		off: off
 	};
 	
 }());
