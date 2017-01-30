@@ -239,6 +239,7 @@ h2 {
 
 		input {
 			.box(8px 12px 8px 0);
+			.font;
 
 			background: transparent;
 			border: none;
@@ -406,11 +407,20 @@ h2 {
 		.option {
 			.transition(@dur: 0.075s; @del: 0.075s;);
 
+			cursor: pointer;
 			opacity: 1;
+
+			.icon {
+				cursor: pointer;
+			}
 		}
 	}
 
 	.current {
+
+		.icon {
+			cursor: pointer;
+		}
 	} 
 
 	.hidden-options {
