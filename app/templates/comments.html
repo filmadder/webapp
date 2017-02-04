@@ -19,7 +19,7 @@
 	{{# comments }}
 	<li class="comment">
 		<div class="meta">
-			<a href="#/user/{{ author.pk }}" class="author">{{ author.name }}</a>
+			<a href="#/user/{{ author.pk }}" class="author user">{{ author.name }}</a>
 			<abbr class="timestamp" title="{{ posted.iso }}">{{ posted.ago }}</abbr>
 			{{# author.self }}
 			<button type="button" class="icon remove-icon remove-btn" data-fn="del-comment" data-comment="{{ pk }}">
@@ -31,7 +31,7 @@
 		<ul class="replies">
 			{{# replies }}
 			<li>
-				<a href="#/user/{{ author.pk }}" class="author">{{ author.name }}</a>
+				<a href="#/user/{{ author.pk }}" class="author user">{{ author.name }}</a>
 				<p class="text">{{ text }}</p>
 			</li>
 			{{/ replies }}
