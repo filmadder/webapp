@@ -2,8 +2,7 @@
 	<h2>Account settings</h2>
 
 	<ul class="settings-items">
-<!-- 
-		<li class="settings-item">
+		<!--li class="settings-item">
 			<h3>username</h3>
 			<p>stelaseldano</p>
 			<input type="checkbox" id="change-username" />
@@ -13,29 +12,33 @@
 				<input type="text" />
 				<button type="submit" class="light">save</button>
 			</form>
-		</li>
+		</li-->
 
 		<li class="settings-item">
 			<h3>password</h3>
 			<p>************</p>
 			<input type="checkbox" id="change-password" />
 			<label for="change-password" class="change">change password</label>
-			<form class="new-password-cont">
+			<form novalidate id="password-form" class="new-password-cont">
+				<p data-fn="error" class="form error"></p>
 				<li>
 					<label>current password</label>
-					<input type="password" />
+					<span data-fn="error" class="field error"></span>
+					<input type="password" name="pass0" autocomplete="off" />
 				</li>
 				<li>
 					<label>new password</label>
-					<input type="password" />
+					<span data-fn="error" class="field error"></span>
+					<input type="password" name="pass1" autocomplete="off" />
 				</li>
 				<li>
 					<label>repeat new password</label>
-					<input type="password" />
+					<span data-fn="error" class="field error"></span>
+					<input type="password" name="pass2" autocomplete="off" />
 				</li>
 				<button type="submit" class="light">save</button>
 			</form>
-		</li> -->
+		</li>
 		<li class="settings-item">
 			<button data-fn="logout" class="light">logout</button>
 		</li>

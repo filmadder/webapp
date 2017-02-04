@@ -309,13 +309,14 @@ fa.views = (function() {
 		
 		return {
 			remove: function() {
-				if(!ready) return;
-				fa.history.setState('film:'+id.toString(), {
-					scroll: window.pageYOffset,
-					checkSynopsis: getCheckState('#synopsis-text', elem),
-					checkComments: getCheckState('#comments', elem),
-					checkSpoilers: getCheckState('#show-spoilers', elem)
-				});
+				if(ready) {
+					fa.history.setState('film:'+id.toString(), {
+						scroll: window.pageYOffset,
+						checkSynopsis: getCheckState('#synopsis-text', elem),
+						checkComments: getCheckState('#comments', elem),
+						checkSpoilers: getCheckState('#show-spoilers', elem)
+					});
+				}
 				elem.innerHTML = '';
 			}
 		};
@@ -370,6 +371,8 @@ fa.views = (function() {
 	};
 	
 	// inits a home view
+	// 
+	// this view contains the user's watchlist and the unread updates, if such
 	var createHome = function(elem) {
 		var ready = false;
 		var state = fa.history.getState('home');
@@ -392,7 +395,15 @@ fa.views = (function() {
 					render(div, 'home-updates-templ', {items: updates});
 					elem.firstChild.insertBefore(div.firstChild,
 							elem.firstChild.firstChild);
-					fa.dom.get('.new-update', elem).classList.remove('hidden');
+					
+					// no need if the user is at the top
+					if(window.pageYOffset) {
+						var messageElem = fa.dom.get('.new-update', elem);
+						messageElem.classList.remove('hidden');
+						window.setTimeout(function() {
+							messageElem.classList.add('hidden');
+						}, 1500);
+					}
 				}
 			}).catch(handleError);
 		}).catch(handleError);
@@ -594,24 +605,49 @@ fa.views = (function() {
 		
 		return {
 			remove: function() {
-				if(!ready) return;
-				fa.history.setState('profile:'+id.toString(), {
-					scroll: window.pageYOffset,
-					checkWatched: getCheckState('#peek-watched', elem),
-					checkWatchlist: getCheckState('#peek-watchlisted', elem),
-					checkFriends: getCheckState('#peek-friends', elem)
-				});
+				if(ready) {
+					fa.history.setState('profile:'+id.toString(), {
+						scroll: window.pageYOffset,
+						checkWatched: getCheckState('#peek-watched', elem),
+						checkWatchlist: getCheckState('#peek-watchlisted', elem),
+						checkFriends: getCheckState('#peek-friends', elem)
+					});
+				}
 				elem.innerHTML = '';
 			}
 		};
 	};
 	
 	// inits a settings view
+	// 
+	// this view contains the change password form and the logout button
 	var createSettings = function(elem) {
 		render(elem, 'settings-templ', {});
 		renderedView.dispatch('me');
 		window.scroll(0, 0);
 		
+		// change password
+		fa.forms.create(fa.dom.get('#password-form'), function(form) {
+			var load = form.getData();
+			load = {oldPass: load.pass0, newPass: load.pass1};
+			
+			fa.auth.changePass(load).then(function() {
+				hier.update('/inner/settings');
+				addMessage({type: 'success', text: 'password changed'});
+			}).catch(function(error) {
+				if(error.code == 'bad_input') {
+					removeMessage();
+					form.showError(error.message);
+				}
+				else addMessage({type: 'error', code: error.code});
+				form.enable();
+			});
+		})
+		.add('pass0', [fa.forms.maxLen(200), fa.forms.minLen(5)])
+		.add('pass1', [fa.forms.maxLen(200), fa.forms.minLen(5)])
+		.add('pass2', [fa.forms.equal('pass1')]);
+		
+		// logout
 		fa.dom.on('[data-fn=logout]', 'click', function() {
 			fa.auth.logout();
 			fa.routing.go('login');
