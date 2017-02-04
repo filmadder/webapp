@@ -310,7 +310,6 @@ fa.views = (function() {
 		return {
 			remove: function() {
 				if(ready) {
-					console.log(window.pageYOffset);
 					fa.history.setState('film:'+id.toString(), {
 						scroll: window.pageYOffset,
 						checkSynopsis: getCheckState('#synopsis-text', elem),
@@ -372,6 +371,8 @@ fa.views = (function() {
 	};
 	
 	// inits a home view
+	// 
+	// this view contains the user's watchlist and the unread updates, if such
 	var createHome = function(elem) {
 		var ready = false;
 		var state = fa.history.getState('home');
@@ -394,7 +395,15 @@ fa.views = (function() {
 					render(div, 'home-updates-templ', {items: updates});
 					elem.firstChild.insertBefore(div.firstChild,
 							elem.firstChild.firstChild);
-					fa.dom.get('.new-update', elem).classList.remove('hidden');
+					
+					// no need if the user is at the top
+					if(window.pageYOffset) {
+						var messageElem = fa.dom.get('.new-update', elem);
+						messageElem.classList.remove('hidden');
+						window.setTimeout(function() {
+							messageElem.classList.add('hidden');
+						}, 1500);
+					}
 				}
 			}).catch(handleError);
 		}).catch(handleError);
