@@ -532,7 +532,6 @@ h2 {
 }
 
 /* arrow that rotates when clicked */
-
 .arrow {
 	.transition(all; .15s; @func: ease;);
 
@@ -559,6 +558,16 @@ h2 {
 	}
 }
 
+/* username's looks */
+.user {
+	color: @lightpurple;
+
+	&:hover,
+	&:focus {
+		color: @purple;
+	}
+}
+
 
 /* tag's looks */
 .tag {
@@ -567,6 +576,7 @@ h2 {
 	color: @lightpurple;
 	border: 2px solid @lightpurple;
 	border-radius: 3px;
+	margin: 3px;
 
 	&:hover,
 	&:focus {
@@ -596,7 +606,8 @@ h2 {
 			}
 
 			&.watchers-list {
-				.column;
+				.row;
+				.wrap;
 
 				li {
 					margin: 3px 10px 3px 0;
@@ -677,6 +688,7 @@ h2 {
 				}
 			}
 
+			/* tags on profile */
 			&.tags-list {
 				.row;
 				.wrap;
@@ -687,6 +699,38 @@ h2 {
 					display: none;
 					padding: 3px 6px 3px 0;
 					width: auto;
+				}
+			}
+
+			/* tags on film view */
+			&.tags-on-film {
+
+				padding: 10px 15px 0 15px;
+
+				li {
+					display: none;
+					margin: 22px;
+
+					.user {
+						margin: 0 10px 0 0;
+						flex: 1;
+					}
+
+					.user-tags {
+						.trim;
+						.row;
+						.wrap;
+
+						flex: 4;
+
+						li {
+							margin: 0;
+
+							.tag {
+								margin: -3px 6px 9px 6px;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -709,6 +753,13 @@ h2 {
 
 				li {
 					display: inline;
+				}
+			}
+
+			&:checked ~ .tags-on-film {
+
+				li {
+					.row;
 				}
 			}
 
