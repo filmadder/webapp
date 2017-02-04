@@ -68,6 +68,13 @@
 						<h2 class="f-title">{{ title }}</h2>
 						<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 					</a>
+					<ul class="tags">
+						<li><a href="/" class="tag">drama</a></li>
+						<li><a href="/" class="tag">wouldwatchagain</a></li>
+						<li><a href="/" class="tag">weird</a></li>
+						<li><a href="/" class="tag">philosophical</a></li>
+						<li><a href="/" class="tag">makesyouthink</a></li>
+					</ul>
 				</li>
 				{{/ user.filmsPast }}
 				{{^ user.filmsPast }}
@@ -82,13 +89,13 @@
 		</section>
 
 		<section class="watchlisted arrow-cont">
-			<input type="checkbox" id="peek-watchlisted" class="hidden" />
-			<label for="peek-watchlisted">
+			<input type="checkbox" id="peek-watchlist" class="hidden" />
+			<label for="peek-watchlist">
 				<div class="arrow">
 					<div class="stroke"></div>
 					<div class="stroke"></div>
 				</div>
-				<h3>Watchlisted<span class="number">{{ user.filmsFuture.length }}</span></h3>
+				<h3>Watchlist<span class="number">{{ user.filmsFuture.length }}</span></h3>
 			</label>
 			<ul class="film-list">
 				{{# user.filmsFuture }}
@@ -107,6 +114,22 @@
 					{{/ user.status.self }}
 				</li>
 				{{/ user.filmsFuture }}
+			</ul>
+		</section>
+
+		<section class="tags arrow-cont">
+			<input type="checkbox" id="peek-tags" class="hidden" />
+			<label for="peek-tags">
+				<div class="arrow">
+					<div class="stroke"></div>
+					<div class="stroke"></div>
+				</div>
+				<h3>Tags<span class="number">10</span></h3>
+			</label>
+			<ul class="tags-list">
+				<li><a href="/" class="tag">weird</a></li>
+				<li><a href="/" class="tag">wouldwatchagain</a></li>
+				<li><a href="/" class="tag">4stars</a></li>
 			</ul>
 		</section>
 

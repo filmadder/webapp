@@ -25,7 +25,7 @@ a {
 	text-decoration: none;
 }
 
-p, span, label, li {
+p, span, label, li, input, textarea {
 	.font();
 }
 
@@ -510,8 +510,18 @@ h2 {
 	}
 }
 
-/* arrow opener (opens hidden sections) */
 
+/* tag's looks */
+.tag {
+	.box(1px 4px);
+
+	color: @lightpurple;
+	border: 2px solid @lightpurple;
+	border-radius: 3px;
+}
+
+
+/* arrow opener (opens hidden sections) */
 .peek {
 	.box(30px);
 
@@ -519,7 +529,7 @@ h2 {
 		padding: 20px 0;
 
 		ul {
-			.box(0 15px;);
+			.box(10px 15px;);
 
 			li {
 				.row;
@@ -531,8 +541,7 @@ h2 {
 			}
 
 			&.watchers-list {
-				.row;
-				.wrap;
+				.column;
 
 				li {
 					margin: 3px 10px 3px 0;
@@ -556,11 +565,12 @@ h2 {
 			&.friends-list {
 				.row;
 				.wrap;
+
 				padding: 10px 15px 0 17px;
 
 				li {
 					display: none;
-					margin: 3px 10px 3px 0;
+					margin: 3px 6px 3px 0;
 				}
 
 				a {
@@ -589,6 +599,18 @@ h2 {
 						font-weight: 400;
 					}
 				}
+
+				.tags {
+					.row;
+					.wrap;
+
+					padding: 10px 0 0 0;
+
+					li {
+						margin: 3px 6px 3px 0;
+						width: auto;
+					}
+				}
 			}
 
 			&.comments-list,
@@ -597,6 +619,19 @@ h2 {
 
 				li {
 					display: none;
+				}
+			}
+
+			&.tags-list {
+				.row;
+				.wrap;
+
+				padding: 10px 15px 0 15px;
+
+				li {
+					display: none;
+					margin: 3px 6px 3px 0;
+					width: auto;
 				}
 			}
 		}
@@ -608,10 +643,17 @@ h2 {
 			}
 
 			&:checked ~ .film-list li {
-				.row(@spread; @center);
+				.column(@spread; @center);
 
 				&.nothing-to-display {
 					.column;
+				}
+			}
+
+			&:checked ~ .tags-list {
+
+				li {
+					display: inline;
 				}
 			}
 
@@ -620,9 +662,6 @@ h2 {
 				li {
 					display: inline;
 				}
-			}
-
-			&:checked ~ ul {
 			}
 		}
 	}
