@@ -104,6 +104,8 @@ fa.auth = (function() {
 	
 	// returns a promise that resolves when the user is registered and logged
 	// in or rejects with an error
+	// 
+	// expects an {email, name, pass1, pass2} object as argument
 	auth.register = function(load) {
 		auth.logout();
 		return fa.http.put('/auth/', {
@@ -117,6 +119,8 @@ fa.auth = (function() {
 	
 	// returns a promise that resolves when the socket connection is ready to
 	// use or rejects with an error
+	// 
+	// expects an {email, pass} object as argument
 	auth.login = function(load) {
 		auth.logout();
 		return fa.http.post('/auth/', {
@@ -134,6 +138,17 @@ fa.auth = (function() {
 			session = createSession();
 		}
 		fa.ws.close();
+	};
+	
+	// returns a promise that resolves when the password is successfully
+	// changed or rejects with the respective error otherwise
+	// 
+	// expects an {oldPass, newPass} object as argument
+	auth.changePass = function(load) {
+		return fa.ws.send('change_password', {
+			old_password: load.oldPass,
+			new_password: load.newPass
+		});
 	};
 	
 	return auth;
