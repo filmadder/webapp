@@ -1,26 +1,22 @@
 <div class="profile">
 	<div class="p-intro-cont">
 		<section class="p-intro">
+			<div class="avatar image"></div>
+			<!-- <div class="avatar-message">This avatar has been randomly assinged to you. Change it from settings.</div> -->
 			<article>
 				<h2 class="username">{{ user.name }}</h2>
-				{{# user.showData }}
-				<!-- <div class="p-stats">
-					<p><span>{{ user.filmsPast.length }}</span> watched</p>
-					<p><span>{{ user.filmsFuture.length }}</span> watchlisted</p>
-				</div> -->
-				{{/ user.showData }}
+				<div class="p-buttons p-relationship">
+					{{# user.status.friend }}
+					<p>you are friends</p>
+					</button>
+					{{/ user.status.friend }}
+					
+					{{# user.status.self }}
+					<a href="#/settings" title="account settings" class="icon settings-icon"></a>
+					{{/ user.status.self }}
+				</div>
 			</article>
 			
-			<article class="p-buttons p-relationship">
-				{{# user.status.friend }}
-				<p>you are friends</p>
-				</button>
-				{{/ user.status.friend }}
-				
-				{{# user.status.self }}
-				<a href="#/settings" title="account settings" class="icon settings-icon"></a>
-				{{/ user.status.self }}
-			</article>
 		</section>
 	</div>
 	
