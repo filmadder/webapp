@@ -1,0 +1,19 @@
+<article class="tag">
+	<h1>{{ tag.tag }}</h1>
+	
+	{{# tag.users }}
+	<section>
+		<a href="#/user/{{ pk }}" class="user">{{ name }}</a>
+		<ul>
+			{{# films }}
+			<li>
+				<a href="#/film/{{ pk }}">
+					<h2 class="f-title">{{ title }}</h2>
+					<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
+				</a>
+			</li>
+			{{/ films }}
+		</ul>
+	</section>
+	{{/ tag.users }}
+</article>

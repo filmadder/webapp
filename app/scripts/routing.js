@@ -19,6 +19,7 @@ fa.routing = (function() {
 	hier.reg('/inner/results', '#view', fa.views.results);
 	hier.reg('/inner/film', '#view', fa.views.film);
 	hier.reg('/inner/film/comments', 'section.comments', fa.views.comments);
+	hier.reg('/inner/tag', '#view', fa.views.tag);
 	hier.reg('/inner/profile', '#view', fa.views.profile);
 	hier.reg('/inner/settings', '#view', fa.views.settings);
 	
@@ -61,6 +62,12 @@ fa.routing = (function() {
 	}).rules = {
 		id: /^[0-9]+$/
 	};
+	
+	crossroads.addRoute('/label/{tag}', function(tag) {
+		hier.add('/inner');
+		if(hier.has('/inner/tag')) hier.remove('/inner/tag');
+		hier.add('/inner/tag', {tag: tag});
+	});
 	
 	crossroads.addRoute('/user/{id}', function(id) {
 		id = (id) ? parseInt(id) : 0;

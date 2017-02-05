@@ -325,6 +325,7 @@ fa.views = (function() {
 	};
 	
 	// inits a film comments view
+	// 
 	// expects a {film, spoilersOk, open} object as its params param
 	var createComments = function(elem, params) {
 		var comments = (params.spoilersOk)
@@ -560,6 +561,41 @@ fa.views = (function() {
 		};
 	};
 	
+	// inits a tag view
+	// 
+	// this view contains the users that have been used a particular tag and
+	// the films that have been tagged with it
+	// 
+	// the params argument is expected to be a {tag} object
+	var createTag = function(elem, params) {
+		var ready = false;
+		var state = fa.history.getState('tag:'+params.tag);
+		
+		fa.tags.get(params.tag).then(function(tagObj) {
+			ready = true;
+			
+			render(elem, 'tag-templ', {tag: tagObj});
+			renderedView.dispatch();
+			
+			if(state) {
+				window.scroll(0, state.scroll);
+			}
+		}).catch(handleError);
+		
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
+		
+		return {
+			remove: function() {
+				fa.history.setState('tag:'+params.tag, {
+					scroll: window.pageYOffset
+				});
+				elem.innerHTML = '';
+			}
+		};
+	};
+	
 	// inits a profile view
 	var createProfile = function(elem, id) {
 		var ready = false;
@@ -732,6 +768,7 @@ fa.views = (function() {
 		results: createResults,
 		film: createFilm,
 		comments: createComments,
+		tag: createTag,
 		profile: createProfile,
 		settings: createSettings,
 		

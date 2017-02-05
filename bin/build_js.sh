@@ -6,6 +6,7 @@ uglifyjs \
 	app/scripts/ws.js \
 	app/scripts/dom.js \
 	app/scripts/films.js \
+	app/scripts/tags.js \
 	app/scripts/users.js \
 	app/scripts/updates.js \
 	app/scripts/feed.js \

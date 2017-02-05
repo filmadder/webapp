@@ -21,7 +21,7 @@
 			{{/ film.posterUrl}}
 				<ul class="film-tags">
 					{{# film.tags }}
-					<li><a href="#/" class="tag tag-self">{{ . }}</a></li>
+					<li><a href="#/label/{{ . }}" class="tag tag-self">{{ . }}</a></li>
 					{{/ film.tags }}
 				</ul>
 				<div class="cont">
@@ -181,7 +181,7 @@
 					<a href="#/user/{{ pk }}" class="user">{{ name }}</a>
 					<ul class="user-tags">
 						{{# tags }}
-						<li><a href="#/" class="tag">{{ . }}</a></li>
+						<li><a href="#/label/{{ . }}" class="tag">{{ . }}</a></li>
 						{{/ tags }}
 					</ul>
 				</li>
