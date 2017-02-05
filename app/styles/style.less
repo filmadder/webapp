@@ -575,10 +575,25 @@ h2 {
 }
 
 
+/* logged user film tags on film view */
+.film-tags {
+	.column(@right);
+
+	margin: 10px 0;
+
+	li {
+		.row;
+
+		margin: 3px 0;
+	}
+}
+
+
 /* tag's looks */
 .tag {
 	.box(1px 4px);
 
+	background: white;
 	color: @lightpurple;
 	border: 2px solid @lightpurple;
 	border-radius: 3px;
@@ -587,6 +602,12 @@ h2 {
 	&:focus {
 		color: @purple;
 		border: 2px solid @purple;
+	}
+
+	&.tag-self {
+		background: transparent;
+		color: white;
+		border: 2px solid white;
 	}
 }
 
@@ -708,8 +729,7 @@ h2 {
 					margin: 22px;
 
 					.user {
-						margin: 0 10px 0 0;
-						flex: 1;
+						margin: 0 0 10px 0;
 					}
 
 					.user-tags {
@@ -717,13 +737,11 @@ h2 {
 						.row;
 						.wrap;
 
-						flex: 4;
-
 						li {
 							margin: 0;
 
 							.tag {
-								margin: -3px 6px 9px 0;
+								margin: 3px 6px 3px 0;
 							}
 						}
 					}
@@ -745,18 +763,19 @@ h2 {
 				}
 			}
 
+			/* tags on profile */
 			&:checked ~ .tags-list {
 
 				li {
 					.row;
-					.wrap;
 				}
 			}
 
+			/* tags on film view */
 			&:checked ~ .tags-on-film {
 
 				li {
-					.row;
+					.column;
 				}
 			}
 
