@@ -6,7 +6,7 @@
 		<a class="f-title" href="#/film/{{ film.pk }}">{{ film.title }}</a>
 	</h3>
 	<p>
-		<a href="#/user/{{ user.pk }}">{{ user.name }}</a> added to watched
+		<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a> added to watched
 	</p>
 		<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatched }}

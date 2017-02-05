@@ -576,7 +576,6 @@ h2 {
 	color: @lightpurple;
 	border: 2px solid @lightpurple;
 	border-radius: 3px;
-	margin: 3px;
 
 	&:hover,
 	&:focus {
@@ -688,7 +687,7 @@ h2 {
 
 				li {
 					display: none;
-					padding: 3px 6px 3px 0;
+					margin: 3px 6px 3px 0;
 					width: auto;
 				}
 			}
@@ -718,7 +717,7 @@ h2 {
 							margin: 0;
 
 							.tag {
-								margin: -3px 6px 9px 6px;
+								margin: -3px 6px 9px 0;
 							}
 						}
 					}
@@ -743,7 +742,8 @@ h2 {
 			&:checked ~ .tags-list {
 
 				li {
-					display: inline;
+					.row;
+					.wrap;
 				}
 			}
 
