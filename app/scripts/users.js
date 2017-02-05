@@ -40,6 +40,7 @@ fa.users = (function() {
 			user.filmsPast = data.films_past;
 			user.filmsFuture = data.films_future;
 			user.friends = data.friends;
+			user.tags = data.tags;
 		}
 		
 		return user;

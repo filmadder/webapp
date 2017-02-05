@@ -590,7 +590,8 @@ fa.views = (function() {
 			if(state) {
 				try {
 					fa.dom.get('#peek-watched', elem).checked = state.checkWatched;
-					fa.dom.get('#peek-watchlisted', elem).checked = state.checkWatchlist;
+					fa.dom.get('#peek-watchlist', elem).checked = state.checkWatchlist;
+					fa.dom.get('#peek-tags', elem).checked = state.checkTags;
 					fa.dom.get('#peek-friends', elem).checked = state.checkFriends;
 				} catch (error) {}
 				window.scroll(0, state.scroll);
@@ -610,6 +611,7 @@ fa.views = (function() {
 						scroll: window.pageYOffset,
 						checkWatched: getCheckState('#peek-watched', elem),
 						checkWatchlist: getCheckState('#peek-watchlisted', elem),
+						checkTags: getCheckState('#peek-tags', elem),
 						checkFriends: getCheckState('#peek-friends', elem)
 					});
 				}

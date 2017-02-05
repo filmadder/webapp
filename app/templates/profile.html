@@ -65,11 +65,9 @@
 						<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 					</a>
 					<ul class="tags">
-						<li><a href="/" class="tag">drama</a></li>
-						<li><a href="/" class="tag">wouldwatchagain</a></li>
-						<li><a href="/" class="tag">weird</a></li>
-						<li><a href="/" class="tag">philosophical</a></li>
-						<li><a href="/" class="tag">makesyouthink</a></li>
+						{{# tags }}
+						<li><a href="#/" class="tag">{{ . }}</a></li>
+						{{/ tags }}
 					</ul>
 				</li>
 				{{/ user.filmsPast }}
@@ -120,14 +118,12 @@
 					<div class="stroke"></div>
 					<div class="stroke"></div>
 				</div>
-				<h3>Tags<span class="number">10</span></h3>
+				<h3>Tags<span class="number">{{ user.tags.length }}</span></h3>
 			</label>
 			<ul class="tags-list">
-				<li><a href="/" class="tag">weird</a></li>
-				<li><a href="/" class="tag">wouldwatchagain</a></li>
-				<li><a href="/" class="tag">4stars</a></li>
-				<li><a href="/" class="tag">4/5</a></li>
-				<li><a href="/" class="tag">cosmos</a></li>
+				{{# user.tags }}
+				<li><a href="#/" class="tag">{{ . }}</a></li>
+				{{/ user.tags }}
 			</ul>
 		</section>
 
