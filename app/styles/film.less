@@ -9,7 +9,7 @@
 
 		.poster {
 			.size(~"calc(100vh - 80px)"; 100%);
-			.size(450px; 100%);
+			.size(470px; 100%);
 
 			background-position: top center;
 			background-repeat: no-repeat;
@@ -21,7 +21,7 @@
 
 		.no-poster {
 			.size(~"calc(100vh - 80px)"; 100%);
-			.size(450px; 100%);
+			.size(470px; 100%);
 			.column(@center; @center);
 
 			background: @purple;
@@ -39,9 +39,9 @@
 
 		.f-main-cont {
 			.box(30px 20px 60px 20px);
-			.row(@spread; @bottom);
-			height: ~"calc(100vh - 80px)";
-			.size(450px; 100%);
+			.column(@spread; @spread);
+			.size(470px; 100%);
+
 
 			background: linear-gradient(
 				rgba(0, 0, 0, 0.4),
@@ -58,7 +58,7 @@
 
 				display: block;
 				content: "";
-				border-bottom: 75px solid @lightpurple;
+				border-bottom: 50px solid @lightpurple;
 				border-left: 100vw solid transparent;
 
 				position: absolute;
@@ -67,8 +67,9 @@
 			}
 
 			.cont {
-				width: 100%;
 				.row(@spread);
+
+				width: 100%;
 			}
 
 			.title {
