@@ -57,7 +57,10 @@ fa.films = (function() {
 			posterUrl: data.film.poster_url,
 			watchersPast: data.watchers_past,
 			watchersFuture: data.watchers_future,
-			comments: fjs.map(createComment, data.comments)
+			comments: fjs.map(createComment, data.comments),
+			friendsTags: data.tags_friends,
+			friendsTagsCount: fjs.fold('x, y => x + y.tags.length', 0, data.tags_friends),
+			tags: data.tags_own
 		};
 		
 		film.status = {

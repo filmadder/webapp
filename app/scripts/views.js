@@ -296,6 +296,7 @@ fa.views = (function() {
 			if(state) {
 				try {
 					fa.dom.get('#synopsis-text', elem).checked = state.checkSynopsis;
+					fa.dom.get('#tags-film', elem).checked = state.checkTags;
 				} catch (error) {}
 				window.scroll(0, state.scroll);
 			} else {
@@ -313,6 +314,7 @@ fa.views = (function() {
 					fa.history.setState('film:'+id.toString(), {
 						scroll: window.pageYOffset,
 						checkSynopsis: getCheckState('#synopsis-text', elem),
+						checkTags: getCheckState('#tags-film', elem),
 						checkComments: getCheckState('#comments', elem),
 						checkSpoilers: getCheckState('#show-spoilers', elem)
 					});

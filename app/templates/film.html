@@ -20,11 +20,9 @@
 			<article class="f-main-cont no-poster-main-cont">
 			{{/ film.posterUrl}}
 				<ul class="film-tags">
-					<li><a href="/" class="tag tag-self">5/5</a></li>
-					<li><a href="/" class="tag tag-self">wouldwatchagain</a></li>
-					<li><a href="/" class="tag tag-self">scary</a></li>
-					<li><a href="/" class="tag tag-self">blood</a></li>
-					<li><a href="/" class="tag tag-self">notsureilikeit</a></li>
+					{{# film.tags }}
+					<li><a href="#/" class="tag tag-self">{{ . }}</a></li>
+					{{/ film.tags }}
 				</ul>
 				<div class="cont">
 					<div class="title-cont">
@@ -175,26 +173,19 @@
 					<div class="stroke"></div>
 					<div class="stroke"></div>
 				</div>
-				<h3>Tagged as<span class="number">10</span></h3>
+				<h3>Tagged as<span class="number">{{ film.friendsTagsCount }}</span></h3>
 			</label>
 			<ul class="tags-on-film">
+				{{# film.friendsTags }}
 				<li>
-					<a href="/" class="user">stelaseldano</a>
+					<a href="#/user/{{ pk }}" class="user">{{ name }}</a>
 					<ul class="user-tags">
-						<li><a href="/" class="tag">mustwatch</a></li>
-						<li><a href="/" class="tag">creepy</a></li>
-						<li><a href="/" class="tag">wouldwatchagain</a></li>
-						<li><a href="/" class="tag">neveragain</a></li>
+						{{# tags }}
+						<li><a href="#/" class="tag">{{ . }}</a></li>
+						{{/ tags }}
 					</ul>
 				</li>
-				<li>
-					<a href="/" class="user">pavelsof</a>
-					<ul class="user-tags">
-						<li><a href="/" class="tag">future</a></li>
-						<li><a href="/" class="tag">5stars</a></li>
-						<li><a href="/" class="tag">5/5</a></li>
-					</ul>
-				</li>
+				{{/ film.friendsTags }}
 			</ul>
 		</section>
 		<section class="comments arrow-cont"></section>
