@@ -19,9 +19,11 @@
 			{{^ film.posterUrl}}
 			<article class="f-main-cont no-poster-main-cont">
 			{{/ film.posterUrl}}
+				<div class="icon tag-icon"></div>
 				<ul class="film-tags">
 					{{# film.tags }}
-					<li><a href="#/label/{{ . }}" class="tag tag-self">{{ . }}</a></li>
+					<li><a href="#/label/{{ . }}" class="tag tag-self" title ="">{{ . }}</a></li>
+					<li><a href="#/label/{{ . }}" class="tag tag-self" title ="">{{ . }}</a></li><li><a href="#/label/{{ . }}" class="tag tag-self" title ="">{{ . }}</a></li><li><a href="#/label/{{ . }}" class="tag tag-self" title ="">{{ . }}</a></li><li><a href="#/label/{{ . }}" class="tag tag-self" title ="">{{ . }}</a></li>
 					{{/ film.tags }}
 				</ul>
 				<div class="cont">
