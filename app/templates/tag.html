@@ -1,5 +1,5 @@
-<article class="tag">
-	<h1>{{ tag.tag }}</h1>
+<article class="tag-view">
+	<h1 class="tag">{{ tag.tag }}</h1>
 	
 	{{# tag.users }}
 	<section>
@@ -8,7 +8,7 @@
 			{{# films }}
 			<li>
 				<a href="#/film/{{ pk }}">
-					<h2 class="f-title">{{ title }}</h2>
+					<h3 class="f-title">{{ title }}</h3>
 					<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 				</a>
 			</li>

@@ -60,7 +60,7 @@
 			<ul class="film-list">
 				{{# user.filmsPast }}
 				<li>
-					<a href="#/film/{{ pk }}">
+					<a href="#/film/{{ pk }}" class="listed-films">
 						<h2 class="f-title">{{ title }}</h2>
 						<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 					</a>
@@ -94,7 +94,7 @@
 			<ul class="film-list">
 				{{# user.filmsFuture }}
 				<li>
-					<a href="#/film/{{ pk }}">
+					<a href="#/film/{{ pk }}" class="listed-films">
 						<h2 class="f-title">{{ title }}</h2>
 						<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 					</a>

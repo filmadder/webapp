@@ -534,11 +534,20 @@ h2 {
 	}
 }
 
+.listed-films {
+	h4 {
+		.font;
+
+		color: @lightgrey;
+	}
+}
 /* film titles in lists */
 
 .f-title {
 	.font(700; 22px);
+
 	color: @grey;
+	text-transform: none;
 
 	&:hover,
 	&:focus {
@@ -681,15 +690,6 @@ h2 {
 				li {
 					margin: 20px 0;
 					width: 100%;
-
-					.f-title {
-						text-transform: none;
-					}
-
-					h4 {
-						color: @lightgrey;
-						font-weight: 400;
-					}
 				}
 
 				.tags {
@@ -1017,6 +1017,7 @@ h2 {
 @import "feed";
 @import "updates";
 @import "results";
+@import "tag";
 @import "comments";
 @import "settings";
 @import "messages";
