@@ -331,7 +331,7 @@ h2 {
 		bottom: 35px;
 		right: 15px;
 
-		z-index: 10;
+		z-index: 1;
 
 		&:before {
 			content: '';
@@ -433,10 +433,11 @@ h2 {
 .tag-icon {
 	background-image: url(../images/tag-icon-white.svg);
 	cursor: pointer;
+	display: none;
 
 	position: absolute;
 	top: 30px;
-	right: 20px;
+	left: 20px;
 }
 
 .loading-icon {
@@ -450,7 +451,6 @@ h2 {
 
 .status-cont {
 	position: relative;
-	z-index: 2;
 
 	.options {
 		.column(@center; @spread);
