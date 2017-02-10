@@ -308,13 +308,6 @@ h2 {
 			&::-webkit-input-placeholder {
 				.font(@s: 24px);
 			}
-
-			+ button {
-				.transition(@dur: 0.5s; @del: 0.5s);
-
-				opacity: 1;
-				visibility: visible;
-			}
 		}
 	}
 
@@ -357,6 +350,13 @@ h2 {
 			position: fixed;
 			bottom: 48px;
 			right: 24px;
+		}
+		
+		&.visible {
+			.transition(@dur: 0.5s; @del: 0.2s);
+
+			opacity: 1;
+			visibility: visible;
 		}
 	}
 
@@ -1017,7 +1017,7 @@ h2 {
 @import "feed";
 @import "updates";
 @import "results";
-@import "tag";
+/* @import "tag"; */
 @import "comments";
 @import "settings";
 @import "messages";
