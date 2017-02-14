@@ -9,7 +9,7 @@
 
 		.poster {
 			.size(~"calc(100vh - 80px)"; 100%);
-			.size(470px; 100%);
+			.size(490px; 100%);
 
 			background-position: top center;
 			background-repeat: no-repeat;
@@ -21,7 +21,7 @@
 
 		.no-poster {
 			.size(~"calc(100vh - 80px)"; 100%);
-			.size(470px; 100%);
+			.size(450px; 100%);
 			.column(@center; @center);
 
 			background: @purple;
@@ -40,11 +40,11 @@
 		.f-main-cont {
 			.box(30px 20px 60px 20px);
 			.column(@spread; @spread);
-			.size(470px; 100%);
+			.size(490px; 100%);
 
 
 			background: linear-gradient(
-				rgba(0, 0, 0, 0.4),
+				rgba(0, 0, 0, 0.55),
 				rgba(64, 111, 192, 1));
 			background-blend-mode: multiply;
 			margin: 0;
@@ -53,27 +53,19 @@
 			bottom: 0;
 			left: 0;
 
-			&:before {
-				.size(0; 0);
-
-				display: block;
-				content: "";
-				border-bottom: 50px solid @lightpurple;
-				border-left: 100vw solid transparent;
-
-				position: absolute;
-				bottom: 0;
-				left: 0;
-			}
-
 			.cont {
-				.row(@spread);
+				.row(@spread;);
 
 				width: 100%;
 			}
 
+			.title-cont {
+				max-height: 250px;
+			}
+
 			.title {
 				.font(700; 28px);
+
 				color: white;
 				margin: 0 50px 0 0;
 				text-transform: none;
@@ -126,6 +118,19 @@
 
 		background: @lightpurple;
 		position: relative;
+
+		&:before {
+			.size(0; 0);
+
+			display: block;
+			content: "";
+			border-bottom: 50px solid @lightpurple;
+			border-left: 100vw solid transparent;
+
+			position: absolute;
+			top: -50px;
+			left: 0;
+		}
 
 		&:after {
 			.size(0; 0);
@@ -218,3 +223,77 @@
 		}
 	}
 }
+
+.film-tags {
+
+	li {
+		.row;
+
+		margin: 3px;
+	}
+}
+
+.tagging-cont {
+	.column(@right);
+
+	width: 100%;
+
+	input[type="checkbox"] {
+		display: none;
+
+		&:checked ~ form {
+			.column(@right);
+		}
+
+		&:checked ~ .film-tags {
+			display: none;
+		}
+
+		&:checked ~ label {
+			display: none;
+		}
+
+		&:not(checked) ~ .film-tags {
+			.row(@right);
+			.wrap;
+		}
+	}
+
+	.tag-icon {
+		margin: 0 0 20px 0;
+	}
+
+	form {
+		display: none;
+
+		width: 100%;
+
+		p {
+			.row;
+		}
+		
+		button {
+
+			margin: 10px 0 0 10px;
+		}
+	}
+
+	.tags-input {
+		.box(9px 15px);
+
+		border: 2px solid @lightpurple;
+		border-radius: 10px;
+		outline: none;
+		resize: none;
+		width: 100%;
+
+		&::-moz-placeholder {
+			color: @lightpurple;
+		}
+
+		&::-webkit-input-placeholder  {
+			color: @lightpurple;
+		}
+	}
+}
+

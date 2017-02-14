@@ -19,12 +19,29 @@
 			{{^ film.posterUrl}}
 			<article class="f-main-cont no-poster-main-cont">
 			{{/ film.posterUrl}}
-				<div class="icon tag-icon"></div>
-				<ul class="film-tags">
-					{{# film.tags }}
-					<li><a href="#/label/{{ . }}" class="tag tag-self" title ="">{{ . }}</a></li>
-					{{/ film.tags }}
-				</ul>
+				{{# film.status.watched }}
+				<div class="tagging-cont">
+					<input type="checkbox" id="enter-tags" />
+					<label for="enter-tags" class="icon tag-icon"></label>
+					<form>
+						<input type="text" class="tags-input"
+						placeholder="{{# film.tags }} {{ . }} {{/ film.tags }} {{^ film.tags }}Add labels to {{ film.title }} {{/ film.tags}}" />
+						<p>
+							<button type="submit" class="dark">cancel</button>
+							<button type="submit" class="dark">save</button>
+						</p>
+					</form>
+					<ul class="film-tags">
+						{{# film.tags }}
+						<li><a href="#/label/{{ . }}" class="tag tag-self" title ="">{{ . }}</a></li>
+						{{/ film.tags }}
+					</ul>
+				</div>
+				{{/ film.status.watched }}
+
+				{{^ film.status.watched }}
+				<div></div>
+				{{/ film.status.watched }}					
 				<div class="cont">
 					<div class="title-cont">
 						<h2 class="title">{{ film.title }}</h2>
@@ -174,7 +191,7 @@
 					<div class="stroke"></div>
 					<div class="stroke"></div>
 				</div>
-				<h3>Tagged as<span class="number">{{ film.friendsTagsCount }}</span></h3>
+				<h3>Labels<span class="number">{{ film.friendsTagsCount }}</span></h3>
 			</label>
 			<ul class="tags-on-film">
 				{{# film.friendsTags }}
