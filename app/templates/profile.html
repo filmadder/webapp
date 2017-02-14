@@ -111,6 +111,7 @@
 			</ul>
 		</section>
 
+		{{# user.tags.length }}
 		<section class="tags arrow-cont">
 			<input type="checkbox" id="peek-tags" class="hidden" />
 			<label for="peek-tags">
@@ -126,6 +127,7 @@
 				{{/ user.tags }}
 			</ul>
 		</section>
+		{{/ user.tags.length }}
 
 		<section class="friends arrow-cont">
 			<input type="checkbox" id="peek-friends" class="hidden" />
