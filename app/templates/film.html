@@ -185,6 +185,7 @@
 					{{/ film.watchersFuture }}
 				</ul>
 			</section>
+			{{# film.friendsTags.length }}
 			<section class="tagged-as-list arrow-cont">
 				<input type="checkbox" id="tags-film" class="hidden" {{# open }}checked{{/ open }} />
 				<label for="tags-film">
@@ -207,6 +208,7 @@
 					{{/ film.friendsTags }}
 				</ul>
 			</section>
+			{{/ film.friendsTags.length }}
 		</section>
 		<section class="comments arrow-cont"></section>
 	</article>
