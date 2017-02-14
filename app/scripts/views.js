@@ -156,7 +156,9 @@ fa.views = (function() {
 	};
 	
 	// inits an inner view
-	// includes the navigation and the search form
+	// 
+	// includes the navigation, the search form, and the #view element that is
+	// the container of all inner views
 	var createInner = function(elem) {
 		render(elem, 'inner-templ', {});
 		
@@ -177,6 +179,17 @@ fa.views = (function() {
 		// search form
 		var searchForm = fa.dom.get('#search-form', elem);
 		var queryField = fa.dom.get('[name=q]', searchForm);
+		var resetButton = fa.dom.get('button[type=reset]', searchForm);
+		
+		fa.dom.on(queryField, 'focus', function() {
+			resetButton.classList.add('visible');
+		});
+		fa.dom.on(queryField, 'blur', function() {
+			resetButton.classList.remove('visible');
+		});
+		fa.dom.on(resetButton, 'click', function() {
+			queryField.focus();
+		});
 		
 		searchForm.addEventListener('submit', function(e) {
 			e.preventDefault();

@@ -12,7 +12,8 @@ fa.users = (function() {
 	var createUser = function(data) {
 		var user = {
 			pk: data.user.pk,
-			name: data.user.name
+			name: data.user.name,
+			avatarUrl: fa.settings.HTTP_API_URL + data.user.avatarUrl
 		};
 		
 		user.status = {
