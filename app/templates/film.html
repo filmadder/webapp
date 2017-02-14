@@ -158,53 +158,55 @@
 	</section>
 
 	<article class="peek">
-		<section class="watched-by arrow-cont">
-			<h3>Watched by</h3>
-			<ul class="watchers-list">
-				{{# film.watchersPast }}
-				<li>
-					<a href="#/user/{{ pk }}">{{ name }}</a>
-				</li>
-				{{/ film.watchersPast}}
-				{{^ film.watchersPast }}
-				<li class="nobody">none of your friends</li>
-				{{/ film.watchersPast }}
-			</ul>
-		</section>
-		<section class="watchlisted-by arrow-cont">
-			<h3>Watchlisted by</h3>
-			<ul class="watchers-list">
-				{{# film.watchersFuture }}
-				<li>
-					<a href="#/user/{{ pk }}">{{ name }}</a>
-				</li>
-				{{/ film.watchersFuture }}
-				{{^ film.watchersFuture }}
-				<li class="nobody">none of your friends</li>
-				{{/ film.watchersFuture }}
-			</ul>
-		</section>
-		<section class="tagged-as-list arrow-cont">
-			<input type="checkbox" id="tags-film" class="hidden" {{# open }}checked{{/ open }} />
-			<label for="tags-film">
-				<div class="arrow">
-					<div class="stroke"></div>
-					<div class="stroke"></div>
-				</div>
-				<h3>Labels<span class="number">{{ film.friendsTagsCount }}</span></h3>
-			</label>
-			<ul class="tags-on-film">
-				{{# film.friendsTags }}
-				<li>
-					<a href="#/user/{{ pk }}" class="user">{{ name }}</a>
-					<ul class="user-tags">
-						{{# tags }}
-						<li><a href="#/label/{{ . }}" class="tag">{{ . }}</a></li>
-						{{/ tags }}
-					</ul>
-				</li>
-				{{/ film.friendsTags }}
-			</ul>
+		<section class="left-side">
+			<section class="watched-by arrow-cont">
+				<h3>Watched by</h3>
+				<ul class="watchers-list">
+					{{# film.watchersPast }}
+					<li>
+						<a href="#/user/{{ pk }}">{{ name }}</a>
+					</li>
+					{{/ film.watchersPast}}
+					{{^ film.watchersPast }}
+					<li class="nobody">none of your friends</li>
+					{{/ film.watchersPast }}
+				</ul>
+			</section>
+			<section class="watchlisted-by arrow-cont">
+				<h3>Watchlisted by</h3>
+				<ul class="watchers-list">
+					{{# film.watchersFuture }}
+					<li>
+						<a href="#/user/{{ pk }}">{{ name }}</a>
+					</li>
+					{{/ film.watchersFuture }}
+					{{^ film.watchersFuture }}
+					<li class="nobody">none of your friends</li>
+					{{/ film.watchersFuture }}
+				</ul>
+			</section>
+			<section class="tagged-as-list arrow-cont">
+				<input type="checkbox" id="tags-film" class="hidden" {{# open }}checked{{/ open }} />
+				<label for="tags-film">
+					<div class="arrow">
+						<div class="stroke"></div>
+						<div class="stroke"></div>
+					</div>
+					<h3>Labels<span class="number">{{ film.friendsTagsCount }}</span></h3>
+				</label>
+				<ul class="tags-on-film">
+					{{# film.friendsTags }}
+					<li>
+						<a href="#/user/{{ pk }}" class="user">{{ name }}</a>
+						<ul class="user-tags">
+							{{# tags }}
+							<li><a href="#/label/{{ . }}" class="tag">{{ . }}</a></li>
+							{{/ tags }}
+						</ul>
+					</li>
+					{{/ film.friendsTags }}
+				</ul>
+			</section>
 		</section>
 		<section class="comments arrow-cont"></section>
 	</article>

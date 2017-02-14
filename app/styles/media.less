@@ -66,7 +66,7 @@
 			}
 
 			.poster {
-				.size(450px; 50%);
+				.size(490px; 50%);
 
 				background-size: contain;
 				margin: 0 auto;
@@ -258,19 +258,24 @@
 
 			.f-main-cont {
 				.size(450px, 100%);
-				.row(@spread; @center);
+				.column(@center; @spread);
 
 				background: linear-gradient(
 					rgba(0, 0, 0, 0.1),
 					rgba(0, 0, 0, 0.5));
-				padding: 20px 80px;
+				padding: 50px 50px 70px 50px;
+
+				.tagging-cont {
+					margin: 0 0 40px 30%;
+					max-width: 840px;
+					width: 70%;
+				}
 
 				.cont {
 					.row(@spread);
-
-					margin: 0 0 0 45%;
+					margin: 0 0 0 40%;
 					max-width: 840px;
-					width: 840px;
+					width: 60%;
 				}
 
 				.title {
@@ -315,22 +320,30 @@
 		}
 
 		.peek {
-			.row;
+			.row(@center);
 
-			padding: 40px 60px;
+			padding: 40px;
 			max-width: 1400px;
 			margin: 0 auto;
 			width: 100%;
 
-			.watched-by,
-			.watchlisted-by {
-				flex: 2;
+			.left-side {
+				width: 330px;
+				max-width: 330px;
 			}
 
 			.comments {
-				flex: 5;
-				padding: 20px 40px;
+				max-width: 490px;
+				padding: 20px 30px;
+				width: 490px;
 			}
+		}
+	}
+
+	.tag-view {
+
+		.tag {
+			margin: 30px 0;
 		}
 	}
 
