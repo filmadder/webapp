@@ -249,6 +249,30 @@ h2 {
 			margin: 0;
 			outline: none;
 			width: 270px;
+
+			&::-webkit-input-placeholder {
+				color: transparent;
+			}
+
+			&:-moz-placeholder {
+				color: transparent;
+			}
+
+			&::-moz-placeholder {
+				color: transparent;
+			}
+
+			&:focus::-webkit-input-placeholder {
+				color: white;
+			}
+
+			&:focus:-moz-placeholder {
+				color: white;
+			}
+
+			&:focus::-moz-placeholder {
+				color: white;
+			}
 		}
 	}
 
