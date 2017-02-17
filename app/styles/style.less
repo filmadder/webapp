@@ -310,11 +310,15 @@ h2 {
 		position: fixed;
 		bottom: 0;
 
-		&::-moz-placeholder {
+		&::-webkit-input-placeholder {
 			.font;
 		}
 
-		&::-webkit-input-placeholder {
+		&:-moz-placeholder {
+			.font;
+		}
+
+		&::-moz-placeholder {
 			.font;
 		}
 
@@ -325,11 +329,15 @@ h2 {
 			background: white;
 			height: 100px;
 
-			&::-moz-placeholder {
+			&::-webkit-input-placeholder {
 				.font(@s: 24px);
 			}
 
-			&::-webkit-input-placeholder {
+			&:-moz-placeholder {
+				.font(@s: 24px);
+			}
+
+			&::-moz-placeholder {
 				.font(@s: 24px);
 			}
 		}
