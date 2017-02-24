@@ -260,6 +260,14 @@ fa.views = (function() {
 	};
 	
 	// inits a film view
+	// 
+	// includes the film info, status, and tags; as well as the lists of
+	// friends who have added the film as watched/watchlisted and the tags the
+	// friends have given to the film
+	// 
+	// comments are handled by a separate view
+	// 
+	// expects the id of the film as its single view param
 	var createFilm = function(elem, id) {
 		var ready = false;
 		var state = fa.history.getState('film:'+id.toString());
@@ -275,6 +283,11 @@ fa.views = (function() {
 				film: film,
 				spoilersOk: (state && state.checkSpoilers) ? true : false,
 				open: (state && state.checkComments) ? true : false
+			});
+			
+			// film tags
+			fa.forms.create(fa.dom.get('form.tags-form', elem), function(form) {
+				console.log(form);
 			});
 			
 			// film status
@@ -306,6 +319,9 @@ fa.views = (function() {
 				}).catch(handleError);
 			});
 			
+			// set tags form
+			
+			// history state
 			if(state) {
 				try {
 					fa.dom.get('#synopsis-text', elem).checked = state.checkSynopsis;

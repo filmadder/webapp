@@ -96,14 +96,79 @@ fa.forms = (function() {
 		return field;
 	};
 	
+	// returns a tags field object
+	// this is a field object with added functionality
+	var createTagsField = function(fieldElem) {
+		var containerElem = fieldElem.parentElement;
+		
+		var field = createField(fieldElem);
+		var tags = fjs.map('x => x.innerHTML', fa.dom.filter('span', containerElem));
+		
+		// returns the [] of tags (i.e. strings) comprising the current value
+		field.getValue = function() {
+			return tags;
+		};
+		
+		// adds the given string to the field value ([] of tags)
+		// adds the respective <span> element
+		// 
+		// if the tag is already added, does nothing
+		field.addTag = function(tag) {
+			if(tags.indexOf(tag) > -1) return;
+			
+			var spanElem = document.createElement('span');
+			spanElem.appendChild(document.createTextNode(tag));
+			
+			containerElem.insertBefore(spanElem, fieldElem);
+			
+			tags.push(tag);
+		};
+		
+		// removes the last tag from the the field value ([] of tags)
+		// removes the respective <span> element
+		// 
+		// if there are not tags, does nothing
+		field.removeLastTag = function() {
+			if(tags.length == 0) return;
+			
+			var spanElems = fa.dom.filter('span', containerElem);
+			containerElem.removeChild(spanElems[spanElems.length-1]);
+			
+			tags.pop();
+		};
+		
+		// on pressing space or comma: add tag
+		// on pressing backspace: remove last tag
+		fa.dom.on(fieldElem, 'keydown', function(e) {
+			if(!fieldElem.value && e.keyCode == 8) {
+				field.removeLastTag();
+			}
+			if(e.keyCode == 32 || e.keyCode == 188) {
+				e.preventDefault();
+				if(fieldElem.value) {
+					field.addTag(fieldElem.value);
+					fieldElem.value = '';
+				}
+			}
+		});
+		
+		return field;
+	};
+	
 	// returns [] of field objects, one for each named field in the <form> given
-	// this is needed because NodeList is not an array, so no fjs
+	// 
+	// determines which field is of what type (for now the only two types are
+	// tags fields and.. common fields)
 	var createFieldList = function(formElem) {
 		var list = [], i;
-		var query = formElem.querySelectorAll('[name]');
+		var elems = fa.dom.filter('[name]', formElem);
 		
-		for(i = 0; i < query.length; i++) {
-			list.push(createField(query[i]));
+		for(i = 0; i < elems.length; i++) {
+			if(elems[i].dataset.fn && elems[i].dataset.fn == 'tags-field') {
+				list.push(createTagsField(elems[i]));
+			} else {
+				list.push(createField(elems[i]));
+			}
 		}
 		
 		return list;
@@ -213,6 +278,7 @@ fa.forms = (function() {
 	
 	return {
 		create: createForm,
+		createTagsField: createTagsField,
 		
 		minLen: fjs.curry(minLen),
 		maxLen: fjs.curry(maxLen),

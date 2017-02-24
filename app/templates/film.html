@@ -23,11 +23,15 @@
 				<div class="tagging-cont">
 					<input type="checkbox" id="enter-tags" />
 					<label for="enter-tags" class="icon tag-icon"></label>
-					<form>
-						<input type="text" class="tags-input"
-						placeholder="{{# film.tags }} {{ . }} {{/ film.tags }} {{^ film.tags }}Add labels to {{ film.title }} {{/ film.tags}}" />
+					<form class="tags-form">
+						<p data-fn="error" class="form error"></p>
+						<fieldset>
+							{{# film.tags }}<span>{{ . }}</span>{{/ film.tags }}
+							<input type="text" name="tags" data-fn="tags-field" class="tags-input"
+								placeholder="Add labels to {{ film.title }}" />
+						</fieldset>
 						<p>
-							<button type="submit" class="dark">cancel</button>
+							<!--button type="submit" class="dark">cancel</button-->
 							<button type="submit" class="dark">save</button>
 						</p>
 					</form>
@@ -38,10 +42,11 @@
 					</ul>
 				</div>
 				{{/ film.status.watched }}
-
+				
 				{{^ film.status.watched }}
 				<div></div>
-				{{/ film.status.watched }}					
+				{{/ film.status.watched }}
+				
 				<div class="cont">
 					<div class="title-cont">
 						<h2 class="title">{{ film.title }}</h2>

@@ -113,6 +113,11 @@ fa.films = (function() {
 		});
 	};
 	
+	// returns a promise that resolves with the re-newed film object
+	var setTags = function(filmId, newTags) {
+		
+	};
+	
 	
 	// 
 	// exports
@@ -125,7 +130,9 @@ fa.films = (function() {
 		gotMoreResults: gotMoreResults,
 		
 		postComment: postComment,
-		deleteComment: deleteComment
+		deleteComment: deleteComment,
+		
+		setTags: setTags
 	};
 	
 }());
