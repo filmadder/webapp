@@ -19,13 +19,22 @@ fa.tags = (function() {
 		});
 	};
 	
+	// returns a promise that resolves if the tags are successfully set and
+	// rejects with an error otherwise
+	// 
+	// expects the id of the film that is being tagged and a [] of strings
+	var setTags = function(filmId, tags) {
+		return fa.ws.send('set_tags', {film: filmId, tags: tags});
+	};
+	
 	
 	// 
 	// exports
 	// 
 	
 	return {
-		get: getTag
+		get: getTag,
+		set: setTags
 	};
 	
 }());
