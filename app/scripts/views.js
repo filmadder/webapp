@@ -285,29 +285,6 @@ fa.views = (function() {
 				open: (state && state.checkComments) ? true : false
 			});
 			
-			// film tags
-			var tagsFormElem = fa.dom.get('form.tags-form', elem);
-			var tagsCheckElem = fa.dom.get('#enter-tags', elem);
-			
-			fa.forms.create(tagsFormElem, function(form) {
-				var data = form.getData();
-				fa.tags.set(id, data.tags).then(function() {
-					hier.update('/inner/film', id);
-				}).catch(function(error) {
-					if(error.code == 'bad_input') {
-						removeMessage();
-						form.showError(error.message);
-					}
-					else addMessage({type: 'error', code: error.code});
-					form.enable();
-				});
-			})
-			.add('tags', [fa.forms.minLen(1), fa.forms.maxLen(32)]);
-			
-			fa.dom.on('.tags-form button[type=button]', 'click', function() {
-				tagsCheckElem.checked = false;
-			});
-			
 			// film status
 			var statusOpts = fa.dom.get('[data-fn=status-opts]', elem);
 			
@@ -338,6 +315,29 @@ fa.views = (function() {
 			});
 			
 			// set tags form
+			if(film.status.watched) {
+				var tagsFormElem = fa.dom.get('form.tags-form', elem);
+				var tagsCheckElem = fa.dom.get('#enter-tags', elem);
+				
+				fa.forms.create(tagsFormElem, function(form) {
+					var data = form.getData();
+					fa.tags.set(id, data.tags).then(function() {
+						hier.update('/inner/film', id);
+					}).catch(function(error) {
+						if(error.code == 'bad_input') {
+							removeMessage();
+							form.showError(error.message);
+						}
+						else addMessage({type: 'error', code: error.code});
+						form.enable();
+					});
+				})
+				.add('tags', [fa.forms.minLen(1), fa.forms.maxLen(32)]);
+				
+				fa.dom.on('.tags-form button[type=button]', 'click', function() {
+					tagsCheckElem.checked = false;
+				});
+			}
 			
 			// history state
 			if(state) {

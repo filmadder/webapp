@@ -173,6 +173,8 @@ fa.forms = (function() {
 				}
 			}
 			
+			field.hideError();
+			
 			// add the span elem
 			spanElem = document.createElement('span');
 			spanElem.appendChild(document.createTextNode(tag));
