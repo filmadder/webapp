@@ -24,16 +24,18 @@
 					<input type="checkbox" id="enter-tags" />
 					<label for="enter-tags" class="icon tag-icon"></label>
 					<form class="tags-form">
-						<p data-fn="error" class="form error"></p>
 						<fieldset>
-							{{# film.tags }}<span>{{ . }}</span>{{/ film.tags }}
-							<input type="text" name="tags" data-fn="tags-field" class="tags-input"
+							{{# film.tags }}
+							<span>{{ . }}</span>
+							{{/ film.tags }}
+							<input type="text" name="tags" data-fn="tags-field" class="input"
 								placeholder="Add labels to {{ film.title }}" />
 						</fieldset>
 						<p>
 							<!--button type="submit" class="dark">cancel</button-->
 							<button type="submit" class="dark">save</button>
 						</p>
+						<p data-fn="error" class="form error"></p>
 					</form>
 					<ul class="film-tags">
 						{{# film.tags }}
