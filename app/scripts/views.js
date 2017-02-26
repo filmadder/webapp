@@ -292,8 +292,7 @@ fa.views = (function() {
 			fa.forms.create(tagsFormElem, function(form) {
 				var data = form.getData();
 				fa.tags.set(id, data.tags).then(function() {
-					tagsCheckElem.checked = false;
-					form.enable();
+					hier.update('/inner/film', id);
 				}).catch(function(error) {
 					if(error.code == 'bad_input') {
 						removeMessage();
