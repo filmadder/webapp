@@ -31,11 +31,11 @@
 							<input type="text" name="tags" data-fn="tags-field" class="input"
 								placeholder="Add labels to {{ film.title }}" />
 						</fieldset>
+						<p data-fn="error" class="form error"></p>
 						<p>
 							<button type="button" class="dark">cancel</button>
 							<button type="submit" class="dark">save</button>
 						</p>
-						<p data-fn="error" class="form error"></p>
 					</form>
 					<ul class="film-tags">
 						{{# film.tags }}
@@ -44,7 +44,8 @@
 					</ul>
 				</div>
 				{{/ film.status.watched }}
-				
+
+				<!-- in cases when there is no taggin container, we need a div so that the main info contaier is pushed to the bottom -->
 				{{^ film.status.watched }}
 				<div></div>
 				{{/ film.status.watched }}
