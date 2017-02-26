@@ -286,8 +286,26 @@ fa.views = (function() {
 			});
 			
 			// film tags
-			fa.forms.create(fa.dom.get('form.tags-form', elem), function(form) {
-				console.log(form);
+			var tagsFormElem = fa.dom.get('form.tags-form', elem);
+			var tagsCheckElem = fa.dom.get('#enter-tags', elem);
+			
+			fa.forms.create(tagsFormElem, function(form) {
+				var data = form.getData();
+				fa.tags.set(id, data.tags).then(function() {
+					hier.update('/inner/film', id);
+				}).catch(function(error) {
+					if(error.code == 'bad_input') {
+						removeMessage();
+						form.showError(error.message);
+					}
+					else addMessage({type: 'error', code: error.code});
+					form.enable();
+				});
+			})
+			.add('tags', [fa.forms.minLen(1), fa.forms.maxLen(32)]);
+			
+			fa.dom.on('.tags-form button[type=button]', 'click', function() {
+				tagsCheckElem.checked = false;
 			});
 			
 			// film status

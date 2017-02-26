@@ -46,9 +46,14 @@ fa.forms = (function() {
 	// expects a field element
 	var createField = function(fieldElem) {
 		var field = {};
-		
-		var errorElem = fieldElem.parentNode.querySelector('[data-fn=error]');
 		var validators = [];
+		var errorElem = null;
+		
+		try {
+			errorElem = fa.dom.get('[data-fn=error]', fieldElem.parentNode);
+		} catch (e) {
+			errorElem = fa.dom.get('[data-fn=error]', fieldElem.parentNode.parentNode);
+		}
 		
 		field.name = fieldElem.name;
 		
@@ -80,6 +85,12 @@ fa.forms = (function() {
 			validators = fjs.filter(fjs.isFunction, arg);
 		};
 		
+		// returns the [] of field validators
+		// this is used by field objects that extend this object
+		field.getValidators = function() {
+			return validators;
+		};
+		
 		// checks whether the value is valid
 		field.isValid = function() {
 			for(var i = 0; i < validators.length; i++) {
@@ -105,23 +116,71 @@ fa.forms = (function() {
 		var tags = fjs.map('x => x.innerHTML', fa.dom.filter('span', containerElem));
 		
 		// returns the [] of tags (i.e. strings) comprising the current value
+		// 
+		// overwrites the common field's getValue() method
 		field.getValue = function() {
 			return tags;
+		};
+		
+		// prevents the form's submission if there is something written in the
+		// input field which has not been added yet and is invalid
+		// 
+		// if there is something written which is valid, it is explicitly added
+		// to the field's value
+		// 
+		// overwrites the common field's isValid() method
+		field.isValid = function() {
+			if(fieldElem.value) {
+				if(field.addTag(fieldElem.value)) {
+					fieldElem.value = '';
+				} else {
+					return false;
+				}
+			}
+			
+			return true;
 		};
 		
 		// adds the given string to the field value ([] of tags)
 		// adds the respective <span> element
 		// 
 		// if the tag is already added, does nothing
+		// 
+		// the tag is checked against the field's validators
+		// returns whether the tag has been added, i.e. is valid
 		field.addTag = function(tag) {
-			if(tags.indexOf(tag) > -1) return;
+			var spanElem, fieldLikeObj, i, validators;
 			
-			var spanElem = document.createElement('span');
+			if(tags.indexOf(tag) > -1) {
+				return false;
+			}
+			
+			if(tags.length >= 5) {
+				field.showError('only 5 tags per film are allowed');
+				return false;
+			}
+			
+			// validate the string
+			fieldLikeObj = {getValue: function() { return tag; }};
+			validators = field.getValidators();
+			
+			for(i = 0; i < validators.length; i++) {
+				try {
+					validators[i](fieldLikeObj);
+				} catch (error) {
+					field.showError(error);
+					return false;
+				}
+			}
+			
+			// add the span elem
+			spanElem = document.createElement('span');
 			spanElem.appendChild(document.createTextNode(tag));
 			
 			containerElem.insertBefore(spanElem, fieldElem);
 			
 			tags.push(tag);
+			return true;
 		};
 		
 		// removes the last tag from the the field value ([] of tags)
@@ -146,8 +205,9 @@ fa.forms = (function() {
 			if(e.keyCode == 32 || e.keyCode == 188) {
 				e.preventDefault();
 				if(fieldElem.value) {
-					field.addTag(fieldElem.value);
-					fieldElem.value = '';
+					if(field.addTag(fieldElem.value)) {
+						fieldElem.value = '';
+					}
 				}
 			}
 		});
