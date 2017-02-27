@@ -93,6 +93,43 @@
 						}
 					}
 				}
+
+				.tagging-cont {
+					.naughty(column; @right);
+					.column(@right);
+
+					margin: 0 0 40px 30%;
+					max-width: 350px;
+
+					input[type="checkbox"] {
+
+						&:checked ~ .tags-form {
+							.column(@right);
+						}
+
+						&:checked ~ .film-tags {
+							display: none;
+						}
+
+						&:not(checked) ~ .film-tags {
+							.row(@right);
+						}
+					}
+
+					.tags-form {
+
+						fieldset {
+
+							.row(@right);
+							.wrap;
+
+							input {
+								width: 100%;
+							}
+
+						}
+					}
+				}
 			}
 		}
 
@@ -264,12 +301,6 @@
 					rgba(0, 0, 0, 0.1),
 					rgba(0, 0, 0, 0.5));
 				padding: 50px 50px 70px 50px;
-
-				.tagging-cont {
-					margin: 0 0 40px 30%;
-					max-width: 840px;
-					width: 70%;
-				}
 
 				.cont {
 					.row(@spread);
