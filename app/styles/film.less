@@ -238,7 +238,7 @@
 }
 
 .tagging-cont {
-	.column(@right);
+	.row(@spread);
 
 	width: 100%;
 
@@ -258,13 +258,13 @@
 		}
 
 		&:not(checked) ~ .film-tags {
-			.row(@right);
+			.column(@right);
 			.wrap;
 		}
 	}
 
 	.tag-icon {
-		margin: 0 0 20px 0;
+		margin: 0 0 10px 0;
 	}
 
 	.tags-form {
@@ -281,7 +281,6 @@
 			border: 2px solid @lightpurple;
 			border-radius: 10px;
 			outline: none;
-			overflow: scroll;
 			resize: none;
 			width: 100%;
 			max-width: 450px;
@@ -310,7 +309,7 @@
 		
 		button {
 
-			margin: 10px 0 0 10px;
+			margin: 0 0 0 10px;
 		}
 	}
 
