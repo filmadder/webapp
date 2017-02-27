@@ -113,7 +113,7 @@ fa.forms = (function() {
 		var containerElem = fieldElem.parentElement;
 		
 		var field = createField(fieldElem);
-		var tags = fjs.map('x => x.innerHTML', fa.dom.filter('span', containerElem));
+		var tags = fjs.map('x => x.innerText', fa.dom.filter('div', containerElem));
 		
 		// returns the [] of tags (i.e. strings) comprising the current value
 		// 
@@ -142,14 +142,14 @@ fa.forms = (function() {
 		};
 		
 		// adds the given string to the field value ([] of tags)
-		// adds the respective <span> element
+		// adds the respective <div> element
 		// 
 		// if the tag is already added, does nothing
 		// 
 		// the tag is checked against the field's validators
 		// returns whether the tag has been added, i.e. is valid
 		field.addTag = function(tag) {
-			var spanElem, fieldLikeObj, i, validators;
+			var tagElem, fieldLikeObj, i, validators;
 			
 			if(tags.indexOf(tag) > -1) {
 				return false;
@@ -175,25 +175,46 @@ fa.forms = (function() {
 			
 			field.hideError();
 			
-			// add the span elem
-			spanElem = document.createElement('span');
-			spanElem.appendChild(document.createTextNode(tag));
+			// add the tag elem
+			tagElem = document.createElement('div');
+			tagElem.appendChild(document.createTextNode(tag));
+			tagElem.appendChild(document.createElement('span'));
 			
-			containerElem.insertBefore(spanElem, fieldElem);
+			containerElem.insertBefore(tagElem, fieldElem);
+			fa.dom.on(tagElem, 'click', function(e) {
+				field.removeTag(e.target.parentNode.innerText);
+			});
 			
+			// add the tag to the field value
 			tags.push(tag);
+			
 			return true;
 		};
 		
+		// removes the given tag from the field value
+		// removes the respective <div> element
+		// 
+		// if there is no such tag, does nothing
+		field.removeTag = function(tag) {
+			if(tags.indexOf(tag) < 0) return;
+			
+			var tagElem = fjs.first(function(elem) {
+				return elem.innerText == tag;
+			}, fa.dom.filter('div', containerElem));
+			containerElem.removeChild(tagElem);
+			
+			tags.splice(tags.indexOf(tag), 1);
+		};
+		
 		// removes the last tag from the the field value ([] of tags)
-		// removes the respective <span> element
+		// removes the respective <div> element
 		// 
 		// if there are not tags, does nothing
 		field.removeLastTag = function() {
 			if(tags.length == 0) return;
 			
-			var spanElems = fa.dom.filter('span', containerElem);
-			containerElem.removeChild(spanElems[spanElems.length-1]);
+			var tagElems = fa.dom.filter('div', containerElem);
+			containerElem.removeChild(tagElems[tagElems.length-1]);
 			
 			tags.pop();
 		};
@@ -212,6 +233,12 @@ fa.forms = (function() {
 					}
 				}
 			}
+		});
+		
+		// on pressing a tag's span, remove the tag
+		// this only affects the initial set of tags
+		fa.dom.on(fa.dom.filter('span', containerElem), 'click', function(e) {
+			field.removeTag(e.target.parentNode.innerText);
 		});
 		
 		return field;

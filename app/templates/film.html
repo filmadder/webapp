@@ -23,13 +23,13 @@
 				<div class="tagging-cont">
 					<input type="checkbox" id="enter-tags" />
 					<label for="enter-tags" class="icon tag-icon"></label>
-					<form class="tags-form">
+					<form autocomplete="off" class="tags-form">
 						<fieldset>
 							{{# film.tags }}
-							<span>{{ . }}</span>
+							<div>{{ . }}<span></span></div>
 							{{/ film.tags }}
-							<input type="text" name="tags" data-fn="tags-field" class="input"
-								placeholder="Add labels to {{ film.title }}" />
+							<input type="text" name="tags" autocomplete="off"
+						  		data-fn="tags-field" class="input" placeholder="add label" />
 						</fieldset>
 						<p data-fn="error" class="form error"></p>
 						<p>
