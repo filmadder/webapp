@@ -37,6 +37,12 @@ fa.forms = (function() {
 		}
 	};
 	
+	var regex = function(re, field) {
+		if(!re.test(field.getValue())) {
+			throw 'contains unallowed characters';
+		}
+	};
+	
 	
 	// 
 	// constructors
@@ -373,7 +379,9 @@ fa.forms = (function() {
 		maxLen: fjs.curry(maxLen),
 		
 		email: email,
-		equal: fjs.curry(equal)
+		equal: fjs.curry(equal),
+		
+		regex: fjs.curry(regex)
 	};
 	
 }());

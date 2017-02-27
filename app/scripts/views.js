@@ -332,7 +332,10 @@ fa.views = (function() {
 						form.enable();
 					});
 				})
-				.add('tags', [fa.forms.minLen(1), fa.forms.maxLen(32)]);
+				.add('tags', [
+					fa.forms.minLen(1), fa.forms.maxLen(32),
+					fa.forms.regex(/^[^\s]+$/)
+				]);
 				
 				fa.dom.on('.tags-form button[type=button]', 'click', function() {
 					tagsCheckElem.checked = false;
