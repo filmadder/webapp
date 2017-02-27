@@ -37,6 +37,12 @@ fa.forms = (function() {
 		}
 	};
 	
+	var regex = function(re, field) {
+		if(!re.test(field.getValue())) {
+			throw 'contains unallowed characters';
+		}
+	};
+	
 	
 	// 
 	// constructors
@@ -147,12 +153,12 @@ fa.forms = (function() {
 		// if the tag is already added, does nothing
 		// 
 		// the tag is checked against the field's validators
-		// returns whether the tag has been added, i.e. is valid
+		// returns whether the tag  is valid
 		field.addTag = function(tag) {
 			var tagElem, fieldLikeObj, i, validators;
 			
 			if(tags.indexOf(tag) > -1) {
-				return false;
+				return true;
 			}
 			
 			if(tags.length >= 5) {
@@ -220,18 +226,22 @@ fa.forms = (function() {
 		};
 		
 		// on pressing space or comma: add tag
+		fa.dom.on(fieldElem, 'input', function() {
+			if(!fieldElem.value) return;
+			
+			var lastChar = fieldElem.value[fieldElem.value.length-1];
+			
+			if(/^[\s]$/.test(lastChar) || lastChar == ',') {
+				if(field.addTag(fieldElem.value.slice(0, -1))) {
+					fieldElem.value = '';
+				}
+			}
+		});
+		
 		// on pressing backspace: remove last tag
 		fa.dom.on(fieldElem, 'keydown', function(e) {
 			if(!fieldElem.value && e.keyCode == 8) {
 				field.removeLastTag();
-			}
-			if(e.keyCode == 32 || e.keyCode == 188) {
-				e.preventDefault();
-				if(fieldElem.value) {
-					if(field.addTag(fieldElem.value)) {
-						fieldElem.value = '';
-					}
-				}
 			}
 		});
 		
@@ -373,7 +383,9 @@ fa.forms = (function() {
 		maxLen: fjs.curry(maxLen),
 		
 		email: email,
-		equal: fjs.curry(equal)
+		equal: fjs.curry(equal),
+		
+		regex: fjs.curry(regex)
 	};
 	
 }());
