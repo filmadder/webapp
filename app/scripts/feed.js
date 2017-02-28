@@ -17,7 +17,8 @@ fa.feed = (function() {
 			addedToWatched: (data.type == 'a'),
 			addedToWatchlist: (data.type == 'u'),
 			becameFriends: (data.type == 'f'),
-			wroteComment: (data.type == 'c')
+			wroteComment: (data.type == 'c'),
+			addedTags: (data.type == 't')
 		};
 		
 		if(item.type.becameFriends) {
@@ -27,6 +28,9 @@ fa.feed = (function() {
 		else {
 			item.user = data.user;
 			item.film = data.film;
+			if(item.type.addedTags) {
+				item.tags = data.tags;
+			}
 		}
 		
 		return item;

@@ -8,7 +8,7 @@
 	<p>
 		<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a> added to watched
 	</p>
-		<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
+	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatched }}
 	
 	{{# type.addedToWatchlist }}
@@ -19,7 +19,7 @@
 	<p>
 		<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a> added to watchlist
 	</p>
-		<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
+	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatchlist }}
 	
 	{{# type.becameFriends }}
@@ -31,7 +31,7 @@
 		became friends with
 		<a href="#/user/{{ userB.pk }}" class="user">{{ userB.name }}</a>
 	</p>
-		<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
+	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.becameFriends }}
 	
 	{{# type.wroteComment }}
@@ -42,5 +42,19 @@
 	<p><a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a> left a comment</p>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.wroteComment }}
+	
+	{{# type.addedTags }}
+	<h3>
+		<div class="icon tag-icon"></div>
+		<a class="f-title" href="#/film/{{ film.pk }}">{{ film.title }}</a>
+	</h3>
+	<p>
+		<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a> labelled as
+	</p>
+	<p>
+		{{# tags }}<span class="tag">{{ . }}</span>{{/ tags }}
+	</p>
+	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
+	{{/ type.addedTags }}
 </div>
 {{/ items }}
