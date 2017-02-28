@@ -317,7 +317,7 @@ fa.views = (function() {
 			// set tags form
 			if(film.status.watched) {
 				var tagsFormElem = fa.dom.get('form.tags-form', elem);
-				var tagsCheckElem = fa.dom.get('#enter-tags', elem);
+				var tagsCheckElem = fa.dom.get('#open-form', elem);
 				
 				fa.forms.create(tagsFormElem, function(form) {
 					var data = form.getData();

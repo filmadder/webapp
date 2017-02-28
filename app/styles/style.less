@@ -244,6 +244,7 @@ h2 {
 
 			background: transparent;
 			border: none;
+			border-radius: 0;
 			border-bottom: 2px solid white;
 			color: white;
 			margin: 0;
@@ -348,7 +349,8 @@ h2 {
 		.size(30px; 30px);
 		.trim;
 
-		background: @lightpurple;
+		background: white;
+		border: 2px solid @lightpurple;
 		opacity: 0;
 		visibility: hidden;
 
@@ -362,7 +364,7 @@ h2 {
 			content: '';
 			width: 12px;
 			height: 3px;
-			background-color: white;
+			background-color: @lightpurple;
 			-webkit-transform: rotate(-45deg);
 			transform: rotate(-45deg);
 
@@ -375,7 +377,7 @@ h2 {
 			content: '';
 			width: 12px;
 			height: 3px;
-			background-color: white;
+			background-color: @lightpurple;
 			-webkit-transform: rotate(45deg);
 			transform: rotate(45deg);
 
@@ -1030,6 +1032,7 @@ h2 {
 @import "updates";
 @import "results";
 @import "tag"; 
+@import "tagging"; 
 @import "comments";
 @import "settings";
 @import "messages";
