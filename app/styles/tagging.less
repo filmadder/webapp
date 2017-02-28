@@ -30,6 +30,10 @@
 			&:checked ~ label[for="open-form"] {
 				display: none;
 			}
+
+			&:checked ~ label[for="close-form"] {
+				display: none;
+			}
 		}
 
 		/* normal mode */
@@ -60,28 +64,28 @@
 
 			border: none;
 			display: block;
-			margin: 15px 0 0 0;
 			outline: none;
 			width: 100%;
 
+			ul {
+				.row(@right);
+				.wrap;
+			}
+
 			/* tag style */
 			li {
-				.box(0 6px 5px 6px);
 				.font(bold);
+				.box(0 4px);
+				.row(@y: @center);
 
 				background: transparent;
 				border: 2px solid white;
 				border-radius: 3px;
 				color: white;
-				display: inline-block;
 				float: right;
 				overflow: hidden;
-				margin: 10px 0 0 0;
+				margin: 6px 3px 0 3px;
 				vertical-align: middle;
-
-				&:first-child {
-					margin: 0;
-				}
 
 				span {
 					.transition(0);
@@ -101,7 +105,7 @@
 						transform: rotate(-45deg);
 
 						position: absolute;
-						top: 14px;
+						top: 9px;
 						left: 4px;
 					}
 
@@ -114,7 +118,7 @@
 						transform: rotate(45deg);
 
 						position: absolute;
-						top: 14px;
+						top: 9px;
 						left: 4px;
 					}
 				}
@@ -130,6 +134,10 @@
 		p {
 			.row;
 			.trim;
+		}
+
+		.controls {
+			.row(@y: @center);
 		}
 		
 		button {
@@ -153,7 +161,7 @@
 		border: none;
 		border-radius: 5px;
 		float: right;
-		margin: 16px 0 10px 0;
+		margin: 10px 0;
 		outline: none;
 		resize: none;
 		max-width: 450px;
@@ -212,12 +220,13 @@
 	/* normal mode */
 	.film-tags {
 
-		margin: 15px 0 0 0;
+		margin: 6px 0 0 0;
 
 		li {
 			.row;
 
 			margin: 3px;
+			min-height: 24px;
 		}
 	}
 }
