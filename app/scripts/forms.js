@@ -225,13 +225,13 @@ fa.forms = (function() {
 			tags.pop();
 		};
 		
-		// on pressing space or comma: add tag
+		// on pressing space, comma, or semicolon: add tag
 		fa.dom.on(fieldElem, 'input', function() {
 			if(!fieldElem.value) return;
 			
 			var lastChar = fieldElem.value[fieldElem.value.length-1];
 			
-			if(/^[\s]$/.test(lastChar) || lastChar == ',') {
+			if(/^[\s]$/.test(lastChar) || lastChar == ',' || lastChar == ';') {
 				if(field.addTag(fieldElem.value.slice(0, -1))) {
 					fieldElem.value = '';
 				}
@@ -245,7 +245,7 @@ fa.forms = (function() {
 			}
 		});
 		
-		// on pressing a tag's span, remove the tag
+		// on clicking a tag's span, remove the tag
 		// this only affects the initial set of tags
 		fa.dom.on(fa.dom.filter('span', containerElem), 'click', function(e) {
 			field.removeTag(e.target.parentNode.innerText);
