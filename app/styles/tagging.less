@@ -61,14 +61,16 @@
 
 		fieldset {
 			.trim;
+			.box(9px 15px);
 
 			border: none;
-			display: block;
+			background: white;
+			border-radius: 10px;
 			outline: none;
 			width: 100%;
 
 			ul {
-				.row(@right);
+				.row;
 				.wrap;
 			}
 
@@ -79,9 +81,9 @@
 				.row(@y: @center);
 
 				background: transparent;
-				border: 2px solid white;
+				border: 2px solid @lightpurple;
 				border-radius: 3px;
-				color: white;
+				color: @lightpurple;
 				float: right;
 				overflow: hidden;
 				margin: 6px 3px 0 3px;
@@ -100,7 +102,7 @@
 						content: '';
 						width: 12px;
 						height: 3px;
-						background-color: white;
+						background-color: @lightpurple;
 						-webkit-transform: rotate(-45deg);
 						transform: rotate(-45deg);
 
@@ -113,7 +115,7 @@
 						content: '';
 						width: 12px;
 						height: 3px;
-						background-color: white;
+						background-color: @lightpurple;
 						-webkit-transform: rotate(45deg);
 						transform: rotate(45deg);
 
@@ -123,12 +125,6 @@
 					}
 				}
 			}
-		}
-
-		.clearfix {
-			.trim;
-
-			border: none;
 		}
 
 		p {
@@ -155,15 +151,16 @@
 	}
 
 	.input {
-		.box(9px 15px);
+		.box(9px 5px);
 
 		background: white;
 		border: none;
 		border-radius: 5px;
-		float: right;
-		margin: 10px 0;
+		display: inline-block;
+		margin: 6px 0 0 0;
 		outline: none;
 		resize: none;
+		width: 100%;
 		max-width: 450px;
 	}
 
