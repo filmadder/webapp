@@ -187,8 +187,8 @@ fa.forms = (function() {
 			tagElem.appendChild(document.createElement('span'));
 			
 			fa.dom.get('ul', containerElem).appendChild(tagElem);
-			fa.dom.on(tagElem, 'click', function(e) {
-				field.removeTag(e.target.parentNode.innerText);
+			fa.dom.on(fa.dom.get('span', tagElem), 'click', function(e) {
+				field.removeTag(e.target.parentNode.innerText.trim());
 			});
 			
 			// add the tag to the field value
@@ -205,7 +205,7 @@ fa.forms = (function() {
 			if(tags.indexOf(tag) < 0) return;
 			
 			var tagElem = fjs.first(function(elem) {
-				return elem.innerText == tag;
+				return elem.innerText.trim() == tag;
 			}, fa.dom.filter('li', containerElem));
 			fa.dom.get('ul', containerElem).removeChild(tagElem);
 			
@@ -248,7 +248,7 @@ fa.forms = (function() {
 		// on clicking a tag's span, remove the tag
 		// this only affects the initial set of tags
 		fa.dom.on(fa.dom.filter('span', containerElem), 'click', function(e) {
-			field.removeTag(e.target.parentNode.innerText);
+			field.removeTag(e.target.parentNode.innerText.trim());
 		});
 		
 		return field;
