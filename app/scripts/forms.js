@@ -148,7 +148,7 @@ fa.forms = (function() {
 		};
 		
 		// adds the given string to the field value ([] of tags)
-		// adds the respective <div> element
+		// adds the respective <li> element
 		// 
 		// if the tag is already added, does nothing
 		// 
@@ -198,7 +198,7 @@ fa.forms = (function() {
 		};
 		
 		// removes the given tag from the field value
-		// removes the respective <div> element
+		// removes the respective <li> element
 		// 
 		// if there is no such tag, does nothing
 		field.removeTag = function(tag) {
@@ -206,21 +206,21 @@ fa.forms = (function() {
 			
 			var tagElem = fjs.first(function(elem) {
 				return elem.innerText == tag;
-			}, fa.dom.filter('div', containerElem));
-			containerElem.removeChild(tagElem);
+			}, fa.dom.filter('li', containerElem));
+			fa.dom.get('ul', containerElem).removeChild(tagElem);
 			
 			tags.splice(tags.indexOf(tag), 1);
 		};
 		
 		// removes the last tag from the the field value ([] of tags)
-		// removes the respective <div> element
+		// removes the respective <li> element
 		// 
 		// if there are not tags, does nothing
 		field.removeLastTag = function() {
 			if(tags.length == 0) return;
 			
-			var tagElems = fa.dom.filter('div', containerElem);
-			containerElem.removeChild(tagElems[tagElems.length-1]);
+			var tagElems = fa.dom.filter('li', containerElem);
+			fa.dom.get('ul', containerElem).removeChild(tagElems[tagElems.length-1]);
 			
 			tags.pop();
 		};
