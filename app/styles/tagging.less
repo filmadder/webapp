@@ -1,5 +1,5 @@
 .tagging-cont {
-	.row(@spread);
+	.column(@right);
 
 	margin: 0 0 30px 0;
 	width: 100%;
@@ -57,49 +57,39 @@
 
 		fieldset {
 			.trim;
-			.column(@right);
 
 			border: none;
+			display: block;
+			margin: 15px 0 0 0;
 			outline: none;
 			width: 100%;
 
 			/* tag style */
-			div {
-				.box(1px 4px);
-				.font(600);
-				.row(@y: @center);
+			li {
+				.box(0 6px 5px 6px);
+				.font(bold);
 
 				background: transparent;
-				color: white;
 				border: 2px solid white;
 				border-radius: 3px;
+				color: white;
+				display: inline-block;
+				float: right;
 				overflow: hidden;
 				margin: 10px 0 0 0;
-				width: auto;
+				vertical-align: middle;
 
 				&:first-child {
 					margin: 0;
 				}
 
 				span {
-					/*.size(16px; 16px);
-					.trim;
-
-					background-image: url(../images/bin.svg);
-					background-color: transparent;
-					background-repeat: no-repeat;
-					background-size: contain;
-					display: inline-block;
-					margin: 0 0 0 8px;
-					min-height: 16px;
-					min-width: 16px;*/
-
 					.transition(0);
 					.size(20px; 20px);
 					.trim;
 
+					display: inline-block;
 					margin: 0 0 0 10px;
-
 					position: relative;
 
 					&:before {
@@ -111,7 +101,7 @@
 						transform: rotate(-45deg);
 
 						position: absolute;
-						top: 9px;
+						top: 14px;
 						left: 4px;
 					}
 
@@ -124,11 +114,17 @@
 						transform: rotate(45deg);
 
 						position: absolute;
-						top: 9px;
+						top: 14px;
 						left: 4px;
 					}
 				}
 			}
+		}
+
+		.clearfix {
+			.trim;
+
+			border: none;
 		}
 
 		p {
@@ -156,6 +152,7 @@
 		background: white;
 		border: none;
 		border-radius: 5px;
+		float: right;
 		margin: 16px 0 10px 0;
 		outline: none;
 		resize: none;
@@ -179,6 +176,7 @@
 		background: transparent;
 		border: 2px solid white;
 		border-radius: 50%;
+		cursor: pointer;
 		min-height: 30px;
 		min-width: 30px;
 
@@ -208,6 +206,18 @@
 			position: absolute;
 			top: 12px;
 			left: 7px;
+		}
+	}
+
+	/* normal mode */
+	.film-tags {
+
+		margin: 15px 0 0 0;
+
+		li {
+			.row;
+
+			margin: 3px;
 		}
 	}
 }

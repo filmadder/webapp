@@ -25,11 +25,15 @@
 					<input type="radio" name="tagging-form" value="close-form" id="close-form"/>
 					<label for="open-form" class="icon tag-icon"></label>
 					<label for="close-form" class="reset"></label>
-					<form autocomplete="off" class="tags-form">
+					<form class="tags-form">
 						<fieldset>
-							{{# film.tags }}
-							<div>{{ . }}<span></span></div>
-							{{/ film.tags }}
+							<ul>
+								{{# film.tags }}
+								<li>{{ . }}<span></span></li>
+								<div class="clearfix"></div>
+								{{/ film.tags }}
+							</ul>
+							<div class="clearfix"></div>
 							<input type="text" name="tags" autocomplete="off"
 						  		data-fn="tags-field" class="input" placeholder="add labels" />
 						</fieldset>

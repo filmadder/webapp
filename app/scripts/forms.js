@@ -119,7 +119,7 @@ fa.forms = (function() {
 		var containerElem = fieldElem.parentElement;
 		
 		var field = createField(fieldElem);
-		var tags = fjs.map('x => x.innerText', fa.dom.filter('div', containerElem));
+		var tags = fjs.map('x => x.innerText', fa.dom.filter('li', containerElem));
 		
 		// returns the [] of tags (i.e. strings) comprising the current value
 		// 
@@ -182,11 +182,11 @@ fa.forms = (function() {
 			field.hideError();
 			
 			// add the tag elem
-			tagElem = document.createElement('div');
+			tagElem = document.createElement('li');
 			tagElem.appendChild(document.createTextNode(tag));
 			tagElem.appendChild(document.createElement('span'));
 			
-			containerElem.insertBefore(tagElem, fieldElem);
+			fa.dom.get('ul', containerElem).appendChild(tagElem);
 			fa.dom.on(tagElem, 'click', function(e) {
 				field.removeTag(e.target.parentNode.innerText);
 			});
