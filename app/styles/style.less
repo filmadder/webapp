@@ -288,7 +288,6 @@ h2 {
 
 
 /* search */
-
 #search-form {
 	.size(44px; 100%);
 	.box;
@@ -406,7 +405,6 @@ h2 {
 
 
 /* images */
-
 .image {
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -420,6 +418,29 @@ h2 {
 
 .avatar {
 	.size(100px; 100px);
+
+	min-height: 100%;
+	min-width: 100%;
+}
+
+.avatar-small {
+	.size(30px; 30px);
+
+	border-radius: 50%;
+	min-height: 30px;
+	min-width: 30px;
+
+	margin: 0 5px 0 0;
+}
+
+.avatar-medium {
+	.size(50px; 50px);
+
+	border-radius: 50%;
+	min-height: 50px;
+	min-width: 50px;
+
+	margin: 0 10px 0 0;
 }
 
 /* icons */
@@ -697,14 +718,17 @@ h2 {
 			}
 
 			&.friends-list {
-				.row;
-				.wrap;
+				.column;
 
 				padding: 10px 15px 0 17px;
 
 				li {
 					display: none;
-					margin: 3px 6px 3px 0;
+
+
+					a {
+						.row(@y: @center);
+					}
 				}
 			}
 
@@ -998,20 +1022,6 @@ h2 {
 		position: absolute;
 		top: 8px;
 	}
-
-
-	/*&:after {
-		.font;
-
-		color: white;
-		display: inline-block;
-		content: "loading";
-		visibility: visible;
-
-		position: absolute;
-		top: 0;
-		right: 10px;
-	} */
 }
 
 /* this is what appears if there is no content to be displayed */

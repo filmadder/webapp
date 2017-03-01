@@ -141,7 +141,10 @@
 			<ul class="friends-list">
 				{{# user.friends }}
 				<li>
-					<a href="#/user/{{ pk }}" class="user">{{ name }}</a>
+					
+					<a href="#/user/{{ pk }}" class="user">
+					<div class="avatar-small image" style="background-image: url('{{ avatarUrl }}')"></div>
+					{{ name }}</a>
 				</li>
 				{{/ user.friends }}
 				{{^ user.friends }}
