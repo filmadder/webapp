@@ -698,7 +698,7 @@ fa.views = (function() {
 					fa.history.setState('profile:'+id.toString(), {
 						scroll: window.pageYOffset,
 						checkWatched: getCheckState('#peek-watched', elem),
-						checkWatchlist: getCheckState('#peek-watchlisted', elem),
+						checkWatchlist: getCheckState('#peek-watchlist', elem),
 						checkTags: getCheckState('#peek-tags', elem),
 						checkFriends: getCheckState('#peek-friends', elem)
 					});

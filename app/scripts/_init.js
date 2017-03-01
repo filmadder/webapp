@@ -18,6 +18,10 @@ var fa = (function() {
 		settings = fjs.assign(dict, settings);
 		Object.freeze(settings);
 		
+		// this is experimental behaviour that breaks our fa.history scroll
+		// restoration, so we disable it
+		window.history.scrollRestoration = 'manual';
+		
 		fa.routing.init();
 	};
 	
