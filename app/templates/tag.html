@@ -3,17 +3,28 @@
 	
 	{{# tag.users }}
 	<section class="user-film-list">
-		<a href="#/user/{{ pk }}" class="user">{{ name }}</a>
-		<ul  class="films-list">
-			{{# films }}
-			<li>
-				<a href="#/film/{{ pk }}" class="listed-films">
-					<h3 class="f-title">{{ title }}</h3>
-					<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
-				</a>
-			</li>
-			{{/ films }}
-		</ul>
+		<article class="peek">
+			<section class="user-tag arrow-cont">
+				<input type="checkbox" id="user-tag" />
+				<label for="user-tag">
+					<div class="arrow">
+						<div class="stroke"></div>
+						<div class="stroke"></div>
+					</div>
+					<h3>{{ name }}<span class="number">{{ films.length }}</span></h3>
+				</label>
+				<ul class="films-list">
+					{{# films }}
+					<li>
+						<a href="#/film/{{ pk }}" class="listed-films">
+							<h2 class="f-title">{{ title }}</h2>
+							<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
+						</a>
+					</li>
+					{{/ films }}
+				</ul>
+			</section>
+		</article>
 	</section>
 	{{/ tag.users }}
 </article>

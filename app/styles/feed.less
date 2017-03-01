@@ -9,7 +9,7 @@
 	}
 
 	.feed-item {
-		.box(20px 30px);
+		.box(30px);
 		.column(@center);
 
 		width: 100%;
@@ -42,8 +42,14 @@
 			}
 		}
 
-		.tag {
-			margin: 6px 3px 3px 3px;
+		.tags {
+			.row(@center);
+			.wrap;
+
+			.tag {
+				margin: 3px;
+				display: inline-block;
+			}
 		}
 
 		.timestamp {

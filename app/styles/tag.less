@@ -1,6 +1,4 @@
 .tag-view {
-	.box(30px);
-
 	max-width: 550px;
 	margin: 0 auto;
 
@@ -8,7 +6,7 @@
 		.font(700; 20px);
 
 		display: inline-block;
-		margin: 0 0 30px 0;
+		margin: 30px 0 30px 30px;
 		text-transform: none;
 		text-align: center;
 		width: auto;
@@ -27,15 +25,43 @@
 	}
 
 	.user-film-list {
-		.box(20px 0);
-
 
 		.films-list {
-			.column;
+			display: none;
+			padding: 10px 15px 0 15px;
 		}
 
 		li {
 			margin: 20px 0;
+		}
+	}
+
+	.peek {
+		.box(0 30px);
+
+		/* username */
+		h3 {
+			.font(bold; 20px);
+
+			margin: 0 0 5px 15px;
+			text-transform: none;
+
+			.number {
+				margin: 3px 0 0 10px;
+			}
+		}
+
+		.f-title {
+			margin: 0;
+		}
+
+		#user-tag {
+
+			display: none;
+
+			&:checked ~ .films-list {
+				.column;
+			}
 		}
 	}
 }
