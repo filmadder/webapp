@@ -21,10 +21,8 @@
 			{{/ film.posterUrl}}
 				{{# film.status.watched }}
 				<div class="tagging-cont">
-					<input type="radio" name="tagging-form" value="open-form" id="open-form"/>
-					<input type="radio" name="tagging-form" value="close-form" id="close-form"/>
+					<input type="checkbox" id="open-form"/>
 					<label for="open-form" class="icon tag-icon"></label>
-					<label for="close-form" class="reset"></label>
 					<form class="tags-form">
 						<fieldset>
 							<ul>
@@ -32,10 +30,10 @@
 								<li>{{ . }}<span></span></li>
 								{{/ film.tags }}
 							</ul>
+							<p data-fn="error" class="form error"></p>
 							<input type="text" name="tags" autocomplete="off"
 						  		data-fn="tags-field" class="input" placeholder="add labels" />
 						</fieldset>
-						<p data-fn="error" class="form error"></p>
 						<p class="controls">
 							<button type="submit" class="dark">save</button>
 							<button type="button" class="reset"></button>

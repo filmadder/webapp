@@ -51,8 +51,10 @@
 	<p>
 		<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a> labelled as
 	</p>
-	<p>
-		{{# tags }}<span class="tag">{{ . }}</span>{{/ tags }}
+	<p class="tags">
+	{{# tags }}
+	<a href="#/label/{{ . }}" class="tag">{{ . }}</a>
+	{{/ tags }}
 	</p>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedTags }}

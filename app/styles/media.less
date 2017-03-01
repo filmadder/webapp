@@ -96,12 +96,11 @@
 
 				.tagging-cont {
 					.naughty(column; @right);
-					.column(@right);
 
 					margin: 0 0 40px 30%;
-					max-width: 350px;
+					max-width: 450px;
 
-					input[type="checkbox"] {
+					#open-form {
 
 						&:checked ~ .tags-form {
 							.column(@right);
@@ -111,7 +110,7 @@
 							display: none;
 						}
 
-						&:not(checked) ~ .film-tags {
+						&:not(:checked) ~ .film-tags {
 							.row(@right);
 						}
 					}
@@ -122,11 +121,16 @@
 
 							.row(@right);
 							.wrap;
+						}
+					}
 
-							input {
-								width: 100%;
-							}
+					.film-tags {
+						.wrap;
 
+						max-width: 350px;
+
+						li {
+							margin: 3px;
 						}
 					}
 				}
