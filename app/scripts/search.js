@@ -7,6 +7,18 @@ fa.search = (function() {
 	// functions
 	// 
 	
+	// constructs and returns a user object from the backend-provided data
+	// helper for search()
+	// 
+	// this is identical to fa.users.createUser
+	var createUser = function(data) {
+		return {
+			pk: data.pk,
+			name: data.name,
+			avatarUrl: fa.settings.HTTP_API_URL + data.avatarUrl
+		};
+	};
+	
 	// checks whether the given string is a bang
 	// a bang is a string starting or ending with !
 	var isBang = function(string) {
@@ -26,7 +38,7 @@ fa.search = (function() {
 		
 		if(bangs.length == 1) {  // there is only the user bang now
 			return fa.users.search(fjs.reduce('x, y => x+" "+y', tokens)).then(function(data) {
-				return Promise.resolve({type: 'users', items: data.users});
+				return Promise.resolve({type: 'users', items: fjs.map(createUser, data.users)});
 			});
 		}
 		else {

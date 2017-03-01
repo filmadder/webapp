@@ -8,13 +8,19 @@ fa.users = (function() {
 	// 
 	
 	// constructs and returns a user object from the backend-provided data
-	// helper for getUser()
+	// helper for createProfile()
 	var createUser = function(data) {
-		var user = {
-			pk: data.user.pk,
-			name: data.user.name,
-			avatarUrl: fa.settings.HTTP_API_URL + data.user.avatarUrl
+		return {
+			pk: data.pk,
+			name: data.name,
+			avatarUrl: fa.settings.HTTP_API_URL + data.avatarUrl
 		};
+	};
+	
+	// constructs and returns a profile object from the backend-provided data
+	// helper for getUser()
+	var createProfile = function(data) {
+		var user = createUser(data.user);
 		
 		user.status = {
 			unknown: (data.friendship_status == 'u'),
@@ -40,7 +46,7 @@ fa.users = (function() {
 		else if(user.status.friend || user.status.self) {
 			user.filmsPast = data.films_past;
 			user.filmsFuture = data.films_future;
-			user.friends = data.friends;
+			user.friends = fjs.map(createUser, data.friends);
 			user.tags = data.tags;
 		}
 		
@@ -50,7 +56,7 @@ fa.users = (function() {
 	// returns a promise that resolves into a user object
 	var getUser = function(id) {
 		return fa.ws.send('get_user', {user: id}).then(function(data) {
-			return Promise.resolve(createUser(data));
+			return Promise.resolve(createProfile(data));
 		});
 	};
 	
