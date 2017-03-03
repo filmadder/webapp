@@ -454,7 +454,7 @@ fa.views = (function() {
 				watchedList.classList.add('hidden');
 			});
 
-			fa.dom.get('#watched-btn').addEventListener('change', function(e) {
+			fa.dom.get('#watched-btn').addEventListener('change', function() {
 				watchlistLabel.classList.remove('selected');
 				watchedLabel.classList.add('selected');
 				watchlistList.classList.add('hidden');
@@ -584,6 +584,19 @@ fa.views = (function() {
 			render(elem, 'feed-templ', {isEmpty: isEmpty});
 			renderedView.dispatch('feed');
 			
+			var youBtn = fa.dom.get('.you-btn');
+			var friendsBtn = fa.dom.get('.friends-btn');
+
+			friendsBtn.addEventListener('click', function(e) {
+				youBtn.classList.remove('selected');
+				e.target.classList.add('selected');
+			});
+
+			youBtn.addEventListener('click', function(e) {
+				friendsBtn.classList.remove('selected');
+				e.target.classList.add('selected');
+			});
+
 			var appendItems = function(items) {
 				var div = document.createElement('div');
 				render(div, 'feed-items-templ', {items: items});
@@ -608,6 +621,7 @@ fa.views = (function() {
 			} else {
 				window.scroll(0, 0);
 			}
+
 		}).catch(handleError);
 		
 		window.setTimeout(function() {
