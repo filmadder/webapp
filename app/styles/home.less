@@ -7,6 +7,7 @@
 	max-width: 1400px;
 
 	.h-updates-cont {
+		border-bottom: 2px solid white;
 		position: relative;
 		background: @lightpurple;
 		width: 100%;
@@ -52,20 +53,22 @@
 		}
 	}
 
-	.h-watchlist {
-		.box(30px);
+	.h-lists {
 		.column(@left; @center);
 		width: 100%;
 
 		h2 {
+			.box(0 30px);
+
 			color: @purple;
 			margin: 10px 0;
+			text-align: center;
 		}
 
-		.watchlist-item {
+		.list-item {
 			.row(@spread; @center);
+			.box(20px 30px);
 			
-			margin: 20px 0;
 			width: 100%;
 		}
 	}
@@ -82,5 +85,9 @@
 		bottom: 70px;
 		left: 30px;
 		left: ~"calc(50% - 45px)";
+	}
+
+	.nothing-to-display {
+		.box(20px 30px);
 	}
 }

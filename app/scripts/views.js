@@ -433,7 +433,7 @@ fa.views = (function() {
 		fa.users.get(fa.auth.getUser().pk).then(function(user) {
 			ready = true;
 			
-			render(elem, 'home-templ', {watchlist: user.filmsFuture});
+			render(elem, 'home-templ', {watchlist: user.filmsFuture, watched: user.filmsPast});
 			renderedView.dispatch();
 			
 			if(state) {
@@ -442,6 +442,25 @@ fa.views = (function() {
 				window.scroll(0, 0);
 			}
 			
+			var watchlistLabel = fa.dom.get('label[for=watchlist-btn]');
+			var watchedLabel = fa.dom.get('label[for=watched-btn]');
+			var watchedList = fa.dom.get('.watched-list');
+			var watchlistList = fa.dom.get('.watchlist-list');
+
+			fa.dom.get('#watchlist-btn').addEventListener('change', function() {
+				watchlistLabel.classList.add('selected');
+				watchedLabel.classList.remove('selected');
+				watchlistList.classList.remove('hidden');
+				watchedList.classList.add('hidden');
+			});
+
+			fa.dom.get('#watched-btn').addEventListener('change', function(e) {
+				watchlistLabel.classList.remove('selected');
+				watchedLabel.classList.add('selected');
+				watchlistList.classList.add('hidden');
+				watchedList.classList.remove('hidden');
+			});
+
 			fa.updates.getUnread().then(function(updates) {
 				if(updates.length > 0) {
 					var div = document.createElement('div');

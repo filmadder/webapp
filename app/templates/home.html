@@ -1,21 +1,47 @@
 <div class="home">
-	<section class="h-watchlist">
-		<h2>Watchlist</h2>
-		{{# watchlist }}
-		<div class="watchlist-item">
-			<a href="/#/film/{{ pk }}" class="listed-films">
-				<h3 class="f-title">{{ title }}</h3>
-				<h4>{{ year }} {{# directors }} | {{directors }} {{/ directors }}</h4>
-			</a>
+	<section class="h-lists">
+		<div class="internal-links">
+			<label for="watchlist-btn" class="selected"><span class="icon watchlisted-icon"></span></label>
+			<label for="watched-btn"><span class="icon watched-icon"></span></label>
+			<input type="radio" name="list" value="watchlist-btn" id="watchlist-btn" />
+			<input type="radio" name="list" value="watched-btn" id="watched-btn" />
 		</div>
-		{{/ watchlist }}
+		<section class="watchlist-list">
+			<h2>watchlist</h2>
+			{{# watchlist }}
+			<div class="list-item">
+				<a href="/#/film/{{ pk }}" class="listed-films">
+					<h3 class="f-title">{{ title }}</h3>
+					<h4>{{ year }} {{# directors }} | {{directors }} {{/ directors }}</h4>
+				</a>
+			</div>
+			{{/ watchlist }}
+			{{^ watchlist }}
+			<div class="nothing-to-display">
+				<h3>Nothing in your watchlist yet</h3>
+				<p>Search for a film you wish to watch and add it to your watchlist.</p>
+			</div>							
+			{{/ watchlist }}
+		</section>
+
+		<section class="watched-list hidden">
+			<h2>watched</h2>
+			{{# watched }}
+			<div class="list-item">
+				<a href="/#/film/{{ pk }}" class="listed-films">
+					<h3 class="f-title">{{ title }}</h3>
+					<h4>{{ year }} {{# directors }} | {{directors }} {{/ directors }}</h4>
+				</a>
+			</div>
+			{{/ watched }}
+			{{^ watched }}
+			<div class="nothing-to-display">
+				<h3>Nothing in your watched yet</h3>
+				<p>Search for films you have watched and add it to your watched list.</p>
+			</div>							
+			{{/ watched }}
+		</section>
 		
-		{{^ watchlist }}
-		<div class="nothing-to-display">
-			<h3>Nothing in your watchlist yet</h3>
-			<p>Search for a film you wish to watch and add it to your watchlist.</p>
-		</div>							
-		{{/ watchlist }}
 	</section>
 	<a href="#/feed/me" class="new-update hidden">new update</a>
 </div>
