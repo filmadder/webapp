@@ -344,22 +344,26 @@ h2 {
 			&::-moz-placeholder {
 				.font(@s: 24px);
 			}
+
+			+ .submit {
+				bottom: 35px;
+			}
 		}
+
 	}
 
 	.reset {
 		.transition(0);
-		.size(30px; 30px);
+		.size(20px; 20px);
 		.trim;
 
 		background: white;
-		border: 2px solid @lightpurple;
 		opacity: 0;
 		visibility: hidden;
 
 		position: fixed;
-		bottom: 35px;
-		right: 15px;
+		bottom: 40px;
+		right: 51px;
 
 		z-index: 1;
 
@@ -373,7 +377,7 @@ h2 {
 
 			position: fixed;
 			bottom: 48px;
-			right: 24px;
+			right: 50px;
 		}
 
 		&:after {
@@ -386,19 +390,39 @@ h2 {
 
 			position: fixed;
 			bottom: 48px;
-			right: 24px;
+			right: 50px;
 		}
 		
 		&.visible {
-			.transition(@dur: 0.3s; @del: 0.1s);
+			.transition(@dur: 0.2s; @del: 0s);
 
 			opacity: 1;
 			visibility: visible;
 		}
 	}
 
+	.submit {
+		.size(30px; 30px);
+		.transition;
+		.trim;
+
+		background: @lightpurple;
+		border: 2px solid @lightpurple;
+		color: @grey;
+
+		position: fixed;
+		bottom: 6px;
+		right: 10px;
+
+		z-index: 1;
+
+		&.transformed {
+
+		}
+	}
+
 	&:hover {
-		height: 100px;
+		height: 102px;
 	}
 
 }
