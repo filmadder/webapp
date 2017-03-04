@@ -27,11 +27,16 @@
 		<section class="watched-list list hidden">
 			<h2>watched</h2>
 			{{# watched }}
-			<div class="list-item">
+			<div class="list-item film">
 				<a href="/#/film/{{ pk }}" class="listed-films">
 					<h3 class="f-title">{{ title }}</h3>
 					<h4>{{ year }} {{# directors }} | {{directors }} {{/ directors }}</h4>
 				</a>
+				<ul class="tags">
+					{{# tags }}
+					<li><a href="#/label/{{ . }}" class="tag">{{ . }}</a></li>
+					{{/ tags }}
+				</ul>
 			</div>
 			{{/ watched }}
 			{{^ watched }}
