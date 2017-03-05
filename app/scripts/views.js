@@ -661,7 +661,12 @@ fa.views = (function() {
 			renderedView.dispatch();
 			
 			if(state) {
+				for (var i = 0; i < state.opened.length; i++) {
+					fa.dom.get('#' + state.opened[i]).checked = true;
+				}
 				window.scroll(0, state.scroll);
+			} else {
+				window.scroll(0, 0);
 			}
 		}).catch(handleError);
 		
@@ -671,9 +676,16 @@ fa.views = (function() {
 		
 		return {
 			remove: function() {
-				fa.history.setState('tag:'+params.tag, {
-					scroll: window.pageYOffset
-				});
+				if(ready) {
+					var opened = fjs.map(function(currentElem) {
+						return currentElem.id;
+					}, fa.dom.filter('.accordion:checked'));
+
+					fa.history.setState('tag:'+params.tag, {
+						opened: opened,
+						scroll: window.pageYOffset
+					});
+				}
 				elem.innerHTML = '';
 			}
 		};

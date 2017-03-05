@@ -20,6 +20,11 @@
 							<h2 class="f-title">{{ title }}</h2>
 							<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 						</a>
+						<ul class="tags">
+							{{# film.tags }}
+							<li><a href="#/label/{{ . }}" class="tag">{{ . }}</a></li>
+							{{/ film.tags }}
+						</ul>
 					</li>
 					{{/ films }}
 				</ul>
