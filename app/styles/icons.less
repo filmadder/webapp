@@ -1,22 +1,26 @@
 .search.icon {
-	position: relative;
-	margin-top: 10px;
-	margin-left: 10px;
-	width: 20px;
-	height: 20px;
-	border: solid 2px @grey;
-	border-radius: 100%;
+	.size(10px; 10px);
+
+	border: solid 2px white;
+	border-radius: 50%;
+	min-height: 10px;
+	min-width: 10px;
 	-webkit-transform: rotate(-45deg);
 	transform: rotate(-45deg);
 
+	position: relative;
+	margin-left: 4px;
+	margin-bottom: 3.5px;
+
 	&:before {
+		.size(8px; 2px);
+
+		background-color: white;
 		content: '';
+
 		position: absolute;
-		top: 20px;
-		left: 9px;
-		height: 12px;
-		width: 2px;
-		background-color: @grey;
+		top: 10px;
+		left: 4px;
 	}
 }
 
