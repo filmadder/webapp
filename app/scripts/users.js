@@ -60,19 +60,13 @@ fa.users = (function() {
 		});
 	};
 	
-	// returns a promise that resolves into a {query, users} object
-	var searchUsers = function(query) {
-		return fa.ws.send('search_users', {query: query});
-	};
-	
 	
 	// 
 	// exports
 	// 
 	
 	return {
-		get: getUser,
-		search: searchUsers
+		get: getUser
 	};
 	
 }());
