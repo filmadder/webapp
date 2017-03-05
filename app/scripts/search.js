@@ -7,18 +7,6 @@ fa.search = (function() {
 	// functions
 	// 
 	
-	// constructs and returns a user object from the backend-provided data
-	// helper for search()
-	// 
-	// this is identical to fa.users.createUser
-	var createUser = function(data) {
-		return {
-			pk: data.pk,
-			name: data.name,
-			avatarUrl: fa.settings.HTTP_API_URL + data.avatarUrl
-		};
-	};
-	
 	// returns a promise resolving into a {type, items} object
 	// 
 	// type is either 'films' or 'users' and is used by the calling view to
@@ -28,10 +16,16 @@ fa.search = (function() {
 	var search = function(query) {
 		return fa.ws.send('search', {query: query}).then(function(data) {
 			if(data.hasOwnProperty('films')) {
-				return Promise.resolve({type: 'films', items: data.films});
+				return Promise.resolve({
+					type: 'films',
+					items: data.films
+				});
 			}
 			else if(data.hasOwnProperty('users')) {
-				return Promise.resolve({type: 'users', items: fjs.map(createUser, data.users)});
+				return Promise.resolve({
+					type: 'users',
+					items: fjs.map(fa.users._createUser, data.users)
+				});
 			}
 			else return Promise.reject({code: 'bug', message: 'Unknown results'});
 		});

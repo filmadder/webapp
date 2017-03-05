@@ -66,6 +66,8 @@ fa.users = (function() {
 	// 
 	
 	return {
+		_createUser: createUser,
+		
 		get: getUser
 	};
 	
