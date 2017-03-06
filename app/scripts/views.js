@@ -437,11 +437,13 @@ fa.views = (function() {
 			renderedView.dispatch();
 			
 			if(state) {
+				fa.dom.get('[value=' + state.subNav + ']').attr(checked, true);
 				window.scroll(0, state.scroll);
 			} else {
 				window.scroll(0, 0);
 			}
 			
+			// list switcher
 			var watchlistLabel = fa.dom.get('label[for=watchlist-btn]');
 			var watchedLabel = fa.dom.get('label[for=watched-btn]');
 			var watchedList = fa.dom.get('.watched-list');
@@ -486,7 +488,10 @@ fa.views = (function() {
 		
 		return {
 			remove: function() {
-				fa.history.setState('home', { scroll: window.pageYOffset });
+				fa.history.setState('home', {
+					subNav: fa.dom.get('input[name="list"]:checked').value,
+					scroll: window.pageYOffset 
+				});
 				elem.innerHTML = '';
 			}
 		};
