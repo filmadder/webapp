@@ -41,7 +41,7 @@
 					</form>
 					<ul class="film-tags">
 						{{# film.tags }}
-						<li><a href="#/label/{{ . }}" class="tag tag-self" title ="">{{ . }}</a></li>
+						<li><a href="#/label/{{ . }}" class="tag tag-self" title="">{{ . }}</a></li>
 						{{/ film.tags }}
 					</ul>
 				</div>
@@ -54,7 +54,7 @@
 				
 				<div class="cont">
 					<div class="title-cont">
-						<h2 class="title">{{ film.title }}</h2>
+						<h2 class="title" id="film-title">{{ film.title }}</h2>
 						<h4 class="year">{{ film.year }}</h4>
 						<h3 class="type-duration">{{ film.omdbType }} {{# film.runtime }}| {{ film.runtime }}</h3>{{/ film.runtime}}
 					</div>

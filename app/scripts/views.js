@@ -341,6 +341,13 @@ fa.views = (function() {
 					tagsCheckElem.checked = false;
 				});
 			}
+
+			var filmTitle = fa.dom.get('#film-title');
+			if (filmTitle.innerText.length > 80) {
+				filmTitle.classList.add('very-long-title');
+			} else if (filmTitle.innerText.length > 35 && filmTitle.innerText.length < 80) {
+				filmTitle.classList.add('long-title');
+			}
 			
 			// history state
 			if(state) {
@@ -436,32 +443,43 @@ fa.views = (function() {
 			render(elem, 'home-templ', {watchlist: user.filmsFuture, watched: user.filmsPast});
 			renderedView.dispatch();
 			
-			if(state) {
-				fa.dom.get('[value=' + state.subNav + ']').attr(checked, true);
-				window.scroll(0, state.scroll);
-			} else {
-				window.scroll(0, 0);
-			}
-			
 			// list switcher
 			var watchlistLabel = fa.dom.get('label[for=watchlist-btn]');
 			var watchedLabel = fa.dom.get('label[for=watched-btn]');
 			var watchedList = fa.dom.get('.watched-list');
 			var watchlistList = fa.dom.get('.watchlist-list');
 
-			fa.dom.get('#watchlist-btn').addEventListener('change', function() {
+			fa.dom.get('#watchlist-btn').addEventListener('change', function(e) {
+				e.target.classList.add('checked');
+				fa.dom.get('#watched-btn').classList.remove('checked');
 				watchlistLabel.classList.add('selected');
 				watchedLabel.classList.remove('selected');
 				watchlistList.classList.remove('hidden');
 				watchedList.classList.add('hidden');
 			});
 
-			fa.dom.get('#watched-btn').addEventListener('change', function() {
+			fa.dom.get('#watched-btn').addEventListener('change', function(e) {
+				e.target.classList.add('checked');
+				fa.dom.get('#watchlist-btn').classList.remove('checked');
 				watchlistLabel.classList.remove('selected');
 				watchedLabel.classList.add('selected');
 				watchlistList.classList.add('hidden');
 				watchedList.classList.remove('hidden');
 			});
+
+			if(state) {
+				fa.dom.get('#' + state.subNav).classList.add('checked');
+				if(state.subNav == 'watched-btn') {
+					fa.dom.get('#watchlist-btn').classList.remove('checked');
+					watchlistLabel.classList.remove('selected');
+					watchedLabel.classList.add('selected');
+					watchlistList.classList.add('hidden');
+					watchedList.classList.remove('hidden');
+				}
+				window.scroll(0, state.scroll);
+			} else {
+				window.scroll(0, 0);
+			}
 
 			fa.updates.getUnread().then(function(updates) {
 				if(updates.length > 0) {
@@ -489,7 +507,7 @@ fa.views = (function() {
 		return {
 			remove: function() {
 				fa.history.setState('home', {
-					subNav: fa.dom.get('input[name="list"]:checked').value,
+					subNav: fa.dom.get('.checked').value,
 					scroll: window.pageYOffset 
 				});
 				elem.innerHTML = '';
