@@ -89,11 +89,6 @@ fa.films = (function() {
 		});
 	};
 	
-	// returns a promise that resolves into a [] of film results
-	var searchFilms = function(query) {
-		return fa.ws.send('search_films', {query: query});
-	};
-	
 	// returns a promise that resolves into the re-newed film object
 	var postComment = function(filmId, comment, hasSpoilers) {
 		return fa.ws.send('post_comment', {
@@ -121,7 +116,6 @@ fa.films = (function() {
 	return {
 		get: getFilm,
 		
-		search: searchFilms,
 		gotMoreResults: gotMoreResults,
 		
 		postComment: postComment,
