@@ -201,6 +201,11 @@ fa.views = (function() {
 	};
 	
 	// inits a search results view
+	// 
+	// comprises the list of results of any film or user search
+	// 
+	// as param expects an object with a property q that contains the
+	// yet-to-be-processed search query
 	var createResults = function(elem, params) {
 		if(!params.hasOwnProperty('q') || !params.q) {
 			fa.routing.go('error');
