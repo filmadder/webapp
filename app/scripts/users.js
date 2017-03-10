@@ -13,7 +13,7 @@ fa.users = (function() {
 		return {
 			pk: data.pk,
 			name: data.name,
-			avatarUrl: fa.settings.HTTP_API_URL + data.avatarUrl
+			avatarUrl: fa.settings.HTTP_API_URL + data.avatar_url
 		};
 	};
 	
