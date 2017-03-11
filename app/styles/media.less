@@ -278,20 +278,26 @@
 
 		.p-intro {
 			.box(30px);
-			.row;
+			.column(@center);
 
 			margin: 0 auto;
 
-			article {
-
+			.avatar {
+				margin: 40px 0 20px 0;
 			}
 
 			.username {
-				margin: 20px 0;
+				margin: 20px auto;
 			}
 
 			.p-buttons {
-				margin: 0 0 0 0;
+				margin: 0;
+
+				.settings-icon {
+					position: fixed;
+					top: 60px;
+					left: 300px;
+				}
 			}
 		}
 
@@ -299,6 +305,27 @@
 		.no-peek {
 			padding: 40px 50px;
 			margin-left: 350px;
+		}
+
+		.peek {
+			min-width: 650px;
+			max-width: 700px;
+
+			section {
+
+				input[type="checkbox"]:checked ~ .film-list li {
+
+					.poster-small {
+						.size(100px; 100px);
+
+						min-width: 100px;
+					}
+
+					&.nothing-to-display {
+						.column;
+					}
+				}
+			}
 		}
 	}
 

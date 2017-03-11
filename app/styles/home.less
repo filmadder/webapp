@@ -62,25 +62,21 @@
 		}
 
 		.list-item {
-			.row(@spread; @center);
-			.box(20px 30px);
+			.row(@y: @center);
+			.box(30px);
 			
 			width: 100%;
+			
+			.tags {
+				.row;
+				.wrap;
 
-			&.film {
-				.column;
+				padding: 10px 0 0 0;
+				max-width: 80%;
 
-				.tags {
-					.row;
-					.wrap;
-
-					padding: 10px 0 0 0;
-					max-width: 80%;
-
-					li {
-						margin: 6px 6px 6px 0;
-						width: auto;
-					}
+				li {
+					margin: 6px 6px 6px 0;
+					width: auto;
 				}
 			}
 		}
