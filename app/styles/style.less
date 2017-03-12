@@ -87,10 +87,6 @@ button,
 	display: none;
 }
 
-.clearfix {
-	clear: both;
-}
-
 .wrapper {
 	margin: 0 auto;
 	max-width: 1400px;
@@ -113,17 +109,11 @@ header {
 	.heading {
 
 		padding: 0 0 0 18px;
+		position: relative;
 
 		.logo {
 			.size(38px; 38px);
 		}
-
-		/*h1 {
-			.font(700; 18px);
-
-			color: white;
-		}*/
-
 	}
 
 	nav {
@@ -429,6 +419,18 @@ h2 {
 
 }
 
+.notification-marker {
+	.size(14px; 14px);
+	.box();
+
+	background: @yellow;
+	border: 1px solid white;
+	border-radius: 50%;
+
+	position: absolute;
+	top: 2px;
+	left: 12px;
+}
 
 /* images */
 .image {
@@ -997,10 +999,11 @@ h2 {
 	a,
 	label {
 		.font(700; 14px);
-		.box(5px 15px);
+		.box(5px 17px 5px 15px);
 
 		border-top: 2px solid white;
 		border-bottom: 2px solid white;
+		border-right: 2px solid white;
 		color: white;
 		cursor: pointer;
 		margin: 20px 0;
@@ -1012,6 +1015,10 @@ h2 {
 			border-top-left-radius: 20px;
 			border-bottom-left-radius: 20px;
 			padding: 5px 12px 5px 20px;
+		}
+
+		&:nth-last-child(2) {
+			border-right: none;
 		}
 
 		&:last-child {
