@@ -9,7 +9,12 @@
 				<input type="radio" name="list" value="watched-btn" id="watched-btn" />
 				<span class="icon watched-icon"></span>
 			</label>
+			<label for="updates-btn" title="notifications">
+				<input type="radio" name="list" value="updates-btn" id="updates-btn" />
+				<span class="icon updates-icon"></span>
+			</label>
 		</div>
+
 		<section class="watchlist-list list">
 			<h2>watchlist</h2>
 			{{# watchlist }}
@@ -71,6 +76,11 @@
 				<p>Search for films you have watched and add it to your watched list.</p>
 			</div>							
 			{{/ watched }}
+		</section>
+
+		<section class="updates-list list hidden">
+			<h2>Updates</h2>
+			
 		</section>
 		
 	</section>

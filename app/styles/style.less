@@ -518,6 +518,10 @@ h2 {
 	cursor: pointer;
 }
 
+.updates-icon {
+	background-image: url(../images/updates2.svg);	
+}
+
 .tag-icon-purple {
 	background-image: url(../images/tag-icon.svg);
 	cursor: pointer;
@@ -993,22 +997,25 @@ h2 {
 	a,
 	label {
 		.font(700; 14px);
-		.box;
+		.box(5px 15px);
 
+		border-top: 2px solid white;
+		border-bottom: 2px solid white;
 		color: white;
 		cursor: pointer;
-		border: 2px solid white;
 		margin: 20px 0;
 		text-align: center;
 		text-transform: uppercase;
 
 		&:first-child {
+			border: 2px solid white;
 			border-top-left-radius: 20px;
 			border-bottom-left-radius: 20px;
 			padding: 5px 12px 5px 20px;
 		}
 
-		&:nth-child(2) {
+		&:last-child {
+			border: 2px solid white;
 			border-top-right-radius: 20px;
 			border-bottom-right-radius: 20px;
 			padding: 5px 20px 5px 15px;

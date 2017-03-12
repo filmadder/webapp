@@ -451,25 +451,45 @@ fa.views = (function() {
 			// list switcher
 			var watchlistLabel = fa.dom.get('label[for=watchlist-btn]');
 			var watchedLabel = fa.dom.get('label[for=watched-btn]');
+			var updatesLabel = fa.dom.get('label[for=updates-btn]');
 			var watchedList = fa.dom.get('.watched-list');
 			var watchlistList = fa.dom.get('.watchlist-list');
+			var updatesList = fa.dom.get('.updates-list');
 
 			fa.dom.get('#watchlist-btn').addEventListener('change', function(e) {
 				e.target.classList.add('checked');
 				fa.dom.get('#watched-btn').classList.remove('checked');
+				fa.dom.get('#updates-btn').classList.remove('checked');
 				watchlistLabel.classList.add('selected');
 				watchedLabel.classList.remove('selected');
+				updatesLabel.classList.remove('selected');
 				watchlistList.classList.remove('hidden');
 				watchedList.classList.add('hidden');
+				updatesList.classList.add('hidden');
 			});
 
 			fa.dom.get('#watched-btn').addEventListener('change', function(e) {
 				e.target.classList.add('checked');
 				fa.dom.get('#watchlist-btn').classList.remove('checked');
+				fa.dom.get('#updates-btn').classList.remove('checked');
 				watchlistLabel.classList.remove('selected');
+				updatesLabel.classList.remove('selected');
 				watchedLabel.classList.add('selected');
 				watchlistList.classList.add('hidden');
+				updatesList.classList.add('hidden');
 				watchedList.classList.remove('hidden');
+			});
+
+			fa.dom.get('#updates-btn').addEventListener('change', function(e) {
+				e.target.classList.add('checked');
+				fa.dom.get('#watched-btn').classList.remove('checked');
+				fa.dom.get('#watchlist-btn').classList.remove('checked');
+				updatesLabel.classList.add('selected');
+				watchedLabel.classList.remove('selected');
+				watchlistLabel.classList.remove('selected');
+				updatesList.classList.remove('hidden');
+				watchlistList.classList.add('hidden');
+				watchedList.classList.add('hidden');
 			});
 
 			if(state) {
