@@ -735,6 +735,40 @@ h2 {
 	}
 }
 
+.order-by {
+	.row(@center; @center);
+	.box(10px 15px);
+
+	margin: 20px 0;
+
+	p {
+		.font(400; 13px);
+
+		margin: 0 10px 0 2px;
+	}
+
+	li {
+		color: @grey;
+
+		button {
+			.font(700; 13px);
+
+			background: transparent;
+			color: @grey;
+			border-radius: 3px;
+			margin: 0 3px;
+			padding: 5px 8px;
+			text-transform: uppercase;
+
+			&:hover,
+			&:focus,
+			&.selected {
+				background: #ededed;
+			}
+		}
+	}
+}
+
 
 /* arrow opener (opens hidden sections) */
 .peek {
@@ -814,6 +848,10 @@ h2 {
 				}
 			}
 
+			&.order-by {
+				display: none;
+			}
+
 			&.comments-list,
 			&.film-list {
 				padding: 10px 15px 0 15px;
@@ -880,6 +918,10 @@ h2 {
 				&.nothing-to-display {
 					.column;
 				}
+			}
+
+			&:checked ~ .order-by {
+				.row(@y: @center);
 			}
 
 			/* tags on profile */
