@@ -258,7 +258,11 @@ fa.views = (function() {
 		return {
 			remove: function() {
 				fa.films.gotMoreResults.removeAll();
-				fa.history.setState('results', { scroll: window.pageYOffset });
+				if(ready) {
+					fa.history.setState('results', {
+						scroll: window.pageYOffset
+					});
+				}
 				elem.innerHTML = '';
 			}
 		};
@@ -453,7 +457,7 @@ fa.views = (function() {
 			var watchedLabel = fa.dom.get('label[for=watched-btn]');
 			var watchedList = fa.dom.get('.watched-list');
 			var watchlistList = fa.dom.get('.watchlist-list');
-
+			
 			fa.dom.get('#watchlist-btn').addEventListener('change', function(e) {
 				e.target.classList.add('checked');
 				fa.dom.get('#watched-btn').classList.remove('checked');
@@ -462,7 +466,7 @@ fa.views = (function() {
 				watchlistList.classList.remove('hidden');
 				watchedList.classList.add('hidden');
 			});
-
+			
 			fa.dom.get('#watched-btn').addEventListener('change', function(e) {
 				e.target.classList.add('checked');
 				fa.dom.get('#watchlist-btn').classList.remove('checked');
@@ -471,7 +475,7 @@ fa.views = (function() {
 				watchlistList.classList.add('hidden');
 				watchedList.classList.remove('hidden');
 			});
-
+			
 			if(state) {
 				fa.dom.get('#' + state.subNav).classList.add('checked');
 				if(state.subNav == 'watched-btn') {
@@ -485,7 +489,7 @@ fa.views = (function() {
 			} else {
 				window.scroll(0, 0);
 			}
-
+			
 			fa.updates.getUnread().then(function(updates) {
 				if(updates.length > 0) {
 					var div = document.createElement('div');
@@ -511,10 +515,12 @@ fa.views = (function() {
 		
 		return {
 			remove: function() {
-				fa.history.setState('home', {
-					subNav: fa.dom.get('.checked').value,
-					scroll: window.pageYOffset 
-				});
+				if(ready) {
+					fa.history.setState('home', {
+						subNav: fa.dom.get('.checked').value,
+						scroll: window.pageYOffset 
+					});
+				}
 				elem.innerHTML = '';
 			}
 		};
@@ -584,14 +590,16 @@ fa.views = (function() {
 		
 		return {
 			remove: function() {
-				if(!window.pageYOffset) {
-					numPages = 1;  // avoid loading too many feed items
+				if(ready) {
+					if(!window.pageYOffset) {
+						numPages = 1;  // avoid loading too many feed items
+					}
+					
+					fa.history.setState('updates', {
+						numPages: numPages,
+						scroll: window.pageYOffset
+					});
 				}
-				
-				fa.history.setState('updates', {
-					numPages: numPages,
-					scroll: window.pageYOffset
-				});
 				
 				elem.innerHTML = '';
 			}
@@ -658,14 +666,16 @@ fa.views = (function() {
 		
 		return {
 			remove: function() {
-				if(!window.pageYOffset) {
-					numPages = 1;  // avoid loading too many feed items
+				if(ready) {
+					if(!window.pageYOffset) {
+						numPages = 1;  // avoid loading too many feed items
+					}
+					
+					fa.history.setState('feed', {
+						numPages: numPages,
+						scroll: window.pageYOffset
+					});
 				}
-				
-				fa.history.setState('feed', {
-					numPages: numPages,
-					scroll: window.pageYOffset
-				});
 				
 				elem.innerHTML = '';
 			}
