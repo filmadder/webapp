@@ -25,10 +25,14 @@ fa.views = (function() {
 	});
 	
 	
-	// dispatches when a view is successfully rendered
-	// used to update the inner navigation, that is why inner views dispatch
-	// with their nav IDs
-	var renderedView = new signals.Signal();
+	// dispatches when the active nav links should be cleared
+	// triggered by the post-remove hier hook
+	var clearNavSignal = new signals.Signal();
+	
+	// dispatches when a nav link should be marked as active
+	// dispatches with one of: feed, me
+	// triggered by the pre-init hier hook
+	var markNavSignal = new signals.Signal();
 	
 	
 	// 
@@ -90,18 +94,29 @@ fa.views = (function() {
 	
 	
 	// 
-	// view functions
+	// view constructors
 	// 
+	// view constructors expect a dom element, the contents of which will be
+	// replaced with the view's rendered template, and optionally a second
+	// argument which varies from view to view
+	// 
+	// a constructor, unless the view is a simple one, returns the so-called
+	// view object which should contain a remove function that cleans up when
+	// the view is destroyed
 	
 	// inits an outer view
+	// 
+	// this view is a simple container for the login and reg views and
+	// comprises a header containing the name and logo
 	var createOuter = function(elem) {
 		render(elem, 'outer-templ', {});
 	};
 	
 	// inits a create account view
+	// 
+	// comprises the registration form
 	var createReg = function(elem) {
 		render(elem, 'reg-templ', {});
-		renderedView.dispatch();
 		
 		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.register(form.getData()).then(function() {
@@ -129,9 +144,10 @@ fa.views = (function() {
 	};
 	
 	// inits a login view
+	// 
+	// comprises the login form
 	var createLogin = function(elem) {
 		render(elem, 'login-templ', {});
-		renderedView.dispatch();
 		
 		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.login(form.getData()).then(function() {
@@ -164,17 +180,20 @@ fa.views = (function() {
 		
 		// header nav
 		var navLinks = fa.dom.filter('header nav a', elem);
-		
-		renderedView.add(function(navName) {
-			if(navName == 'updates' || navName == 'feed') navName = 'news';
+		var removeActiveLinks = function() {
 			fjs.map(function(link) {
-				if(link.dataset.nav == navName) {
+				link.classList.remove('clicked');
+			}, navLinks);
+		};
+		var addActiveLink = function(navId) {
+			fjs.map(function(link) {
+				if(link.dataset.nav == navId) {
 					link.classList.add('clicked');
-				} else {
-					link.classList.remove('clicked');
 				}
 			}, navLinks);
-		});
+		};
+		clearNavSignal.add(removeActiveLinks);
+		markNavSignal.add(addActiveLink);
 		
 		// search form
 		var searchForm = fa.dom.get('#search-form', elem);
@@ -198,6 +217,24 @@ fa.views = (function() {
 				queryField.blur();
 			}
 		});
+		
+		// unread updates marker
+		var markerElem = fa.dom.get('.notification-marker', elem);
+		fa.updates.gotUnread.add(function() {
+			markerElem.classList.remove('hidden');
+		});
+		
+		// the view object
+		return {
+			remove: function() {
+				fa.updates.gotUnread.removeAll();
+				
+				clearNavSignal.remove(removeActiveLinks);
+				markNavSignal.remove(addActiveLink);
+				
+				elem.innerHTML = '';
+			}
+		};
 	};
 	
 	// inits a search results view
@@ -234,7 +271,6 @@ fa.views = (function() {
 				},
 				items: res.items
 			});
-			renderedView.dispatch();
 			
 			if(state) {
 				window.scroll(0, state.scroll);
@@ -276,7 +312,7 @@ fa.views = (function() {
 	// 
 	// comments are handled by a separate view
 	// 
-	// expects the id of the film as its single view param
+	// expects the id of the film as its view param
 	var createFilm = function(elem, id) {
 		var ready = false;
 		var state = fa.history.getState('film:'+id.toString());
@@ -285,7 +321,6 @@ fa.views = (function() {
 			ready = true;
 			
 			render(elem, 'film-templ', {film: film});
-			renderedView.dispatch();
 			
 			// comments
 			hier.add('/inner/film/comments', {
@@ -350,7 +385,7 @@ fa.views = (function() {
 					tagsCheckElem.checked = false;
 				});
 			}
-
+			
 			var filmTitle = fa.dom.get('#film-title');
 			if (filmTitle.innerText.length > 80) {
 				filmTitle.classList.add('very-long-title');
@@ -441,16 +476,88 @@ fa.views = (function() {
 	
 	// inits a home view
 	// 
-	// this view contains the user's watchlist and the unread updates, if such
+	// ??
 	var createHome = function(elem) {
+		render(elem, 'home-templ', {});
+		
+		var navLinks = fa.dom.filter('a', elem);
+		var removeActiveLinks = function() {
+			fjs.map(function(link) {
+				link.classList.remove('clicked');
+			}, navLinks);
+		};
+		var addActiveLink = function(navId) {
+			fjs.map(function(link) {
+				if(link.dataset.nav == navId) {
+					link.classList.add('clicked');
+				}
+			}, navLinks);
+		};
+		clearNavSignal.add(removeActiveLinks);
+		markNavSignal.add(addActiveLink);
+		
+		// the view object
+		return {
+			remove: function() {
+				clearNavSignal.remove(removeActiveLinks);
+				markNavSignal.remove(addActiveLink);
+				
+				elem.innerHTML = '';
+			}
+		};
+	};
+	
+	// inits a home film list view
+	// 
+	// ??
+	var createHomeList = function(elem, param) {
+		var ready = false;
+		
+		if(param != 'watched' && param != 'watchlist') {
+			fa.routing.go('error');
+		}
+		
+		fa.users.get(fa.auth.getUser().pk).then(function(user) {
+			ready = true;
+			
+			if(param == 'watched') {
+				render(elem, 'home-watched-templ', {
+					watched: user.filmsPast
+				});
+			} else {
+				render(elem, 'home-watchlist-templ', {
+					watchlist: user.filmsFuture
+				});
+			}
+		}).catch(handleError);
+		
+		// the view object
+		return {
+			remove: function() {
+				if(ready) {
+					fa.history.setState('home-lists', {
+						scroll: window.pageYOffset 
+					});
+				}
+				elem.innerHTML = '';
+			}
+		};
+	};
+	
+	// inits a home view
+	// 
+	// includes the user's watched- watchlists, as well as their update feed
+	var _createHome = function(elem) {
 		var ready = false;
 		var state = fa.history.getState('home');
 		
 		fa.users.get(fa.auth.getUser().pk).then(function(user) {
 			ready = true;
 			
-			render(elem, 'home-templ', {watchlist: user.filmsFuture, watched: user.filmsPast});
-			renderedView.dispatch();
+			render(elem, 'home-templ', {
+				watchlist: user.filmsFuture,
+				watched: user.filmsPast
+			});
 			
 			// list switcher
 			var watchlistLabel = fa.dom.get('label[for=watchlist-btn]');
@@ -533,6 +640,7 @@ fa.views = (function() {
 			if(!ready) render(elem, 'loading-templ', {});
 		}, 500);
 		
+		// the view object
 		return {
 			remove: function() {
 				if(ready) {
@@ -546,25 +654,11 @@ fa.views = (function() {
 		};
 	};
 	
-	// inits a news view
-	// this is the container for the updates and friend's activity views
-	var createNews = function(elem) {
-		render(elem, 'news-templ', {});
-		
-		var navLinks = fa.dom.filter('.internal-feed-links a', elem);
-		
-		renderedView.add(function(navName) {
-			fjs.map(function(link) {
-				if(link.dataset.nav == navName) {
-					link.classList.add('selected');
-				} else {
-					link.classList.remove('selected');
-				}
-			}, navLinks);
-		});
-	};
-	
 	// inits an update view
+	// 
+	// comprises a listing of updates, the latter being dynamically loaded each
+	// time the user scrolls to the bottom of the page (unless the end of the
+	// updates feed is reached)
 	var createUpdates = function(elem) {
 		var ready = false;
 		var state = fa.history.getState('updates');
@@ -576,7 +670,6 @@ fa.views = (function() {
 			var isEmpty = (updates.firstItems.length == 0);
 			
 			render(elem, 'updates-templ', {isEmpty: isEmpty});
-			renderedView.dispatch('updates');
 			
 			var appendItems = function(items) {
 				var div = document.createElement('div');
@@ -604,55 +697,40 @@ fa.views = (function() {
 			}
 		}).catch(handleError);
 		
+		// show the snake if loading takes too long
 		window.setTimeout(function() {
 			if(!ready) render(elem, 'loading-templ', {});
 		}, 500);
 		
+		// the view object
 		return {
 			remove: function() {
 				if(ready) {
 					if(!window.pageYOffset) {
 						numPages = 1;  // avoid loading too many feed items
 					}
-					
 					fa.history.setState('updates', {
 						numPages: numPages,
 						scroll: window.pageYOffset
 					});
 				}
-				
 				elem.innerHTML = '';
 			}
 		};
 	};
 	
 	// inits a feed view
+	// 
+	// comprises a listing of feed items, the latter being dynamically loaded
+	// each time the user scrolls to the bottom of the page (unless the end of
+	// the feed is reached)
 	var createFeed = function(elem) {
 		var ready = false;
 		var state = fa.history.getState('feed');
 		var numPages = (state) ? state.numPages : 1;
 		
 		fa.feed.get(numPages).then(function(feed) {
-			ready = true;
-			
 			var isEmpty = (feed.firstItems.length == 0);
-			
-			render(elem, 'feed-templ', {isEmpty: isEmpty});
-			renderedView.dispatch('feed');
-			
-			var youBtn = fa.dom.get('.you-btn');
-			var friendsBtn = fa.dom.get('.friends-btn');
-
-			friendsBtn.addEventListener('click', function(e) {
-				youBtn.classList.remove('selected');
-				e.target.classList.add('selected');
-			});
-
-			youBtn.addEventListener('click', function(e) {
-				friendsBtn.classList.remove('selected');
-				e.target.classList.add('selected');
-			});
-
 			var appendItems = function(items) {
 				var div = document.createElement('div');
 				render(div, 'feed-items-templ', {items: items});
@@ -668,6 +746,9 @@ fa.views = (function() {
 				});
 			};
 			
+			ready = true;
+			render(elem, 'feed-templ', {isEmpty: isEmpty});
+			
 			if(!isEmpty) {
 				appendItems(feed.firstItems);
 			}
@@ -677,26 +758,25 @@ fa.views = (function() {
 			} else {
 				window.scroll(0, 0);
 			}
-
 		}).catch(handleError);
 		
+		// show the snake if loading takes too long
 		window.setTimeout(function() {
 			if(!ready) render(elem, 'loading-templ', {});
 		}, 500);
 		
+		// the view object
 		return {
 			remove: function() {
 				if(ready) {
 					if(!window.pageYOffset) {
 						numPages = 1;  // avoid loading too many feed items
 					}
-					
 					fa.history.setState('feed', {
 						numPages: numPages,
 						scroll: window.pageYOffset
 					});
 				}
-				
 				elem.innerHTML = '';
 			}
 		};
@@ -716,7 +796,6 @@ fa.views = (function() {
 			ready = true;
 			
 			render(elem, 'tag-templ', {tag: tagObj});
-			renderedView.dispatch();
 			
 			if(state) {
 				for (var i = 0; i < state.opened.length; i++) {
@@ -760,7 +839,6 @@ fa.views = (function() {
 			user.showData = (user.status.self || user.status.friend);
 			
 			render(elem, 'profile-templ', {user: user});
-			renderedView.dispatch(user.status.self ? 'me' : 'user');
 			
 			fa.dom.on('[data-fn=request-friend]', 'click', function() {
 				user.requestFriendship().then(function() {
@@ -816,7 +894,6 @@ fa.views = (function() {
 	// this view contains the change password form and the logout button
 	var createSettings = function(elem) {
 		render(elem, 'settings-templ', {});
-		renderedView.dispatch('me');
 		window.scroll(0, 0);
 		
 		// change password
@@ -857,7 +934,6 @@ fa.views = (function() {
 	// for the time being, this is the 404 view only
 	var createError = function(elem) {
 		render(elem, 'error-404-templ', {});
-		renderedView.dispatch();
 		window.scroll(0, 0);
 		
 		return {
@@ -895,12 +971,42 @@ fa.views = (function() {
 	// hier hooks
 	// 
 	
+	// dispatches the markNavSignal with the correct string to be marked as the
+	// currently active navigation link
+	hier.on('pre-init', function(path, params) {
+		if(path == '/inner/home/watchlist') {
+			markNavSignal.dispatch('watchlist');
+		} else if(path == '/inner/home/watched') {
+			markNavSignal.dispatch('watched');
+		} else if(path == '/inner/home/updates') {
+			markNavSignal.dispatch('updates');
+		} else if(path == '/inner/feed') {
+			markNavSignal.dispatch('feed');
+		} else if(path == '/inner/profile') {
+			if(params == fa.auth.getUser().pk) {
+				markNavSignal.dispatch('me');
+			} else {
+				clearNavSignal.dispatch();
+			}
+		} else if(path == '/inner/settings') {
+			markNavSignal.dispatch('me');
+		} else {
+			clearNavSignal.dispatch();
+		}
+	});
+	
 	// if a view object (the return value of a view constructor) defines a
 	// remove method, call it right before removing the view
 	hier.on('pre-remove', function(path, view) {
 		if(view && view.hasOwnProperty('remove')) {
 			view.remove();
 		}
+	});
+	
+	// dispatches the clearNavSignal so that there are no navigation links
+	// wrongly marked as active
+	hier.on('post-remove', function() {
+		clearNavSignal.dispatch();
 	});
 	
 	
@@ -915,7 +1021,7 @@ fa.views = (function() {
 		
 		inner: createInner,
 		home: createHome,
-		news: createNews,
+		homeList: createHomeList,
 		updates: createUpdates,
 		feed: createFeed,
 		results: createResults,

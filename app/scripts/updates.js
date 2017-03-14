@@ -4,6 +4,21 @@ fa.updates = (function() {
 	
 	
 	// 
+	// state
+	// 
+	
+	// dispatches when the server sends push notification about new unread
+	// update item(s)
+	var gotUnread = new signals.Signal();
+	
+	fa.ws.received.add(function(message) {
+		if(message.type == 'new_update') {
+			gotUnread.dispatch();
+		}
+	});
+	
+	
+	// 
 	// functions
 	// 
 	
@@ -85,7 +100,9 @@ fa.updates = (function() {
 	
 	return {
 		get: getUpdates,
-		getUnread: getUnreadUpdates
+		getUnread: getUnreadUpdates,
+		
+		gotUnread: gotUnread
 	};
 	
 }());

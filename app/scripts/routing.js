@@ -13,9 +13,9 @@ fa.routing = (function() {
 	
 	hier.reg('/inner', 'main', fa.views.inner);
 	hier.reg('/inner/home', '#view', fa.views.home);
-	hier.reg('/inner/news', '#view', fa.views.news);
-	hier.reg('/inner/news/updates', '#news-cont', fa.views.updates);
-	hier.reg('/inner/news/feed', '#news-cont', fa.views.feed);
+	hier.reg('/inner/home/list', '#subview', fa.views.homeList);
+	hier.reg('/inner/home/updates', '#subview', fa.views.updates);
+	hier.reg('/inner/feed', '#view', fa.views.feed);
 	hier.reg('/inner/results', '#view', fa.views.results);
 	hier.reg('/inner/film', '#view', fa.views.film);
 	hier.reg('/inner/film/comments', 'section.comments', fa.views.comments);
@@ -34,18 +34,33 @@ fa.routing = (function() {
 	crossroads.addRoute('/', function() {
 		hier.add('/inner');
 		hier.add('/inner/home');
+		if(hier.has('/inner/home/list')) hier.remove('/inner/home/list');
+		hier.add('/inner/home/list', 'watchlist');
 	});
 	
-	crossroads.addRoute('/feed/me', function() {
+	crossroads.addRoute('/watchlist', function() {
 		hier.add('/inner');
-		hier.add('/inner/news');
-		hier.add('/inner/news/updates');
+		hier.add('/inner/home');
+		if(hier.has('/inner/home/list')) hier.remove('/inner/home/list');
+		hier.add('/inner/home/list', 'watchlist');
 	});
 	
-	crossroads.addRoute('/feed/friends', function() {
+	crossroads.addRoute('/watched', function() {
 		hier.add('/inner');
-		hier.add('/inner/news');
-		hier.add('/inner/news/feed');
+		hier.add('/inner/home');
+		if(hier.has('/inner/home/list')) hier.remove('/inner/home/list');
+		hier.add('/inner/home/list', 'watched');
+	});
+	
+	crossroads.addRoute('/updates', function() {
+		hier.add('/inner');
+		hier.add('/inner/home');
+		hier.add('/inner/home/updates');
+	});
+	
+	crossroads.addRoute('/feed', function() {
+		hier.add('/inner');
+		hier.add('/inner/feed');
 	});
 	
 	crossroads.addRoute('/search/{?query}', function(query) {
