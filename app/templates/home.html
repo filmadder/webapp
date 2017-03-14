@@ -1,23 +1,17 @@
 <div class="home">
 	<section class="h-lists">
-		<div class="internal-links">
-			<label for="watchlist-btn" class="selected" title="watchlist">
-				<input type="radio" name="list" value="watchlist-btn" id="watchlist-btn" class="checked" />
+		<div class="subnav">
+			<a href="#/watchlist" data-nav="watchlist">
 				<span class="icon watchlisted-icon-white"></span>
-			</label>
-			<label for="watched-btn" title="watched">
-				<input type="radio" name="list" value="watched-btn" id="watched-btn" />
+			</a>
+			<a href="#/watched" data-nav="watched">
 				<span class="icon watched-icon-white"></span>
-			</label>
-			<label for="updates-btn" title="notifications">
-				<input type="radio" name="list" value="updates-btn" id="updates-btn" />
+			</a>
+			<a href="#/updates" data-nav="updates">
 				<span class="icon updates-icon-white"></span>
-			</label>
-			<a href="#/watchlist" data-nav="watchlist">watchlist</a>
-			<a href="#/watched" data-nav="watched">watched</a>
-			<a href="#/updates" data-nav="updates">updates</a>
+			</a>
 		</div>
-		<section id="subview"></section>
+		<section id="subview" class="subview"></section>
 	</section>
 	<a href="#/feed/me" class="new-update hidden">new update</a>
 </div>

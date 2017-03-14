@@ -1,7 +1,10 @@
 {{# items }}
 	{{# type.newFriend }}
 	<div class="update-item">
-		<p><a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a> and you are now friends</p>
+		<p>
+			<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a>
+			 and you are now friends
+		 </p>
 		<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	</div>
 	{{/ type.newFriend }}
