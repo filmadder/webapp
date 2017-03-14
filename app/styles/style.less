@@ -441,7 +441,7 @@ h2 {
 .logo {
 	.size(100px; 100px);
 
-	background-image: url(../images/logo4.svg);
+	background-image: url(../images/current/logo.svg);
 }
 
 .avatar {
@@ -489,11 +489,20 @@ h2 {
 }
 
 .watchlisted-icon {
-	background-image: url(../images/egg.svg);
+	background-image: url(../images/current/icon-watchlist-1.svg);
+}
+
+.watchlisted-icon-white {
+	background-image: url(../images/current/icon-watchlist-white.svg);
 }
 
 .watched-icon {
-	background-image: url(../images/fried-egg.svg);
+	background-image: url(../images/current/icon-watched-1.svg);
+	width: 42px;
+}
+
+.watched-icon-white {
+	background-image: url(../images/current/icon-watched-white.svg);
 	width: 42px;
 }
 
@@ -504,11 +513,19 @@ h2 {
 }
 
 .settings-icon {
-	background-image: url(../images/settings2.svg);
+	background-image: url(../images/current/icon-settings-blue.svg);
+}
+
+.settings-icon-white {
+	background-image: url(../images/current/icon-settings-white.svg);
 }
 
 .comment-icon {
-	background-image: url(../images/comment.svg);
+	background-image: url(../images/current/icon-comment-1.svg);
+}
+
+.comment-icon-white {
+	background-image: url(../images/current/icon-comment-white.svg);
 }
 
 .friendship-icon {
@@ -516,7 +533,12 @@ h2 {
 }
 
 .tag-icon {
-	background-image: url(../images/tag-icon-white.svg);
+	background-image: url(../images/current/icon-tag-1.svg);
+	cursor: pointer;
+}
+
+.tag-icon-white {
+	background-image: url(../images/current/icon-tag-white.svg);
 	cursor: pointer;
 }
 
@@ -546,7 +568,7 @@ h2 {
 		.size(160px; 46px);
 		.transition(@dur: 0.1s; @del: 0);
 
-		background: white;
+		background: @yellow;
 		border-radius: 10px;
 		margin: 0;
 		opacity: 1;
@@ -600,7 +622,6 @@ h2 {
 	.box;
 	.column(@center; @center);
 
-	background: @lightblue;
 	background: white;
 	border-radius: 10px;
 	min-height: 46px;
@@ -739,8 +760,6 @@ h2 {
 	.row(@center; @center);
 	.box(10px 15px);
 
-	margin: 20px 0;
-
 	p {
 		.font(400; 13px);
 
@@ -748,14 +767,15 @@ h2 {
 	}
 
 	li {
+
 		color: @grey;
 
 		button {
 			.font(700; 13px);
 
 			background: transparent;
-			color: @grey;
 			border-radius: 3px;
+			color: @grey;
 			margin: 0 3px;
 			padding: 5px 8px;
 			text-transform: uppercase;
@@ -768,7 +788,6 @@ h2 {
 		}
 	}
 }
-
 
 /* arrow opener (opens hidden sections) */
 .peek {
@@ -850,6 +869,7 @@ h2 {
 
 			&.order-by {
 				display: none;
+				margin: 5px 0 0 0;
 			}
 
 			&.comments-list,
@@ -1071,9 +1091,26 @@ h2 {
 		}
 
 		&:hover,
-		&:focus {
+		&:focus,
+		&.selected {
 			background: white;
 			color: @lightpurple;
+
+			.watchlisted-icon-white {
+				background-image: url('../images/current/icon-watchlist-1.svg');
+			}
+
+			.watched-icon-white {
+				background-image: url('../images/current/icon-watched-1.svg');				
+			}
+
+			.tag-icon-white {
+				background-image: url('../images/current/icon-tag-1.svg');
+			}
+
+			.comment-icon-white {
+				background-image: url('../images/current/icon-comment-1.svg');
+			}
 		}
 	}
 

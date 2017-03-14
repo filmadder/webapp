@@ -12,7 +12,7 @@
 					{{/ user.status.friend }}
 					
 					{{# user.status.self }}
-					<a href="#/settings" title="account settings" class="icon settings-icon"></a>
+					<a href="#/settings" title="account settings" class="icon settings-icon-white"></a>
 					{{/ user.status.self }}
 				</div>
 			</article>
@@ -55,7 +55,7 @@
 					<div class="stroke"></div>
 					<div class="stroke"></div>
 				</div>
-				<h3>Watched<span class="number">{{ user.filmsPast.length }}</span></h3>
+				<h3>Seen<span class="number">{{ user.filmsPast.length }}</span></h3>
 			</label>
 			<ul class="order-by">
 				<p>sort by</p>
@@ -90,7 +90,7 @@
 				{{/ user.filmsPast }}
 				{{^ user.filmsPast }}
 				<li class="nothing-to-display">
-					<h3>Nothing in watched films</h3>
+					<h3>Nothing in seen films</h3>
 					{{# user.status.self }}
 					<p>Search for films you have seen and add them to your watched films.</p>
 					{{/ user.status.self }}

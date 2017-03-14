@@ -3,15 +3,15 @@
 		<div class="internal-links">
 			<label for="watchlist-btn" class="selected" title="watchlist">
 				<input type="radio" name="list" value="watchlist-btn" id="watchlist-btn" class="checked" />
-				<span class="icon watchlisted-icon"></span>
+				<span class="icon watchlisted-icon-white"></span>
 			</label>
 			<label for="watched-btn" title="watched">
 				<input type="radio" name="list" value="watched-btn" id="watched-btn" />
-				<span class="icon watched-icon"></span>
+				<span class="icon watched-icon-white"></span>
 			</label>
 			<label for="updates-btn" title="notifications">
 				<input type="radio" name="list" value="updates-btn" id="updates-btn" />
-				<span class="icon updates-icon"></span>
+				<span class="icon updates-icon-white"></span>
 			</label>
 		</div>
 
@@ -51,7 +51,7 @@
 		</section>
 
 		<section class="watched-list list hidden">
-			<h2>watched</h2>
+			<h2>seen</h2>
 			<ul class="order-by">
 				<p>sort by</p>
 				<li><button class="selected">year</button></li>
@@ -84,7 +84,7 @@
 			{{/ watched }}
 			{{^ watched }}
 			<div class="nothing-to-display">
-				<h3>Nothing in your watched yet</h3>
+				<h3>Nothing in your seen yet</h3>
 				<p>Search for films you have watched and add it to your watched list.</p>
 			</div>							
 			{{/ watched }}
