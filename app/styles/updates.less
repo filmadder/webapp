@@ -5,10 +5,10 @@
 	width: 100%;
 
 	.update-item {
-		.box(20px 30px);
-		.column(@center);
+		.box(30px);
+		.column();
 		
-		&.recommendation {
+		/*&.recommendation {
 			.row(@spread; @top);
 			width: 100%;
 
@@ -16,16 +16,17 @@
 				margin: 0 30px 0 0;
 			}
 		}
-
-		p {
-			margin: 0;
-			.row(@center);
+*/
+		
+		.actions {
+			.row();
 		}
 
-		a {
+		.user {
+			.row(@y: @center);
+
 			margin: 0 5px 0 0;
 		}
-		
 
 		.timestamp {
 			.naughty(column; @center;);
