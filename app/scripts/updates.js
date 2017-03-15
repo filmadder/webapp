@@ -4,7 +4,7 @@ fa.updates = (function() {
 	
 	
 	// 
-	// state
+	// push receivers
 	// 
 	
 	// dispatches when the server sends push notification about new unread
@@ -19,11 +19,11 @@ fa.updates = (function() {
 	
 	
 	// 
-	// functions
+	// unpacking
 	// 
 	
-	// constructs and returns an update item object from the backend data
-	var createItem = function(data) {
+	// creates a downstream update item object from an upstream json object
+	var unpackItem = function(data) {
 		var item = {
 			created: fa.utils.humaniseTime(data.created)
 		};
@@ -35,13 +35,13 @@ fa.updates = (function() {
 		};
 		
 		if(item.type.newFriend || item.type.newFriendReq) {
-			item.user = data.user;
+			item.user = fa.users.unpackUser(data.user);
 		}
 		else if(item.type.newReply) {
-			item.user = data.user;
+			item.user = fa.users.unpackUser(data.user);
 			item.reply = data.reply;
 			item.comment = data.comment;
-			item.film = data.film;
+			item.film = fa.films.unpackFilm(data.film);
 		}
 		
 		return item;
@@ -55,13 +55,13 @@ fa.updates = (function() {
 		var updates = {};
 		var page = Math.ceil(data.items.length / 20) - 1;
 		
-		updates.firstItems = fjs.map(createItem, data.items);
+		updates.firstItems = fjs.map(unpackItem, data.items);
 		
 		// resolves into a list of update items
 		updates.loadMore = function() {
 			page += 1;
 			return fa.ws.send('get_updates', {page: page, per_page: 20}).then(function(data) {
-				return Promise.resolve(fjs.map(createItem, data.items));
+				return Promise.resolve(fjs.map(unpackItem, data.items));
 			});
 		};
 		
@@ -72,6 +72,11 @@ fa.updates = (function() {
 		
 		return updates;
 	};
+	
+	
+	// 
+	// downstream api
+	// 
 	
 	// returns a promise that resolves into an updates object
 	// 
@@ -85,22 +90,15 @@ fa.updates = (function() {
 		});
 	};
 	
-	// returns a promise that resolves into [] of update items that have not
-	// been marked as read yet
-	var getUnreadUpdates = function() {
-		return fa.ws.send('get_updates', {page: -1, per_page: 20}).then(function(data) {
-			return Promise.resolve(fjs.map(createItem, data.items));
-		});
-	};
-	
 	
 	// 
 	// exports
 	// 
 	
 	return {
+		unpackItem: unpackItem,
+		
 		get: getUpdates,
-		getUnread: getUnreadUpdates,
 		
 		gotUnread: gotUnread
 	};

@@ -4,7 +4,7 @@ fa.films = (function() {
 	
 	
 	// 
-	// state
+	// push receivers
 	// 
 	
 	// dispatches when the server found more search results
@@ -19,12 +19,11 @@ fa.films = (function() {
 	
 	
 	// 
-	// functions
+	// unpacking
 	// 
 	
-	// constructs and returns a comment object from backend data
-	// helper for createFilm()
-	var createComment = function(data) {
+	// creates a downstream film comment object from an upstream json object
+	var unpackComment = function(data) {
 		return {
 			pk: data.pk,
 			author: {
@@ -39,8 +38,23 @@ fa.films = (function() {
 		};
 	};
 	
-	// constructs and returns a film object from backend data
-	// helper for getFilm()
+	// creates a downstream short film object from an upstream json object
+	// 
+	// a short film object contains only a subset of fields and is used in
+	// listings, including search results
+	var unpackFilm = function(data) {
+		return {
+			pk: data.pk,
+			title: data.title,
+			year: data.year,
+			directors: data.directors,
+			posterUrl: data.poster_url
+		};
+	};
+	
+	// creates a downstream long film object from an upstream json object
+	// 
+	// a long film object is only used in film views
 	var createFilm = function(data) {
 		var film = {
 			pk: data.film.pk,
@@ -57,7 +71,7 @@ fa.films = (function() {
 			posterUrl: data.film.poster_url,
 			watchersPast: data.watchers_past,
 			watchersFuture: data.watchers_future,
-			comments: fjs.map(createComment, data.comments),
+			comments: fjs.map(unpackComment, data.comments),
 			friendsTags: data.tags_friends,
 			friendsTagsCount: fjs.fold('x, y => x + y.tags.length', 0, data.tags_friends),
 			tags: data.tags_own
@@ -82,14 +96,19 @@ fa.films = (function() {
 		return film;
 	};
 	
-	// returns a promise that resolves into a film object
+	
+	// 
+	// downstream api
+	// 
+	
+	// returns a promise that resolves into a long film object
 	var getFilm = function(id) {
 		return fa.ws.send('get_film', {film: id}).then(function(data) {
 			return Promise.resolve(createFilm(data));
 		});
 	};
 	
-	// returns a promise that resolves into the re-newed film object
+	// returns a promise that resolves into the re-newed long film object
 	var postComment = function(filmId, comment, hasSpoilers) {
 		return fa.ws.send('post_comment', {
 			film: filmId,
@@ -114,6 +133,9 @@ fa.films = (function() {
 	// 
 	
 	return {
+		unpackComment: unpackComment,
+		unpackFilm: unpackFilm,
+		
 		get: getFilm,
 		
 		gotMoreResults: gotMoreResults,

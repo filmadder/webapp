@@ -4,7 +4,7 @@ fa.tags = (function() {
 	
 	
 	// 
-	// functions
+	// downstream api
 	// 
 	
 	// returns a promise that resolves into a tag object
