@@ -101,8 +101,9 @@ fa.views = (function() {
 	// argument which varies from view to view
 	// 
 	// a constructor, unless the view is a simple one, returns the so-called
-	// view object which should contain a remove function that cleans up when
-	// the view is destroyed
+	// view object which could contain an empty or a remove function that
+	// cleans up when the view is destroyed (before and after its children are
+	// destroyed, respectively)
 	
 	// inits an outer view
 	// 
@@ -405,12 +406,14 @@ fa.views = (function() {
 			}
 		}).catch(handleError);
 		
+		// show the snake if loading takes too long
 		window.setTimeout(function() {
 			if(!ready) render(elem, 'loading-templ', {});
 		}, 500);
 		
+		// the view object
 		return {
-			remove: function() {
+			empty: function() {
 				if(ready) {
 					fa.history.setState('film:'+id.toString(), {
 						scroll: window.pageYOffset,
@@ -420,6 +423,8 @@ fa.views = (function() {
 						checkSpoilers: getCheckState('#show-spoilers', elem)
 					});
 				}
+			},
+			remove: function() {
 				elem.innerHTML = '';
 			}
 		};
@@ -547,7 +552,7 @@ fa.views = (function() {
 			remove: function() {
 				if(ready) {
 					fa.history.setState(param, {
-						scroll: window.pageYOffset 
+						scroll: window.pageYOffset
 					});
 				}
 				elem.innerHTML = '';
@@ -893,6 +898,14 @@ fa.views = (function() {
 			markNavSignal.dispatch('me');
 		} else {
 			clearNavSignal.dispatch();
+		}
+	});
+	
+	// if a view object (the return value of a view constructor) defines a
+	// empty method, call it right before removing the node's children
+	hier.on('pre-empty', function(path, view) {
+		if(view && view.hasOwnProperty('empty')) {
+			view.empty();
 		}
 	});
 	
