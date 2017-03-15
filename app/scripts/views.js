@@ -476,7 +476,8 @@ fa.views = (function() {
 	
 	// inits a home view
 	// 
-	// ??
+	// includes a sub-navigation with links to the user's film lists and
+	// updates and a container for these sub-views
 	var createHome = function(elem) {
 		render(elem, 'home-templ', {});
 		
@@ -509,13 +510,15 @@ fa.views = (function() {
 	
 	// inits a home film list view
 	// 
-	// ??
+	// loads and renders either the user's watched or the user's watchlist
+	// expects one of [watched, watchlist] as its view param
 	var createHomeList = function(elem, param) {
-		var ready = false;
-		
 		if(param != 'watched' && param != 'watchlist') {
 			fa.routing.go('error');
 		}
+		
+		var ready = false;
+		var state = fa.history.getState(param);
 		
 		fa.users.get(fa.auth.getUser().pk).then(function(user) {
 			ready = true;
@@ -529,111 +532,10 @@ fa.views = (function() {
 					watchlist: user.filmsFuture
 				});
 			}
-		}).catch(handleError);
-		
-		// the view object
-		return {
-			remove: function() {
-				if(ready) {
-					fa.history.setState('home-lists', {
-						scroll: window.pageYOffset 
-					});
-				}
-				elem.innerHTML = '';
-			}
-		};
-	};
-	
-	// inits a home view
-	// 
-	// includes the user's watched- watchlists, as well as their update feed
-	var _createHome = function(elem) {
-		var ready = false;
-		var state = fa.history.getState('home');
-		
-		fa.users.get(fa.auth.getUser().pk).then(function(user) {
-			ready = true;
-			
-			render(elem, 'home-templ', {
-				watchlist: user.filmsFuture,
-				watched: user.filmsPast
-			});
-			
-			// list switcher
-			var watchlistLabel = fa.dom.get('label[for=watchlist-btn]');
-			var watchedLabel = fa.dom.get('label[for=watched-btn]');
-			var updatesLabel = fa.dom.get('label[for=updates-btn]');
-			var watchedList = fa.dom.get('.watched-list');
-			var watchlistList = fa.dom.get('.watchlist-list');
-			var updatesList = fa.dom.get('.updates-list');
-			
-			fa.dom.get('#watchlist-btn').addEventListener('change', function(e) {
-				e.target.classList.add('checked');
-				fa.dom.get('#watched-btn').classList.remove('checked');
-				fa.dom.get('#updates-btn').classList.remove('checked');
-				watchlistLabel.classList.add('selected');
-				watchedLabel.classList.remove('selected');
-				updatesLabel.classList.remove('selected');
-				watchlistList.classList.remove('hidden');
-				watchedList.classList.add('hidden');
-				updatesList.classList.add('hidden');
-			});
-			
-			fa.dom.get('#watched-btn').addEventListener('change', function(e) {
-				e.target.classList.add('checked');
-				fa.dom.get('#watchlist-btn').classList.remove('checked');
-				fa.dom.get('#updates-btn').classList.remove('checked');
-				watchlistLabel.classList.remove('selected');
-				updatesLabel.classList.remove('selected');
-				watchedLabel.classList.add('selected');
-				watchlistList.classList.add('hidden');
-				updatesList.classList.add('hidden');
-				watchedList.classList.remove('hidden');
-			});
-			
-			fa.dom.get('#updates-btn').addEventListener('change', function(e) {
-				e.target.classList.add('checked');
-				fa.dom.get('#watched-btn').classList.remove('checked');
-				fa.dom.get('#watchlist-btn').classList.remove('checked');
-				updatesLabel.classList.add('selected');
-				watchedLabel.classList.remove('selected');
-				watchlistLabel.classList.remove('selected');
-				updatesList.classList.remove('hidden');
-				watchlistList.classList.add('hidden');
-				watchedList.classList.add('hidden');
-			});
 			
 			if(state) {
-				fa.dom.get('#' + state.subNav).classList.add('checked');
-				if(state.subNav == 'watched-btn') {
-					fa.dom.get('#watchlist-btn').classList.remove('checked');
-					watchlistLabel.classList.remove('selected');
-					watchedLabel.classList.add('selected');
-					watchlistList.classList.add('hidden');
-					watchedList.classList.remove('hidden');
-				}
 				window.scroll(0, state.scroll);
-			} else {
-				window.scroll(0, 0);
 			}
-			
-			fa.updates.getUnread().then(function(updates) {
-				if(updates.length > 0) {
-					var div = document.createElement('div');
-					render(div, 'home-updates-templ', {items: updates});
-					elem.firstChild.insertBefore(div.firstChild,
-							elem.firstChild.firstChild);
-					
-					// no need if the user is at the top
-					if(window.pageYOffset) {
-						var messageElem = fa.dom.get('.new-update', elem);
-						messageElem.classList.remove('hidden');
-						window.setTimeout(function() {
-							messageElem.classList.add('hidden');
-						}, 1500);
-					}
-				}
-			}).catch(handleError);
 		}).catch(handleError);
 		
 		window.setTimeout(function() {
@@ -644,8 +546,7 @@ fa.views = (function() {
 		return {
 			remove: function() {
 				if(ready) {
-					fa.history.setState('home', {
-						subNav: fa.dom.get('.checked').value,
+					fa.history.setState(param, {
 						scroll: window.pageYOffset 
 					});
 				}
