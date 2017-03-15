@@ -63,7 +63,7 @@
 				<li><button>title</button></li>
 				<li><button>added</button></li>
 			</ul>
-			<ul class="v-profile-films-list">
+			<ul class="v-profile-films-list films-list">
 				{{# user.filmsPast }}
 				<li>
 					{{# poster_url }}
@@ -114,7 +114,7 @@
 				<li><button>title</button></li>
 				<li><button>added</button></li>
 			</ul>
-			<ul class="v-profile-films-list">
+			<ul class="v-profile-films-list films-list">
 				{{# user.filmsFuture }}
 				<li>
 					{{# poster_url }}
@@ -175,7 +175,6 @@
 			<ul class="v-profile-friends-list">
 				{{# user.friends }}
 				<li>
-					
 					<a href="#/user/{{ pk }}" class="user">
 					<div class="avatar-small image" style="background-image: url('{{ avatarUrl }}')"></div>
 					{{ name }}</a>
