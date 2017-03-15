@@ -3,6 +3,7 @@
 @import "colours";
 @import "icons";
 @import "mixins";
+@import "peek";
 
 
 /* main styles */
@@ -81,7 +82,6 @@ button,
 		}
 	}
 }
-
 
 .hidden {
 	display: none;
@@ -432,6 +432,20 @@ h2 {
 	left: 12px;
 }
 
+.to-top {
+	.column(@center; @center);
+	.size(32px; 32px);
+	min-height: 32px;
+
+	position: fixed;
+	bottom: 60px;
+	left: 10px;
+
+	.arrow {
+		transform: rotate(-90deg) translateX(-2px);
+	}
+}
+
 /* images */
 .image {
 	background-repeat: no-repeat;
@@ -568,7 +582,7 @@ h2 {
 		.size(160px; 46px);
 		.transition(@dur: 0.1s; @del: 0);
 
-		background: @yellow;
+		background: white;
 		border-radius: 10px;
 		margin: 0;
 		opacity: 1;
@@ -665,33 +679,41 @@ h2 {
 	}
 }
 
-.poster-small {
+.poster-small,
+.poster-medium {
 	.size(100px; 80px);
 
 	min-width: 80px;
 	margin: 0 10px 0 0;
 
 	&.no-poster {
-		.size(100px; 65px);
+		.size(100px; 70px);
 		.column(@center; @center);
 
 		background: @purple;
 		margin: 0 25px 0 0;
-		min-width: 65px;
+		min-width: 70px;
 
 		p {
-			.font(400; 12px);
+			.font(400; 14px);
 
 			color: white;
 			text-align: center;
 			text-transform: uppercase;
-			margin: 0 5px 6px 5px;
+			margin: 0 6px 6px 6px;
 		}
 
 		.logo {
 			.size(30px; 30px);
 		}
 	}
+}
+
+.poster-medium {
+	.size(200px; 160px);
+
+	min-width: 160px;
+	margin: 0 10px 0 0;
 }
 
 /* arrow that rotates when clicked */
@@ -786,187 +808,6 @@ h2 {
 			&:focus,
 			&.selected {
 				background: #ededed;
-			}
-		}
-	}
-}
-
-/* arrow opener (opens hidden sections) */
-.peek {
-	.box(30px);
-
-	section {
-		padding: 20px 0;
-
-		ul {
-			.box(10px 15px;);
-
-			li {
-				.row;
-				.wrap;
-				.font(700);
-
-				color: @lightpurple;
-				margin: 5px 0;
-			}
-
-			&.watchers-list {
-				.row;
-				.wrap;
-
-				li {
-					margin: 3px 10px 3px 0;
-
-					
-					&.nobody {
-						color: @purple;
-					}
-				}
-
-				a {
-					color: @lightpurple;
-
-					&:hover,
-					&:focus {
-						color: @purple;
-					}
-				}
-			}
-
-			&.friends-list {
-				.column;
-
-				padding: 10px 15px 0 17px;
-
-				li {
-					display: none;
-
-
-					a {
-						.row(@y: @center);
-					}
-				}
-			}
-
-			&.film-list {
-				.column;
-
-				li {
-					margin: 30px 0;
-					width: 100%;
-				}
-
-				.tags {
-					.row;
-					.wrap;
-
-					padding: 10px 0 0 0;
-
-					li {
-						margin: 3px 6px 3px 0;
-						width: auto;
-					}
-				}
-			}
-
-			&.order-by {
-				display: none;
-				margin: 5px 0 0 0;
-			}
-
-			&.comments-list,
-			&.film-list {
-				padding: 10px 15px 0 17px;
-
-				li {
-					display: none;
-				}
-			}
-
-			/* tags on profile */
-			&.tags-list {
-				.row;
-				.wrap;
-
-				padding: 10px 15px 0 15px;
-
-				li {
-					display: none;
-					margin: 3px 6px 3px 0;
-					width: auto;
-				}
-			}
-
-			/* tags on film view */
-			&.tags-on-film {
-
-				padding: 10px 15px 0 15px;
-
-				li {
-					display: none;
-					margin: 22px;
-
-					.user {
-						margin: 0 0 10px 0;
-					}
-
-					.user-tags {
-						.trim;
-						.row;
-						.wrap;
-
-						li {
-							margin: 0;
-
-							.tag {
-								margin: 3px 6px 3px 0;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		input[type="checkbox"] {
-
-			&:checked ~ .comments-list li {
-				display: block;
-			}
-
-			&:checked ~ .film-list li {
-				.row();
-				.no-wrap;
-
-				&.nothing-to-display {
-					.column;
-				}
-			}
-
-			&:checked ~ .order-by {
-				.row(@y: @center);
-			}
-
-			/* tags on profile */
-			&:checked ~ .tags-list {
-
-				li {
-					.row;
-				}
-			}
-
-			/* tags on film view */
-			&:checked ~ .tags-on-film {
-
-				li {
-					.column;
-				}
-			}
-
-			&:checked ~ .friends-list {
-
-				li {
-					display: inline;
-				}
 			}
 		}
 	}
