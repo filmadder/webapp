@@ -679,33 +679,41 @@ h2 {
 	}
 }
 
-.poster-small {
-	.size(100px; 80px);
+.poster-small,
+.poster-medium {
+	.size(120px; 100px);
 
-	min-width: 80px;
+	min-width: 100px;
 	margin: 0 10px 0 0;
 
 	&.no-poster {
-		.size(100px; 65px);
+		.size(120px; 80px);
 		.column(@center; @center);
 
 		background: @purple;
 		margin: 0 25px 0 0;
-		min-width: 65px;
+		min-width: 80px;
 
 		p {
-			.font(400; 12px);
+			.font(400; 14px);
 
 			color: white;
 			text-align: center;
 			text-transform: uppercase;
-			margin: 0 5px 6px 5px;
+			margin: 0 6px 6px 6px;
 		}
 
 		.logo {
 			.size(30px; 30px);
 		}
 	}
+}
+
+.poster-medium {
+	.size(200px; 160px);
+
+	min-width: 160px;
+	margin: 0 10px 0 0;
 }
 
 /* arrow that rotates when clicked */

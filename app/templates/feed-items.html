@@ -1,32 +1,61 @@
 {{# items }}
 <div class="feed-item">
+	<!-- WATCHED -->
 	{{# type.addedToWatched }}
-	<h3>
-		<div class="icon watched-icon"></div>
-		<a class="f-title" href="#/film/{{ film.pk }}">{{ film.title }}</a>
-	</h3>
-	<p>
-		<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a> added to watched
+	<a href="#/film/{{ film.pk }}">
+		<div class="icon-cont">
+			<span class="icon watched-icon"></span>
+		</div>
+
+		{{# film.posterUrl }}
+		<div class="image poster-small" style="background-image: url({{ film.posterUrl }});"></div>
+		{{/ film.posterUrl }}
+		{{^ film.posterUrl }}
+		<div class="no-poster poster-small">
+			<p>No poster</p>
+			<div class="image logo"></div>
+		</div>
+		{{/ film.posterUrl }}
+
+		<h2 class="f-title">{{ film.title }}</h2>
+	</a>
+	<p class="actions">
+		<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a>
+		 added to watched
 	</p>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatched }}
 	
+	<!-- WATCHLIST -->
 	{{# type.addedToWatchlist }}
-	<h3>
-		<div class="icon watchlisted-icon"></div>
-		<a class="f-title" href="#/film/{{ film.pk }}">{{ film.title }}</a>
-	</h3>
-	<p>
+	<a href="#/film/{{ film.pk }}">
+		<div class="icon-cont">
+			<span class="icon watchlisted-icon"></span>
+		</div>
+
+		{{# film.posterUrl }}
+		<div class="image poster-small" style="background-image: url({{ film.posterUrl }});"></div>
+		{{/ film.posterUrl }}
+		{{^ film.posterUrl }}
+		<div class="no-poster poster-small">
+			<p>No poster</p>
+			<div class="image logo"></div>
+		</div>
+		{{/ film.posterUrl }}
+		<h2 class="f-title">{{ film.title }}</h2>
+	</a>
+	<p class="actions">
 		<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a> added to watchlist
 	</p>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatchlist }}
 	
+	<!-- FRIENDS -->
 	{{# type.becameFriends }}
 	<h3>
 		<div class="icon friendship-icon"></div>
 	</h3>
-	<p class="friendship">
+	<p class="action friendship">
 		<a href="#/user/{{ userA.pk }}" class="user">{{ userA.name }}</a>
 		became friends with
 		<a href="#/user/{{ userB.pk }}" class="user">{{ userB.name }}</a>
@@ -34,35 +63,68 @@
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.becameFriends }}
 	
+	<!-- COMMENT -->
 	{{# type.wroteComment }}
-	<h3>
-		<div class="icon comment-icon"></div>
-		<a class="f-title" href="#/film/{{ film.pk }}">{{ film.title }}</a>
-	</h3>
-	<p><a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a> left a comment</p>
+	<a href="#/film/{{ film.pk }}">
+		<div class="icon-cont">
+			<span class="icon comment-icon"></span>
+		</div>
+
+		{{# film.posterUrl }}
+		<div class="image poster-small" style="background-image: url({{ film.posterUrl }});"></div>
+		{{/ film.posterUrl }}
+		{{^ film.posterUrl }}
+		<div class="no-poster poster-small">
+			<p>No poster</p>
+			<div class="image logo"></div>
+		</div>
+		{{/ film.posterUrl }}
+
+		<h2 class="f-title">{{ film.title }}</h2>
+	</a>
+	<p class="actions">
+		<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a>
+		 left a comment
+	</p>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.wroteComment }}
 	
+	<!-- TAGGING -->
 	{{# type.addedTags }}
-	<h3>
-		<div class="icon tag-icon-purple"></div>
-		<a class="f-title" href="#/film/{{ film.pk }}">{{ film.title }}</a>
-	</h3>
-	<p>
-		<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a> labelled as
+	<a href="#/film/{{ film.pk }}">
+		<div class="icon-cont">
+			<span class="icon tag-icon"></span>
+		</div>
+
+		{{# film.posterUrl }}
+		<div class="image poster-small" style="background-image: url({{ film.posterUrl }});"></div>
+		{{/ film.posterUrl }}
+		{{^ film.posterUrl }}
+		<div class="no-poster poster-small">
+			<p>No poster</p>
+			<div class="image logo"></div>
+		</div>
+		{{/ film.posterUrl }}
+
+		<h2 class="f-title">{{ film.title }}</h2>
+	</a>
+	<p class="actions">
+		<a href="#/user/{{ user.pk }}" class="user">
+		{{ user.name }}</a>
+		 labelled as
 	</p>
 	<p class="tags">
-	{{# tags }}
-	<a href="#/label/{{ . }}" class="tag">{{ . }}</a>
-	{{/ tags }}
+		{{# tags }}
+		<a href="#/label/{{ . }}" class="tag">{{ . }}</a>
+		{{/ tags }}
 	</p>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedTags }}
 </div>
 {{/ items }}
-<button type="submit" class="to-top">
+<!-- <button type="submit" class="to-top">
 	<div class="arrow">
 		<div class="stroke"></div>
 		<div class="stroke"></div>
 	</div>
-</button>
+</button> -->

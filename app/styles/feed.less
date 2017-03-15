@@ -9,34 +9,63 @@
 	}
 
 	.feed-item {
-		.box(30px);
+		.box(40px 30px);
 		.column(@center);
 
 		margin: 0 auto;
 		max-width: 550px;
 		width: 100%;
 
-		> h3 {
-			.column(@center; @center);
+		position: relative;
+
+		p {
+			margin: 3px 0;
+		}
+
+		.icon-cont {
+			.size(52px; 52px);
+
+			background: white;
+			border: 2px solid @purple;
+			border-radius: 50%;
+
+			position: absolute;
+			top: 15px;
+			left: 53%;
+
+			.icon {
+				.size(32px; 32px);
+
+				margin: 10px 0 0 10px;
+				display: inline-block;
+			}
+		}
+
+		.poster-small {
+
+			background-position: center center;
+			margin: 0 auto 10px auto;
+
+			&.no-poster {
+				margin: 0 auto 10px auto;
+
+				p {
+					color: white;
+				}
+			}
 		}
 
 		.f-title {
-			margin: 0 0 0 0;
+			margin: 0;
 			text-align: center;
 		}
 
-		.icon {
-			.size(40px; 40px);
-
-			margin: 0 0 6px 0;
-		}
-
-		p {
+		.actions {
 			.font(bold);
 			
 			color: @grey;
 			font-weight: normal;
-			margin: 3px 0 3px 0;
+			margin: 3px 0;
 
 
 			&.friendship {
