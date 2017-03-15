@@ -1,0 +1,209 @@
+.peek {
+	.box(30px);
+
+	section {
+		padding: 20px 0;
+	}
+
+	ul {
+		.box(10px 15px;);
+
+		li {
+			.row;
+			.wrap;
+			.font(700);
+
+			color: @lightpurple;
+			margin: 5px 0;
+		}
+	}
+
+	.v-profile-sort {
+		display: none;
+		margin: 5px 0 0 0;
+	}
+
+	.v-film-watchers-list {
+		.row;
+		.wrap;
+
+		li {
+			margin: 3px 10px 3px 0;
+
+			
+			&.nobody {
+				color: @purple;
+			}
+		}
+
+		a {
+			color: @lightpurple;
+
+			&:hover,
+			&:focus {
+				color: @purple;
+			}
+		}
+	}
+
+	.v-profile-friends-list {
+		.column;
+
+		margin: 10px 0 0 0;
+		padding: 0 15px 0 17px;
+
+		li {
+			display: none;
+
+
+			a {
+				.row(@y: @center);
+			}
+		}
+	}
+
+	.v-profile-films-list {
+		.column;
+
+		margin: 10px 0 0 0;
+		padding: 0 15px 0 17px;
+
+		li {
+			display: none;
+			margin: 30px 0;
+			width: 100%;
+		}
+
+		.tags-list {
+			.row;
+			.wrap;
+
+			padding: 10px 0 0 0;
+
+			li {
+				margin: 3px 6px 3px 0;
+				width: auto;
+			}
+		}
+	}
+
+	.v-film-comments-list {
+		padding: 10px 15px 0 17px;
+
+		li {
+			display: none;
+		}
+	}
+
+	.v-profile-tags-list {
+		.row;
+		.wrap;
+
+		margin: 10px 0 0 0;
+		padding: 0 15px 0 15px;
+
+		li {
+			display: none;
+			margin: 3px 6px 3px 0;
+			width: auto;
+		}
+	}
+
+	.v-film-tags-list {
+
+		padding: 10px 15px 0 15px;
+
+		li {
+			display: none;
+			margin: 22px;
+
+			.user {
+				margin: 0 0 10px 0;
+			}
+
+			.user-tags {
+				.trim;
+				.row;
+				.wrap;
+
+				li {
+					margin: 0;
+
+					.tag {
+						margin: 3px 6px 3px 0;
+					}
+				}
+			}
+		}
+	}
+
+	.v-tag-films-list {
+
+		li {
+			.trim;
+			.box(30px 0);
+
+			display: none;
+		}
+	}
+
+
+	/* opened */
+	input[type="checkbox"] {
+
+		&:checked ~ .v-profile-sort {
+
+			.row(@y: @center);
+		}
+
+		&:checked ~ .v-film-comments-list {
+
+			li {
+				display: block;
+			}
+		}
+
+		&:checked ~ .v-profile-friends-list {
+
+			li {
+				display: inline;
+			}
+		}
+
+		&:checked ~ .v-profile-films-list {
+
+			li {
+				.row();
+				.no-wrap;
+
+				&.nothing-to-display {
+					.column;
+				}
+			}
+		}
+
+		/* tags on profile */
+		&:checked ~ .v-profile-tags-list {
+
+			li {
+				.row;
+			}
+		}
+
+		/* tags on film view */
+		&:checked ~ .v-film-tags-lisr {
+
+			li {
+				.column;
+			}
+		}
+
+		&:checked ~ .v-tag-films-list {
+
+			li {
+				.row;
+				.no-wrap;
+			}
+		}
+	}
+}

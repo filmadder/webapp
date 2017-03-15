@@ -57,13 +57,13 @@
 				</div>
 				<h3>Seen<span class="number">{{ user.filmsPast.length }}</span></h3>
 			</label>
-			<ul class="order-by">
+			<ul class="order-by v-profile-sort">
 				<p>sort by</p>
 				<li><button class="selected">year</button></li>
 				<li><button>title</button></li>
 				<li><button>added</button></li>
 			</ul>
-			<ul class="film-list">
+			<ul class="v-profile-films-list">
 				{{# user.filmsPast }}
 				<li>
 					{{# poster_url }}
@@ -80,7 +80,7 @@
 							<h2 class="f-title">{{ title }}</h2>
 							<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 						</a>
-						<ul class="tags">
+						<ul class="tags-list">
 							{{# tags }}
 							<li><a href="#/label/{{ . }}" class="tag">{{ . }}</a></li>
 							{{/ tags }}
@@ -108,13 +108,13 @@
 				</div>
 				<h3>Watchlist<span class="number">{{ user.filmsFuture.length }}</span></h3>
 			</label>
-			<ul class="order-by">
+			<ul class="order-by v-profile-sort">
 				<p>sort by</p>
 				<li><button class="selected">year</button></li>
 				<li><button>title</button></li>
 				<li><button>added</button></li>
 			</ul>
-			<ul class="film-list">
+			<ul class="v-profile-films-list">
 				{{# user.filmsFuture }}
 				<li>
 					{{# poster_url }}
@@ -155,7 +155,7 @@
 				</div>
 				<h3>Labels<span class="number">{{ user.tags.length }}</span></h3>
 			</label>
-			<ul class="tags-list">
+			<ul class="v-profile-tags-list">
 				{{# user.tags }}
 				<li><a href="#/label/{{ . }}" class="tag">{{ . }}</a></li>
 				{{/ user.tags }}
@@ -172,7 +172,7 @@
 				</div>
 				<h3>Friends<span class="number">{{ user.friends.length }}</span></h3>
 			</label>
-			<ul class="friends-list">
+			<ul class="v-profile-friends-list">
 				{{# user.friends }}
 				<li>
 					
