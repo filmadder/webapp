@@ -4,11 +4,23 @@ fa.feed = (function() {
 	
 	
 	// 
-	// functions
+	// unpacking
 	// 
 	
-	// constructs and returns a feed item object from the backend data
-	var createItem = function(data) {
+	// creates a downstream feed item film object from an upstream json object
+	// 
+	// the feed item film objects contain only the fields: pk, title, posterUrl 
+	// that is why we cannot use fa.films.unpackFilm here
+	var unpackFilm = function(data) {
+		return {
+			pk: data.pk,
+			title: data.title,
+			posterUrl: data.poster_url
+		};
+	};
+	
+	// creates a downstream feed item object from an upstream json object
+	var unpackItem = function(data) {
 		var item = {
 			created: fa.utils.humaniseTime(data.created)
 		};
@@ -22,12 +34,12 @@ fa.feed = (function() {
 		};
 		
 		if(item.type.becameFriends) {
-			item.userA = data.user_a;
-			item.userB = data.user_b;
+			item.userA = fa.users.unpackUser(data.user_a);
+			item.userB = fa.users.unpackUser(data.user_b);
 		}
 		else {
-			item.user = data.user;
-			item.film = data.film;
+			item.user = fa.users.unpackUser(data.user);
+			item.film = unpackFilm(data.film);
 			if(item.type.addedTags) {
 				item.tags = data.tags;
 			}
@@ -36,7 +48,7 @@ fa.feed = (function() {
 		return item;
 	};
 	
-	// constructs and returns a feed object from the backend-provided data
+	// creates a downstream feed object from an upstream json object
 	// 
 	// the page var keeps track of how many pages have been already loaded; it
 	// counts from 0 as this is what the backend expects
@@ -44,13 +56,13 @@ fa.feed = (function() {
 		var feed = {};
 		var page = Math.ceil(data.items.length / 20) - 1;
 		
-		feed.firstItems = fjs.map(createItem, data.items);
+		feed.firstItems = fjs.map(unpackItem, data.items);
 		
 		// resolves into a list of feed items
 		feed.loadMore = function() {
 			page += 1;
 			return fa.ws.send('get_feed', {page: page, per_page: 20}).then(function(data) {
-				return Promise.resolve(fjs.map(createItem, data.items));
+				return Promise.resolve(fjs.map(unpackItem, data.items));
 			});
 		};
 		
@@ -61,6 +73,11 @@ fa.feed = (function() {
 		
 		return feed;
 	};
+	
+	
+	// 
+	// downstream api
+	// 
 	
 	// returns promise that resolves into a feed object
 	// 
@@ -80,6 +97,8 @@ fa.feed = (function() {
 	// 
 	
 	return {
+		unpackItem: unpackItem,
+		
 		get: getFeed
 	};
 	

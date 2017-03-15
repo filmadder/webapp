@@ -4,12 +4,14 @@ fa.users = (function() {
 	
 	
 	// 
-	// functions
+	// unpacking
 	// 
 	
-	// constructs and returns a user object from the backend-provided data
-	// helper for createProfile()
-	var createUser = function(data) {
+	// creates a downstream short user object from an upstream json object
+	// 
+	// a short user object contains only a subset of the fields and is used in
+	// listings, including search results
+	var unpackUser = function(data) {
 		return {
 			pk: data.pk,
 			name: data.name,
@@ -17,10 +19,11 @@ fa.users = (function() {
 		};
 	};
 	
-	// constructs and returns a profile object from the backend-provided data
-	// helper for getUser()
+	// creates a downstream long user object from an upstream json object
+	// 
+	// long user objects are only used in profile views
 	var createProfile = function(data) {
-		var user = createUser(data.user);
+		var user = unpackUser(data.user);
 		
 		user.status = {
 			unknown: (data.friendship_status == 'u'),
@@ -46,14 +49,19 @@ fa.users = (function() {
 		else if(user.status.friend || user.status.self) {
 			user.filmsPast = data.films_past;
 			user.filmsFuture = data.films_future;
-			user.friends = fjs.map(createUser, data.friends);
+			user.friends = fjs.map(unpackUser, data.friends);
 			user.tags = data.tags;
 		}
 		
 		return user;
 	};
 	
-	// returns a promise that resolves into a user object
+	
+	// 
+	// downstream api
+	// 
+	
+	// returns a promise that resolves into a long user object
 	var getUser = function(id) {
 		return fa.ws.send('get_user', {user: id}).then(function(data) {
 			return Promise.resolve(createProfile(data));
@@ -66,7 +74,7 @@ fa.users = (function() {
 	// 
 	
 	return {
-		_createUser: createUser,
+		unpackUser: unpackUser,
 		
 		get: getUser
 	};
