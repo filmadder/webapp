@@ -21,6 +21,10 @@
 
 @media (min-width: 550px) {
 
+	body {
+		overflow-y: scroll;
+	}
+
 	li, p {
 		color: @grey;
 	}
@@ -202,12 +206,6 @@
 
 		.feed-item {
 			padding: 40px 0;
-
-			.poster-small {
-				.size(160px; 120px);
-
-				min-width: 100px;
-			}
 		}
 	}
 
@@ -232,10 +230,6 @@
 }
 
 @media (min-width: 960px) {
-
-	body {
-		overflow-y: scroll;
-	}
 
 	#search-form {
 
