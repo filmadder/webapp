@@ -220,15 +220,23 @@ fa.views = (function() {
 		});
 		
 		// unread updates marker
-		var markerElem = fa.dom.get('.notification-marker', elem);
-		fa.updates.gotUnread.add(function() {
-			markerElem.classList.remove('hidden');
+		var homeLink = fa.dom.get('[data-fn=home-link]', elem);
+		var marker = fa.dom.get('.notification-marker', homeLink);
+		
+		fa.updates.changedStatus.add(function(status) {
+			if(status == 'has-unread') {
+				marker.classList.remove('hidden');
+				homeLink.href = '#/updates';
+			} else {
+				marker.classList.add('hidden');
+				homeLink.href = '#/';
+			}
 		});
 		
 		// the view object
 		return {
 			remove: function() {
-				fa.updates.gotUnread.removeAll();
+				fa.updates.changedStatus.removeAll();
 				
 				clearNavSignal.remove(removeActiveLinks);
 				markNavSignal.remove(addActiveLink);
