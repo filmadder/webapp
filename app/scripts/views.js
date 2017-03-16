@@ -293,6 +293,7 @@ fa.views = (function() {
 		}, 500);
 		
 		return {
+			nav: '_',
 			remove: function() {
 				fa.films.gotMoreResults.removeAll();
 				if(ready) {
@@ -413,6 +414,7 @@ fa.views = (function() {
 		
 		// the view object
 		return {
+			nav: '_',
 			empty: function() {
 				if(ready) {
 					fa.history.setState('film:'+id.toString(), {
@@ -489,13 +491,13 @@ fa.views = (function() {
 		var navLinks = fa.dom.filter('a', elem);
 		var removeActiveLinks = function() {
 			fjs.map(function(link) {
-				link.classList.remove('clicked');
+				link.classList.remove('selected');
 			}, navLinks);
 		};
 		var addActiveLink = function(navId) {
 			fjs.map(function(link) {
 				if(link.dataset.nav == navId) {
-					link.classList.add('clicked');
+					link.classList.add('selected');
 				}
 			}, navLinks);
 		};
@@ -549,6 +551,7 @@ fa.views = (function() {
 		
 		// the view object
 		return {
+			nav: param,
 			remove: function() {
 				if(ready) {
 					fa.history.setState(param, {
@@ -610,6 +613,7 @@ fa.views = (function() {
 		
 		// the view object
 		return {
+			nav: 'updates',
 			remove: function() {
 				if(ready) {
 					if(!window.pageYOffset) {
@@ -673,6 +677,7 @@ fa.views = (function() {
 		
 		// the view object
 		return {
+			nav: 'feed',
 			remove: function() {
 				if(ready) {
 					if(!window.pageYOffset) {
@@ -718,6 +723,7 @@ fa.views = (function() {
 		}, 500);
 		
 		return {
+			nav: '_',
 			remove: function() {
 				if(ready) {
 					var opened = fjs.map(function(currentElem) {
@@ -780,6 +786,7 @@ fa.views = (function() {
 		}, 500);
 		
 		return {
+			nav: (id == fa.auth.getUser().pk) ? 'me' : '_',
 			remove: function() {
 				if(ready) {
 					fa.history.setState('profile:'+id.toString(), {
@@ -830,6 +837,7 @@ fa.views = (function() {
 		});
 		
 		return {
+			nav: 'me',
 			remove: function() {
 				elem.innerHTML = '';
 			}
@@ -843,6 +851,7 @@ fa.views = (function() {
 		window.scroll(0, 0);
 		
 		return {
+			nav: '_',
 			remove: function() {
 				elem.innerHTML = '';
 			}
@@ -879,25 +888,13 @@ fa.views = (function() {
 	
 	// dispatches the markNavSignal with the correct string to be marked as the
 	// currently active navigation link
-	hier.on('pre-init', function(path, params) {
-		if(path == '/inner/home/watchlist') {
-			markNavSignal.dispatch('watchlist');
-		} else if(path == '/inner/home/watched') {
-			markNavSignal.dispatch('watched');
-		} else if(path == '/inner/home/updates') {
-			markNavSignal.dispatch('updates');
-		} else if(path == '/inner/feed') {
-			markNavSignal.dispatch('feed');
-		} else if(path == '/inner/profile') {
-			if(params == fa.auth.getUser().pk) {
-				markNavSignal.dispatch('me');
-			} else {
+	hier.on('post-init', function(path, view) {
+		if(view && view.hasOwnProperty('nav')) {
+			if(view.nav == '_') {
 				clearNavSignal.dispatch();
+			} else {
+				markNavSignal.dispatch(view.nav);
 			}
-		} else if(path == '/inner/settings') {
-			markNavSignal.dispatch('me');
-		} else {
-			clearNavSignal.dispatch();
 		}
 	});
 	
