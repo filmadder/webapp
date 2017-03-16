@@ -4,6 +4,15 @@
 	<article class="results-cont">
 		{{# items }}
 		<div class="result-cont">
+			{{# posterUrl }}
+			<div class="image poster-small" style="background-image: url({{ posterUrl }});"></div>
+			{{/ posterUrl }}
+			{{^ posterUrl }}
+			<div class="no-poster poster-small">
+				<p>No poster</p>
+				<div class="image logo"></div>
+			</div>
+			{{/ posterUrl }}
 			<a href="#/film/{{ pk }}" title="{{ title }}"class="result film listed-films">
 				<h3 class="f-title">{{ title }}</h3>
 				<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
