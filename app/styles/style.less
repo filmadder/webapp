@@ -817,7 +817,7 @@ h2 {
 	.row(@center; @center);
 	.box(10px 15px);
 
-	margin: 0 0 20px 0;
+	margin: 10px 0 20px 0;
 
 	p {
 		.font(400; 13px);
@@ -928,7 +928,6 @@ h2 {
 .subnav {
 	.row(@center);
 
-	background: @lightpurple;
 	width: 100%;
 
 	a {
@@ -936,17 +935,17 @@ h2 {
 		.box(5px 17px 5px 15px);
 		.row(@center; @center);
 
-		border-top: 2px solid white;
-		border-bottom: 2px solid white;
-		border-right: 2px solid white;
-		color: white;
+		background: @lightpurple;
+		border-top: 2px solid @lightpurple;
+		border-bottom: 2px solid @lightpurple;
+		border-right: 2px solid @lightpurple;
 		cursor: pointer;
-		margin: 20px 0;
+		margin: 20px 0 0 0;
 		text-align: center;
 		text-transform: uppercase;
 
 		&:first-child {
-			border: 2px solid white;
+			border: 2px solid @lightpurple;
 			border-top-left-radius: 20px;
 			border-bottom-left-radius: 20px;
 			padding: 5px 12px 5px 20px;
@@ -957,7 +956,7 @@ h2 {
 		}
 
 		&:last-child {
-			border: 2px solid white;
+			border: 2px solid @lightpurple;
 			border-top-right-radius: 20px;
 			border-bottom-right-radius: 20px;
 			padding: 5px 20px 5px 15px;
@@ -979,10 +978,6 @@ h2 {
 
 			.tag-icon-white {
 				background-image: url('../images/current/icon-tag-1.svg');
-			}
-
-			.comment-icon-white {
-				background-image: url('../images/current/icon-comment-1.svg');
 			}
 		}
 
