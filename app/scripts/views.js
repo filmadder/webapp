@@ -314,6 +314,54 @@ fa.views = (function() {
 		};
 	};
 	
+	// inits a film list view
+	// 
+	// comprises a film listing, as it would appear in, e.g., home views or
+	// user profile views
+	// 
+	// handles the sorting; this is in fact the view's main raison d'être
+	// 
+	// expects params to be a {type, films} object
+	var createFilmList = function(elem, type, films) {
+		var sortByYear = function(a, b) {
+			if(a.year == b.year) return 0;
+			else if(a.year < b.year) return -1;
+			else return 1;
+		};
+		var sortByTitle = function(a, b) {
+			if(a.title == b.title) return 0;
+			else if(a.title < b.title) return -1;
+			else return 1;
+		};
+		
+		if(type != 'watched' && type != 'watchlist') {
+			fa.routing.go('error');
+		}
+		
+		render(elem, 'film-list-templ', {});
+		
+		var container = fa.dom.get('[data-fn=film-list]', elem);
+		var template = (type == 'watched')
+				? 'film-list-item-past-templ' : 'film-list-item-future-templ';
+		var renderFilms = fjs.curry(render)(container)(template);
+		
+		var buttons = fa.dom.filter('button[data-sort]', elem);
+		fa.dom.on(buttons, 'click', function(e) {
+			if(e.target.classList.contains('selected')) return;
+			
+			fjs.map(function(x) { x.classList.remove('selected'); }, buttons);
+			e.target.classList.add('selected');
+			
+			switch(e.target.dataset.sort) {
+				case 'year': films.sort(sortByYear); break;
+				case 'title': films.sort(sortByTitle); break;
+			}
+			renderFilms({films: films});
+		});
+		
+		renderFilms({films: films});
+	};
+	
 	// inits a film view
 	// 
 	// includes the film info, status, and tags; as well as the lists of
@@ -539,13 +587,9 @@ fa.views = (function() {
 			ready = true;
 			
 			if(param == 'watched') {
-				render(elem, 'home-watched-templ', {
-					watched: user.filmsPast
-				});
+				createFilmList(elem, param, user.filmsPast);
 			} else {
-				render(elem, 'home-watchlist-templ', {
-					watchlist: user.filmsFuture
-				});
+				createFilmList(elem, param, user.filmsFuture);
 			}
 			
 			if(state) {
