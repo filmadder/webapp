@@ -321,27 +321,28 @@ fa.views = (function() {
 	// 
 	// handles the sorting; this is in fact the view's main raison d'être
 	// 
-	// expects params to be a {type, films} object
-	var createFilmList = function(elem, type, films) {
+	// expects params to be a {type, films, withTitle} object
+	var createFilmList = function(elem, params) {
 		var sortByYear = function(a, b) {
-			if(a.year == b.year) return 0;
-			else if(a.year < b.year) return -1;
-			else return 1;
+			return a.year.localeCompare(b.year);
 		};
 		var sortByTitle = function(a, b) {
-			if(a.title == b.title) return 0;
-			else if(a.title < b.title) return -1;
-			else return 1;
+			return a.title.localeCompare(b.title);
 		};
 		
-		if(type != 'watched' && type != 'watchlist') {
+		if(params.type != 'watched' && params.type != 'watchlist') {
 			fa.routing.go('error');
 		}
 		
-		render(elem, 'film-list-templ', {});
+		render(elem, 'film-list-templ', {
+			title: {
+				seen: params.withTitle && params.type == 'watched',
+				watchlist: params.withTitle && params.type == 'watchlist'
+			}
+		});
 		
 		var container = fa.dom.get('[data-fn=film-list]', elem);
-		var template = (type == 'watched')
+		var template = (params.type == 'watched')
 				? 'film-list-item-past-templ' : 'film-list-item-future-templ';
 		var renderFilms = fjs.curry(render)(container)(template);
 		
@@ -353,13 +354,13 @@ fa.views = (function() {
 			e.target.classList.add('selected');
 			
 			switch(e.target.dataset.sort) {
-				case 'year': films.sort(sortByYear); break;
-				case 'title': films.sort(sortByTitle); break;
+				case 'year': params.films.sort(sortByYear); break;
+				case 'title': params.films.sort(sortByTitle); break;
 			}
-			renderFilms({films: films});
+			renderFilms({films: params.films});
 		});
 		
-		renderFilms({films: films});
+		renderFilms({films: params.films});
 	};
 	
 	// inits a film view
@@ -586,11 +587,10 @@ fa.views = (function() {
 		fa.users.get(fa.auth.getUser().pk).then(function(user) {
 			ready = true;
 			
-			if(param == 'watched') {
-				createFilmList(elem, param, user.filmsPast);
-			} else {
-				createFilmList(elem, param, user.filmsFuture);
-			}
+			createFilmList(elem, {
+				type: param, withTitle: true,
+				films: (param == 'watched') ? user.filmsPast : user.filmsFuture
+			});
 			
 			if(state) {
 				window.scroll(0, state.scroll);
