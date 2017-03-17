@@ -497,7 +497,6 @@ h2 {
 	min-width: 32px;
 }
 
-
 .add-icon {
 	background-image: url(../images/add-thinner.svg);	
 }
@@ -755,6 +754,28 @@ h2 {
 			background: white;
 		} 
 	}
+}
+
+.user-link {
+	.row(@y: @center);
+
+	.user {
+		.trim;
+		.font(700; 16px);
+
+		color: @lightpurple;
+		text-transform: none;
+	}
+
+	&:hover,
+	&:focus {
+
+		.user{
+
+			color: @purple;
+		}
+	}
+
 }
 
 /* username's looks */

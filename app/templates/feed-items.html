@@ -19,10 +19,13 @@
 
 		<h2 class="f-title">{{ film.title }}</h2>
 	</a>
-	<p class="actions">
-		<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a>
-		 added to watched
-	</p>
+	<div class="who-did-what">
+		<a href="#/user/{{ user.pk }}" class="user-link">
+			<div class="avatar-small image" style="background-image: url('{{ user.avatarUrl }}')"></div>
+			<h3 class="user">{{ user.name }}</h3>
+		</a>
+		<p>added to watched</p>
+	</div>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatched }}
 	
@@ -44,9 +47,13 @@
 		{{/ film.posterUrl }}
 		<h2 class="f-title">{{ film.title }}</h2>
 	</a>
-	<p class="actions">
-		<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a> added to watchlist
-	</p>
+	<div class="who-did-what">
+		<a href="#/user/{{ user.pk }}" class="user-link">
+			<div class="avatar-small image" style="background-image: url('{{ user.avatarUrl }}')"></div>
+			<h3 class="user">{{ user.name }}</h3>
+		</a>
+		<p>added to watchlist</p>
+	</div>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatchlist }}
 	
@@ -82,10 +89,13 @@
 
 		<h2 class="f-title">{{ film.title }}</h2>
 	</a>
-	<p class="actions">
-		<a href="#/user/{{ user.pk }}" class="user">{{ user.name }}</a>
-		 left a comment
-	</p>
+	<div class="who-did-what">
+		<a href="#/user/{{ user.pk }}" class="user-link">
+			<div class="avatar-small image" style="background-image: url('{{ user.avatarUrl }}')"></div>
+			<h3 class="user">{{ user.name }}</h3>
+		</a>
+		<p>left a comment</p>
+	</div>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.wroteComment }}
 	
@@ -108,11 +118,13 @@
 
 		<h2 class="f-title">{{ film.title }}</h2>
 	</a>
-	<p class="actions">
-		<a href="#/user/{{ user.pk }}" class="user">
-		{{ user.name }}</a>
-		 labelled as
-	</p>
+	<div class="who-did-what">
+		<a href="#/user/{{ user.pk }}" class="user-link">
+			<div class="avatar-small image" style="background-image: url('{{ user.avatarUrl }}')"></div>
+			<h3 class="user">{{ user.name }}</h3>
+		</a>
+		<p>labelled as</p>
+	</div>
 	<p class="tags">
 		{{# tags }}
 		<a href="#/label/{{ . }}" class="tag">{{ . }}</a>
