@@ -4,16 +4,26 @@ fa.updates = (function() {
 	
 	
 	// 
+	// state
+	// 
+	
+	// the status of the user with regards to their updates
+	// its value is either 'has-unread' or 'all-read'
+	var readStatus = 'all-read';
+	
+	// dispatches with the value of readStatus when there is a change in it
+	var changedStatus = new signals.Signal();
+	
+	
+	// 
 	// push receivers
 	// 
 	
-	// dispatches when the server sends push notification about new unread
-	// update item(s)
-	var gotUnread = new signals.Signal();
-	
+	// new_update changes readStatus to has-unread
 	fa.ws.received.add(function(message) {
 		if(message.type == 'new_update') {
-			gotUnread.dispatch();
+			readStatus = 'has-unread';
+			changedStatus.dispatch(readStatus);
 		}
 	});
 	
@@ -82,10 +92,15 @@ fa.updates = (function() {
 	// 
 	// if given, the argument specifies the number of pages that the updates
 	// object will start with; by default one page of updates will be loaded
+	// 
+	// upon successful response, the readStatus is changed to 'all-read'
 	var getUpdates = function(pages) {
 		var perPage = (pages) ? 20 * pages : 20;
 		
 		return fa.ws.send('get_updates', {page: 0, per_page: perPage}).then(function(data) {
+			readStatus = 'all-read';
+			changedStatus.dispatch(readStatus);
+			
 			return Promise.resolve(createUpdates(data));
 		});
 	};
@@ -100,7 +115,7 @@ fa.updates = (function() {
 		
 		get: getUpdates,
 		
-		gotUnread: gotUnread
+		changedStatus: changedStatus
 	};
 	
 }());
