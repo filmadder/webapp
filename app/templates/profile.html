@@ -175,9 +175,10 @@
 			<ul class="v-profile-friends-list">
 				{{# user.friends }}
 				<li>
-					<a href="#/user/{{ pk }}" class="user">
-					<div class="avatar-small image" style="background-image: url('{{ avatarUrl }}')"></div>
-					{{ name }}</a>
+					<a href="#/user/{{ pk }}" class="user-link">
+						<div class="avatar-small image" style="background-image: url('{{ avatarUrl }}')"></div>
+						<h3 class="user">{{ name }}</h3>
+					</a>
 				</li>
 				{{/ user.friends }}
 				{{^ user.friends }}

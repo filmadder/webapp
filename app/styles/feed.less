@@ -52,20 +52,26 @@
 		}
 
 		.f-title {
-			margin: 10px 0;
+			.font(bold; 24px);
+
+			margin: 10px 0 0 0;
 			text-align: center;
 		}
 
-		.actions {
+		.who-did-what {
 			.font(bold);
+			.row(@center; @center);
 			
 			color: @grey;
 			font-weight: normal;
-			margin: 3px 0;
+			margin: 6px 0 3px 0;
 
+			.user-link {
+				margin: 0 5px 0 0;
+			}
 
-			&.friendship {
-				margin: 0;
+			p {
+				margin: 10px 0;
 			}
 		}
 
