@@ -57,12 +57,13 @@
 				</div>
 				<h3>Seen<span class="number">{{ user.filmsPast.length }}</span></h3>
 			</label>
+			<div data-fn="watched"></div>
 			<!--ul class="order-by v-profile-sort">
 				<p>sort by</p>
 				<li><button class="selected">year</button></li>
 				<li><button>title</button></li>
 				<li><button>added</button></li>
-			</ul-->
+			</ul>
 			<ul class="v-profile-films-list films-list">
 				{{# user.filmsPast }}
 				<li>
@@ -96,7 +97,7 @@
 					{{/ user.status.self }}
 				</li>
 				{{/ user.filmsPast }}
-			</ul>
+			</ul-->
 		</section>
 
 		<section class="watchlisted arrow-cont">
@@ -108,12 +109,13 @@
 				</div>
 				<h3>Watchlist<span class="number">{{ user.filmsFuture.length }}</span></h3>
 			</label>
+			<div data-fn="watchlist"></div>
 			<!--ul class="order-by v-profile-sort">
 				<p>sort by</p>
 				<li><button class="selected">year</button></li>
 				<li><button>title</button></li>
 				<li><button>added</button></li>
-			</ul-->
+			</ul>
 			<ul class="v-profile-films-list films-list">
 				{{# user.filmsFuture }}
 				<li>
@@ -142,7 +144,7 @@
 					{{/ user.status.self }}
 				</li>
 				{{/ user.filmsFuture }}
-			</ul>
+			</ul-->
 		</section>
 
 		{{# user.tags.length }}

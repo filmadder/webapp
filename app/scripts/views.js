@@ -793,6 +793,14 @@ fa.views = (function() {
 	};
 	
 	// inits a profile view
+	// 
+	// the view includes some info about the user specified by the id param
+	// 
+	// if the viewed is a friend of the logged in user, or is the latter
+	// themselves, then the view also includes the viewed's lists of films,
+	// tags, and friends
+	// 
+	// otherwise, the rest of the view comprises befriending controls
 	var createProfile = function(elem, id) {
 		var ready = false;
 		var state = fa.history.getState('profile:'+id.toString());
@@ -804,6 +812,17 @@ fa.views = (function() {
 			
 			render(elem, 'profile-templ', {user: user});
 			
+			// init film lists
+			createFilmList(fa.dom.get('[data-fn=watched]'), {
+				type: 'watched', withTitle: false,
+				films: user.filmsPast
+			});
+			createFilmList(fa.dom.get('[data-fn=watchlist]'), {
+				type: 'watchlist', withTitle: false,
+				films: user.filmsFuture
+			});
+			
+			// befriending controls
 			fa.dom.on('[data-fn=request-friend]', 'click', function() {
 				user.requestFriendship().then(function() {
 					hier.update('/inner/profile', id);
@@ -833,10 +852,12 @@ fa.views = (function() {
 			}
 		}).catch(handleError);
 		
+		// show the snake if loading takes too long
 		window.setTimeout(function() {
 			if(!ready) render(elem, 'loading-templ', {});
 		}, 500);
 		
+		// the view object
 		return {
 			nav: (id == fa.auth.getUser().pk) ? 'me' : '_',
 			remove: function() {
