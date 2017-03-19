@@ -45,7 +45,7 @@ fa.routing = (function() {
 		hier.add('/inner/home/list', 'watchlist');
 	});
 	
-	crossroads.addRoute('/watched', function() {
+	crossroads.addRoute('/seen', function() {
 		hier.add('/inner');
 		hier.add('/inner/home');
 		if(hier.has('/inner/home/list')) hier.remove('/inner/home/list');

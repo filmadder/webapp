@@ -23,7 +23,7 @@ fa.history = (function() {
 		data = sessionStorage.getItem(STORAGE_KEY);
 		if(data) {
 			try {
-				data = JSON.parse();
+				data = JSON.parse(data);
 			} catch (error) {
 				log.warn(error); log.trace();
 				data = {};
