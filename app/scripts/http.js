@@ -76,6 +76,7 @@ fa.http = (function() {
 			fetch(url, options).then(function(response) {
 				handleResponse(response).then(resolve).catch(reject);
 			}).catch(function(error) {  // http request could not be fulfilled
+				log.warn(error); log.trace();
 				reject({code: 'pending', message: error.message});
 			});
 		});

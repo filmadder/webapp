@@ -1,7 +1,6 @@
 #!/bin/bash
 uglifyjs \
 	app/scripts/_init.js \
-	app/scripts/logs.js \
 	app/scripts/http.js \
 	app/scripts/ws.js \
 	app/scripts/dom.js \

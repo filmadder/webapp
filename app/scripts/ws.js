@@ -91,6 +91,7 @@ fa.ws = (function() {
 		try {
 			socket = new WebSocket(socket);
 		} catch(err) {
+			log.warn(err); log.trace();
 			throw new Error('Could not open socket connection');
 		}
 		
@@ -108,17 +109,17 @@ fa.ws = (function() {
 					received.dispatch(data);
 				}
 			}
-			catch (err) {
-				console.error(err);  // do not propagate non-json messages
+			catch (err) {  // do not propagate non-json messages
+				log.error(err); log.trace();
 			}
 		};
 		
 		socket.onerror = function(e) {
-			console.error(e);
+			log.error(e); log.trace();
 		};
 		
 		socket.onclose = function(e) {
-			console.error(e);
+			log.warn(e);
 			queue.rejectAll({code: 'forbidden',
 				message: 'The server connection was closed'});
 		};
@@ -154,6 +155,7 @@ fa.ws = (function() {
 				socket.send(JSON.stringify(mes));
 			}
 			catch (err) {
+				log.warn(err); log.trace();
 				return Promise.reject({code: 'bug', message: err.message});
 			}
 			
@@ -189,6 +191,7 @@ fa.ws = (function() {
 			socket = createSocket();
 		}
 		catch (err) {
+			log.warn(err); log.trace();
 			return Promise.reject({code: 'bug', message: err.message});
 		}
 		

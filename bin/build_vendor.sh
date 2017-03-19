@@ -4,6 +4,7 @@ bower_components/normalize-css/normalize.css \
 > build/styles/vendor.css
 
 cat \
+bower_components/loglevel/dist/loglevel.min.js \
 bower_components/js-signals/dist/signals.min.js \
 bower_components/hasher/dist/js/hasher.min.js \
 bower_components/crossroads/dist/crossroads.min.js \

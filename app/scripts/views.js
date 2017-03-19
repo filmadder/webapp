@@ -51,9 +51,12 @@ fa.views = (function() {
 	};
 	
 	// expects {code, message} object and acts accordingly
+	// 
 	// for forbidden and not_found redirects the view
 	// for bad_input, pending and bug shows error message
 	var handleError = function(error) {
+		log.warn(error);
+		
 		if(error.code == 'forbidden') {
 			fa.routing.go('login');
 		}
@@ -932,6 +935,7 @@ fa.views = (function() {
 	};
 	
 	// inits a message view
+	// 
 	// expects {type: error, code} for error messages
 	// expects {type: success, text} for success messages
 	var createMessage = function(elem, params) {
@@ -945,6 +949,7 @@ fa.views = (function() {
 					pending: (params.code == 'pending')
 				}
 			});
+			log.trace();
 		}
 		else if(params.type == 'success') {
 			render(elem, 'success-message-templ', {

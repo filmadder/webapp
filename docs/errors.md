@@ -12,3 +12,10 @@ these should be {code, message} objects.
 * `bad_input`
 * `bug`
 * `pending`
+
+
+## logging
+
+When an error would make it to the user in some form, then calls to `log.trace`
+and `log.warn` on its way there should be enough. Use `log.error` when an error
+would otherwise silently disappear.

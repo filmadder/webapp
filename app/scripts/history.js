@@ -25,6 +25,7 @@ fa.history = (function() {
 			try {
 				data = JSON.parse();
 			} catch (error) {
+				log.warn(error); log.trace();
 				data = {};
 			}
 		} else {
@@ -35,7 +36,7 @@ fa.history = (function() {
 			try {
 				sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 			} catch (error) {
-				console.error(error);
+				log.error(error); log.trace();
 				sessionStorage.clear();
 			}
 		};
