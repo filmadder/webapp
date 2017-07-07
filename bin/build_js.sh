@@ -18,4 +18,6 @@ uglifyjs \
 	--compress \
 	--lint \
 	--source-map build/scripts/fa.js.map \
+	--source-map-url fa.js.map \
+	--source-map-include-sources \
 	--output build/scripts/fa.js

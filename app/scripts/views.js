@@ -420,7 +420,7 @@ fa.views = (function() {
 				}).catch(handleError);
 			});
 			
-			// set tags form
+			// film tags
 			if(film.status.watched) {
 				var tagsFormElem = fa.dom.get('form.tags-form', elem);
 				var tagsCheckElem = fa.dom.get('#open-form', elem);
@@ -448,6 +448,7 @@ fa.views = (function() {
 				});
 			}
 			
+			// styling hack
 			var filmTitle = fa.dom.get('#film-title');
 			if (filmTitle.innerText.length > 80) {
 				filmTitle.classList.add('very-long-title');

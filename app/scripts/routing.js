@@ -156,7 +156,9 @@ fa.routing = (function() {
 	};
 	
 	// changes the url and the view accordingly
+	// 
 	// the url should not start or end with a slash
+	// 
 	// if the second arg is set, then the url will be replaced without invoking
 	// the respective view
 	api.go = function(url, silently) {
