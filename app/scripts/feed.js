@@ -28,6 +28,7 @@ fa.feed = (function() {
 		item.type = {
 			addedToWatched: (data.type == 'a'),
 			addedToWatchlist: (data.type == 'u'),
+			movedToWatchlist: (data.type == 'o'),
 			becameFriends: (data.type == 'f'),
 			wroteComment: (data.type == 'c'),
 			addedTags: (data.type == 't')

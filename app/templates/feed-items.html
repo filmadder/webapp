@@ -28,7 +28,7 @@
 	</div>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatched }}
-	
+
 	<!-- WATCHLIST -->
 	{{# type.addedToWatchlist }}
 	<a href="#/film/{{ film.pk }}">
@@ -56,7 +56,35 @@
 	</div>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatchlist }}
-	
+
+	<!-- WATCHLIST 2 -->
+	{{# type.movedToWatchlist }}
+	<a href="#/film/{{ film.pk }}">
+		<div class="icon-cont">
+			<span class="icon watchlisted-icon"></span>
+		</div>
+
+		{{# film.posterUrl }}
+		<div class="image poster-medium" style="background-image: url({{ film.posterUrl }});"></div>
+		{{/ film.posterUrl }}
+		{{^ film.posterUrl }}
+		<div class="no-poster poster-medium">
+			<p>No poster</p>
+			<div class="image logo"></div>
+		</div>
+		{{/ film.posterUrl }}
+		<h2 class="f-title">{{ film.title }}</h2>
+	</a>
+	<div class="who-did-what">
+		<a href="#/user/{{ user.pk }}" class="user-link">
+			<div class="avatar-small image" style="background-image: url('{{ user.avatarUrl }}')"></div>
+			<h3 class="user">{{ user.name }}</h3>
+		</a>
+		<p>moved to watchlist</p>
+	</div>
+	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
+	{{/ type.movedToWatchlist }}
+
 	<!-- FRIENDS -->
 	{{# type.becameFriends }}
 	<h3>
@@ -69,7 +97,7 @@
 	</p>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.becameFriends }}
-	
+
 	<!-- COMMENT -->
 	{{# type.wroteComment }}
 	<a href="#/film/{{ film.pk }}">
@@ -98,7 +126,7 @@
 	</div>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.wroteComment }}
-	
+
 	<!-- TAGGING -->
 	{{# type.addedTags }}
 	<a href="#/film/{{ film.pk }}">

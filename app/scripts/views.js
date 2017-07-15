@@ -816,32 +816,33 @@ fa.views = (function() {
 			
 			render(elem, 'profile-templ', {user: user});
 			
-			// init film lists
-			createFilmList(fa.dom.get('[data-fn=watched]'), {
-				type: 'watched', withTitle: false,
-				films: user.filmsPast
-			});
-			createFilmList(fa.dom.get('[data-fn=watchlist]'), {
-				type: 'watchlist', withTitle: false,
-				films: user.filmsFuture
-			});
-			
-			// befriending controls
-			fa.dom.on('[data-fn=request-friend]', 'click', function() {
-				user.requestFriendship().then(function() {
-					hier.update('/inner/profile', id);
-				}).catch(handleError);
-			});
-			fa.dom.on('[data-fn=accept-friend]', 'click', function() {
-				user.acceptFriendship().then(function() {
-					hier.update('/inner/profile', id);
-				}).catch(handleError);
-			});
-			fa.dom.on('[data-fn=reject-friend]', 'click', function() {
-				user.rejectFriendship().then(function() {
-					hier.update('/inner/profile', id);
-				}).catch(handleError);
-			});
+			if(user.showData) {  // init film lists
+				createFilmList(fa.dom.get('[data-fn=watched]'), {
+					type: 'watched', withTitle: false,
+					films: user.filmsPast
+				});
+				createFilmList(fa.dom.get('[data-fn=watchlist]'), {
+					type: 'watchlist', withTitle: false,
+					films: user.filmsFuture
+				});
+			}
+			else {  // befriending controls
+				fa.dom.on('[data-fn=request-friend]', 'click', function() {
+					user.requestFriendship().then(function() {
+						hier.update('/inner/profile', id);
+					}).catch(handleError);
+				});
+				fa.dom.on('[data-fn=accept-friend]', 'click', function() {
+					user.acceptFriendship().then(function() {
+						hier.update('/inner/profile', id);
+					}).catch(handleError);
+				});
+				fa.dom.on('[data-fn=reject-friend]', 'click', function() {
+					user.rejectFriendship().then(function() {
+						hier.update('/inner/profile', id);
+					}).catch(handleError);
+				});
+			}
 			
 			if(state) {
 				try {
