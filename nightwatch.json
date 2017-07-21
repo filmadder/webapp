@@ -1,0 +1,20 @@
+{
+	"src_folders": ["tests"],
+	"output_folder": false,
+	"disable_colors": true,
+
+	"selenium": {
+		"start_process": true,
+		"server_path": "bin/selenium-server-standalone-3.4.0.jar",
+		"log_path": false,
+		"cli_args": {
+			"webdriver.gecko.driver": "bin/geckodriver"
+		}
+	},
+
+	"test_settings": {
+		"default": {
+			"launch_url": "http://localhost:9000"
+		}
+	}
+}

@@ -3,6 +3,7 @@
 /meta/*
 /node_modules/*
 
-access_logs.db
+/bin/selenium-*
+/bin/geckodriver
 
 *.swp
