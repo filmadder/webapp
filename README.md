@@ -27,3 +27,10 @@ should find themselves in `bin` (symlinks would also do):
 
 Of course, you are welcome to use another WebDriver, but you should change the
 `nightwatch.json` configuration accordingly.
+
+To run the tests, do something like this:
+
+```sh
+npm run watch &
+node node_modules/.bin/nightwatch
+```
