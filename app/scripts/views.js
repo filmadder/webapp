@@ -525,8 +525,38 @@ fa.views = (function() {
 	var createFilmTags = function(elem, film) {
 		render(elem, 'film-tags-templ', {film: film});
 
+		var initSuggComp = function(elem) {
+			var comp = {};
+			var lis;
+
+			comp.selected = new signals.Signal();
+
+			comp.update = function(suggestions) {
+				render(elem, 'film-tags-sugg-templ', {suggestions: suggestions});
+				lis = fa.dom.filter('li', elem);
+				fa.dom.on(lis, 'click', function(e) {
+					comp.selected.dispatch(e.target.innerHTML);
+				});
+			};
+
+			comp.remove = function() {
+				comp.selected.dispose();
+				elem.innerHTML = '';
+			};
+
+			return comp;
+		};
+
 		var tagsFormElem = fa.dom.get('form.tags-form', elem);
 		var tagsCheckElem = fa.dom.get('#open-form', elem);
+		var tagsFieldElem = fa.dom.get('input[data-fn=tags-field]', elem);
+
+		var suggComp = initSuggComp(fa.dom.get('.sugg-cont', elem));
+		suggComp.selected.add(function(value) {
+			tagsFieldElem.value = value;
+			suggComp.update([]);
+			tagsFieldElem.focus();
+		});
 
 		fa.forms.create(tagsFormElem, function(form) {
 			var data = form.getData();
@@ -546,12 +576,21 @@ fa.views = (function() {
 			fa.forms.regex(/^[^\s,;\\/\'"]+$/)
 		]);
 
+		fa.dom.on(tagsFieldElem, 'input', function() {
+			suggComp.update(fa.tags.suggest(tagsFieldElem.value));
+		});
+
 		fa.dom.on('.tags-form button[type=button]', 'click', function() {
 			tagsCheckElem.checked = false;
 		});
 
 		// the view object
-		return {};
+		return {
+			remove: function() {
+				suggComp.remove();
+				elem.innerHTML = '';
+			}
+		};
 	};
 
 	// inits a home view
