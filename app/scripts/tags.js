@@ -1,12 +1,12 @@
 fa.tags = (function() {
-	
+
 	"use strict";
-	
-	
+
+
 	// 
 	// downstream api
 	// 
-	
+
 	// returns a promise that resolves into a tag object
 	// 
 	// the latter is just the backend data as no additional transformations are
@@ -18,7 +18,7 @@ fa.tags = (function() {
 			return Promise.resolve(data);
 		});
 	};
-	
+
 	// returns a promise that resolves if the tags are successfully set and
 	// rejects with an error otherwise
 	// 
@@ -26,15 +26,15 @@ fa.tags = (function() {
 	var setTags = function(filmId, tags) {
 		return fa.ws.send('set_tags', {film: filmId, tags: tags});
 	};
-	
-	
+
+
 	// 
 	// exports
 	// 
-	
+
 	return {
 		get: getTag,
 		set: setTags
 	};
-	
+
 }());
