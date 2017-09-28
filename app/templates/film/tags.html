@@ -1,0 +1,24 @@
+<input type="checkbox" id="open-form" />
+<label for="open-form" class="icon tag-icon-white"></label>
+<form class="tags-form">
+	<fieldset>
+		<ul>
+			{{# film.tags }}
+			<li>{{ . }}<span></span></li>
+			{{/ film.tags }}
+		</ul>
+		<p data-fn="error" class="form error"></p>
+		<input type="text" name="tags" autocomplete="off"
+			data-fn="tags-field" class="input" placeholder="add labels" />
+	</fieldset>
+	<div class="sugg-cont"></div>
+	<p class="controls">
+		<button type="submit" class="dark">save</button>
+		<button type="button" class="reset"></button>
+	</p>
+</form>
+<ul class="film-tags">
+	{{# film.tags }}
+	<li><a href="#/label/{{ . }}" class="tag tag-self" title="">{{ . }}</a></li>
+	{{/ film.tags }}
+</ul>

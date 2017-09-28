@@ -12,53 +12,17 @@
 				</div>
 				{{/ film.posterUrl }}
 			</article>
-			
-			{{# film.posterUrl}}
-			<article class="f-main-cont">
-			{{/ film.posterUrl}}
-			{{^ film.posterUrl}}
-			<article class="f-main-cont no-poster-main-cont">
-			{{/ film.posterUrl}}
-				{{# film.status.watched }}
-				<div class="tagging-cont">
-					<input type="checkbox" id="open-form"/>
-					<label for="open-form" class="icon tag-icon-white"></label>
-					<form class="tags-form">
-						<fieldset>
-							<ul>
-								{{# film.tags }}
-								<li>{{ . }}<span></span></li>
-								{{/ film.tags }}
-							</ul>
-							<p data-fn="error" class="form error"></p>
-							<input type="text" name="tags" autocomplete="off"
-						  		data-fn="tags-field" class="input" placeholder="add labels" />
-						</fieldset>
-						<p class="controls">
-							<button type="submit" class="dark">save</button>
-							<button type="button" class="reset"></button>
-						</p>
-					</form>
-					<ul class="film-tags">
-						{{# film.tags }}
-						<li><a href="#/label/{{ . }}" class="tag tag-self" title="">{{ . }}</a></li>
-						{{/ film.tags }}
-					</ul>
-				</div>
-				{{/ film.status.watched }}
 
-				<!-- in cases when there is no taggin container, we need a div so that the main info contaier is pushed to the bottom -->
-				{{^ film.status.watched }}
-				<div></div>
-				{{/ film.status.watched }}
-				
+			<article class="f-main-cont {{^ film.posterUrl}}no-poster-main-cont{{/ film.posterUrl}}">
+				<section class="tagging-cont"></section>
+
 				<div class="cont">
 					<div class="title-cont">
 						<h2 class="title" id="film-title">{{ film.title }}</h2>
 						<h4 class="year">{{ film.year }}</h4>
 						<h3 class="type-duration">{{ film.omdbType }} {{# film.runtime }}| {{ film.runtime }}</h3>{{/ film.runtime}}
 					</div>
-					
+
 					{{# film.status.unknown }}
 					<div class="status-cont">
 						<div class="status-btn current">
@@ -80,7 +44,7 @@
 						</div>
 					</div>
 					{{/ film.status.unknown }}
-					
+
 					{{# film.status.watched }}
 					<div class="status-cont">
 						<div class="status-btn current">
@@ -103,7 +67,7 @@
 						</div>
 					</div>
 					{{/ film.status.watched }}
-					
+
 					{{# film.status.watchlisted }}
 					<div class="status-cont">
 						<div class="status-btn current">
@@ -150,7 +114,7 @@
 			{{/ film.genre }}
 			{{# film.plot }}
 			<div class="f-synopsis-cont arrow-cont">
-				<input type="checkbox" id="synopsis-text" class="hidden"/>		
+				<input type="checkbox" id="synopsis-text" class="hidden" />
 				<label for="synopsis-text" class="">
 					<div class="arrow white-arrow">
 						<div class="stroke"></div>

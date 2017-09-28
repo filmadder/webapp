@@ -58,6 +58,7 @@ fa.auth = (function() {
 			try {
 				recover();
 			} catch (e) {
+				log.warn(e);
 				destroy();
 			}
 		}

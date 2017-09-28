@@ -19,6 +19,7 @@ fa.routing = (function() {
 	hier.reg('/inner/results', '#view', fa.views.results);
 	hier.reg('/inner/film', '#view', fa.views.film);
 	hier.reg('/inner/film/comments', 'section.comments', fa.views.comments);
+	hier.reg('/inner/film/tags', 'section.tagging-cont', fa.views.filmTags);
 	hier.reg('/inner/tag', '#view', fa.views.tag);
 	hier.reg('/inner/profile', '#view', fa.views.profile);
 	hier.reg('/inner/settings', '#view', fa.views.settings);
@@ -156,7 +157,9 @@ fa.routing = (function() {
 	};
 	
 	// changes the url and the view accordingly
+	// 
 	// the url should not start or end with a slash
+	// 
 	// if the second arg is set, then the url will be replaced without invoking
 	// the respective view
 	api.go = function(url, silently) {
