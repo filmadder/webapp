@@ -66,9 +66,6 @@
 				color: white;
 				margin: 0;
 			}
-
-			.settings-icon {
-			}
 		}
 	}
 
@@ -88,12 +85,18 @@
 		}
 	}
 
+	.list {
+		padding: 0;
+
+		.order-by {
+			.row(@y: @center);
+			
+			padding: 0;
+		}
+	}
+
 	.films-list,
 	.friends-list {
-
-		.f-title {
-			margin: 0;
-		}
 
 		.nothing-to-display {
 			margin: 10px 0 0 0;

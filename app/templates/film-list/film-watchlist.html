@@ -1,5 +1,5 @@
 {{# films }}
-<div class="list-item">
+<li class="list-item">
 	{{# poster_url }}
 	<div class="image poster-small" style="background-image: url({{ poster_url }});"></div>
 	{{/ poster_url }}
@@ -15,7 +15,7 @@
 			<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 		</a>
 	</div>
-</div>
+</li>
 {{/ films }}
 {{^ films }}
 <div class="nothing-to-display">

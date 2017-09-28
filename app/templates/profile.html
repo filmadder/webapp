@@ -49,7 +49,7 @@
 	{{# user.showData }}
 	<article class="peek">
 		<section class="watched arrow-cont">
-			<input type="checkbox" id="peek-watched" class="hidden" />
+			<input type="checkbox" id="peek-watched" class="hidden"/>
 			<label for="peek-watched">
 				<div class="arrow">
 					<div class="stroke"></div>
@@ -57,7 +57,7 @@
 				</div>
 				<h3>Seen<span class="number">{{ user.filmsPast.length }}</span></h3>
 			</label>
-			<div data-fn="watched"></div>
+			<div data-fn="watched" class="v-profile-films-list"></div>
 			<!--ul class="order-by v-profile-sort">
 				<p>sort by</p>
 				<li><button class="selected">year</button></li>
@@ -109,7 +109,7 @@
 				</div>
 				<h3>Watchlist<span class="number">{{ user.filmsFuture.length }}</span></h3>
 			</label>
-			<div data-fn="watchlist"></div>
+			<div data-fn="watchlist"  class="v-profile-films-list"></div>
 			<!--ul class="order-by v-profile-sort">
 				<p>sort by</p>
 				<li><button class="selected">year</button></li>
