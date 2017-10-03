@@ -22,7 +22,8 @@
 	/* HEADER ELEMS */
 
 	/* nav opener (the logo)
-	   on the left */
+	   on the left
+	   onclick opens nav (styles below) */
 	.nav-opener {
 
 		.logo {
@@ -47,10 +48,18 @@
 			text-transform: none;
 			word-break: break-all;
 		}
+
+		/* if "film adder" in the middle */
+		h1 {
+			.font(700; 19px);
+
+			color: white;
+		}
 	}
 
 	/* search btn
-	   on the right */
+	   on the right
+	   onclick opens search bar (search.less) */
 	.search-btn {
 		margin: 0 10px 0 0;
 	}
@@ -62,7 +71,7 @@
 		.transition;
 		.size(100vh; 80%);
 
-		background: @lightpurple;
+		background: linear-gradient(45deg, @purple, @lightpurple);
 
 		position: fixed;
 		top: 0;
@@ -74,17 +83,22 @@
 			right: 100%;
 		}
 
+		/* nav item */
 		a {
-			padding: 20px 10px;
-			margin: 5px 0;
+			.font(600; 15px);
+
+			border-radius: 5px;
+			padding: 8px 14px;
+			margin: 10px auto;
+			text-transform: uppercase;
 
 			&:first-child {
-				margin: 30px 0 5px 0;
+				margin: 30px 0;
 			}
 		}
 	}
-	
 
+	
 	/* when search btn is clicked,
 	   the header moves to the left and search form shows */
 	&.move-right {

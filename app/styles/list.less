@@ -1,23 +1,17 @@
-/* film titles in lists */
-.f-title {
-	.font(700; 22px);
+/* list item 
+   watchlist contains: poster, title, year, directors other watchers
+   seen contains: poster, title, year, directors, tags */
 
-	text-align: left;
-	text-transform: none;
+.film-in-list {
+	.row();
+	.box(30px);
+	
+	width: 100%;
 
-	&:hover,
-	&:focus {
-		color: @lightpurple;
+	> div:nth-child(2) {
+		width: 100%;
 	}
-}
 
-/* list title (watchlist, seen..) */
-.listed-films {
-	h4 {
-		.font;
-
-		color: @lightgrey;
-	}
 }
 
 /* film's poster */
@@ -36,6 +30,7 @@
 		margin: 0 25px 0 0;
 		min-width: 70px;
 
+		/* "no poster" */
 		p {
 			.font(400; 14px);
 
@@ -51,27 +46,44 @@
 	}
 }
 
-/* list item (film, title, year...) */
-.list-item {
-	.row();
-	.box(30px);
-	
-	width: 100%;
+/* film's title in lists */
+.title {
+	.font(700; 22px);
 
-	> div:nth-child(2) {
-		width: 100%;
+	text-align: left;
+	text-transform: none;
+
+	&:hover,
+	&:focus {
+		color: @lightpurple;
 	}
+}
 
-	.tags {
-		.row;
-		.wrap;
+.year-directors {
+	.font(400; 16px);
+}
 
-		padding: 10px 0 0 0;
-		max-width: 80%;
+.tags {
+	.row;
+	.wrap;
 
-		li {
-			margin: 6px 6px 6px 0;
-			width: auto;
-		}
+	padding: 10px 0 0 0;
+	max-width: 80%;
+
+	li {
+		margin: 6px 6px 6px 0;
+		width: auto;
+	}
+}
+
+.other-watchlisters {
+
+	/* "watchlisted by" */
+	span {
+		.font(600; 12px;);
+
+		color: @grey;
+		display: inline-block;
+		margin: 10px 0 0 0;
 	}
 }

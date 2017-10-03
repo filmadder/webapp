@@ -1,5 +1,5 @@
 {{# films }}
-<li class="list-item">
+<li class="film-in-list">
 	{{# poster_url }}
 	<div class="image poster-small" style="background-image: url({{ poster_url }});"></div>
 	{{/ poster_url }}
@@ -11,9 +11,17 @@
 	{{/ poster_url }}
 	<div>
 		<a href="#/film/{{ pk }}" class="listed-films">
-			<h3 class="f-title">{{ title }}</h3>
-			<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
+			<h3 class="title">{{ title }}</h3>
+			<h4 class="year-directors">{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 		</a>
+		<ul class="other-watchlisters">
+			<li>
+				<span>also watchlisted by</span>
+				<br />
+				<a class="user">stelaseldano</a>
+				<a class="user">stelaseldano</a>
+			</li>
+		</ul>
 	</div>
 </li>
 {{/ films }}

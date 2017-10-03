@@ -1,0 +1,43 @@
+<div class="p-intro-cont">
+	<section class="p-intro">
+		<div class="avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div>
+		<!-- <div class="avatar-message">This avatar has been randomly assinged to you. Change it from settings.</div> -->
+		<article>
+			<h2 class="username">{{ user.name }}</h2>
+			<div class="p-buttons p-relationship">
+				{{# user.status.friend }}
+				<p>you are friends</p>
+				</button>
+				{{/ user.status.friend }}
+				
+				{{# user.status.self }}
+				<a href="#/settings" title="account settings" class="icon settings-icon-white"></a>
+				{{/ user.status.self }}
+			</div>
+		</article>
+		
+	</section>
+</div>
+
+
+<section class="h-lists">
+	<div class="subnav">
+		<a href="#/watchlist" data-nav="watchlist">
+			<span class="icon watchlisted-icon-white"></span>
+		</a>
+		<a href="#/seen" data-nav="watched">
+			<span class="icon watched-icon-white"></span>
+		</a>
+		<a href="#/updates" data-nav="updates">
+			<span class="icon updates-icon-white"></span>
+		</a>
+		<a href="#/" data-nav="updates">
+			<span class="icon friendship-icon"></span>
+		</a>
+		<a href="#/" data-nav="updates">
+			<span class="icon tag-icon-white"></span>
+		</a>
+	</div>
+</section>
+
+<section id="subview" class="subview"></section>

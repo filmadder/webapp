@@ -364,7 +364,7 @@ fa.views = (function() {
 			fa.routing.go('error');
 		}
 
-		render(elem, 'film-list-templ', {
+		render(elem, 'user-films-templ', {
 			title: {
 				seen: params.withTitle && params.type == 'watched',
 				watchlist: params.withTitle && params.type == 'watchlist'
@@ -373,7 +373,7 @@ fa.views = (function() {
 
 		var container = fa.dom.get('[data-fn=film-list]', elem);
 		var template = (params.type == 'watched')
-				? 'film-list-item-past-templ' : 'film-list-item-future-templ';
+				? 'user-films-seen-templ' : 'user-films-watchlist-templ';
 		var renderFilms = fjs.curry(render)(container)(template);
 
 		var buttons = fa.dom.filter('button[data-sort]', elem);
@@ -973,16 +973,16 @@ fa.views = (function() {
 
 			user.showData = (user.status.self || user.status.friend);
 
-			render(elem, 'profile-templ', {user: user});
+			render(elem, 'user-templ', {user: user});
 
 			if(user.showData) {  // init film lists
 				if(params.list == 'watchlist') {
-					createFilmList(fa.dom.get('[data-fn=watchlist]'), {
+					createFilmList(fa.dom.get('#subview'), {
 						type: 'watchlist', withTitle: false,
 						films: user.filmsFuture
 					});
 				} else {
-					createFilmList(fa.dom.get('[data-fn=watched]'), {
+					createFilmList(fa.dom.get('#subview'), {
 						type: 'watched', withTitle: false,
 						films: user.filmsPast
 					});
