@@ -297,7 +297,7 @@ fa.views = (function() {
 			button.addEventListener('click', function() {
 				hier.update('/inner/results', params);
 			});
-			button.classList.remove('hidden');
+			button.classList.remove('no-display');
 		};
 
 		fa.search.search(params.q).then(function(res) {

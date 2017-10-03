@@ -93,8 +93,7 @@ h2 {
 	.font(normal; 16px);
 
 	color: @purple;
-	margin: 20px 0;
-	text-align: center;
+	margin: 20px 25px;
 	text-transform: uppercase;
 }
 
@@ -261,7 +260,7 @@ h2 {
 }
 
 .avatar-medium {
-	.size(45px; 45px);
+	.size(50px; 50px);
 
 	background-color: white;
 	border-radius: 50%;
@@ -455,7 +454,7 @@ h2 {
 }
 
 .poster-medium {
-	.size(180px; 140px);
+	.size(220px; 160px);
 
 	min-width: 140px;
 	margin: 0 10px 0 0;
@@ -559,41 +558,6 @@ h2 {
 	}
 }
 
-.order-by {
-	.row(@center; @center);
-	.box(10px 15px);
-
-	margin: 10px 0;
-
-	p {
-		.font(400; 13px);
-
-		margin: 0 10px 0 2px;
-	}
-
-	li {
-
-		color: @grey;
-
-		button {
-			.font(700; 13px);
-
-			background: transparent;
-			border-radius: 3px;
-			color: @grey;
-			margin: 0 3px;
-			padding: 5px 8px;
-			text-transform: uppercase;
-
-			&:hover,
-			&:focus,
-			&.selected {
-				background: #ededed;
-			}
-		}
-	}
-}
-
 /* arrow that rotates together with the title it accompanies */
 .arrow-cont {
 
@@ -682,74 +646,6 @@ h2 {
 	}
 }
 
-
-/* tab-like lists switcher
-   at the bottom of the view */
-/* MOVE SUBNAV TO profile.less */
-.subnav {
-	.row(@spread; @center);
-	background: linear-gradient(45deg, @lightpurple, @purple);
-
-	height: 40px;
-	width: 100%;
-
-	position: fixed;
-	bottom: 0;
-	left: 0;
-
-	a {
-		.font(700; 14px);
-		.box(5px 15px);
-		.row(@center; @center);
-
-		cursor: pointer;
-		text-align: center;
-		text-transform: uppercase;
-
-		&:hover,
-		&.selected {
-
-			background-color: transparent;
-
-			.watchlisted-icon-white {
-				background-image: url('../images/current/icon-watchlist-1.svg');
-			}
-
-			.watched-icon-white {
-				background-image: url('../images/current/icon-watched-1.svg');				
-			}
-
-			.updates-icon-white {
-				background-image: url('../images/current/icon-updates-1.svg');
-			}
-		}
-
-		.icon {
-			.size(24px; 24px;);
-
-			display: inline-block;
-			min-height: 24px;
-			min-width: 24px;
-		}
-	}
-
-	label {
-
-		span {
-			.size(24px; 24px;);
-
-			min-height: 24px;
-			min-width: 24px;
-			display: block;
-		}
-	}
-
-	.selected {
-		color: @lightpurple;
-		background: white;
-	}	
-}
-
 /* loading between the views (the snake)*/
 .loading-cont {
 	margin: 50px 0;
@@ -833,14 +729,15 @@ h2 {
 @import "search";
 @import "views/home";
 @import "views/film";
-@import "views/profile";
 @import "views/feed";
 @import "views/results";
 @import "views/tag";
 @import "views/settings";
-@import "tagging"; 
-@import "list"; 
+@import "views/user";
+@import "views/user/list"; 
+@import "tagging";
 @import "updates";
+@import "list";
 @import "comments";
 @import "messages";
 @import "keyframes";

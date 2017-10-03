@@ -1,5 +1,5 @@
 .feed {
-	.box(30px 0);
+	.box(25px 0);
 	.column(@center; @center);
 	
 	width: 100%;
@@ -51,11 +51,13 @@
 			}
 		}
 
-		.f-title {
+		.title {
 			.font(bold; 24px);
 
-			margin: 10px 0 0 0;
+			color: @grey;
+			margin: 14px 0 0 0;
 			text-align: center;
+			text-transform: none;
 		}
 
 		.who-did-what {
@@ -64,12 +66,13 @@
 			
 			color: @grey;
 			font-weight: normal;
-			margin: 6px 0 3px 0;
+			margin: 3px 0;
 
-			.user-link {
-				margin: 0 5px 0 0;
+			.user {
+				margin: 0 5px;
 			}
 
+			/* what was done (ex: added to watched) */
 			p {
 				margin: 10px 0;
 			}
