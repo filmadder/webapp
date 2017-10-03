@@ -114,7 +114,7 @@
 			{{/ film.genre }}
 			{{# film.plot }}
 			<div class="f-synopsis-cont arrow-cont">
-				<input type="checkbox" id="synopsis-text" class="hidden" />
+				<input type="checkbox" id="synopsis-text" class="no-display" />
 				<label for="synopsis-text" class="">
 					<div class="arrow white-arrow">
 						<div class="stroke"></div>
@@ -161,7 +161,7 @@
 			</section>
 			{{# film.friendsTags.length }}
 			<section class="tagged-as-list arrow-cont">
-				<input type="checkbox" id="tags-film" class="hidden" {{# open }}checked{{/ open }} />
+				<input type="checkbox" id="tags-film" class="no-display" {{# open }}checked{{/ open }} />
 				<label for="tags-film">
 					<div class="arrow">
 						<div class="stroke"></div>

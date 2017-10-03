@@ -1,22 +1,35 @@
-<header>
-	<div class="wrapper">
-		<a href="#/" class="heading" data-fn="home-link">
-			<div class="image logo"></div>
-			<div class="notification-marker hidden"></div>
-		</a>
-		<nav>
-			<a href="#/feed" data-nav="feed" class="nav-item" title="feed">feed</a>
-			<a href="#/me" data-nav="me" class="nav-item" title="my profile">me</a>
+<header class="header-inner">
+	<div class="width-controller">
+		<nav class="nav hidden">
+			<a href="#/">
+				<div class="avatar-medium"></div>
+			</a>
+			<a href="#/feed">feed</a>
+			<a href="#/updates">notifications</a>
+			<a href="#/settings">settings</a>
 		</nav>
+		<div class="nav-opener" data-fn="home-link">
+			<div class="image logo"></div>
+			<div class="notification-marker no-display"></div>
+		</div>
+		<div class="current-view">
+			<div class="current-user">
+				<div class="avatar-small"></div>
+				<h2 class="username">stelaseldano</h2>
+			</div>
+		</div>
+		<div class="search-btn" id="search-btn">
+			<div class="search icon"></div>
+		</div>
 	</div>
 </header>
 <div id="view"></div>
-<form novalidate autocomplete="off" id="search-form">
+<form novalidate autocomplete="off" id="search-form" class="hidden">
 	<input type="search" name="q" novalidate
 		autocomplete="off" required
 		placeholder="Search" />
-	<button type="submit" class="submit">
-		<div class="search icon"></div>
+	<button type="submit" class="do-search hidden">
+		<div class="">go</div>
 	</button>
 	<button type="reset" class="reset"></button>
 </form>

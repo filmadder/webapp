@@ -1,7 +1,7 @@
 <div class="profile">
 	<div class="p-intro-cont">
 		<section class="p-intro">
-			<div class="avatar image" style="background-image: url('{{ user.avatarUrl }}')"></div>
+			<div class="avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div>
 			<!-- <div class="avatar-message">This avatar has been randomly assinged to you. Change it from settings.</div> -->
 			<article>
 				<h2 class="username">{{ user.name }}</h2>
@@ -49,7 +49,7 @@
 	{{# user.showData }}
 	<article class="peek">
 		<section class="watched arrow-cont">
-			<input type="checkbox" id="peek-watched" class="hidden"/>
+			<input type="checkbox" id="peek-watched" class="no-display"/>
 			<label for="peek-watched">
 				<div class="arrow">
 					<div class="stroke"></div>
@@ -101,7 +101,7 @@
 		</section>
 
 		<section class="watchlisted arrow-cont">
-			<input type="checkbox" id="peek-watchlist" class="hidden" />
+			<input type="checkbox" id="peek-watchlist" class="no-display" />
 			<label for="peek-watchlist">
 				<div class="arrow">
 					<div class="stroke"></div>
@@ -149,7 +149,7 @@
 
 		{{# user.tags.length }}
 		<section class="tags arrow-cont">
-			<input type="checkbox" id="peek-tags" class="hidden" />
+			<input type="checkbox" id="peek-tags" class="no-display" />
 			<label for="peek-tags">
 				<div class="arrow">
 					<div class="stroke"></div>
@@ -166,7 +166,7 @@
 		{{/ user.tags.length }}
 
 		<section class="friends arrow-cont">
-			<input type="checkbox" id="peek-friends" class="hidden" />
+			<input type="checkbox" id="peek-friends" class="no-display" />
 			<label for="peek-friends">
 				<div class="arrow">
 					<div class="stroke"></div>
@@ -198,4 +198,25 @@
 		</section>
 	</article>
 	{{/ user.showData }}
+
+	<section class="h-lists">
+		<div class="subnav">
+			<a href="#/watchlist" data-nav="watchlist">
+				<span class="icon watchlisted-icon-white"></span>
+			</a>
+			<a href="#/seen" data-nav="watched">
+				<span class="icon watched-icon-white"></span>
+			</a>
+			<a href="#/updates" data-nav="updates">
+				<span class="icon updates-icon-white"></span>
+			</a>
+			<a href="#/" data-nav="updates">
+				<span class="icon friendship-icon"></span>
+			</a>
+			<a href="#/" data-nav="updates">
+				<span class="icon tag-icon-white"></span>
+			</a>
+		</div>
+		<section id="subview" class="subview"></section>
+	</section>
 </div>

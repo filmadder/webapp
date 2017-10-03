@@ -1,0 +1,121 @@
+/* header's looks for logged in users */
+.header-inner {
+	.size(40px; 100%);
+	.transition;
+
+	background: linear-gradient(45deg, @lightpurple, @purple);
+	z-index: 1;
+
+	position: fixed;
+	top: 0;
+	right: 0;
+
+	/* header's width controller for large screens */
+	.width-controller {
+		.row(@spread; @center);
+
+		height: 40px;
+		margin: 0 auto;
+		max-width: 1400px;
+	}
+
+	/* HEADER ELEMS */
+
+	/* nav opener (the logo)
+	   on the left */
+	.nav-opener {
+
+		.logo {
+			.size(38px; 38px);
+		}
+	}
+
+	/* current view
+	   in the middle */
+	.current-view {
+		.row(@y: @center);
+
+		.current-user {
+			.row(@y: @center);		
+		}
+
+		.username {
+			.font(700; 18px);
+
+			color: white;
+			margin: 0 0 0 5px;
+			text-transform: none;
+			word-break: break-all;
+		}
+	}
+
+	/* search btn
+	   on the right */
+	.search-btn {
+		margin: 0 10px 0 0;
+	}
+
+	/* NAVIGATION */
+
+	.nav {
+		.column(@center);
+		.transition;
+		.size(100vh; 80%);
+
+		background: @lightpurple;
+
+		position: fixed;
+		top: 0;
+		right: 20%;
+
+		&.hidden {
+			.transition;
+
+			right: 100%;
+		}
+
+		a {
+			padding: 20px 10px;
+			margin: 5px 0;
+
+			&:first-child {
+				margin: 30px 0 5px 0;
+			}
+		}
+	}
+	
+
+	/* when search btn is clicked,
+	   the header moves to the left and search form shows */
+	&.move-right {
+		overflow: hidden;
+
+		right: 90%;
+	}
+
+	/* when the logo is clicked,
+	   the header moves to the right and nav opens */
+	&.move-left {
+		overflow: hidden;
+
+		right: -80%;
+	}
+}
+
+
+/* header's looks for not logged in or reg users */
+.outer-header {
+	.size(auto; auto;);
+	.column(@center);
+
+	background: transparent;
+	border: none;
+	margin: 20px 0 0 0;
+	position: static;
+
+	h1 {
+		.font(@w: 700; @s: 30px;);
+		
+		color: white;
+	}
+}

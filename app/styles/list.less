@@ -1,0 +1,77 @@
+/* film titles in lists */
+.f-title {
+	.font(700; 22px);
+
+	text-align: left;
+	text-transform: none;
+
+	&:hover,
+	&:focus {
+		color: @lightpurple;
+	}
+}
+
+/* list title (watchlist, seen..) */
+.listed-films {
+	h4 {
+		.font;
+
+		color: @lightgrey;
+	}
+}
+
+/* film's poster */
+.poster-small,
+.poster-medium {
+	.size(100px; 80px);
+
+	min-width: 80px;
+	margin: 0 10px 0 0;
+
+	&.no-poster {
+		.size(100px; 70px);
+		.column(@center; @center);
+
+		background: @purple;
+		margin: 0 25px 0 0;
+		min-width: 70px;
+
+		p {
+			.font(400; 14px);
+
+			color: white;
+			text-align: center;
+			text-transform: uppercase;
+			margin: 0 6px 6px 6px;
+		}
+
+		.logo {
+			.size(30px; 30px);
+		}
+	}
+}
+
+/* list item (film, title, year...) */
+.list-item {
+	.row();
+	.box(30px);
+	
+	width: 100%;
+
+	> div:nth-child(2) {
+		width: 100%;
+	}
+
+	.tags {
+		.row;
+		.wrap;
+
+		padding: 10px 0 0 0;
+		max-width: 80%;
+
+		li {
+			margin: 6px 6px 6px 0;
+			width: auto;
+		}
+	}
+}

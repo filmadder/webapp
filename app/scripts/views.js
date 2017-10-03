@@ -199,10 +199,27 @@ fa.views = (function() {
 		clearNavSignal.add(removeActiveLinks);
 		markNavSignal.add(addActiveLink);
 
+
+		// nav opener
+		var navOpener = fa.dom.get('.nav-opener', elem);
+		var nav = fa.dom.get('.nav');
+
+		fa.dom.on(navOpener, 'click', function() {
+			if (nav.classList.contains('hidden')) {
+				nav.classList.remove('hidden');
+				fa.dom.get('.header-inner').classList.add('move-left');
+			} else {
+				nav.classList.add('hidden');
+				fa.dom.get('.header-inner').classList.remove('move-left');
+			}
+		});
+
 		// search form
+		var searchButton = fa.dom.get('#search-btn', elem);
 		var searchForm = fa.dom.get('#search-form', elem);
 		var queryField = fa.dom.get('[name=q]', searchForm);
 		var resetButton = fa.dom.get('button[type=reset]', searchForm);
+		var doSearchButton = fa.dom.get('button[type=submit]', searchForm);
 
 		fa.dom.on(queryField, 'focus', function() {
 			resetButton.classList.add('visible');
@@ -212,6 +229,17 @@ fa.views = (function() {
 		});
 		fa.dom.on(resetButton, 'click', function() {
 			queryField.focus();
+		});
+		fa.dom.on(searchButton, 'click', function() {
+			if (searchForm.classList.contains('hidden')) {
+				searchForm.classList.remove('hidden');
+				doSearchButton.classList.remove('hidden');
+				fa.dom.get('.header-inner').classList.add('move-right');
+			} else {
+				fa.dom.get('.header-inner').classList.remove('move-right');
+				searchForm.classList.add('hidden');
+				doSearchButton.classList.add('hidden');
+			}
 		});
 
 		searchForm.addEventListener('submit', function(e) {
