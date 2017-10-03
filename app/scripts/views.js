@@ -199,13 +199,12 @@ fa.views = (function() {
 		clearNavSignal.add(removeActiveLinks);
 		markNavSignal.add(addActiveLink);
 
-
 		// nav opener
 		var navOpener = fa.dom.get('.nav-opener', elem);
 		var nav = fa.dom.get('.nav');
 
 		fa.dom.on(navOpener, 'click', function() {
-			if (nav.classList.contains('hidden')) {
+			if(nav.classList.contains('hidden')) {
 				nav.classList.remove('hidden');
 				fa.dom.get('.header-inner').classList.add('move-left');
 			} else {
@@ -231,7 +230,7 @@ fa.views = (function() {
 			queryField.focus();
 		});
 		fa.dom.on(searchButton, 'click', function() {
-			if (searchForm.classList.contains('hidden')) {
+			if(searchForm.classList.contains('hidden')) {
 				searchForm.classList.remove('hidden');
 				doSearchButton.classList.remove('hidden');
 				fa.dom.get('.header-inner').classList.add('move-right');
@@ -959,6 +958,82 @@ fa.views = (function() {
 		};
 	};
 
+	// inits a user view
+	//
+	// the view comprises a container for several sub-views together with its
+	// own internal navigation for these sub-views
+	//
+	// expects params to be a {id, list} object
+	var createUser = function(elem, params) {
+		var ready = false;
+		var state = fa.history.getState('user:'+params.id.toString());
+
+		fa.users.get(params.id).then(function(user) {
+			ready = true;
+
+			user.showData = (user.status.self || user.status.friend);
+
+			render(elem, 'profile-templ', {user: user});
+
+			if(user.showData) {  // init film lists
+				if(params.list == 'watchlist') {
+					createFilmList(fa.dom.get('[data-fn=watchlist]'), {
+						type: 'watchlist', withTitle: false,
+						films: user.filmsFuture
+					});
+				} else {
+					createFilmList(fa.dom.get('[data-fn=watched]'), {
+						type: 'watched', withTitle: false,
+						films: user.filmsPast
+					});
+				}
+			}
+			else {  // befriending controls
+				fa.dom.on('[data-fn=request-friend]', 'click', function() {
+					user.requestFriendship().then(function() {
+						hier.update('/inner/profile', id);
+					}).catch(handleError);
+				});
+				fa.dom.on('[data-fn=accept-friend]', 'click', function() {
+					user.acceptFriendship().then(function() {
+						hier.update('/inner/profile', id);
+					}).catch(handleError);
+				});
+				fa.dom.on('[data-fn=reject-friend]', 'click', function() {
+					user.rejectFriendship().then(function() {
+						hier.update('/inner/profile', id);
+					}).catch(handleError);
+				});
+			}
+
+			if(state) {
+				window.scroll(0, state.scroll);
+			} else {
+				window.scroll(0, 0);
+			}
+		}).catch(handleError);
+
+		// show the snake if loading takes too long
+		window.setTimeout(function() {
+			if(!ready) render(elem, 'loading-templ', {});
+		}, 500);
+
+		// the view object
+		return {
+			nav: '_',
+			empty: function() {
+				if(ready) {
+					fa.history.setState('user'+params.id.toString(), {
+						scroll: window.pageYOffset
+					});
+				}
+			},
+			remove: function() {
+				elem.innerHTML = '';
+			}
+		};
+	};
+
 	// inits a settings view
 	// 
 	// this view contains the change password form and the logout button
@@ -1100,6 +1175,7 @@ fa.views = (function() {
 		filmTags: createFilmTags,
 		tag: createTag,
 		profile: createProfile,
+		user: createUser,
 		settings: createSettings,
 
 		error: createError,

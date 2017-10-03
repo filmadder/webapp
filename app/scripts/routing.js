@@ -1,75 +1,84 @@
 fa.routing = (function() {
-	
+
 	"use strict";
-	
-	
+
+
 	// 
 	// setup hier
 	// 
-	
+
 	hier.reg('/outer', 'main', fa.views.outer);
 	hier.reg('/outer/reg', '#view', fa.views.reg);
 	hier.reg('/outer/login', '#view', fa.views.login);
-	
+
 	hier.reg('/inner', 'main', fa.views.inner);
-	hier.reg('/inner/home', '#view', fa.views.home);
-	hier.reg('/inner/home/list', '#subview', fa.views.homeList);
-	hier.reg('/inner/home/updates', '#subview', fa.views.updates);
-	hier.reg('/inner/feed', '#view', fa.views.feed);
-	hier.reg('/inner/results', '#view', fa.views.results);
+	hier.reg('/inner/user', '#view', fa.views.user);
+	// hier.reg('/inner/user/films', '#subview', fa.views.filmList);
+	// hier.reg('/inner/user/tags', '#subview', fa.views.filmList);
 	hier.reg('/inner/film', '#view', fa.views.film);
 	hier.reg('/inner/film/comments', 'section.comments', fa.views.comments);
 	hier.reg('/inner/film/tags', 'section.tagging-cont', fa.views.filmTags);
 	hier.reg('/inner/tag', '#view', fa.views.tag);
-	hier.reg('/inner/profile', '#view', fa.views.profile);
+	hier.reg('/inner/results', '#view', fa.views.results);
+	hier.reg('/inner/feed', '#view', fa.views.feed);
+	hier.reg('/inner/updates', '#view', fa.views.updates);
 	hier.reg('/inner/settings', '#view', fa.views.settings);
-	
+
 	hier.reg('/error', 'main', fa.views.error);
 	hier.reg('/mes', '#message-cont', fa.views.message);
-	
-	
+
+
 	// 
 	// setup crossroads
 	// 
-	
+
 	crossroads.addRoute('/', function() {
+		var id = fa.auth.getUser().pk;
 		hier.add('/inner');
-		hier.add('/inner/home');
-		if(hier.has('/inner/home/list')) hier.remove('/inner/home/list');
-		hier.add('/inner/home/list', 'watchlist');
+		if(hier.has('/inner/user')) hier.update('/inner/user', {id: id, list: 'watchlist'});
+		else hier.add('/inner/user', {id: id, list: 'watchlist'});
 	});
-	
+
 	crossroads.addRoute('/watchlist', function() {
+		var id = fa.auth.getUser().pk;
 		hier.add('/inner');
-		hier.add('/inner/home');
-		if(hier.has('/inner/home/list')) hier.remove('/inner/home/list');
-		hier.add('/inner/home/list', 'watchlist');
+		if(hier.has('/inner/user')) hier.update('/inner/user', {id: id, list: 'watchlist'});
+		else hier.add('/inner/user', {id: id, list: 'watchlist'});
 	});
-	
+
 	crossroads.addRoute('/seen', function() {
+		var id = fa.auth.getUser().pk;
 		hier.add('/inner');
-		hier.add('/inner/home');
-		if(hier.has('/inner/home/list')) hier.remove('/inner/home/list');
-		hier.add('/inner/home/list', 'watched');
+		if(hier.has('/inner/user')) hier.update('/inner/user', {id: id, list: 'seen'});
+		else hier.add('/inner/user', {id: id, list: 'seen'});
 	});
-	
+
+	crossroads.addRoute('/user/{id}', function(id) {
+		id = (id) ? parseInt(id) : 0;
+		hier.add('/inner');
+		if(hier.has('/inner/user')) hier.update('/inner/user', {id: id, list: 'watchlist'});
+		else hier.add('/inner/user', {id: id, list: 'watchlist'});
+	}).rules = {
+		id: /^[0-9]+$/
+	};
+
 	crossroads.addRoute('/updates', function() {
 		hier.add('/inner');
-		hier.add('/inner/home');
-		hier.add('/inner/home/updates');
+		hier.add('/inner/');
+		hier.add('/inner/updates');
 	});
-	
+
 	crossroads.addRoute('/feed', function() {
 		hier.add('/inner');
 		hier.add('/inner/feed');
 	});
-	
+
 	crossroads.addRoute('/search/{?query}', function(query) {
 		hier.add('/inner');
 		if(hier.has('/inner/results')) hier.remove('/inner/results', query);
 		hier.add('/inner/results', query);
 	});
-	
+
 	crossroads.addRoute('/film/{id}', function(id) {
 		id = (id) ? parseInt(id) : null;
 		hier.add('/inner');
@@ -78,84 +87,68 @@ fa.routing = (function() {
 	}).rules = {
 		id: /^[0-9]+$/
 	};
-	
+
 	crossroads.addRoute('/label/{tag}', function(tag) {
 		hier.add('/inner');
 		if(hier.has('/inner/tag')) hier.remove('/inner/tag');
 		hier.add('/inner/tag', {tag: tag});
 	});
-	
-	crossroads.addRoute('/user/{id}', function(id) {
-		id = (id) ? parseInt(id) : 0;
-		hier.add('/inner');
-		if(hier.has('/inner/profile')) hier.remove('/inner/profile', id);
-		hier.add('/inner/profile', id);
-	}).rules = {
-		id: /^[0-9]+$/
-	};
-	
-	crossroads.addRoute('/me', function() {
-		var id = fa.auth.getUser().pk;
-		hier.add('/inner');
-		if(hier.has('/inner/profile')) hier.remove('/inner/profile', id);
-		hier.add('/inner/profile', id);
-	});
-	
+
 	crossroads.addRoute('/settings', function() {
 		hier.add('/inner');
 		hier.add('/inner/settings');
 	});
-	
+
 	crossroads.addRoute('/login', function() {
 		hier.add('/outer');
 		hier.add('/outer/login');
 	});
-	
+
 	crossroads.addRoute('/reg', function() {
 		hier.add('/outer');
 		hier.add('/outer/reg');
 	});
-	
+
 	crossroads.addRoute('/error', function() {
 		hier.add('/error');
 	});
-	
+
 	crossroads.bypassed.add(function() {
 		hasher.replaceHash('error');
 	});
-	
-	
+
+
 	// 
 	// setup hasher
 	// 
-	
+
 	var parseHash = function(newHash, oldHash) {
 		crossroads.parse(newHash);
 	};
-	
+
 	hasher.initialized.add(parseHash);
 	hasher.changed.add(parseHash);
-	
+
 	hasher.changed.add(function() {
 		if(hier.has('/mes')) {
 			hier.remove('/mes');
 			document.getElementById('message-cont').innerHTML = '';
 		}
 	});
-	
-	
+
+
 	// 
 	// exports
 	// 
-	
+
 	var api = {};
-	
+
 	// enables the routing functionality
 	// at this point the first view will be invoked
 	api.init = function() {
 		hasher.init();
 	};
-	
+
 	// changes the url and the view accordingly
 	// 
 	// the url should not start or end with a slash
@@ -172,7 +165,7 @@ fa.routing = (function() {
 			hasher.setHash(url);
 		}
 	};
-	
+
 	return api;
-	
+
 }());

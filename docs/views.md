@@ -13,3 +13,27 @@ object, which can have the following properties:
   sub-views are; often used to set fa.history's state.
 * `remove`: function that is invoked when the view is destroyed, after the
   sub-views are; usually ends with `elem.innerHTML = '';`.
+
+
+## list
+
+- outer
+	- login
+	- reg
+
+- inner: header, nav
+	- user: sub-nav
+		- seen, currently watching, watchlist: film lists
+		- friends
+		- tags
+	- film
+		- comments
+		- tags
+	- tag
+	- search results
+	- feed
+	- notifications
+	- settings
+
+- error
+- message
