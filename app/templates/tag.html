@@ -1,8 +1,9 @@
 <article class="tag-view">
+
 	<h1 class="tag">{{ tag.tag }}</h1>
-	
+
 	{{# tag.users }}
-	<section class="users-film-list">
+	<section class="user-film-list">
 		<article class="peek">
 			<section class="user-tag arrow-cont">
 				<input type="checkbox" id="users-tag-{{ pk }}" />
@@ -13,9 +14,9 @@
 					</div>
 					<h3>{{ name }}<span class="number">{{ films.length }}</span></h3>
 				</label>
-				<ul class="v-tag-films-list">
+				<ul class="films-list">
 					{{# films }}
-					<li>
+					<li class="film-in-list">
 						{{# poster_url }}
 						<div class="image poster-small" style="background-image: url({{ poster_url }});"></div>
 						{{/ poster_url }}
@@ -28,7 +29,7 @@
 						<div>
 							<a href="#/film/{{ pk }}" class="listed-films">
 								<h2 class="f-title">{{ title }}</h2>
-								<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
+								<h4 class="year-directors">{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 							</a>
 							<!-- <ul class="tags">
 								{{# tags }}

@@ -5,7 +5,9 @@
 	.tag {
 		.font(700; 24px);
 
-		border: 2px solid @lightpurple;
+		border: 1px solid @salmon;
+		color: @salmon;
+		cursor: default;
 		display: inline-block;
 		margin: 30px 0 30px 30px;
 		text-transform: none;
@@ -14,20 +16,15 @@
 
 		&:hover,
 		&:focus {
-			color: @lightpurple;
-			border: 2px solid @lightpurple;
+			background: transparent;
+			color: @salmon;
 		}
 	}
 
-	h4 {
-		.font;
+	.user-film-list {
+		margin: 0 0 40px 0;
 
-		color: @lightgrey;
-	}
-
-	.users-film-list {
-
-		/* username as arrow cont heading */
+		/* username */
 		h3 {
 			.font(bold; 20px);
 
@@ -37,6 +34,14 @@
 			.number {
 				margin: 3px 0 0 10px;
 			}
+		}
+
+		.films-list {
+			display: none;
+		}
+
+		.film-in-list {
+			padding: 20px 0;
 		}
 	}
 

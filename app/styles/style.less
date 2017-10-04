@@ -452,6 +452,36 @@ h2 {
 	}
 }
 
+.poster-small {
+	.size(100px; 80px);
+
+	min-width: 80px;
+	margin: 0 10px 0 0;
+
+	&.no-poster {
+		.size(100px; 70px);
+		.column(@center; @center);
+
+		background: @purple;
+		margin: 0 25px 0 0;
+		min-width: 70px;
+
+		/* "no poster" */
+		p {
+			.font(400; 14px);
+
+			color: white;
+			text-align: center;
+			text-transform: uppercase;
+			margin: 0 6px 6px 6px;
+		}
+
+		.logo {
+			.size(30px; 30px);
+		}
+	}
+}
+
 .poster-medium {
 	.size(220px; 160px);
 
@@ -536,25 +566,25 @@ h2 {
 /* tag's looks */
 .tag {
 	.box(1px 4px);
-	.font(bold);
+	.font(700);
 
-	background: white;
-	color: @lightpurple;
+	color: @salmon;
 	display: inline-block;
 	cursor: pointer;
-	border: 2px solid @lightpurple;
+	border: 1px solid @salmon;
 	border-radius: 3px;
 
 	&:hover,
 	&:focus {
-		color: @purple;
-		border: 2px solid @purple;
+		color: white;
+		background: @salmon;
+		border: 1px solid transparent;
 	}
 
 	&.tag-self {
 		background: transparent;
 		color: white;
-		border: 2px solid white;
+		border: 1px solid white;
 	}
 }
 
