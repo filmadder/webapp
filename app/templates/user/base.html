@@ -16,6 +16,7 @@
 		</section>
 	</div>
 
+	{{# user.showData }}
 	<div class="list-nav">
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}watchlist" data-nav="watchlist">
 			<span class="icon watchlisted-icon-white"></span>
@@ -23,16 +24,17 @@
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}seen" data-nav="watched">
 			<span class="icon watched-icon-white"></span>
 		</a>
-		<a href="#/updates" data-nav="updates">
+		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}watching">
 			<span class="icon updates-icon-white"></span>
 		</a>
-		<a href="#/" data-nav="updates">
+		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}friends">
 			<span class="icon friendship-icon"></span>
 		</a>
-		<a href="#/" data-nav="updates">
+		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}tags">
 			<span class="icon tag-icon-white"></span>
 		</a>
 	</div>
+	{{/ user.showData }}
 
 	<section id="subview" class="subview"></section>
 </div>

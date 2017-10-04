@@ -12,12 +12,13 @@ fa.routing = (function() {
 	hier.reg('/outer/login', '#view', fa.views.login);
 
 	hier.reg('/inner', 'main', fa.views.inner);
-	hier.reg('/inner/user', '#view', fa.views.user);
-	hier.reg('/inner/user/films', '#subview', fa.views.filmList);
-	// hier.reg('/inner/user/tags', '#subview', fa.views.filmList);
-	hier.reg('/inner/film', '#view', fa.views.film);
-	hier.reg('/inner/film/comments', 'section.comments', fa.views.comments);
-	hier.reg('/inner/film/tags', 'section.tagging-cont', fa.views.filmTags);
+	hier.reg('/inner/user', '#view', fa.views.user.base);
+	hier.reg('/inner/user/films', '#subview', fa.views.user.films);
+	hier.reg('/inner/user/tags', '#subview', fa.views.user.tags);
+	hier.reg('/inner/user/friends', '#subview', fa.views.user.friends);
+	hier.reg('/inner/film', '#view', fa.views.film.base);
+	hier.reg('/inner/film/comments', 'section.comments', fa.views.film.comments);
+	hier.reg('/inner/film/tags', 'section.tagging-cont', fa.views.film.tags);
 	hier.reg('/inner/tag', '#view', fa.views.tag);
 	hier.reg('/inner/results', '#view', fa.views.results);
 	hier.reg('/inner/feed', '#view', fa.views.feed);
@@ -36,11 +37,15 @@ fa.routing = (function() {
 		if(!list) list = 'watchlist';
 
 		hier.add('/inner');
-		hier.add('/inner/user', fa.auth.getUser().pk).loadUser.then(function(user) {
-			hier.add('/inner/user/films', {user: user, type: list});
+		hier.add('/inner/user', fa.auth.getUser().pk).loaded.add(function(user) {
+			if(user.showData) {
+				if(list == 'friends') hier.add('/inner/user/friends', user);
+				else if(list == 'tags') hier.add('/inner/user/tags', user);
+				else hier.add('/inner/user/films', {user: user, type: list});
+			}
 		});
 	}).rules = {
-		list: ['seen', 'watching', 'watchlist']
+		list: ['seen', 'watching', 'watchlist', 'friends', 'tags']
 	};
 
 	crossroads.addRoute('/user/{id}/:list:', function(id, list) {
@@ -48,12 +53,16 @@ fa.routing = (function() {
 		if(!list) list = 'watchlist';
 
 		hier.add('/inner');
-		hier.add('/inner/user', id).loadUser.then(function(user) {
-			hier.add('/inner/user/films', {user: user, type: list});
+		hier.add('/inner/user', id).loaded.add(function(user) {
+			if(user.showData) {
+				if(list == 'friends') hier.add('/inner/user/friends', user);
+				else if(list == 'tags') hier.add('/inner/user/tags', user);
+				else hier.add('/inner/user/films', {user: user, type: list});
+			}
 		});
 	}).rules = {
 		id: /^[0-9]+$/,
-		list: ['seen', 'watching', 'watchlist']
+		list: ['seen', 'watching', 'watchlist', 'friends', 'tags']
 	};
 
 	crossroads.addRoute('/updates', function() {

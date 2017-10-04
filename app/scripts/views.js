@@ -355,51 +355,37 @@ fa.views = (function() {
 	var createUser = function(elem, userId) {
 		var ready = false;
 		var state = fa.history.getState('user:'+userId.toString());
-		var loadUser = fa.users.get(userId);
 
-		loadUser.then(function(user) {
+		var loaded = new signals.Signal();
+		loaded.memorize = true;
+
+		fa.users.get(userId).then(function(user) {
 			ready = true;
 
 			user.showData = (user.status.self || user.status.friend);
 
 			render(elem, 'user-templ', {user: user});
+			loaded.dispatch(user);
 
-			if(user.showData) {  // init film lists
-				// if(params.list == 'watchlist') {
-				// 	createFilmList(fa.dom.get('#subview'), {
-				// 		type: 'watchlist', withTitle: false,
-				// 		films: user.filmsFuture
-				// 	});
-				// } else {
-				// 	createFilmList(fa.dom.get('#subview'), {
-				// 		type: 'watched', withTitle: false,
-				// 		films: user.filmsPast
-				// 	});
-				// }
-			}
-			else {  // befriending controls
+			if(!user.showData) {  // befriending controls
 				fa.dom.on('[data-fn=request-friend]', 'click', function() {
 					user.requestFriendship().then(function() {
-						hier.update('/inner/profile', id);
+						hier.update('/inner/user', userId);
 					}).catch(handleError);
 				});
 				fa.dom.on('[data-fn=accept-friend]', 'click', function() {
 					user.acceptFriendship().then(function() {
-						hier.update('/inner/profile', id);
+						hier.update('/inner/user', userId);
 					}).catch(handleError);
 				});
 				fa.dom.on('[data-fn=reject-friend]', 'click', function() {
 					user.rejectFriendship().then(function() {
-						hier.update('/inner/profile', id);
+						hier.update('/inner/user', userId);
 					}).catch(handleError);
 				});
 			}
 
-			if(state) {
-				window.scroll(0, state.scroll);
-			} else {
-				window.scroll(0, 0);
-			}
+			window.scroll(0, state ? state.scroll : 0);
 		}).catch(handleError);
 
 		// show the snake if loading takes too long
@@ -410,7 +396,7 @@ fa.views = (function() {
 		// the view object
 		return {
 			nav: '_',
-			loadUser: loadUser,
+			loaded: loaded,
 			empty: function() {
 				if(ready) {
 					fa.history.setState('user'+userId.toString(), {
@@ -419,6 +405,7 @@ fa.views = (function() {
 				}
 			},
 			remove: function() {
+				loaded.dispose();
 				elem.innerHTML = '';
 			}
 		};
@@ -426,12 +413,11 @@ fa.views = (function() {
 
 	// inits a film list view
 	// 
-	// comprises a film listing, as it would appear in, e.g., home views or
-	// user profile views
+	// comprises a film listing, as it would appear in user views
+	// handles the sorting
 	// 
-	// handles the sorting; this is in fact the view's main raison d'être
-	// 
-	// expects params to be a {type, user, withTitle} object
+	// expects params to be a {type, user} object, where type is one of: seen,
+	// watching, watchlist
 	var createFilmList = function(elem, params) {
 		var sortByYear = function(a, b) {
 			return a.year.localeCompare(b.year);
@@ -475,6 +461,19 @@ fa.views = (function() {
 		});
 
 		renderFilms({films: films});
+	};
+
+	// inits a user tags view
+	//
+	// comprises the list of tags used by a given user
+	var createUserTags = function(elem, user) {
+		render(elem, 'user-tags-templ', {tags: user.tags});
+	};
+
+	// inits a user friends view
+	// comprises the list of a given user's friends
+	var createUserFriends = function(elem, user) {
+		render(elem, 'user-friends-templ', {friends: user.friends});
 	};
 
 	// inits a film view
@@ -1013,11 +1012,17 @@ fa.views = (function() {
 
 		inner: createInner,
 		results: createResults,
-		user: createUser,
-		filmList: createFilmList,
-		film: createFilm,
-		comments: createComments,
-		filmTags: createFilmTags,
+		user: {
+			base: createUser,
+			films: createFilmList,
+			tags: createUserTags,
+			friends: createUserFriends
+		},
+		film: {
+			base: createFilm,
+			comments: createComments,
+			tags: createFilmTags
+		},
 		tag: createTag,
 		feed: createFeed,
 		updates: createUpdates,
