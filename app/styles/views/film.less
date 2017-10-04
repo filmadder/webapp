@@ -1,10 +1,9 @@
 /* film */
-
 .film {
 	overflow: hidden;
 
 	/* poster, title, year, status*/
-	.f-details {
+	.details {
 		position: relative;
 
 		.poster {
@@ -26,6 +25,7 @@
 
 			background: @purple;
 
+			/* "no poster" */
 			h3 {
 				color: white;
 			}
@@ -37,11 +37,10 @@
 			}
 		}
 
-		.f-main-cont {
+		.main-info {
 			.box(30px 20px 60px 20px);
 			.column(@spread; @spread);
 			.size(490px; 100%);
-
 
 			background: linear-gradient(
 				rgba(0, 0, 0, 0.55),
@@ -53,13 +52,13 @@
 			bottom: 0;
 			left: 0;
 
-			.cont {
+			.title-status-container {
 				.row(@spread;);
 
 				width: 100%;
 			}
 
-			.title-cont {
+			.title-container {
 				max-height: 250px;
 			}
 
@@ -95,7 +94,7 @@
 				text-transform: uppercase;
 			}
 
-			&.no-poster-main-cont {
+			&.no-poster-main-info {
 				.size(450px; 100%);
 
 
@@ -107,22 +106,12 @@
 					rgba(0, 0, 0, 0.2),
 					rgba(0, 0, 0, 1));
 			}
-		}
-
-		.f-status {
-			min-height: 42px;
-			min-width: 42px;
-			cursor: pointer;
-
-			.icon {
-				.size(30px; 30px);
-			}
 		}		
 	}
 
-	/* director, wtiter, actors, synopsis */
-	.f-more-info {
-		.box(15px 20px);
+	/* director, wtiter, actors, synopsis, recommend btn */
+	.additional-info {
+		.box(15px 25px);
 
 		background: @lightpurple;
 		position: relative;
@@ -176,17 +165,17 @@
 
 		}
 
-
-		.f-synopsis-cont {
+		.synopsis {
 			.box(20px 0);
 
 			background: @lightpurple;
 
+			/* "synopsis" */
 			h3 {
 				color: white;
 			}
 
-			input {
+			#synopsis-text {
 
 				&:checked ~ .synopsis-text {
 					display: block;
@@ -210,37 +199,69 @@
 		}
 	}
 
-	.peek {
-		padding: 30px 0;
+	/* in seen, in watchlist, tagged as */
+	.users-input {
+		.box(0 25px);
 
-		.left-side {
-			.trim;
-		}
+		margin: 40px 0 0 0;
 
-		.watched-by,
-		.watchlisted-by {
-			padding: 20px;
-		}
+		/* seen and watchlist */
+		.watchers-list {
+			margin: 0 0 30px 0;
 
-		.v-film-watchers-list {
+			/* 'seen by' and 'watchlisted by' */
+			h3 {
+				.font(700, 16px);
 
-			li {
+				color: @purple;
+				text-transform: uppercase;
+			}
 
-				margin: 3px 10px 3px 0;
-				
+			/* watcher */
+			li {	
+				display: inline-block;
+				margin: 0 5px 0 0;
+
 				&.nobody {
-					color: @purple;
+					.font(400; 13px);
+
+					color: @grey;
 				}
 			}
 		}
 
-		/* tags on film view*/
-		.tagged-as-list {
+		/* labels */
+		.tags-section {
+			margin: 0 0 30px 0;
 
-			label {
-				padding: 0 20px;
+			.tags {
+				display: none;
+
+				/* single user */
+				li {
+					margin: 0 0 10px 0;
+
+					.users-tags {
+						padding: 5px 0 0 0;
+					}
+
+					/* tag */
+					li {
+						display: inline-block;
+						margin: 0 3px 0 0;
+					} 
+				}
+			}
+
+			#tags-on-film {
+
+				&:checked ~ .tags {
+					display: block;
+				}
 			}
 		}
+
+		/* comments' styles in views/comment.less */
 	}
 }
 

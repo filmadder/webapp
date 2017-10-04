@@ -1,8 +1,27 @@
 .comments {
+	.box(0 25px 30px 25px);
 
-	label {
-		padding: 0 20px;
+	.comments-list {
+
+		.comment,
+		.not-yet,
+		.spoilers-filter {
+			display: none;
+		}
 	}
+
+	/* input */
+	#comments {
+		
+		&:checked ~ .comments-list {
+
+			.comment,
+			.not-yet,
+			.spolers-filter {
+				display: inline-block;
+			}
+		}
+	};
 
 	.comments-number {
 
@@ -17,10 +36,12 @@
 	.comments-list {
 		.column;
 
-		li {
-			.box(15px 22px);
+		.comment,
+		.not-yet {
+			.box(15px 18px);
 
 			margin: 0;
+			width: 100%;
 
 			&.spoilers-input-cont {
 				display: none;
@@ -47,6 +68,8 @@
 		}
 
 		.text {
+			.font(400; 13px);
+
 			color: @grey;
 			margin: 3px 0;
 		}
@@ -61,17 +84,17 @@
 
 		/* spoilers checkbox in comments list and leave a comment section */
 
-		.spoilers-input-cont {
+		.spoilers-filter {
 			.row(@right; @center);
 
 			label {
-				.box(10px);
+				.box(10px 0 10px 18px);
 
 				width: auto;
 
 				span {
 					font-weight: bold;
-					color: @lightpurple;
+					color: @purple;
 				}
 
 				.checkbox {
@@ -133,7 +156,7 @@
 
 		.comment-form {
 			.column;
-			.box(20px);
+			.box(10px 0);
 
 			width: ~"calc(100% - 40px)";
 			width: 100%;

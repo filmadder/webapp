@@ -1,23 +1,23 @@
 <div class="film">
-	<section class="f-details">
+	<section class="details">
 		<div class="wrapper">
-			<article class="f-poster-cont">
-				{{# film.posterUrl }}
-				<div class="image poster" style="background-image: url({{ film.posterUrl }});"></div>
-				{{/ film.posterUrl }}
-				{{^ film.posterUrl }}
-				<div class="no-poster">
-					<h3>No poster</h3>
-					<div class="image logo"></div>
-				</div>
-				{{/ film.posterUrl }}
-			</article>
+			<!-- poster  -->
+			{{# film.posterUrl }}
+			<div class="image poster" style="background-image: url({{ film.posterUrl }});"></div>
+			{{/ film.posterUrl }}
+			{{^ film.posterUrl }}
+			<div class="no-poster">
+				<h3>No poster</h3>
+				<div class="image logo"></div>
+			</div>
+			{{/ film.posterUrl }}
 
-			<article class="f-main-cont {{^ film.posterUrl}}no-poster-main-cont{{/ film.posterUrl}}">
+			<article class="main-info {{^ film.posterUrl}}no-poster-main-info{{/ film.posterUrl}}">
+				<!-- in tags.html -->
 				<section class="tagging-cont"></section>
 
-				<div class="cont">
-					<div class="title-cont">
+				<div class="title-status-container">
+					<div class="title-container">
 						<h2 class="title" id="film-title">{{ film.title }}</h2>
 						<h4 class="year">{{ film.year }}</h4>
 						<h3 class="type-duration">{{ film.omdbType }} {{# film.runtime }}| {{ film.runtime }}</h3>{{/ film.runtime}}
@@ -95,95 +95,93 @@
 		</div>
 	</section>
 
-	<section class="f-more-info">
-		<div class="cont">
-			{{# film.directors }}
-			<h4><span>Director:</span> {{ film.directors }}</h4>
-			{{/ film.directors }}
-			{{# film.writers }}
-			<h4><span>Writer:</span> {{ film.writers }} </h4>
-			{{/ film.writers }}
-			{{# film.actors }}
-			<h4><span>Actors:</span> {{ film.actors }}</h4>
-			{{/ film.actors }}
-			{{# film.countries }}
-			<h4><span>Country:</span> {{ film.countries }}</h4>
-			{{/ film.countries }}
-			{{# film.genre }}
-			<h4><span>Genre:</span>{{ film.genre }}</h4>
-			{{/ film.genre }}
-			{{# film.plot }}
-			<div class="f-synopsis-cont arrow-cont">
-				<input type="checkbox" id="synopsis-text" class="no-display" />
-				<label for="synopsis-text" class="">
-					<div class="arrow white-arrow">
-						<div class="stroke"></div>
-						<div class="stroke"></div>
-					</div>
-					<h3>synopsis</h3>
-				</label>
-				<p class='synopsis-text'>{{ film.plot }}</p>
-			</div>
-			{{/ film.plot }}
-			<!-- <div class="recommend-cont">
-				<button class="recommend dark">recommend</button>
-			</div> -->
+	<section class="additional-info">
+		{{# film.directors }}
+		<h4><span>Director:</span> {{ film.directors }}</h4>
+		{{/ film.directors }}
+		{{# film.writers }}
+		<h4><span>Writer:</span> {{ film.writers }} </h4>
+		{{/ film.writers }}
+		{{# film.actors }}
+		<h4><span>Actors:</span> {{ film.actors }}</h4>
+		{{/ film.actors }}
+		{{# film.countries }}
+		<h4><span>Country:</span> {{ film.countries }}</h4>
+		{{/ film.countries }}
+		{{# film.genre }}
+		<h4><span>Genre:</span>{{ film.genre }}</h4>
+		{{/ film.genre }}
+		{{# film.plot }}
+		<div class="synopsis arrow-cont">
+			<input type="checkbox" id="synopsis-text" class="no-display" />
+			<label for="synopsis-text" class="">
+				<div class="arrow white-arrow">
+					<div class="stroke"></div>
+					<div class="stroke"></div>
+				</div>
+				<h3>synopsis</h3>
+			</label>
+			<p class='synopsis-text'>{{ film.plot }}</p>
 		</div>
+		{{/ film.plot }}
+		<!-- <div class="recommend-cont">
+			<button class="recommend dark">recommend</button>
+		</div> -->
 	</section>
 
-	<article class="peek">
-		<section class="left-side">
-			<section class="watched-by arrow-cont">
-				<h3>Watched by</h3>
-				<ul class="v-film-watchers-list">
-					{{# film.watchersPast }}
-					<li>
-						<a href="#/user/{{ pk }}">{{ name }}</a>
-					</li>
-					{{/ film.watchersPast}}
-					{{^ film.watchersPast }}
-					<li class="nobody">none of your friends</li>
-					{{/ film.watchersPast }}
-				</ul>
-			</section>
-			<section class="watchlisted-by arrow-cont">
-				<h3>Watchlisted by</h3>
-				<ul class="v-film-watchers-list">
-					{{# film.watchersFuture }}
-					<li>
-						<a href="#/user/{{ pk }}">{{ name }}</a>
-					</li>
-					{{/ film.watchersFuture }}
-					{{^ film.watchersFuture }}
-					<li class="nobody">none of your friends</li>
-					{{/ film.watchersFuture }}
-				</ul>
-			</section>
-			{{# film.friendsTags.length }}
-			<section class="tagged-as-list arrow-cont">
-				<input type="checkbox" id="tags-film" class="no-display" {{# open }}checked{{/ open }} />
-				<label for="tags-film">
-					<div class="arrow">
-						<div class="stroke"></div>
-						<div class="stroke"></div>
-					</div>
-					<h3>Labels<span class="number">{{ film.friendsTagsCount }}</span></h3>
-				</label>
-				<ul class="v-film-tags-list">
-					{{# film.friendsTags }}
-					<li>
-						<a href="#/user/{{ pk }}" class="user">{{ name }}</a>
-						<ul class="user-tags">
-							{{# tags }}
-							<li><a href="#/label/{{ . }}" class="tag">{{ . }}</a></li>
-							{{/ tags }}
-						</ul>
-					</li>
-					{{/ film.friendsTags }}
-				</ul>
-			</section>
-			{{/ film.friendsTags.length }}
+	<section class="users-input">
+		<section class="watchers-list">
+			<h3>Seen</h3>
+			<ul>
+				{{# film.watchersPast }}
+				<li>
+					<a href="#/user/{{ pk }}" class="user">{{ name }}</a>
+				</li>
+				{{/ film.watchersPast}}
+				{{^ film.watchersPast }}
+				<li class="nobody">nobody</li>
+				{{/ film.watchersPast }}
+			</ul>
 		</section>
-		<section class="comments arrow-cont"></section>
-	</article>
+		<section class="watchers-list">
+			<h3>Watchlist</h3>
+			<ul>
+				{{# film.watchersFuture }}
+				<li>
+					<a href="#/user/{{ pk }}" class="user">{{ name }}</a>
+				</li>
+				{{/ film.watchersFuture }}
+				{{^ film.watchersFuture }}
+				<li class="nobody">nobody</li>
+				{{/ film.watchersFuture }}
+			</ul>
+		</section>
+		{{# film.friendsTags.length }}
+		<section class="tags-section arrow-cont">
+			<input type="checkbox" id="tags-on-film" class="no-display" {{# open }}checked{{/ open }} />
+			<label for="tags-on-film">
+				<div class="arrow">
+					<div class="stroke"></div>
+					<div class="stroke"></div>
+				</div>
+				<h3>Labels<span class="number">{{ film.friendsTagsCount }}</span></h3>
+			</label>
+			<ul class="tags">
+				{{# film.friendsTags }}
+				<li>
+					<a href="#/user/{{ pk }}" class="user">{{ name }}</a>
+					<ul class="users-tags">
+						{{# tags }}
+						<li><a href="#/label/{{ . }}" class="tag">{{ . }}</a></li>
+						{{/ tags }}
+					</ul>
+				</li>
+				{{/ film.friendsTags }}
+			</ul>
+		</section>
+		{{/ film.friendsTags.length }}
+	</section>
+
+	<!-- in comments.html -->
+	<section class="comments arrow-cont"></section>
 </div>

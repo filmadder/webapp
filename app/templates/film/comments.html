@@ -4,13 +4,13 @@
 		<div class="stroke"></div>
 		<div class="stroke"></div>
 	</div>
-	<h3>Comments<span class="number">{{ comments.length }}</span></h3>
+	<h3>Thoughts<span class="number">{{ comments.length }}</span></h3>
 </label>
 <ul class="v-film-comments-list comments-list">
-	<li class="spoilers-input-cont">
+	<li class="spoilers-filter">
 		<input type="checkbox" id="show-spoilers" data-fn="show-spoilers" {{# spoilersOk }}checked{{/ spoilersOk }} />
 		<label for="show-spoilers">
-			<span>show comments with spoilers</span>
+			<span>with spoilers</span>
 			<span class="checkbox">
 				<span class="tick"></span>
 			</span>
@@ -39,9 +39,9 @@
 	</li>
 	{{/ comments }}
 	{{^ comments }}
-	<li>
+	<li class="not-yet">
 		Not yet
-		<p class="text">Your comments are visible only by your friends. Likewise, you can see only your friends' comments.</p>
+		<p class="text">The thoughts you shared are visible only by your friends. Likewise, you can see only you friends' thoughts.</p>
 	</li>
 	{{/ comments }}
 	<form novalidate autocomplete="off" class="comment-form">
@@ -50,10 +50,10 @@
 			<textarea name="comment" rows="4" placeholder="Share your thoughts on {{ film.title }}"></textarea>
 			<span data-fn="error"></span>
 		</p>
-		<p class="spoilers-input-cont">
+		<p class="spoilers-filter">
 			<input type="checkbox" id="has-spoilers" name="spoilers" />
 			<label for="has-spoilers">
-				<span>this comment has spoilers</span>
+				<span>this has spoilers</span>
 				<span class="checkbox">
 					<span class="tick"></span>
 				</span>
