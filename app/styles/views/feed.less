@@ -4,30 +4,33 @@
 	
 	width: 100%;
 
-	div {
-		width: 100%;
-	}
-
 	.feed-item {
-		.box(40px 30px);
+		.box(10px);
 		.column(@center);
 
-		margin: 0 auto;
-		max-width: 550px;
-		width: 100%;
+		border: 2px solid #ededed;
+		border-radius: 5px;
+
+		margin: 30px auto;
+		max-width: 450px;
 
 		position: relative;
 
 		.icon-cont {
 			.size(52px; 52px);
 
-			background: white;
-			border: 2px solid @purple;
+			background: linear-gradient(45deg, @lightpurple, @purple);
+			border: 2px solid white;
 			border-radius: 50%;
 
 			position: absolute;
-			top: 15px;
-			left: 57%;
+			top: 5px;
+			right: 5px;
+
+			/* moved from watchlist to seen */
+			&.moved {
+				right: 40px;
+			}
 
 			.icon {
 				.size(32px; 32px);
@@ -35,6 +38,12 @@
 				margin: 10px 0 0 10px;
 				display: inline-block;
 			}
+		}
+
+		.film {
+			.box(10px 10px 20px 10px);
+
+			width: 100%;
 		}
 
 		.poster-medium {
@@ -62,11 +71,13 @@
 
 		.who-did-what {
 			.font(bold);
-			.row(@center; @center);
+			.row(@left; @center);
 			
+			border-top: 2px solid #ededed;
 			color: @grey;
 			font-weight: normal;
-			margin: 3px 0;
+			padding: 8px 0 0 0;
+			width: 100%;
 
 			.user {
 				margin: 0 5px;
@@ -92,7 +103,7 @@
 		.timestamp {
 			.naughty(column; @center;);
 
-			margin: 3px 0 0 0;
+			margin: 4px 0 0 0;
 		}
 	}
 

@@ -3,11 +3,10 @@
 
 	<!-- WATCHED -->
 	{{# type.addedToWatched }}
-	<a href="#/film/{{ film.pk }}">
+	<a href="#/film/{{ film.pk }}" class="film">
 		<div class="icon-cont">
-			<span class="icon watched-icon"></span>
+			<span class="icon watched-icon-white"></span>
 		</div>
-
 		{{# film.posterUrl }}
 		<div class="image poster-medium" style="background-image: url({{ film.posterUrl }});"></div>
 		{{/ film.posterUrl }}
@@ -25,16 +24,16 @@
 			<div class="avatar-small image" style="background-image: url('{{ user.avatarUrl }}')"></div>
 			<h3 class="user">{{ user.name }}</h3>
 		</a>
-		<p>added to watched</p>
+		<p>added to seen</p>
 	</div>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatched }}
 
 	<!-- WATCHLIST -->
 	{{# type.addedToWatchlist }}
-	<a href="#/film/{{ film.pk }}">
+	<a href="#/film/{{ film.pk }}" class="film">
 		<div class="icon-cont">
-			<span class="icon watchlisted-icon"></span>
+			<span class="icon watchlisted-icon-white"></span>
 		</div>
 
 		{{# film.posterUrl }}
@@ -58,11 +57,14 @@
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatchlist }}
 
-	<!-- WATCHLIST 2 -->
+	<!-- WATCHED 2 -->
 	{{# type.movedToWatchlist }}
-	<a href="#/film/{{ film.pk }}">
+	<a href="#/film/{{ film.pk }}" class="film">
+		<div class="icon-cont moved">
+			<span class="icon watchlisted-icon-white"></span>
+		</div>
 		<div class="icon-cont">
-			<span class="icon watchlisted-icon"></span>
+			<span class="icon watched-icon-white"></span>
 		</div>
 
 		{{# film.posterUrl }}
@@ -81,16 +83,16 @@
 			<div class="avatar-small image" style="background-image: url('{{ user.avatarUrl }}')"></div>
 			<h3 class="user">{{ user.name }}</h3>
 		</a>
-		<p>moved to watchlist</p>
+		<p>moved from watchlist to seen</p>
 	</div>
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.movedToWatchlist }}
 
 	<!-- WATCHING -->
 	{{# type.addedToWatching }}
-	<a href="#/film/{{ film.pk }}">
+	<a href="#/film/{{ film.pk }}" class="film">
 		<div class="icon-cont">
-			<span class="icon watchlisted-icon"></span>
+			<span class="icon watchlisted-icon-white"></span>
 		</div>
 
 		{{# film.posterUrl }}
@@ -129,7 +131,7 @@
 
 	<!-- COMMENT -->
 	{{# type.wroteComment }}
-	<a href="#/film/{{ film.pk }}">
+	<a href="#/film/{{ film.pk }}" class="film">
 		<div class="icon-cont">
 			<span class="icon comment-icon"></span>
 		</div>
@@ -158,9 +160,9 @@
 
 	<!-- TAGGING -->
 	{{# type.addedTags }}
-	<a href="#/film/{{ film.pk }}">
+	<a href="#/film/{{ film.pk }}" class="film">
 		<div class="icon-cont">
-			<span class="icon tag-icon"></span>
+			<span class="icon tag-icon-white"></span>
 		</div>
 
 		{{# film.posterUrl }}
