@@ -17,10 +17,10 @@
 	</div>
 
 	<div class="list-nav">
-		<a href="#/watchlist" data-nav="watchlist">
+		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}watchlist" data-nav="watchlist">
 			<span class="icon watchlisted-icon-white"></span>
 		</a>
-		<a href="#/seen" data-nav="watched">
+		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}seen" data-nav="watched">
 			<span class="icon watched-icon-white"></span>
 		</a>
 		<a href="#/updates" data-nav="updates">

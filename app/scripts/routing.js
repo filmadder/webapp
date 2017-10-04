@@ -13,7 +13,7 @@ fa.routing = (function() {
 
 	hier.reg('/inner', 'main', fa.views.inner);
 	hier.reg('/inner/user', '#view', fa.views.user);
-	// hier.reg('/inner/user/films', '#subview', fa.views.filmList);
+	hier.reg('/inner/user/films', '#subview', fa.views.filmList);
 	// hier.reg('/inner/user/tags', '#subview', fa.views.filmList);
 	hier.reg('/inner/film', '#view', fa.views.film);
 	hier.reg('/inner/film/comments', 'section.comments', fa.views.comments);
@@ -32,34 +32,28 @@ fa.routing = (function() {
 	// setup crossroads
 	// 
 
-	crossroads.addRoute('/', function() {
-		var id = fa.auth.getUser().pk;
-		hier.add('/inner');
-		if(hier.has('/inner/user')) hier.update('/inner/user', {id: id, list: 'watchlist'});
-		else hier.add('/inner/user', {id: id, list: 'watchlist'});
-	});
+	crossroads.addRoute('/:list:', function(list) {
+		if(!list) list = 'watchlist';
 
-	crossroads.addRoute('/watchlist', function() {
-		var id = fa.auth.getUser().pk;
 		hier.add('/inner');
-		if(hier.has('/inner/user')) hier.update('/inner/user', {id: id, list: 'watchlist'});
-		else hier.add('/inner/user', {id: id, list: 'watchlist'});
-	});
-
-	crossroads.addRoute('/seen', function() {
-		var id = fa.auth.getUser().pk;
-		hier.add('/inner');
-		if(hier.has('/inner/user')) hier.update('/inner/user', {id: id, list: 'seen'});
-		else hier.add('/inner/user', {id: id, list: 'seen'});
-	});
-
-	crossroads.addRoute('/user/{id}', function(id) {
-		id = (id) ? parseInt(id) : 0;
-		hier.add('/inner');
-		if(hier.has('/inner/user')) hier.update('/inner/user', {id: id, list: 'watchlist'});
-		else hier.add('/inner/user', {id: id, list: 'watchlist'});
+		hier.add('/inner/user', fa.auth.getUser().pk).loadUser.then(function(user) {
+			hier.add('/inner/user/films', {user: user, type: list});
+		});
 	}).rules = {
-		id: /^[0-9]+$/
+		list: ['seen', 'watching', 'watchlist']
+	};
+
+	crossroads.addRoute('/user/{id}/:list:', function(id, list) {
+		id = (id) ? parseInt(id) : 0;
+		if(!list) list = 'watchlist';
+
+		hier.add('/inner');
+		hier.add('/inner/user', id).loadUser.then(function(user) {
+			hier.add('/inner/user/films', {user: user, type: list});
+		});
+	}).rules = {
+		id: /^[0-9]+$/,
+		list: ['seen', 'watching', 'watchlist']
 	};
 
 	crossroads.addRoute('/updates', function() {
@@ -82,7 +76,6 @@ fa.routing = (function() {
 	crossroads.addRoute('/film/{id}', function(id) {
 		id = (id) ? parseInt(id) : null;
 		hier.add('/inner');
-		if(hier.has('/inner/film')) hier.remove('/inner/film', id);
 		hier.add('/inner/film', id);
 	}).rules = {
 		id: /^[0-9]+$/
