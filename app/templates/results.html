@@ -1,9 +1,9 @@
 <div class="results">
 	{{# type.films }}
 	<h2>Films found</h2>
-	<article class="results-cont">
+	<article class="container film">
 		{{# items }}
-		<div class="result-cont">
+		<div class="film-in-list">
 			{{# posterUrl }}
 			<div class="image poster-small" style="background-image: url({{ posterUrl }});"></div>
 			{{/ posterUrl }}
@@ -14,8 +14,8 @@
 			</div>
 			{{/ posterUrl }}
 			<a href="#/film/{{ pk }}" title="{{ title }}"class="result film listed-films">
-				<h3 class="f-title">{{ title }}</h3>
-				<h4>{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
+				<h3 class="title">{{ title }}</h3>
+				<h4 class="year-directors">{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 			</a>
 		</div>
 		{{/ items }}
@@ -27,12 +27,12 @@
 	
 	{{# type.users }}
 	<h2>users found</h2>
-	<article class="results-cont">
+	<article class="container user">
 		{{# items }}
-		<div class="result-cont">
+		<div class="user-in-list">
 			<a href="#/user/{{ pk }}" title="to {{ name }}'s profile" class="result user-link">
 				<div class="avatar-medium image" style="background-image: url('{{ avatarUrl }}')"></div>
-				<h3 class="user">{{ name }}</h3>
+				<h3 class="username">{{ name }}</h3>
 			</a>
 		</div>
 		{{/ items }}
@@ -42,7 +42,7 @@
 	</article>
 	{{/ type.users }}
 	
-	<article class="more-results hidden">
+	<article class="more-results no-display">
 		<h3 class="message">More results found!</h3>
 		<button type="button" class="light">Refresh</button>
 	</article>

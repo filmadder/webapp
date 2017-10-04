@@ -1,10 +1,10 @@
-/* list item 
-   watchlist contains: poster, title, year, directors other watchers
-   seen contains: poster, title, year, directors, tags */
+/* things in lists */
 
+/* film item styles displayed in lists of films
+   syles used in results, user's film lists */
 .film-in-list {
 	.row();
-	.box(30px);
+	.box(20px 25px);
 	
 	width: 100%;
 
@@ -12,78 +12,73 @@
 		width: 100%;
 	}
 
-}
+	/* film's poster */
+	.poster-small,
+	.poster-medium {
+		.size(100px; 80px);
 
-/* film's poster */
-.poster-small,
-.poster-medium {
-	.size(100px; 80px);
+		min-width: 80px;
+		margin: 0 10px 0 0;
 
-	min-width: 80px;
-	margin: 0 10px 0 0;
+		&.no-poster {
+			.size(100px; 70px);
+			.column(@center; @center);
 
-	&.no-poster {
-		.size(100px; 70px);
-		.column(@center; @center);
+			background: @purple;
+			margin: 0 25px 0 0;
+			min-width: 70px;
 
-		background: @purple;
-		margin: 0 25px 0 0;
-		min-width: 70px;
+			/* "no poster" */
+			p {
+				.font(400; 14px);
 
-		/* "no poster" */
-		p {
-			.font(400; 14px);
+				color: white;
+				text-align: center;
+				text-transform: uppercase;
+				margin: 0 6px 6px 6px;
+			}
 
-			color: white;
-			text-align: center;
-			text-transform: uppercase;
-			margin: 0 6px 6px 6px;
+			.logo {
+				.size(30px; 30px);
+			}
 		}
+	}
 
-		.logo {
-			.size(30px; 30px);
+	.title {
+		.font(700; 22px);
+
+		text-align: left;
+		text-transform: none;
+
+		&:hover,
+		&:focus {
+			color: @lightpurple;
 		}
 	}
-}
 
-/* film's title in lists */
-.title {
-	.font(700; 22px);
-
-	text-align: left;
-	text-transform: none;
-
-	&:hover,
-	&:focus {
-		color: @lightpurple;
+	.year-directors {
+		.font(400; 16px);
 	}
 }
 
-.year-directors {
-	.font(400; 16px);
-}
 
-.tags {
-	.row;
-	.wrap;
+/* user item styles displayed in lists of users */
+.user-in-list {
+	.box(20px 25px);
 
-	padding: 10px 0 0 0;
-	max-width: 80%;
-
-	li {
-		margin: 6px 6px 6px 0;
-		width: auto;
+	/* avatar/profile pic */
+	.image {
+		margin: 0 15px 0 0;
 	}
-}
 
-.other-watchlisters {
+	.username {
+		.font(700; 22px);
 
-	/* "watchlisted by" */
-	span {
-		.font(600; 12px;);
+		word-break: break-all;
 
-		color: @grey;
-		display: inline-block;
-		margin: 10px 0 0 0;
+		&:hover,
+		&:focus {
+			color: @lightpurple;
+		}
 	}
 }

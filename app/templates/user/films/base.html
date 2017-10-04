@@ -2,14 +2,15 @@
 	{{# title.seen }}
 	<h2>seen</h2>
 	{{/ title.seen }}
-	{{# title.watchlist }}
 	<h2>watchlist</h2>
+	{{# title.watchlist }}
 	{{/ title.watchlist }}
 	<ul class="order-by">
 		<p>sort by</p>
+		<!--li><button data-sort="added">added</button></li-->
 		<li><button data-sort="year" class="selected">year</button></li>
 		<li><button data-sort="title">title</button></li>
-		<!--li><button data-sort="added">added</button></li-->
 	</ul>
+	<!-- fills list of films -->
 	<ul data-fn="film-list" class="films-list"></ul>
 </section>

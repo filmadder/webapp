@@ -15,7 +15,7 @@
 
 	input[type="search"] {
 		.size(40px; 100%);
-		.box(3px 70px 3px 15px);
+		.box(3px 15px);
 		.font(700);
 
 		-webkit-appearance: none;
@@ -48,18 +48,19 @@
 		opacity: 0;
 		visibility: hidden;
 
-		z-index: 1;
+		position: relative;
 
 		&:before {
+			background: @lightpurple;
 			content: '';
 			width: 12px;
 			height: 3px;
 			-webkit-transform: rotate(-45deg);
 			transform: rotate(-45deg);
 
-			position: fixed;
-			bottom: 48px;
-			right: 50px;
+			position: absolute;
+			top: 20px;
+			right: -50px;
 		}
 
 		&:after {
@@ -70,9 +71,9 @@
 			-webkit-transform: rotate(45deg);
 			transform: rotate(45deg);
 
-			position: fixed;
-			bottom: 48px;
-			right: 50px;
+			position: absolute;
+			top: 20px;
+			right: -50px;
 		}
 		
 		&.visible {
