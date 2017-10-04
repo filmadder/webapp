@@ -15,9 +15,9 @@
 	<main></main>
 	<div id="message-cont"></div>
 
-	<script id="outer-templ" type="x-mustache"><!partial src="templates/outer.html"></script>
-	<script id="reg-templ" type="x-mustache"><!partial src="templates/reg.html"></script>
-	<script id="login-templ" type="x-mustache"><!partial src="templates/login.html"></script>
+	<script id="outer-templ" type="x-mustache"><!partial src="templates/outer/base.html"></script>
+	<script id="reg-templ" type="x-mustache"><!partial src="templates/outer/reg.html"></script>
+	<script id="login-templ" type="x-mustache"><!partial src="templates/outer/login.html"></script>
 
 	<script id="inner-templ" type="x-mustache"><!partial src="templates/inner.html"></script>
 	<script id="user-templ" type="x-mustache"><!partial src="templates/user/base.html"></script>
@@ -30,7 +30,7 @@
 	<script id="results-templ" type="x-mustache"><!partial src="templates/results.html"></script>
 	<script id="film-templ" type="x-mustache"><!partial src="templates/film/base.html"></script>
 	<script id="comments-templ" type="x-mustache"><!partial src="templates/film/comments.html"></script>
-	<script id="reply-form-templ" type="x-mustache"><!partial src="templates/reply-form.html"></script>
+	<script id="reply-form-templ" type="x-mustache"><!partial src="templates/film/reply-form.html"></script>
 	<script id="film-tags-templ" type="x-mustache"><!partial src="templates/film/tags.html"></script>
 	<script id="film-tags-sugg-templ" type="x-mustache"><!partial src="templates/film/tags-sugg.html"></script>
 	<script id="tag-templ" type="x-mustache"><!partial src="templates/tag.html"></script>
@@ -40,10 +40,10 @@
 	<script id="updates-templ" type="x-mustache"><!partial src="templates/updates.html"></script>
 	<script id="settings-templ" type="x-mustache"><!partial src="templates/settings.html"></script>
 
-	<script id="loading-templ" type="x-mustache"><!partial src="templates/loading.html"></script>
-	<script id="error-404-templ" type="x-mustache"><!partial src="templates/error-404.html"></script>
-	<script id="error-message-templ" type="x-mustache"><!partial src="templates/error-message.html"></script>
-	<script id="success-message-templ" type="x-mustache"><!partial src="templates/success-message.html"></script>
+	<script id="loading-templ" type="x-mustache"><!partial src="templates/meta/loading.html"></script>
+	<script id="error-404-templ" type="x-mustache"><!partial src="templates/meta/error-404.html"></script>
+	<script id="error-message-templ" type="x-mustache"><!partial src="templates/meta/error-message.html"></script>
+	<script id="success-message-templ" type="x-mustache"><!partial src="templates/meta/success-message.html"></script>
 
 	<script src="scripts/vendor.js"></script>
 	<script src="scripts/fa.js"></script>
