@@ -1,15 +1,6 @@
 .comments {
 	.box(0 25px 30px 25px);
 
-	.comments-list {
-
-		.comment,
-		.not-yet,
-		.spoilers-filter {
-			display: none;
-		}
-	}
-
 	/* input */
 	#comments {
 		
@@ -17,62 +8,126 @@
 
 			.comment,
 			.not-yet,
-			.spolers-filter {
+			.show-spoilers-option {
 				display: inline-block;
 			}
 		}
-	};
-
-	.comments-number {
-
-		color: white;
-		border-radius: 3px;
-		display: inline-block;
-		background: @purple;
-		padding: 0 6px;
-		margin: 0 0 0 10px;
 	}
 
-	.comments-list {
-		.column;
+	/* spoilers checkbox in comments list and leave a comment section */
+	.spoilers-filter {
+		.trim;
+		.row(@right);
 
-		.comment,
-		.not-yet {
-			.box(15px 18px);
+		label {
+			.box(10px 0 4px 18px);
 
-			margin: 0;
-			width: 100%;
+			width: auto;
 
-			&.spoilers-input-cont {
-				display: none;
-				padding: 0;
+			span {
+				font-weight: bold;
+				color: @lightpurple;
+			}
 
-				label {
-					width: 100%;
-					padding: 5px 20px 10px 22px;
-				}
+			.checkbox {
+				.box();
+				.size(30px; 30px);
+
+				border: 5px solid @lightpurple;
+				border-radius: 50%;
+				display: inline-block;
+				margin: 0 0 0 10px;
+				min-height: 30px;
+				min-width: 30px;
+
+				position: relative;
+
+				.tick {
+					.size(16px; 4px;);
+
+					background: white;
+					display: none;
+					transform: rotate(45deg);
+
+					position: absolute;
+					top: 3px;
+					left: 10px;
+
+					&:before {
+						.size(10px; 4px);
+
+						background: white;
+						display: block;
+						content: "";
+						transform: rotate(-90deg);
+
+						position: absolute;
+						top: 9px;
+						left: -3px;
+					}
+				} 
 			}
 		}
 
+		input[type="checkbox"] {
+			display: none;
+
+			&:checked ~ label {
+
+				.checkbox {
+					
+					background: @lightpurple;
+
+					.tick {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+
+	/* includes all comments and the option to filter them */
+	.comments-list {
+		.column;
+
+		/* comment or no comment yet */
+		.comment,
+		.not-yet {
+			.box(5px 18px);
+
+			display: none;
+			margin: 10px 0;
+			width: 100%;
+		}
+
+		.comment {
+			border: 2px solid #ededed;
+			border-radius: 5px;
+		}
+
+		/* reply to comment or remove comment */
+		button {
+			display: block;
+			float: right;
+		}
+
+		.show-spoilers-option {
+			display: none;
+		}
+
+		/* username and timestamp */
 		.meta {
-			.row(@y: @center);
+			.row(@spread, @center);
+			.box(0 0 3px 0);
+
+			border-bottom: 2px solid #ededed;
 		}
 		
-		.remove-btn {
-			.size(16px; 16px);
-			.trim;
-
-			margin: 0 0 0 20px;
-			min-height: 16px;
-			min-width: 16px;
-		}
-
 		.text {
-			.font(400; 13px);
-
 			color: @grey;
-			margin: 3px 0;
+			margin: 6px 0;
 		}
+
 		.timestamp {
 			margin: 0 0 0 10px;
 		}
@@ -81,96 +136,30 @@
 			display: inline-block;
 			margin: 0;
 		}
+	}
 
-		/* spoilers checkbox in comments list and leave a comment section */
-		.spoilers-filter {
-			.row(@right; @center);
+	/* comment form, spoilers checkbox and 'post' btn */
+	.comment-form {
+		.column;
+		.box(15px 0);
 
-			label {
-				.box(10px 0 4px 18px);
+		width: ~"calc(100% - 40px)";
+		width: 100%;
 
-				width: auto;
-
-				span {
-					font-weight: bold;
-					color: @purple;
-				}
-
-				.checkbox {
-					.box();
-					.size(30px; 30px);
-
-					border: 5px solid @lightpurple;
-					border-radius: 50%;
-					display: inline-block;
-					margin: 0 0 0 10px;
-					min-height: 30px;
-					min-width: 30px;
-
-					position: relative;
-
-					.tick {
-						.size(16px; 4px;);
-
-						background: white;
-						display: none;
-						transform: rotate(45deg);
-
-						position: absolute;
-						top: 3px;
-						left: 10px;
-
-						&:before {
-							.size(10px; 4px);
-
-							background: white;
-							display: block;
-							content: "";
-							transform: rotate(-90deg);
-
-							position: absolute;
-							top: 9px;
-							left: -3px;
-						}
-					} 
-				}
-			}
-
-			input[type="checkbox"] {
-				display: none;
-
-				&:checked ~ label {
-
-					.checkbox {
-						
-						background: @lightpurple;
-
-						.tick {
-							display: block;
-						}
-					}
-				}
-			}
+		.spoilers-container {
+			.naughty(row; @right);
 		}
 
-		.comment-form {
-			.column;
-			.box(10px 0);
-
-			width: ~"calc(100% - 40px)";
+		/* textarea container */
+		p {
+			margin: 0;
 			width: 100%;
-
-			p {
-				margin: 0;
-				width: 100%;
-
-			}
 
 			textarea {
 				.box(9px 15px);
 
 				border: 2px solid @lightpurple;
-				border-radius: 10px;
+				border-radius: 5px;
 				outline: none;
 				resize: none;
 				width: 100%;
@@ -183,16 +172,13 @@
 					color: @lightpurple;
 				}
 			}
-
-			button {
-				.naughty(column; @right);
-
-				margin: 20px 10px 0 0;
-			}
 		}
 
+		/* 'post' btn */
 		button {
-			.naughty(column; @center);
+			.naughty(column; @right);
+
+			margin: 10px 0 0 0;
 		}
 	}
 }

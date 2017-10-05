@@ -6,28 +6,35 @@
 	</div>
 	<h3>Thoughts<span class="number">{{ comments.length }}</span></h3>
 </label>
-<ul class="v-film-comments-list comments-list">
-	<li class="spoilers-filter">
-		<input type="checkbox" id="show-spoilers" data-fn="show-spoilers" {{# spoilersOk }}checked{{/ spoilersOk }} />
-		<label for="show-spoilers">
-			<span>with spoilers</span>
-			<span class="checkbox">
-				<span class="tick"></span>
-			</span>
-		</label>
+<ul class="comments-list">
+	<li class="show-spoilers-option">
+		<p class="spoilers-filter">
+			<input type="checkbox" id="show-spoilers" data-fn="show-spoilers" {{# spoilersOk }}checked{{/ spoilersOk }} />
+			<label for="show-spoilers">
+				<span>include spoilers</span>
+				<span class="checkbox">
+					<span class="tick"></span>
+				</span>
+			</label>
+		</p>
 	</li>
 	{{# comments }}
 	<li class="comment">
 		<div class="meta">
-			<a href="#/user/{{ author.pk }}" class="author user">{{ author.name }}</a>
+			<a href="#/user/{{ author.pk }}" class="user-link">
+				<div class="avatar-small image" style="background-image: url('{{ user.avatarUrl }}')"></div>
+				<h3 class="user">{{ author.name }}</h3>
+			</a>
 			<abbr class="timestamp" title="{{ posted.iso }}">{{ posted.ago }}</abbr>
-			{{# author.self }}
-			<button type="button" class="icon remove-icon remove-btn" data-fn="del-comment" data-comment="{{ pk }}">
-				</button>
-			{{/ author.self }}
 		</div>
-		<p class="text">{{ text }}</p>
-		<!-- <button type="button" class="light" data-fn="reply">reply</button>
+		<p class="text self">{{ text }}</p>
+		{{# author.self }}
+		<button type="button" class="light tiny" data-fn="del-comment" data-comment="{{ pk }}">remove</button>
+		{{/ author.self }}
+		{{^ author.self }}
+		<button type="button" class="light tiny" data-fn="reply">reply</button>
+		{{/ author.self }}
+		<!--
 		<ul class="replies">
 			{{# replies }}
 			<li>
@@ -41,25 +48,25 @@
 	{{^ comments }}
 	<li class="not-yet">
 		Not yet
-		<p class="text">The thoughts you shared are visible only by your friends. Likewise, you can see only you friends' thoughts.</p>
+		<p class="text small-text">The thoughts you shared are visible only by your friends. Likewise, you can see only you friends' thoughts.</p>
 	</li>
 	{{/ comments }}
-	<form novalidate autocomplete="off" class="comment-form">
-		<div data-fn="error" class="error"></div>
-		<p>
-			<textarea name="comment" rows="4" placeholder="Share your thoughts on {{ film.title }}"></textarea>
-			<span data-fn="error"></span>
-		</p>
-		<p class="spoilers-filter">
-			<input type="checkbox" id="has-spoilers" name="spoilers" />
-			<label for="has-spoilers">
-				<span>this has spoilers</span>
-				<span class="checkbox">
-					<span class="tick"></span>
-				</span>
-			</label>
-			<span data-fn="error"></span>
-		</p>
-		<button type="submit" class="light">comment</button>
-	</form>
 </ul>
+<form novalidate autocomplete="off" class="comment-form">
+	<div data-fn="error" class="error"></div>
+	<p>
+		<textarea name="comment" rows="4" placeholder="Share your thoughts on {{ film.title }}"></textarea>
+		<span data-fn="error"></span>
+	</p>
+	<p class="spoilers-filter">
+		<input type="checkbox" id="has-spoilers" name="spoilers" />
+		<label for="has-spoilers">
+			<span>this has spoilers</span>
+			<span class="checkbox">
+				<span class="tick"></span>
+			</span>
+		</label>
+		<span data-fn="error"></span>
+	</p>
+	<button type="submit" class="light">post</button>
+</form>
