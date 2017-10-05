@@ -1,3 +1,9 @@
-{{# tags }}
-<a href="#/label/{{ . }}" title="{{ . }}" class="tag">{{ . }}</a>
-{{/ tags }}
+<section class="user-list-container">
+	<ul class="tags-list">
+		{{# tags }}
+		<li>
+			<a href="#/label/{{ . }}" title="{{ . }}" class="tag">{{ . }}</a>
+		</li>
+		{{/ tags }}
+	</ul>
+</section>

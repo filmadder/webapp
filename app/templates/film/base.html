@@ -14,7 +14,7 @@
 
 			<article class="main-info {{^ film.posterUrl}}no-poster-main-info{{/ film.posterUrl}}">
 			
-				<!-- in tags.html -->
+				<!-- in tagging.html -->
 				<section class="tagging-cont"></section>
 
 				<div class="title-status-container">
@@ -167,13 +167,15 @@
 				</div>
 				<h3>Labels<span class="number">{{ film.friendsTagsCount }}</span></h3>
 			</label>
-			<ul class="tags">
+			<ul class="tags-list">
 				{{# film.friendsTags }}
-				<li>
+				<li class="single-user">
 					<a href="#/user/{{ pk }}" class="user">{{ name }}</a>
 					<ul class="users-tags">
 						{{# tags }}
-						<li><a href="#/label/{{ . }}" class="tag">{{ . }}</a></li>
+						<li>
+							<a href="#/label/{{ . }}" class="tag">{{ . }}</a>
+						</li>
 						{{/ tags }}
 					</ul>
 				</li>

@@ -3,14 +3,13 @@
 	/* USER BASE ELEMS */
 
 	/* avatar & username
-	   below the header */
+	   location: below the header */
 	.user-personal {
 		.row(@left; @center);
 		.box(20px 0);
 
 		border-bottom: 2px solid #ededed;
-		margin: 0 auto;
-		width: 90%;
+		margin: 0 25px;
 
 		.avatar-medium {
 			border: 2px solid white;
@@ -51,7 +50,7 @@
 	}
 
 	/* tab-like lists switcher
-	   at the bottom of the view */
+	   location: at the bottom of the view */
 	.list-nav {
 		.row(@spread; @center);
 		background: linear-gradient(45deg, @lightpurple, @purple);
@@ -114,5 +113,81 @@
 			color: @lightpurple;
 			background: white;
 		}	
+	}
+
+	/* list container */
+	.user-list-container {
+		.box(20px 25px 50px 25px);
+	}
+
+	/* SPECIFIC LIST STYLES */
+	/* most of the styles are in list.less */
+
+	/* film lists */
+	.film-in-list {
+
+		/* sorting */
+		.order-by {
+			.row(@center; @center);
+			.box(10px 15px);
+
+			margin: 10px 0;
+
+			/* 'sort by' */
+			p {
+				.font(400; 13px);
+
+				margin: 0 10px 0 2px;
+			}
+
+			/* options */
+			li {
+				color: @grey;
+
+				button {
+					.font(700; 13px);
+
+					background: transparent;
+					border-radius: 3px;
+					color: @grey;
+					margin: 0 3px;
+					padding: 5px 8px;
+					text-transform: uppercase;
+
+					&:hover,
+					&:focus,
+					&.selected {
+						background: #ededed;
+					}
+				}
+			}
+		}
+			
+		/* only watchlist has it */
+		.other-watchlisters {
+
+			/* "watchlisted by" */
+			span {
+				.font(600; 12px;);
+
+				color: @grey;
+				display: inline-block;
+				margin: 10px 0 0 0;
+			}
+
+			/* user */
+			.user {
+				margin: 3px 6px 3px 0;
+			}
+		}
+	}
+
+	/* tags list */
+	.tags-list {
+
+		/* tag container */
+		li {
+			margin: 0 6px 6px 0;
+		}
 	}
 }

@@ -1,10 +1,11 @@
 /* things in lists */
 
-/* film item styles displayed in lists of films
-   syles used in results, user's film lists */
+/* list of films
+   film style
+   views: results, user/film, tag */
 .film-in-list {
 	.row();
-	.box(20px 25px);
+	.box(20px 0);
 	
 	width: 100%;
 
@@ -14,7 +15,9 @@
 
 	.title {
 		.font(700; 22px);
+		.trim;
 
+		color: @grey;
 		text-align: left;
 		text-transform: none;
 
@@ -30,9 +33,11 @@
 }
 
 
-/* user item styles displayed in lists of users */
+/* list of users
+   user styles
+   views: results, friends */
 .user-in-list {
-	.box(20px 25px);
+	.box(20px 0);
 
 	/* avatar/profile pic */
 	.image {
@@ -48,5 +53,21 @@
 		&:focus {
 			color: @lightpurple;
 		}
+	}
+}
+
+/* list of tags
+   views: user/seen, film */
+.tags-list {
+	.row;
+	.wrap;
+
+	padding: 10px 0 0 0;
+
+	/* tag container */
+	/* tag styles in styles.less */
+	li {
+		margin: 4px 4px 0 0;
+		width: auto;
 	}
 }

@@ -1,5 +1,10 @@
-<ul>
-{{# friends }}
-	<li>{{ pk }}, {{ name }}, {{ avatarUrl }}</li>
-{{/ friends }}
-</ul>
+<section class="user-list-container">
+	{{# friends }}
+	<div class="user-in-list">
+		<a href="#/user/{{ pk }}" title="to {{ name }}'s profile" class="user-link">
+			<div class="avatar-medium image" style="background-image: url('{{ avatarUrl }}')"></div>
+			<h3 class="username">{{ name }}</h3>
+		</a>
+	</div>
+	{{/ friends }}
+</section>

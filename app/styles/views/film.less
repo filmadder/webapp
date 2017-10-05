@@ -235,11 +235,10 @@
 		.tags-section {
 			margin: 0 0 30px 0;
 
-			.tags {
+			.tags-list {
 				display: none;
 
-				/* single user */
-				li {
+				.single-user {
 					margin: 0 0 10px 0;
 
 					.users-tags {
@@ -249,14 +248,13 @@
 					/* tag */
 					li {
 						display: inline-block;
-						margin: 0 3px 0 0;
 					} 
 				}
 			}
 
 			#tags-on-film {
 
-				&:checked ~ .tags {
+				&:checked ~ .tags-list {
 					display: block;
 				}
 			}
