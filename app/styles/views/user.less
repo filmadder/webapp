@@ -124,61 +124,59 @@
 	/* most of the styles are in list.less */
 
 	/* film lists */
-	.film-in-list {
+	
+	/* sorting */
+	.order-by {
+		.row(@center; @center);
+		.box(10px 15px);
 
-		/* sorting */
-		.order-by {
-			.row(@center; @center);
-			.box(10px 15px);
+		margin: 10px 0;
 
-			margin: 10px 0;
+		/* 'sort by' */
+		p {
+			.font(400; 13px);
 
-			/* 'sort by' */
-			p {
-				.font(400; 13px);
+			margin: 0 10px 0 2px;
+		}
 
-				margin: 0 10px 0 2px;
-			}
+		/* options */
+		li {
+			color: @grey;
 
-			/* options */
-			li {
+			button {
+				.font(700; 13px);
+
+				background: transparent;
+				border-radius: 3px;
 				color: @grey;
+				margin: 0 3px;
+				padding: 5px 8px;
+				text-transform: uppercase;
 
-				button {
-					.font(700; 13px);
-
-					background: transparent;
-					border-radius: 3px;
-					color: @grey;
-					margin: 0 3px;
-					padding: 5px 8px;
-					text-transform: uppercase;
-
-					&:hover,
-					&:focus,
-					&.selected {
-						background: #ededed;
-					}
+				&:hover,
+				&:focus,
+				&.selected {
+					background: #ededed;
 				}
 			}
 		}
-			
-		/* only watchlist has it */
-		.other-watchlisters {
+	}
+		
+	/* only watchlist has it */
+	.other-watchlisters {
 
-			/* "watchlisted by" */
-			span {
-				.font(600; 12px;);
+		/* "watchlisted by" */
+		span {
+			.font(600; 12px;);
 
-				color: @grey;
-				display: inline-block;
-				margin: 10px 0 0 0;
-			}
+			color: @grey;
+			display: inline-block;
+			margin: 10px 0 0 0;
+		}
 
-			/* user */
-			.user {
-				margin: 3px 6px 3px 0;
-			}
+		/* user */
+		.user {
+			margin: 3px 6px 3px 0;
 		}
 	}
 
