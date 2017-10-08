@@ -400,7 +400,6 @@ fa.views = (function() {
 	// otherwise, the rest of the view comprises befriending controls
 	var createUser = function(elem, userId) {
 		var ready = false;
-		var state = fa.history.getState('user:'+userId.toString());
 
 		var loaded = new signals.Signal();
 		loaded.memorize = true;
@@ -430,8 +429,6 @@ fa.views = (function() {
 					}).catch(handleError);
 				});
 			}
-
-			window.scroll(0, state ? state.scroll : 0);
 		}).catch(handleError);
 
 		// show the snake if loading takes too long
@@ -443,13 +440,6 @@ fa.views = (function() {
 		return {
 			nav: '_',
 			loaded: loaded,
-			empty: function() {
-				if(ready) {
-					fa.history.setState('user'+userId.toString(), {
-						scroll: window.pageYOffset
-					});
-				}
-			},
 			remove: function() {
 				loaded.dispose();
 				elem.innerHTML = '';
@@ -476,12 +466,10 @@ fa.views = (function() {
 			fa.routing.go('error');
 		}
 
-		render(elem, 'user-films-templ', {
-			title: {
-				seen: params.withTitle && params.type == 'seen',
-				watchlist: params.withTitle && params.type == 'watchlist'
-			}
-		});
+		var stateKey = 'user:'+params.user.pk+':'+params.type;
+		var state = fa.history.getState(stateKey);
+
+		render(elem, 'user-films-templ', { title: params.type });
 
 		var films;
 		if(params.type == 'seen') films = params.user.filmsPast;
@@ -507,6 +495,15 @@ fa.views = (function() {
 		});
 
 		renderFilms({films: films});
+		window.scroll(0, state ? state.scroll : 0);
+
+		// the view object
+		return {
+			remove: function() {
+				fa.history.setState(stateKey, { scroll: window.pageYOffset });
+				elem.innerHTML = '';
+			}
+		};
 	};
 
 	// inits a user tags view
