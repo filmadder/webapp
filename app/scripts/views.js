@@ -199,19 +199,47 @@ fa.views = (function() {
 		clearNavSignal.add(removeActiveLinks);
 		markNavSignal.add(addActiveLink);
 
-		// nav opener
+		// toggle navigation
 		var navOpener = fa.dom.get('.nav-opener', elem);
 		var nav = fa.dom.get('.nav');
+		var view = fa.dom.get('#view');
+		var isOpen = false;
 
+		var showNav = function() {
+			nav.classList.remove('hidden');
+			fa.dom.get('.header-inner').classList.add('move-left');
+			isOpen = true;
+		};
+		var hideNav = function() {
+			nav.classList.add('hidden');
+			fa.dom.get('.header-inner').classList.remove('move-left');
+			isOpen = false;
+		}
+
+		// events
+		// nav shows when the snake is clicked(1) and hides when isOpen is true
+		// and either the snake(2), the view(3) or nav item(4) is clicked
+
+		// (1) and (2)
 		fa.dom.on(navOpener, 'click', function() {
-			if(nav.classList.contains('hidden')) {
-				nav.classList.remove('hidden');
-				fa.dom.get('.header-inner').classList.add('move-left');
+			if(!isOpen) {
+				showNav();
 			} else {
-				nav.classList.add('hidden');
-				fa.dom.get('.header-inner').classList.remove('move-left');
+				hideNav();
 			}
 		});
+		// (3)
+		fa.dom.on(view, 'click', function() {
+			if(isOpen) {
+				hideNav();
+			}
+		});
+		// (4)
+		for (var i = 0; i < navLinks.length; i++) {
+			fa.dom.on(navLinks[i], 'click', function() {
+				hideNav();
+			});
+		}
 
 		// search form
 		var searchButton = fa.dom.get('#search-btn', elem);
@@ -219,33 +247,51 @@ fa.views = (function() {
 		var queryField = fa.dom.get('[name=q]', searchForm);
 		var resetButton = fa.dom.get('button[type=reset]', searchForm);
 		var doSearchButton = fa.dom.get('button[type=submit]', searchForm);
+		var isOpen = false;
 
+		var showSearch = function() {
+			searchForm.classList.remove('hidden');
+			doSearchButton.classList.remove('hidden');
+			fa.dom.get('.header-inner').classList.add('move-right');
+			isOpen = true;
+		};
+		var hideSearch = function() {
+			fa.dom.get('.header-inner').classList.remove('move-right');
+			searchForm.classList.add('hidden');
+			doSearchButton.classList.add('hidden');
+			isOpen = false;
+		};
+
+		// events
+		// search form shows when search btn is clicked (1) and
+		// hides when isOpen is true and search btn is clicked (2) and the form is submit (3)
+
+		// (1) and (2)
+		fa.dom.on(searchButton, 'click', function() {
+			if(!isOpen) {
+				showSearch();
+				queryField.focus();
+			} else {
+				hideSearch();
+			}
+		});
 		fa.dom.on(queryField, 'focus', function() {
 			resetButton.classList.add('visible');
 		});
+		// no reset btn for now
 		fa.dom.on(queryField, 'blur', function() {
 			resetButton.classList.remove('visible');
 		});
 		fa.dom.on(resetButton, 'click', function() {
 			queryField.focus();
 		});
-		fa.dom.on(searchButton, 'click', function() {
-			if(searchForm.classList.contains('hidden')) {
-				searchForm.classList.remove('hidden');
-				doSearchButton.classList.remove('hidden');
-				fa.dom.get('.header-inner').classList.add('move-right');
-			} else {
-				fa.dom.get('.header-inner').classList.remove('move-right');
-				searchForm.classList.add('hidden');
-				doSearchButton.classList.add('hidden');
-			}
-		});
-
-		searchForm.addEventListener('submit', function(e) {
+		// (3)
+		fa.dom.on(searchForm, 'submit', function(e) {
 			e.preventDefault();
 			if(queryField.value) {
 				fa.routing.go('search/?q='+encodeURIComponent(queryField.value));
 				queryField.blur();
+				hideSearch();
 			}
 		});
 
@@ -294,7 +340,7 @@ fa.views = (function() {
 		// shows the more results button
 		var showMoreResults = function() {
 			var button = fa.dom.get('.more-results', elem);
-			button.addEventListener('click', function() {
+			fa.dom.on(button, 'click', function() {
 				hier.update('/inner/results', params);
 			});
 			button.classList.remove('no-display');
