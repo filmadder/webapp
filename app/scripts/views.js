@@ -245,7 +245,6 @@ fa.views = (function() {
 		var searchButton = fa.dom.get('#search-btn', elem);
 		var searchForm = fa.dom.get('#search-form', elem);
 		var queryField = fa.dom.get('[name=q]', searchForm);
-		var resetButton = fa.dom.get('button[type=reset]', searchForm);
 		var doSearchButton = fa.dom.get('button[type=submit]', searchForm);
 		var isOpen = false;
 
@@ -275,22 +274,14 @@ fa.views = (function() {
 				hideSearch();
 			}
 		});
-		fa.dom.on(queryField, 'focus', function() {
-			resetButton.classList.add('visible');
-		});
 		// no reset btn for now
-		fa.dom.on(queryField, 'blur', function() {
-			resetButton.classList.remove('visible');
-		});
-		fa.dom.on(resetButton, 'click', function() {
-			queryField.focus();
-		});
 		// (3)
 		fa.dom.on(searchForm, 'submit', function(e) {
 			e.preventDefault();
 			if(queryField.value) {
 				fa.routing.go('search/?q='+encodeURIComponent(queryField.value));
 				queryField.blur();
+				queryField.value = '';
 				hideSearch();
 			}
 		});
@@ -307,6 +298,12 @@ fa.views = (function() {
 				marker.classList.add('hidden');
 				homeLink.href = '#/';
 			}
+		});
+
+		// logout
+		fa.dom.on('[data-fn=logout]', 'click', function() {
+			fa.auth.logout();
+			fa.routing.go('login');
 		});
 
 		// the view object
@@ -950,12 +947,6 @@ fa.views = (function() {
 		.add('pass0', [fa.forms.maxLen(200), fa.forms.minLen(5)])
 		.add('pass1', [fa.forms.maxLen(200), fa.forms.minLen(5)])
 		.add('pass2', [fa.forms.equal('pass1')]);
-
-		// logout
-		fa.dom.on('[data-fn=logout]', 'click', function() {
-			fa.auth.logout();
-			fa.routing.go('login');
-		});
 
 		return {
 			nav: 'me',

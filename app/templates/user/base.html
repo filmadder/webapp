@@ -2,14 +2,21 @@
 	<div class="container">
 		<section class="user-personal">
 			<div class="avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div>
-			<!-- <div class="avatar-message">This avatar has been randomly assinged to you. Change it from settings.</div> -->
 			<article>
 				<h2 class="username">{{ user.name }}</h2>
 				<div class="p-buttons p-relationship">
 					{{# user.status.friend }}
-					<p class="small-text">friends</p>
-					</button>
+					<p class="small-text">friend</p>
 					{{/ user.status.friend }}
+					{{# user.status.unknown }}
+					<p class="small-text">stranger</p>
+					{{/ user.status.unknown }}
+					{{# user.status.asked }}
+					<p class="small-text">pending</p>
+					{{/ user.status.asked }}
+					{{# user.status.waiting }}
+					<p class="small-text">pending</p>
+					{{/ user.status.waiting }}
 				</div>
 			</article>
 			
@@ -34,7 +41,36 @@
 			<span class="icon tag-icon-white"></span>
 		</a>
 	</div>
-	{{/ user.showData }}
 
 	<section id="subview" class="subview"></section>
+	{{/ user.showData }}
+
+	{{^ user.showData }}
+	<section class="hidden-data">
+		<h2>All accounts are private</h2>
+		<p class="small-text">you can see each other's lists once you become friends</p>
+		{{# user.status.unknown }}
+		<article>
+			<button type="submit" data-fn="request-friend" class="light">befriend</button>
+		</article>
+		{{/ user.status.unknown }}
+		{{# user.status.waiting }}
+		<article>
+			<p><strong>{{ user.name }}</strong> wants to be friends with you</p>
+			<div class="buttons">
+				<button type="submit" data-fn="accept-friend" class="light">accept</button>
+				<button type="submit" data-fn="reject-friend" class="light">reject</button>
+			</div>
+		</article>
+		{{/ user.status.waiting }}
+		{{# user.status.asked }}
+		<article>
+			<p>You have asked <strong>{{ user.name }}</strong> to be friends with you</p>
+			<button type="submit" class="light">withdraw</button>
+		</article>
+		{{/ user.status.asked }}
+	</section>
+	{{/ user.showData }}
+	
+	
 </div>

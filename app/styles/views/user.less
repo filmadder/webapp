@@ -116,6 +116,28 @@
 	/* list container */
 	.user-list-container {
 		.box(20px 25px 50px 25px);
+
+		width: 100%;
+	}
+
+	/* not firiends */
+	.hidden-data {
+		margin: 20px 25px;
+
+		.small-text {
+			margin: 6px 0 0 0;
+		}
+
+		/* user status */
+		article {
+			.column(@center);
+
+			margin: 20px 0 0 0;
+
+			p {
+				color: #555;
+			}
+		}
 	}
 
 	/* SPECIFIC LIST STYLES */
@@ -123,6 +145,12 @@
 
 	/* film lists */
 	
+	/* list title (seen, watchlist..) */
+	h2 {
+		margin: 0;
+		text-align: center;
+	}
+
 	/* sorting */
 	.order-by {
 		.row(@center; @center);
@@ -160,6 +188,7 @@
 		
 	/* only watchlist has it */
 	.other-watchlisters {
+		margin: 3px 0 0 0;
 
 		/* user */
 		.user {
