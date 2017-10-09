@@ -506,14 +506,11 @@ h2 {
 .poster-medium {
 
 	margin: 0 10px 0 0;
-	height: 270px;
+	height: 90%;
 	width: 100%;
 	background-size: cover;
 
 	&.no-poster {
-		.size(180px; 120px);
-
-		min-width: 120px;
 
 		p {
 			.font(400; 16px);
@@ -567,7 +564,6 @@ h2 {
 	&:focus {
 
 		.user{
-
 			color: @purple;
 		}
 	}
@@ -777,6 +773,52 @@ h2 {
 	}
 }
 
+
+@media (min-width: 740px) {
+
+	.small-text {
+		.font(600; 15px);
+	}
+
+	.user-link {
+
+		.user {
+			.font(700; 18px);
+		}
+
+	}
+
+	.user {
+		.font(700; 18px);
+	}
+
+	.avatar-small {
+		.size(35px; 35px);
+
+		min-height: 35px;
+		min-width: 35px;
+	}
+
+	.avatar-medium {
+		.size(80px; 80px);
+
+		min-height: 80px;
+		min-width: 80px;
+	}
+
+	.poster-small {
+		.size(240px; 200px);
+
+		margin: 0 25px 0 0;
+
+		&.no-poster {
+			.size(200px; 150px);
+
+			min-width: 150px;
+		}
+	}
+}
+
 @import "header";
 @import "search";
 @import "views/home";
@@ -792,5 +834,3 @@ h2 {
 @import "list";
 @import "messages";
 @import "keyframes";
-
-@import "media";

@@ -13,6 +13,7 @@
 
 		margin: 30px auto;
 		width: 84vw;
+		max-width: 500px;
 
 		position: relative;
 
@@ -42,6 +43,7 @@
 
 		.film {
 			.box(10px 10px 20px 10px);
+			.size(370px; 300px);
 
 			width: 100%;
 		}
@@ -109,5 +111,20 @@
 
 	.nothing-to-display {
 		.box(0 30px);
+	}
+}
+
+@media (min-width: 740px) {
+
+	.feed {
+
+		.feed-item {
+			margin: 50px auto;
+			max-width: 400px;
+
+			.film {
+				.size(400px; 300px);
+			}
+		}
 	}
 }

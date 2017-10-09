@@ -5,6 +5,9 @@
 			<article>
 				<h2 class="username">{{ user.name }}</h2>
 				<div class="p-buttons p-relationship">
+					{{# user.status.self }}
+					<p class="small-text">me</p>
+					{{/ user.status.self }}
 					{{# user.status.friend }}
 					<p class="small-text">friend</p>
 					{{/ user.status.friend }}
@@ -27,18 +30,23 @@
 	<div class="list-nav">
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}watchlist" data-nav="watchlist">
 			<span class="icon watchlisted-icon-white"></span>
+			<h3 class="list-title">watchlist</h3>
 		</a>
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}seen" data-nav="watched">
 			<span class="icon watched-icon-white"></span>
+			<h3 class="list-title">seen</h3>
 		</a>
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}watching">
 			<span class="icon updates-icon-white"></span>
+			<h3 class="list-title">watching</h3>
 		</a>
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}friends">
 			<span class="icon friendship-icon"></span>
+			<h3 class="list-title">friends</h3>
 		</a>
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}tags">
 			<span class="icon tag-icon-white"></span>
+			<h3 class="list-title">labels</h3>
 		</a>
 	</div>
 

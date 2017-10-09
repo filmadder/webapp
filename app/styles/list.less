@@ -9,6 +9,7 @@
 	
 	width: 100%;
 
+	/* title, year&directors container */
 	> div:nth-child(2) {
 		width: 100%;
 	}
@@ -69,5 +70,26 @@
 	li {
 		margin: 4px 4px 0 0;
 		width: auto;
+	}
+}
+
+@media (min-width: 740px) {
+	.film-in-list {
+		.box(40px 0);
+
+		margin: 0 auto;
+		max-width: 550px;
+
+		.title {
+			.font(700; 28px);
+		}
+
+		.year-directors {
+			.font(400px; 18px);
+		}
+	}
+
+	.tags-list {
+		padding: 20px 0 0 0;
 	}
 }
