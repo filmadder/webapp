@@ -25,6 +25,7 @@
 	   on the left
 	   onclick opens nav (styles below) */
 	.nav-opener {
+		cursor: pointer;
 
 		.logo {
 			.size(38px; 38px);
@@ -61,6 +62,7 @@
 	   on the right
 	   onclick opens search bar (search.less) */
 	.search-btn {
+		cursor: pointer;
 		margin: 0 10px 0 0;
 	}
 
@@ -131,5 +133,23 @@
 		.font(@w: 700; @s: 30px;);
 		
 		color: white;
+	}
+}
+
+@media (min-width: 740px) {
+	.header-inner {
+
+		.nav {
+			width: 250px;
+			right: ~"calc(100% - 250px)";
+		}
+
+		&.move-right {
+			right: 40%;
+		}
+
+		&.move-left {
+			right: -250px;
+		}
 	}
 }
