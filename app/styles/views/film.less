@@ -225,7 +225,7 @@
 				display: none;
 
 				.single-user {
-					margin: 0 0 10px 0;
+					margin: 10px 0 20px 0;
 
 					.users-tags {
 						padding: 5px 0 0 0;
@@ -283,6 +283,11 @@
 					rgba(0, 0, 0, 0.55),
 					rgba(95, 156, 221, 0.7));
 
+				background: linear-gradient(
+					90deg,
+					rgba(0, 0, 0, 0.55),
+					rgba(0, 0, 0, 0.85));
+
 				max-height: 800px;
 
 				&.no-poster-main-info {
@@ -290,7 +295,19 @@
 				}
 
 				.title {
-					font-size: 32px;
+					font-size: 38px;
+
+					&.long-title {
+						font-size: 30px;
+					}
+				}
+
+				.year {
+					font-size: 24px;
+				}
+
+				.type-duration {
+					font-size: 20px;
 				}
 			}
 		}
@@ -298,6 +315,7 @@
 		.additional-info {
 			.size(~"calc(100vh - 40px)"; 60%);
 
+			background-color: #020102;
 			max-height: 800px;
 			overflow-y: auto;
 
@@ -331,6 +349,7 @@
 			}
 
 			.synopsis {
+				background-color: #020102;
 				height: 300px;
 
 				.synopsis-text {
@@ -339,8 +358,22 @@
 			}
 		}
 
+		.white-wrapper {
+			.row;
+
+			margin: 0 auto 50px auto;
+			max-width: 900px;
+
+			.users-input {
+				flex: 3;
+			}
+			.comments {
+				flex: 5;
+			}
+		}
+
 		.users-input {
-			.box(50px 30px 0 30px);
+			.box(50px 25px 0 15px);
 
 			margin: 0 auto;
 			max-width: 550px;

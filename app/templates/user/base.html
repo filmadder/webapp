@@ -2,9 +2,14 @@
 	<div class="container">
 		<section class="user-personal">
 			<div class="avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div>
+			<!-- bio -->
+			<!-- <article>
+				<h2 class="username">{{ user.name }}</h2>
+				<p class="small-text">Tempore sit dolor saepe explicabo ut temporibus.</p>
+			</article> -->
 			<article>
 				<h2 class="username">{{ user.name }}</h2>
-				<div class="p-buttons p-relationship">
+				<div>
 					{{# user.status.self }}
 					<p class="small-text">me</p>
 					{{/ user.status.self }}
