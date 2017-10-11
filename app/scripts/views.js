@@ -397,6 +397,7 @@ fa.views = (function() {
 	// otherwise, the rest of the view comprises befriending controls
 	var createUser = function(elem, userId) {
 		var ready = false;
+		var changeTitle;
 
 		var loaded = new signals.Signal();
 		loaded.memorize = true;
@@ -426,6 +427,30 @@ fa.views = (function() {
 					}).catch(handleError);
 				});
 			}
+
+			// changeTitle (replace 'film adder' with username)
+			var isScrolling = false;
+			var titleElem = fa.dom.get('h1');
+			var newTitle = fa.dom.get('.new-title').textContent;
+
+			changeTitle = function(e) {
+				if(!isScrolling) {
+					window.requestAnimationFrame(function() {
+						isScrolling = false;
+
+						if(window.scrollY > 65) {
+							titleElem.textContent = newTitle;
+						} else {
+							titleElem.textContent = "film adder";
+						}
+					});
+
+					isScrolling = true;
+				}
+			};
+
+			fa.dom.on(document, 'scroll', changeTitle);
+
 		}).catch(handleError);
 
 		// show the snake if loading takes too long
@@ -440,6 +465,8 @@ fa.views = (function() {
 			remove: function() {
 				loaded.dispose();
 				elem.innerHTML = '';
+				fa.dom.off(document, 'scroll', changeTitle);
+				fa.dom.get('h1').textContent = 'film adder';
 			}
 		};
 	};
@@ -528,11 +555,40 @@ fa.views = (function() {
 	var createFilm = function(elem, id) {
 		var ready = false;
 		var state = fa.history.getState('film:'+id.toString());
+		var changeTitle;
 
 		fa.films.get(id).then(function(film) {
 			ready = true;
 
 			render(elem, 'film-templ', {film: film});
+
+			// change title
+			var isScrolling = false;
+			var titleElem = fa.dom.get('h1');
+			var newTitle = fa.dom.get('.new-title').textContent;
+
+			changeTitle = function(e) {
+				if(!isScrolling) {
+					window.requestAnimationFrame(function() {
+						isScrolling = false;
+
+						if(window.scrollY > 400) {
+							if(newTitle.length < 25) {
+								titleElem.textContent = newTitle;
+							} else {
+								newTitle = newTitle.slice(0, 25).trim() + '...';
+								titleElem.textContent = newTitle;
+							}
+						} else {
+							titleElem.textContent = "film adder";
+						}
+					});
+
+					isScrolling = true;
+				}
+			};
+
+			fa.dom.on(document, 'scroll', changeTitle);
 
 			// comments
 			hier.add('/inner/film/comments', {
@@ -616,6 +672,8 @@ fa.views = (function() {
 			},
 			remove: function() {
 				elem.innerHTML = '';
+				fa.dom.off(document, 'scroll', changeTitle);
+				fa.dom.get('h1').textContent = 'film adder';
 			}
 		};
 	};
