@@ -180,16 +180,22 @@ fa.views = (function() {
 	// includes the navigation, the search form, and the #view element that is
 	// the container of all inner views
 	var createInner = function(elem) {
+		var navLinks, removeActiveLinks, addActiveLink;
+		var movableElem, navElem, isNavOpen;
+		var searchForm, queryField, doSearchButton, isSearchOpen;
+		var showNav, hideNav, showSearch, hideSearch;
+		var marker;
+
 		render(elem, 'inner-templ', {});
 
-		// header nav
-		var navLinks = fa.dom.filter('header nav a', elem);
-		var removeActiveLinks = function() {
+		// nav: active links
+		navLinks = fa.dom.filter('header nav a', elem);
+		removeActiveLinks = function() {
 			fjs.map(function(link) {
 				link.classList.remove('clicked');
 			}, navLinks);
 		};
-		var addActiveLink = function(navId) {
+		addActiveLink = function(navId) {
 			fjs.map(function(link) {
 				if(link.dataset.nav == navId) {
 					link.classList.add('clicked');
@@ -199,104 +205,83 @@ fa.views = (function() {
 		clearNavSignal.add(removeActiveLinks);
 		markNavSignal.add(addActiveLink);
 
-		// toggle navigation
-		var navOpener = fa.dom.get('.nav-opener', elem);
-		var nav = fa.dom.get('.nav');
-		var view = fa.dom.get('#view');
-		var isOpen = false;
+		// nav: open and close
+		movableElem = fa.dom.get('.header-inner', elem);
+		navElem = fa.dom.get('.nav', elem);
+		isNavOpen = false;
 
-		var showNav = function() {
-			nav.classList.remove('hidden');
-			fa.dom.get('.header-inner').classList.add('move-left');
-			isOpen = true;
+		showNav = function() {
+			navElem.classList.remove('hidden');
+			movableElem.classList.add('move-left');
+			isNavOpen = true;
 		};
-		var hideNav = function() {
-			nav.classList.add('hidden');
-			fa.dom.get('.header-inner').classList.remove('move-left');
-			isOpen = false;
+		hideNav = function() {
+			navElem.classList.add('hidden');
+			movableElem.classList.remove('move-left');
+			isNavOpen = false;
 		}
 
-		// events
-		// nav shows when the snake is clicked(1) and hides when isOpen is true
-		// and either the snake(2), the view(3) or nav item(4) is clicked
-
-		// (1) and (2)
-		fa.dom.on(navOpener, 'click', function() {
-			if(!isOpen) {
-				showNav();
-			} else {
-				hideNav();
-			}
+		// the nav shows when the snake is clicked (1) and hides when isNavOpen
+		// is true and either the snake (2), the view (3) or a nav link(4) is
+		// clicked
+		fa.dom.on(fa.dom.get('.nav-opener', elem), 'click', function() {
+			if(!isNavOpen) showNav();  // (1)
+			else hideNav();  // (2)
 		});
-		// (3)
-		fa.dom.on(view, 'click', function() {
-			if(isOpen) {
-				hideNav();
-			}
+		fa.dom.on(fa.dom.get('#view', elem), 'click', function() {
+			if(isNavOpen) hideNav();  // (3)
 		});
-		// (4)
-		for (var i = 0; i < navLinks.length; i++) {
-			fa.dom.on(navLinks[i], 'click', function() {
-				hideNav();
-			});
-		}
+		fa.dom.on(navLinks, 'click', hideNav);  // (4)
 
 		// search form
-		var searchButton = fa.dom.get('#search-btn', elem);
-		var searchForm = fa.dom.get('#search-form', elem);
-		var queryField = fa.dom.get('[name=q]', searchForm);
-		var doSearchButton = fa.dom.get('button[type=submit]', searchForm);
-		var isOpen = false;
+		searchForm = fa.dom.get('#search-form', elem);
+		queryField = fa.dom.get('[name=q]', searchForm);
+		doSearchButton = fa.dom.get('button[type=submit]', searchForm);
+		isSearchOpen = false;
 
-		var showSearch = function() {
+		showSearch = function() {
 			searchForm.classList.remove('hidden');
 			doSearchButton.classList.remove('hidden');
-			fa.dom.get('.header-inner').classList.add('move-right');
-			isOpen = true;
+			movableElem.classList.add('move-right');
+			isSearchOpen = true;
 		};
-		var hideSearch = function() {
-			fa.dom.get('.header-inner').classList.remove('move-right');
+		hideSearch = function() {
+			movableElem.classList.remove('move-right');
 			searchForm.classList.add('hidden');
 			doSearchButton.classList.add('hidden');
-			isOpen = false;
+			isSearchOpen = false;
 		};
 
-		// events
-		// search form shows when search btn is clicked (1) and
-		// hides when isOpen is true and search btn is clicked (2) and the form is submit (3)
-
-		// (1) and (2)
-		fa.dom.on(searchButton, 'click', function() {
-			if(!isOpen) {
+		// the search form shows when search btn is clicked (1) and hides when
+		// isSearchOpen is true and the search btn is clicked (2) and the form
+		// is submitted (3)
+		fa.dom.on(fa.dom.get('#search-btn', elem), 'click', function() {
+			if(!isSearchOpen) {  // (1)
 				showSearch();
 				queryField.focus();
-			} else {
+			} else {  // (2)
 				hideSearch();
 			}
 		});
 		// no reset btn for now
-		// (3)
 		fa.dom.on(searchForm, 'submit', function(e) {
 			e.preventDefault();
 			if(queryField.value) {
 				fa.routing.go('search/?q='+encodeURIComponent(queryField.value));
 				queryField.blur();
 				queryField.value = '';
-				hideSearch();
+				hideSearch();  // (3)
 			}
 		});
 
 		// unread updates marker
-		var homeLink = fa.dom.get('[data-fn=home-link]', elem);
-		var marker = fa.dom.get('.notification-marker', homeLink);
+		marker = fa.dom.get('.notification-marker', elem);
 
 		fa.updates.changedStatus.add(function(status) {
 			if(status == 'has-unread') {
 				marker.classList.remove('hidden');
-				homeLink.href = '#/updates';
 			} else {
 				marker.classList.add('hidden');
-				homeLink.href = '#/';
 			}
 		});
 
@@ -479,32 +464,35 @@ fa.views = (function() {
 	// expects params to be a {type, user} object, where type is one of: seen,
 	// watching, watchlist
 	var createFilmList = function(elem, params) {
-		var sortByYear = function(a, b) {
-			return a.year.localeCompare(b.year);
-		};
-		var sortByTitle = function(a, b) {
-			return a.title.localeCompare(b.title);
-		};
+		var stateKey, state;
+		var films, renderFilms;
+		var template, container, buttons;
 
-		if(params.type != 'seen' && params.type != 'watchlist') {
+		var sortByYear = function(a, b) { return a.year.localeCompare(b.year); };
+		var sortByTitle = function(a, b) { return a.title.localeCompare(b.title); };
+
+		if(params.type == 'seen') {
+			films = params.user.filmsPast;
+			template = 'user-films-seen-templ';
+		} else if(params.type == 'watching') {
+			films = params.user.filmsPresent;
+			template = 'user-films-watching-templ';
+		} else if(params.type == 'watchlist') {
+			films = params.user.filmsFuture;
+			template = 'user-films-watchlist-templ';
+		} else {
 			fa.routing.go('error');
 		}
 
-		var stateKey = 'user:'+params.user.pk+':'+params.type;
-		var state = fa.history.getState(stateKey);
+		stateKey = 'user:'+params.user.pk+':'+params.type;
+		state = fa.history.getState(stateKey);
 
 		render(elem, 'user-films-templ', { title: params.type });
+		container = fa.dom.get('[data-fn=film-list]', elem);
+		buttons = fa.dom.filter('button[data-sort]', elem);
 
-		var films;
-		if(params.type == 'seen') films = params.user.filmsPast;
-		else if(params.type == 'watchlist') films = params.user.filmsFuture;
+		renderFilms = fjs.curry(render)(container)(template);
 
-		var container = fa.dom.get('[data-fn=film-list]', elem);
-		var template = (params.type == 'seen')
-				? 'user-films-seen-templ' : 'user-films-watchlist-templ';
-		var renderFilms = fjs.curry(render)(container)(template);
-
-		var buttons = fa.dom.filter('button[data-sort]', elem);
 		fa.dom.on(buttons, 'click', function(e) {
 			if(e.target.classList.contains('selected')) return;
 
