@@ -49,6 +49,7 @@ fa.users = (function() {
 		else if(user.status.friend || user.status.self) {
 			user.filmsPast = data.films_past;
 			user.filmsFuture = data.films_future;
+			user.filmsPresent = data.films_present;
 			user.friends = fjs.map(unpackUser, data.friends);
 			user.tags = data.tags;
 		}
