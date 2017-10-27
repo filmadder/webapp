@@ -39,51 +39,6 @@
 		}
 	}
 
-	.reset {
-		.transition(0);
-		.size(20px; 20px);
-		.trim;
-
-		background: white;
-		opacity: 0;
-		visibility: hidden;
-
-		position: relative;
-
-		&:before {
-			background: @lightpurple;
-			content: '';
-			width: 12px;
-			height: 3px;
-			-webkit-transform: rotate(-45deg);
-			transform: rotate(-45deg);
-
-			position: absolute;
-			top: 20px;
-			right: -50px;
-		}
-
-		&:after {
-			content: '';
-			width: 12px;
-			height: 3px;
-			background-color: @lightpurple;
-			-webkit-transform: rotate(45deg);
-			transform: rotate(45deg);
-
-			position: absolute;
-			top: 20px;
-			right: -50px;
-		}
-		
-		&.visible {
-			.transition(@dur: 0.2s; @del: 0s);
-
-			opacity: 1;
-			visibility: visible;
-		}
-	}
-
 	.do-search {
 		.size(30px; 30px);
 		.transition;

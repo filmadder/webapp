@@ -69,3 +69,39 @@
 		color: @purple;
 	}
 }
+
+
+.reset {
+	.transition(@dur: 0.2s; @del: 0s);
+	.size(30px; 30px);
+	.trim;
+
+	backgorund: white;
+	position: relative;
+
+	&:before {
+		background: white;
+		content: '';
+		width: 16px;
+		height: 2px;
+		-webkit-transform: rotate(-45deg);
+		transform: rotate(-45deg);
+
+		position: absolute;
+		top: 14px;
+		right: -3px;
+	}
+
+	&:after {
+		content: '';
+		width: 16px;
+		height: 2px;
+		background-color: white;
+		-webkit-transform: rotate(45deg);
+		transform: rotate(45deg);
+
+		position: absolute;
+		top: 14px;
+		right: -3px;
+	}
+}

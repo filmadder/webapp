@@ -90,6 +90,9 @@ fa.views = (function() {
 		var newTitle = fa.dom.get('.new-title').textContent;
 
 		var changeTitle1 = function() {
+			fa.dom.on(titleElem, 'click', function(){
+				window.scroll(0, 0);
+			});
 			if(!isScrolling) {
 				window.requestAnimationFrame(function() {
 					isScrolling = false;
@@ -205,7 +208,7 @@ fa.views = (function() {
 	// the container of all inner views
 	var createInner = function(elem) {
 		var navLinks, removeActiveLinks, addActiveLink;
-		var movableElem, navElem, isNavOpen;
+		var movableElem, navElem, isNavOpen, view, searchIcon;
 		var searchForm, queryField, doSearchButton, isSearchOpen;
 		var showNav, hideNav, showSearch, hideSearch;
 		var marker;
@@ -261,29 +264,46 @@ fa.views = (function() {
 		searchForm = fa.dom.get('#search-form', elem);
 		queryField = fa.dom.get('[name=q]', searchForm);
 		doSearchButton = fa.dom.get('button[type=submit]', searchForm);
+		view = fa.dom.get('#view', elem);
+		searchIcon = fa.dom.get('.search');
 		isSearchOpen = false;
 
 		showSearch = function() {
 			searchForm.classList.remove('hidden');
 			doSearchButton.classList.remove('hidden');
 			movableElem.classList.add('move-right');
+			searchIcon.classList.remove('search');
+			searchIcon.classList.remove('icon');
+			searchIcon.classList.add('reset');
+			view.classList.add('foggy');
+			view.classList.add('uninteractive');
 			isSearchOpen = true;
 		};
 		hideSearch = function() {
-			movableElem.classList.remove('move-right');
 			searchForm.classList.add('hidden');
+			movableElem.classList.remove('move-right');
 			doSearchButton.classList.add('hidden');
+			searchIcon.classList.remove('reset');
+			searchIcon.classList.add('search');
+			searchIcon.classList.add('icon');
+			view.classList.remove('foggy');
+			view.classList.remove('uninteractive');
 			isSearchOpen = false;
 		};
 
 		// the search form shows when search btn is clicked (1) and hides when
 		// isSearchOpen is true and the search btn is clicked (2) and the form
 		// is submitted (3)
-		fa.dom.on(fa.dom.get('#search-btn', elem), 'click', function() {
+		fa.dom.on(searchIcon, 'click', function() {
 			if(!isSearchOpen) {  // (1)
 				showSearch();
 				queryField.focus();
 			} else {  // (2)
+				hideSearch();
+			}
+		});
+		fa.dom.on(fa.dom.get('body'), 'keypress', function(e) {
+			if (e.which === 0) {
 				hideSearch();
 			}
 		});
@@ -545,7 +565,6 @@ fa.views = (function() {
 	var createFilm = function(elem, id) {
 		var ready = false;
 		var state = fa.history.getState('film:'+id.toString());
-		var changeTitle;
 
 		fa.films.get(id).then(function(film) {
 			ready = true;
@@ -556,27 +575,6 @@ fa.views = (function() {
 			var isScrolling = false;
 			var titleElem = fa.dom.get('h1');
 			var newTitle = fa.dom.get('.new-title').textContent;
-
-			changeTitle = function(e) {
-				if(!isScrolling) {
-					window.requestAnimationFrame(function() {
-						isScrolling = false;
-
-						if(window.scrollY > 400) {
-							if(newTitle.length < 25) {
-								titleElem.textContent = newTitle;
-							} else {
-								newTitle = newTitle.slice(0, 25).trim() + '...';
-								titleElem.textContent = newTitle;
-							}
-						} else {
-							titleElem.textContent = "film adder";
-						}
-					});
-
-					isScrolling = true;
-				}
-			};
 
 			fa.dom.on(document, 'scroll', changeTitle);
 

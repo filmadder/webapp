@@ -5,6 +5,30 @@
 @import "mixins";
 
 
+/* classes used by js */
+.no-display {
+	display: none;
+}
+
+/* temp for testing */
+.foggy {
+	opacity: 0.1;
+}
+
+.uninteractive {
+
+	a {
+		pointer-events: none;
+	}
+}
+
+.unselectable {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 /* main styles */
 
 html, body {
@@ -102,10 +126,6 @@ button,
 			color: white;
 		}
 	}
-}
-
-.no-display {
-	display: none;
 }
 
 /* view's headings */
