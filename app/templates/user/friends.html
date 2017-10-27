@@ -1,10 +1,22 @@
 <section class="user-list-container">
+	<h2>Friends</h2>
 	{{# friends }}
 	<div class="user-in-list">
 		<a href="#/user/{{ pk }}" title="to {{ name }}'s profile" class="user-link">
 			<div class="avatar-medium image" style="background-image: url('{{ avatarUrl }}')"></div>
 			<h3 class="username">{{ name }}</h3>
 		</a>
+	</div>
+	{{/ friends }}
+	{{^ friends }}
+	<div class="nothing-to-display">
+		{{# user.self }}
+		<h3>No friends yet</h3>
+		<p>Search for friends using <strong>u!</strong> in the query, for example <strong>adderthebot u!</strong></p>
+		{{/ user.self }}
+		{{^ user.self }}
+		<h3>No friends yet</h3>
+		{{/ user.self }}
 	</div>
 	{{/ friends }}
 </section>

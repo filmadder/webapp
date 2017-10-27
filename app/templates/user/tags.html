@@ -1,4 +1,5 @@
 <section class="user-list-container">
+	<h2>Labels</h2>
 	<ul class="tags-list">
 		{{# tags }}
 		<li>
@@ -6,4 +7,15 @@
 		</li>
 		{{/ tags }}
 	</ul>
+	{{^ tags }}
+	<div class="nothing-to-display">
+		{{# user.self }}
+		<h3>No labels added</h3>
+		<p>You can label films that you have seen.</p>
+		{{/ user.self }}
+		{{^ user.self }}
+		<h3>No labels added</h3>
+		{{/ user.self }}
+	</div>
+	{{/ tags }}
 </section>

@@ -24,7 +24,12 @@
 {{/ films }}
 {{^ films }}
 <div class="nothing-to-display">
-	<h3>Nothing in your seen list yet</h3>
-	<p>Search for films you have watched and add them to your seen list.</p>
+	{{# user.self }}
+	<h3>Nothing in your seen yet</h3>
+	<p>Search for a film you have watched and add it to your seen.</p>
+	{{/ user.self }}
+	{{^ user.self }}
+	<h3>Nothing in watchlist</h3>
+	{{/ user.self }}
 </div>
 {{/ films }}
