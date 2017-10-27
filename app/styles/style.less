@@ -235,19 +235,10 @@ h2 {
 }
 
 .to-top {
-	.column(@center; @center);
-	.size(32px; 32px);
-	min-height: 32px;
-
-	position: fixed;
-	bottom: 60px;
-	left: 10px;
-
-	.arrow {
-		transform: rotate(-90deg) translateX(-2px);
+	&:before {
+		content: "to top";
 	}
 }
-
 
 /* images */
 
@@ -316,12 +307,22 @@ h2 {
 }
 
 .watched-icon {
-	background-image: url(../images/current/icon-watched-1.svg);
+	background-image: url(../images/current/icon-seen-blue.svg);
 	width: 42px;
 }
 
 .watched-icon-white {
-	background-image: url(../images/current/icon-watched-white.svg);
+	background-image: url(../images/current/icon-seen-white.svg);
+	width: 42px;
+}
+
+.watching-icon {
+	background-image: url(../images/current/icon-watching-blue.svg);
+	width: 42px;
+}
+
+.watching-icon-white {
+	background-image: url(../images/current/icon-watching-white.svg);
 	width: 42px;
 }
 
@@ -347,8 +348,12 @@ h2 {
 	background-image: url(../images/current/icon-comment-white.svg);
 }
 
-.friendship-icon {
-	background-image: url(../images/friendship.svg);
+.friendship-icon-blue {
+	background-image: url(../images/current/icon-friends-blue.svg);
+}
+
+.friendship-icon-white {
+	background-image: url(../images/current/icon-friends-white.svg);
 }
 
 .tag-icon {
@@ -609,6 +614,16 @@ h2 {
 /* arrow that rotates together with the title it accompanies */
 .arrow-cont {
 
+	// title and arrow
+	label {
+		.row(@y: @center);
+
+		cursor: pointer;
+		margin: 0;
+		width: 100px;
+	}
+
+	// title
 	h3 {
 		.font(700; 16px);
 		.row(@y: @center);
@@ -616,38 +631,6 @@ h2 {
 		color: @purple;
 		margin: 0 0 0 15px;
 		text-transform: uppercase;
-
-		.number {
-			.font(700; 14px);
-
-			color: white;
-			border-radius: 3px;
-			display: inline-block;
-			background: @lightpurple;
-			padding: 0 6px;
-			margin: 0 0 0 10px;
-		}
-	}
-
-	.f-title {
-		.font(700; 22px);
-
-		color: @grey;
-		margin: 0;
-		text-transform: none;
-
-		&:hover,
-		&:focus {
-			color: @lightpurple;
-		}
-	}
-
-	label {
-		.row(@y: @center);
-
-		cursor: pointer;
-		margin: 0;
-		width: 100px;
 	}
 
 	input[type="checkbox"] {
@@ -657,9 +640,21 @@ h2 {
 		}
 	}
 
+	// arrow
 	.arrow {
 		margin: 0;
 	}
+}
+
+.number {
+	.font(700; 14px);
+
+	color: white;
+	border-radius: 3px;
+	display: inline-block;
+	background: @purple;
+	padding: 0 6px;
+	margin: 0 0 0 5px;
 }
 
 /* datetimes */

@@ -41,10 +41,11 @@
 	}
 
 	/* tab-like lists switcher
-	   location: at the bottom of the view */
+	   at the bottom of the view */
 	.list-nav {
 		.row(@spread; @center);
 		background: linear-gradient(45deg, @lightpurple, @purple);
+		box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.8);
 
 		height: 40px;
 		width: 100%;
@@ -66,18 +67,26 @@
 			&:hover,
 			&.selected {
 
-				background-color: transparent;
+				background-color: white;
 
 				.watchlisted-icon-white {
-					background-image: url('../images/current/icon-watchlist-1.svg');
+					background-image: url('../images/current/icon-watchlist-blue.svg');
 				}
 
 				.watched-icon-white {
-					background-image: url('../images/current/icon-watched-1.svg');				
+					background-image: url('../images/current/icon-seen-blue.svg');				
 				}
 
-				.updates-icon-white {
-					background-image: url('../images/current/icon-updates-1.svg');
+				.watching-icon-white {
+					background-image: url('../images/current/icon-watching-blue.svg');
+				}
+
+				.friendship-icon-blue {
+					background-image: url('../images/current/icon-friends-blue.svg');
+				}
+
+				.tag-icon-white {
+					background-image: url('../images/current/icon-tag-blue.svg');
 				}
 			}
 

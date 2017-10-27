@@ -4,7 +4,7 @@
 	.transition;
 
 	background: linear-gradient(45deg, @lightpurple, @purple);
-	z-index: 1;
+	z-index: 2;
 
 	position: fixed;
 	top: 0;
@@ -27,8 +27,11 @@
 	.nav-opener {
 		cursor: pointer;
 
+		z-index: 3;
+
 		.logo {
 			.size(38px; 38px);
+
 		}
 	}
 
@@ -69,11 +72,12 @@
 	/* NAVIGATION */
 
 	.nav {
-		.column(@center);
+		.column(@center; @spread);
 		.transition;
 		.size(100vh; 80%);
 
 		background: linear-gradient(45deg, @purple, @lightpurple);
+		box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
 
 		position: fixed;
 		top: 0;
@@ -82,7 +86,23 @@
 		&.hidden {
 			.transition;
 
+			box-shadow: none;
 			right: 100%;
+		}
+
+		// nav group
+		ul {
+			.box(30px 0);
+		}
+
+		.main-nav {
+			.column(@y: @center);
+
+
+			li {
+				padding: 8px 14px;
+				margin: 10px auto;
+			}
 		}
 
 		/* nav item */
@@ -90,18 +110,9 @@
 			.font(600; 15px);
 
 			border-radius: 5px;
-			padding: 8px 14px;
-			margin: 10px auto;
 			text-transform: uppercase;
-
-			&:first-child {
-				margin: 30px 0;
-			}
-		}
-
-		// logout
-		button {
-			margin: 50px 0 0 0;
+			text-align: center;
+			width: 100%;
 		}
 	}
 
