@@ -1,23 +1,31 @@
 <header class="header-inner">
 	<div class="width-controller">
 		<nav class="nav hidden">
-			<a href="#/">
-				<div class="avatar-medium"></div>
-			</a>
-			<a href="#/feed">feed</a>
-			<a href="#/updates">notifications</a>
-			<a href="#/settings">settings</a>
-			<button data-fn="logout" class="dark">logout</button>
+			<ul class="main-nav">
+				<li>
+					<a href="#/"><div class="avatar-medium"></div></a>
+				</li>
+				<li>
+					<a href="#/feed">feed</a>
+				</li>
+				<li>
+					<a href="#/updates">notifications</a>
+				</li>
+				<li>
+					<a href="#/settings">settings</a>
+				</li>
+			</ul>
+			<ul class="">
+				<li>
+					<button data-fn="logout" class="dark">logout</button>
+				</li>
+			</ul>
 		</nav>
 		<div class="nav-opener" data-fn="home-link">
 			<div class="image logo"></div>
 			<div class="notification-marker no-display"></div>
 		</div>
 		<div class="current-view">
-			<!-- <div class="current-user">
-				<div class="avatar-small"></div>
-				<h2 class="username">stelaseldano</h2>
-			</div> -->
 			<h1>film adder</h1>
 		</div>
 		<div class="search-btn" id="search-btn">

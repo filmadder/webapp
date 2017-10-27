@@ -83,6 +83,30 @@ fa.views = (function() {
 		}
 	};
 
+	// changeTitle (replace 'film adder' with username)
+	var changeTitle = function() {
+		var isScrolling = false;
+		var titleElem = fa.dom.get('h1');
+		var newTitle = fa.dom.get('.new-title').textContent;
+
+		var changeTitle1 = function() {
+			if(!isScrolling) {
+				window.requestAnimationFrame(function() {
+					isScrolling = false;
+					if(window.scrollY > 400) {
+						titleElem.textContent = newTitle;
+					} else {
+						titleElem.textContent = "film adder";
+					}
+				});
+
+				isScrolling = true;
+			}
+		};
+
+		changeTitle1();
+	};
+
 	// returns boolean indicating whether the specified checkbox input is
 	// checked or not; if the input does not exist, returns false
 	// 
@@ -397,7 +421,6 @@ fa.views = (function() {
 	// otherwise, the rest of the view comprises befriending controls
 	var createUser = function(elem, userId) {
 		var ready = false;
-		var changeTitle;
 
 		var loaded = new signals.Signal();
 		loaded.memorize = true;
@@ -427,27 +450,6 @@ fa.views = (function() {
 					}).catch(handleError);
 				});
 			}
-
-			// changeTitle (replace 'film adder' with username)
-			var isScrolling = false;
-			var titleElem = fa.dom.get('h1');
-			var newTitle = fa.dom.get('.new-title').textContent;
-
-			changeTitle = function(e) {
-				if(!isScrolling) {
-					window.requestAnimationFrame(function() {
-						isScrolling = false;
-
-						if(window.scrollY > 65) {
-							titleElem.textContent = newTitle;
-						} else {
-							titleElem.textContent = "film adder";
-						}
-					});
-
-					isScrolling = true;
-				}
-			};
 
 			fa.dom.on(document, 'scroll', changeTitle);
 
@@ -493,11 +495,11 @@ fa.views = (function() {
 		var stateKey = 'user:'+params.user.pk+':'+params.type;
 		var state = fa.history.getState(stateKey);
 
-		render(elem, 'user-films-templ', { title: params.type });
-
 		var films;
 		if(params.type == 'seen') films = params.user.filmsPast;
 		else if(params.type == 'watchlist') films = params.user.filmsFuture;
+
+		render(elem, 'user-films-templ', {title: params.type, filmsLength: films.length});
 
 		var container = fa.dom.get('[data-fn=film-list]', elem);
 		var template = (params.type == 'seen')
