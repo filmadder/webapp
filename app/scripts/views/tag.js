@@ -21,6 +21,7 @@ fa.views.tag = (function() {
 			ready = true;
 
 			fa.views.render(elem, 'tag-templ', {tag: tagObj});
+			fa.title.set(['tag', tagObj.tag]);
 
 			if(state) {
 				for (var i = 0; i < state.opened.length; i++) {
@@ -33,7 +34,10 @@ fa.views.tag = (function() {
 		}).catch(fa.views.handleError);
 
 		window.setTimeout(function() {
-			if(!ready) fa.views.render(elem, 'loading-templ', {});
+			if(!ready) {
+				fa.views.render(elem, 'loading-templ', {});
+				fa.title.set('loading');
+			}
 		}, 500);
 
 		return {

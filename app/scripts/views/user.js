@@ -18,8 +18,7 @@ fa.views.user = (function() {
 	var createUser = function(elem, userId) {
 		var ready = false;
 
-		var loaded = new signals.Signal();
-		loaded.memorize = true;
+		var loaded = new signals.Signal(); loaded.memorize = true;
 
 		fa.users.get(userId).then(function(user) {
 			ready = true;
@@ -27,6 +26,8 @@ fa.views.user = (function() {
 			user.showData = (user.status.self || user.status.friend);
 
 			fa.views.render(elem, 'user-templ', {user: user});
+			fa.title.set(user.status.self ? 'me' : ['users', user.name]);
+
 			loaded.dispatch(user);
 
 			if(!user.showData) {  // befriending controls
@@ -46,14 +47,14 @@ fa.views.user = (function() {
 					}).catch(fa.views.handleError);
 				});
 			}
-
-			fa.dom.on(document, 'scroll', fa.views.changeTitle);
-
 		}).catch(fa.views.handleError);
 
 		// show the snake if loading takes too long
 		window.setTimeout(function() {
-			if(!ready) fa.views.render(elem, 'loading-templ', {});
+			if(!ready) {
+				fa.views.render(elem, 'loading-templ', {});
+				fa.title.set('loading');
+			}
 		}, 500);
 
 		// the view object
@@ -63,8 +64,6 @@ fa.views.user = (function() {
 			remove: function() {
 				loaded.dispose();
 				elem.innerHTML = '';
-				fa.dom.off(document, 'scroll', fa.views.changeTitle);
-				fa.dom.get('h1').textContent = 'film adder';
 			}
 		};
 	};

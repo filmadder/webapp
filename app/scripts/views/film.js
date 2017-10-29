@@ -41,13 +41,7 @@ fa.views.film = (function() {
 			ready = true;
 
 			fa.views.render(elem, 'film-templ', {film: film});
-
-			// change title
-			var isScrolling = false;
-			var titleElem = fa.dom.get('h1');
-			var newTitle = fa.dom.get('.new-title').textContent;
-
-			fa.dom.on(document, 'scroll', fa.views.changeTitle);
+			fa.title.set(['films', film.title]);
 
 			// comments
 			hier.add('/inner/film/comments', {
@@ -112,7 +106,10 @@ fa.views.film = (function() {
 
 		// show the snake if loading takes too long
 		window.setTimeout(function() {
-			if(!ready) fa.views.render(elem, 'loading-templ', {});
+			if(!ready) {
+				fa.views.render(elem, 'loading-templ', {});
+				fa.title.set('loading');
+			}
 		}, 500);
 
 		// the view object
@@ -131,8 +128,6 @@ fa.views.film = (function() {
 			},
 			remove: function() {
 				elem.innerHTML = '';
-				fa.dom.off(document, 'scroll', fa.views.changeTitle);
-				fa.dom.get('h1').textContent = 'film adder';
 			}
 		};
 	};

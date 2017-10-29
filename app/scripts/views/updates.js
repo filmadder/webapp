@@ -23,6 +23,7 @@ fa.views.updates = (function() {
 			var isEmpty = (updates.firstItems.length == 0);
 
 			fa.views.render(elem, 'updates-templ', {isEmpty: isEmpty});
+			fa.title.set('notifications');
 
 			var appendItems = function(items) {
 				var div = document.createElement('div');
@@ -52,7 +53,10 @@ fa.views.updates = (function() {
 
 		// show the snake if loading takes too long
 		window.setTimeout(function() {
-			if(!ready) fa.views.render(elem, 'loading-templ', {});
+			if(!ready) {
+				fa.views.render(elem, 'loading-templ', {});
+				fa.title.set('loading');
+			}
 		}, 500);
 
 		// the view object

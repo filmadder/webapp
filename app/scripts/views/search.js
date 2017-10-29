@@ -41,6 +41,7 @@ fa.views.search = (function() {
 				},
 				items: res.items
 			});
+			fa.title.set('search results');
 
 			if(state) {
 				window.scroll(0, state.scroll);
@@ -58,7 +59,10 @@ fa.views.search = (function() {
 		}).catch(fa.views.handleError);
 
 		window.setTimeout(function() {
-			if(!ready) fa.views.render(elem, 'loading-templ', {});
+			if(!ready) {
+				fa.views.render(elem, 'loading-templ', {});
+				fa.title.set('loading');
+			}
 		}, 500);
 
 		return {

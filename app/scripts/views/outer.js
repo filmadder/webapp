@@ -20,6 +20,7 @@ fa.views.outer = (function() {
 	// comprises the registration form
 	var createReg = function(elem) {
 		fa.views.render(elem, 'reg-templ', {});
+		fa.title.set('create account');
 
 		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.register(form.getData()).then(function() {
@@ -51,6 +52,7 @@ fa.views.outer = (function() {
 	// comprises the login form
 	var createLogin = function(elem) {
 		fa.views.render(elem, 'login-templ', {});
+		fa.title.set('login');
 
 		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.login(form.getData()).then(function() {

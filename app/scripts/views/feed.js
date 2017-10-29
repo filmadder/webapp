@@ -35,7 +35,9 @@ fa.views.feed = (function() {
 			};
 
 			ready = true;
+
 			fa.views.render(elem, 'feed-templ', {isEmpty: isEmpty});
+			fa.title.set('feed');
 
 			if(!isEmpty) {
 				appendItems(feed.firstItems);
@@ -50,7 +52,10 @@ fa.views.feed = (function() {
 
 		// show the snake if loading takes too long
 		window.setTimeout(function() {
-			if(!ready) fa.views.render(elem, 'loading-templ', {});
+			if(!ready) {
+				fa.views.render(elem, 'loading-templ', {});
+				fa.title.set('loading');
+			}
 		}, 500);
 
 		// the view object

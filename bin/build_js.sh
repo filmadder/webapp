@@ -13,6 +13,7 @@ uglifyjs \
 	app/scripts/history.js \
 	app/scripts/auth.js \
 	app/scripts/forms.js \
+	app/scripts/title.js \
 	app/scripts/views/_init.js \
 	app/scripts/views/feed.js \
 	app/scripts/views/film.js \

@@ -11,11 +11,24 @@ fa.views = (function() {
 	// used by the feed and updates views
 	var scrolledToBottom = new signals.Signal();
 
+	var scrolledFarDown = new signals.Signal();
+	var scrolledBackUp = new signals.Signal();
+
 	// window.pageYOffset is better than document.body.scrollTop
 	// http://stackoverflow.com/questions/28633221
 	window.addEventListener('scroll', function() {
 		if(window.innerHeight + window.pageYOffset >= document.body.scrollHeight) {
 			scrolledToBottom.dispatch();
+		}
+
+		if(window.pageYOffset > 400) {
+			scrolledFarDown.dispatch();
+			scrolledFarDown.active = false;
+			scrolledBackUp.active = true;
+		} else {
+			scrolledBackUp.dispatch();
+			scrolledBackUp.active = false;
+			scrolledFarDown.active = true;
 		}
 	});
 
@@ -83,33 +96,6 @@ fa.views = (function() {
 		}
 	};
 
-	// changeTitle (replace 'film adder' with username)
-	var changeTitle = function() {
-		var isScrolling = false;
-		var titleElem = fa.dom.get('h1');
-		var newTitle = fa.dom.get('.new-title').textContent;
-
-		var changeTitle1 = function() {
-			fa.dom.on(titleElem, 'click', function(){
-				window.scroll(0, 0);
-			});
-			if(!isScrolling) {
-				window.requestAnimationFrame(function() {
-					isScrolling = false;
-					if(window.scrollY > 400) {
-						titleElem.textContent = newTitle;
-					} else {
-						titleElem.textContent = "film adder";
-					}
-				});
-
-				isScrolling = true;
-			}
-		};
-
-		changeTitle1();
-	};
-
 
 	//
 	// views
@@ -125,8 +111,19 @@ fa.views = (function() {
 		var searchForm, queryField, doSearchButton, isSearchOpen;
 		var showNav, hideNav, showSearch, hideSearch;
 		var marker;
+		var heading;
 
 		render(elem, 'inner-templ', {user: fa.auth.getUser()});
+
+		// change heading
+		heading = fa.dom.get('h1');
+
+		scrolledFarDown.add(function() {
+			heading.textContent = fa.title.getLastBit();
+		});
+		scrolledBackUp.add(function() {
+			heading.textContent = 'film adder';
+		});
 
 		// nav: active links
 		navLinks = fa.dom.filter('header nav a', elem);
@@ -259,6 +256,9 @@ fa.views = (function() {
 				clearNavSignal.remove(removeActiveLinks);
 				markNavSignal.remove(addActiveLink);
 
+				scrolledFarDown.removeAll();
+				scrolledBackUp.removeAll();
+
 				elem.innerHTML = '';
 			}
 		};
@@ -354,7 +354,6 @@ fa.views = (function() {
 		handleError: handleError,
 		addMessage: addMessage,
 		removeMessage: removeMessage,
-		changeTitle: changeTitle,
 
 		inner: createInner,
 		error: createError,
