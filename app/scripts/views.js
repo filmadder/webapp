@@ -208,7 +208,7 @@ fa.views = (function() {
 	// the container of all inner views
 	var createInner = function(elem) {
 		var navLinks, removeActiveLinks, addActiveLink;
-		var movableElem, navElem, isNavOpen, view, searchIcon;
+		var movableElem, navElem, isNavOpen, view, searchIcon, searchBtn;
 		var searchForm, queryField, doSearchButton, isSearchOpen;
 		var showNav, hideNav, showSearch, hideSearch;
 		var marker;
@@ -240,11 +240,13 @@ fa.views = (function() {
 		showNav = function() {
 			navElem.classList.remove('hidden');
 			movableElem.classList.add('move-left');
+			view.classList.add('uninteractive');
 			isNavOpen = true;
 		};
 		hideNav = function() {
 			navElem.classList.add('hidden');
 			movableElem.classList.remove('move-left');
+			view.classList.remove('uninteractive');
 			isNavOpen = false;
 		}
 
@@ -266,6 +268,7 @@ fa.views = (function() {
 		doSearchButton = fa.dom.get('button[type=submit]', searchForm);
 		view = fa.dom.get('#view', elem);
 		searchIcon = fa.dom.get('.search');
+		searchBtn = fa.dom.get('.search-btn');
 		isSearchOpen = false;
 
 		showSearch = function() {
@@ -294,7 +297,7 @@ fa.views = (function() {
 		// the search form shows when search btn is clicked (1) and hides when
 		// isSearchOpen is true and the search btn is clicked (2) and the form
 		// is submitted (3)
-		fa.dom.on(searchIcon, 'click', function() {
+		fa.dom.on(searchBtn, 'click', function() {
 			if(!isSearchOpen) {  // (1)
 				showSearch();
 				queryField.focus();
