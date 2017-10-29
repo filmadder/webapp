@@ -8,19 +8,19 @@ fa.routing = (function() {
 	// 
 
 	hier.reg('/outer', 'main', fa.views.outer);
-	hier.reg('/outer/reg', '#view', fa.views.reg);
-	hier.reg('/outer/login', '#view', fa.views.login);
+	hier.reg('/outer/reg', '#view', fa.views.outer.reg);
+	hier.reg('/outer/login', '#view', fa.views.outer.login);
 
 	hier.reg('/inner', 'main', fa.views.inner);
-	hier.reg('/inner/user', '#view', fa.views.user.base);
+	hier.reg('/inner/user', '#view', fa.views.user);
 	hier.reg('/inner/user/films', '#subview', fa.views.user.films);
 	hier.reg('/inner/user/tags', '#subview', fa.views.user.tags);
 	hier.reg('/inner/user/friends', '#subview', fa.views.user.friends);
-	hier.reg('/inner/film', '#view', fa.views.film.base);
+	hier.reg('/inner/film', '#view', fa.views.film);
 	hier.reg('/inner/film/comments', 'section.comments', fa.views.film.comments);
 	hier.reg('/inner/film/tags', 'section.tagging-cont', fa.views.film.tags);
 	hier.reg('/inner/tag', '#view', fa.views.tag);
-	hier.reg('/inner/results', '#view', fa.views.results);
+	hier.reg('/inner/results', '#view', fa.views.search);
 	hier.reg('/inner/feed', '#view', fa.views.feed);
 	hier.reg('/inner/updates', '#view', fa.views.updates);
 	hier.reg('/inner/settings', '#view', fa.views.settings);

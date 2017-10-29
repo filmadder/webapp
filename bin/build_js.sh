@@ -13,7 +13,15 @@ uglifyjs \
 	app/scripts/history.js \
 	app/scripts/auth.js \
 	app/scripts/forms.js \
-	app/scripts/views.js \
+	app/scripts/views/_init.js \
+	app/scripts/views/feed.js \
+	app/scripts/views/film.js \
+	app/scripts/views/outer.js \
+	app/scripts/views/search.js \
+	app/scripts/views/settings.js \
+	app/scripts/views/tag.js \
+	app/scripts/views/updates.js \
+	app/scripts/views/user.js \
 	app/scripts/routing.js \
 	--compress \
 	--lint \

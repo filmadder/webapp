@@ -1,0 +1,364 @@
+fa.views = (function() {
+
+	"use strict";
+
+
+	// 
+	// signals
+	// 
+
+	// dispatches when the user scrolls to the bottom of the page
+	// used by the feed and updates views
+	var scrolledToBottom = new signals.Signal();
+
+	// window.pageYOffset is better than document.body.scrollTop
+	// http://stackoverflow.com/questions/28633221
+	window.addEventListener('scroll', function() {
+		if(window.innerHeight + window.pageYOffset >= document.body.scrollHeight) {
+			scrolledToBottom.dispatch();
+		}
+	});
+
+	// dirty fix to prevent feed items appearing while scrolling through a film
+	hasher.changed.add(function() {
+		scrolledToBottom.removeAll();
+	});
+
+
+	// dispatches when the active nav links should be cleared
+	// triggered by the post-remove hier hook
+	var clearNavSignal = new signals.Signal();
+
+	// dispatches when a nav link should be marked as active
+	// dispatches with one of: feed, me
+	// triggered by the pre-init hier hook
+	var markNavSignal = new signals.Signal();
+
+
+	// 
+	// helper functions
+	// 
+
+	// replaces the contents of the given dom element with the given template,
+	// rendered with the given context
+	var render = function(elem, templateID, context) {
+		var templateElem, rendered;
+
+		templateElem = document.getElementById(templateID);
+		rendered = Mustache.render(templateElem.innerHTML, context);
+
+		elem.innerHTML = rendered;
+	};
+
+	// expects {code, message} object and acts accordingly
+	// 
+	// for forbidden and not_found redirects the view
+	// for bad_input, pending and bug shows error message
+	var handleError = function(error) {
+		log.warn(error);
+
+		if(error.code == 'forbidden') {
+			fa.routing.go('login');
+		}
+		else if(error.code == 'not_found') {
+			fa.routing.go('error');
+		}
+		else {
+			addMessage({type: 'error', code: error.code});
+		}
+	};
+
+	// shows the specified message
+	// the params are passed unaltered to the createMessage view
+	var addMessage = function(params) {
+		if(hier.has('/mes')) hier.update('/mes', params);
+		else hier.add('/mes', params);
+	};
+
+	// if there is an error/success message, it will be removed
+	var removeMessage = function() {
+		if(hier.has('/mes')) {
+			hier.remove('/mes');
+			document.getElementById('message-cont').innerHTML = '';
+		}
+	};
+
+	// changeTitle (replace 'film adder' with username)
+	var changeTitle = function() {
+		var isScrolling = false;
+		var titleElem = fa.dom.get('h1');
+		var newTitle = fa.dom.get('.new-title').textContent;
+
+		var changeTitle1 = function() {
+			fa.dom.on(titleElem, 'click', function(){
+				window.scroll(0, 0);
+			});
+			if(!isScrolling) {
+				window.requestAnimationFrame(function() {
+					isScrolling = false;
+					if(window.scrollY > 400) {
+						titleElem.textContent = newTitle;
+					} else {
+						titleElem.textContent = "film adder";
+					}
+				});
+
+				isScrolling = true;
+			}
+		};
+
+		changeTitle1();
+	};
+
+
+	//
+	// views
+	//
+
+	// inits an inner view
+	// 
+	// includes the navigation, the search form, and the #view element that is
+	// the container of all inner views
+	var createInner = function(elem) {
+		var navLinks, removeActiveLinks, addActiveLink;
+		var movableElem, navElem, isNavOpen, view, searchIcon, searchBtn;
+		var searchForm, queryField, doSearchButton, isSearchOpen;
+		var showNav, hideNav, showSearch, hideSearch;
+		var marker;
+
+		render(elem, 'inner-templ', {user: fa.auth.getUser()});
+
+		// nav: active links
+		navLinks = fa.dom.filter('header nav a', elem);
+		removeActiveLinks = function() {
+			fjs.map(function(link) {
+				link.classList.remove('clicked');
+			}, navLinks);
+		};
+		addActiveLink = function(navId) {
+			fjs.map(function(link) {
+				if(link.dataset.nav == navId) {
+					link.classList.add('clicked');
+				}
+			}, navLinks);
+		};
+		clearNavSignal.add(removeActiveLinks);
+		markNavSignal.add(addActiveLink);
+
+		// nav: open and close
+		movableElem = fa.dom.get('.header-inner', elem);
+		navElem = fa.dom.get('.nav', elem);
+		isNavOpen = false;
+
+		showNav = function() {
+			navElem.classList.remove('hidden');
+			movableElem.classList.add('move-left');
+			view.classList.add('uninteractive');
+			isNavOpen = true;
+		};
+		hideNav = function() {
+			navElem.classList.add('hidden');
+			movableElem.classList.remove('move-left');
+			view.classList.remove('uninteractive');
+			isNavOpen = false;
+		}
+
+		// the nav shows when the snake is clicked (1) and hides when isNavOpen
+		// is true and either the snake (2), the view (3) or a nav link(4) is
+		// clicked
+		fa.dom.on(fa.dom.get('.nav-opener', elem), 'click', function() {
+			if(!isNavOpen) showNav();  // (1)
+			else hideNav();  // (2)
+		});
+		fa.dom.on(fa.dom.get('#view', elem), 'click', function() {
+			if(isNavOpen) hideNav();  // (3)
+		});
+		fa.dom.on(navLinks, 'click', hideNav);  // (4)
+
+		// search form
+		searchForm = fa.dom.get('#search-form', elem);
+		queryField = fa.dom.get('[name=q]', searchForm);
+		doSearchButton = fa.dom.get('button[type=submit]', searchForm);
+		view = fa.dom.get('#view', elem);
+		searchIcon = fa.dom.get('.search');
+		searchBtn = fa.dom.get('.search-btn');
+		isSearchOpen = false;
+
+		showSearch = function() {
+			searchForm.classList.remove('hidden');
+			doSearchButton.classList.remove('hidden');
+			movableElem.classList.add('move-right');
+			searchIcon.classList.remove('search');
+			searchIcon.classList.remove('icon');
+			searchIcon.classList.add('reset');
+			view.classList.add('foggy');
+			view.classList.add('uninteractive');
+			isSearchOpen = true;
+		};
+		hideSearch = function() {
+			searchForm.classList.add('hidden');
+			movableElem.classList.remove('move-right');
+			doSearchButton.classList.add('hidden');
+			searchIcon.classList.remove('reset');
+			searchIcon.classList.add('search');
+			searchIcon.classList.add('icon');
+			view.classList.remove('foggy');
+			view.classList.remove('uninteractive');
+			isSearchOpen = false;
+		};
+
+		// the search form shows when search btn is clicked (1) and hides when
+		// isSearchOpen is true and the search btn is clicked (2) and the form
+		// is submitted (3)
+		fa.dom.on(searchBtn, 'click', function() {
+			if(!isSearchOpen) {  // (1)
+				showSearch();
+				queryField.focus();
+			} else {  // (2)
+				hideSearch();
+			}
+		});
+		fa.dom.on(fa.dom.get('body'), 'keypress', function(e) {
+			if (e.which === 0) {
+				hideSearch();
+			}
+		});
+		// no reset btn for now
+		fa.dom.on(searchForm, 'submit', function(e) {
+			e.preventDefault();
+			if(queryField.value) {
+				fa.routing.go('search/?q='+encodeURIComponent(queryField.value));
+				queryField.blur();
+				queryField.value = '';
+				hideSearch();  // (3)
+			}
+		});
+
+		// unread updates marker
+		marker = fa.dom.get('.notification-marker', elem);
+
+		fa.updates.changedStatus.add(function(status) {
+			if(status == 'has-unread') {
+				marker.classList.remove('hidden');
+			} else {
+				marker.classList.add('hidden');
+			}
+		});
+
+		// logout
+		fa.dom.on('[data-fn=logout]', 'click', function() {
+			fa.auth.logout();
+			fa.routing.go('login');
+		});
+
+		// the view object
+		return {
+			remove: function() {
+				fa.updates.changedStatus.removeAll();
+
+				clearNavSignal.remove(removeActiveLinks);
+				markNavSignal.remove(addActiveLink);
+
+				elem.innerHTML = '';
+			}
+		};
+	};
+
+	// inits an error view
+	// for the time being, this is the 404 view only
+	var createError = function(elem) {
+		render(elem, 'error-404-templ', {});
+		window.scroll(0, 0);
+
+		return {
+			nav: '_',
+			remove: function() {
+				elem.innerHTML = '';
+			}
+		};
+	};
+
+	// inits a message view
+	// 
+	// expects {type: error, code} for error messages
+	// expects {type: success, text} for success messages
+	var createMessage = function(elem, params) {
+		if(params.type == 'error') {
+			render(elem, 'error-message-templ', {
+				code: {
+					badInput: (params.code == 'bad_input'),
+					bug: (params.code == 'bug'),
+					forbidden: (params.code == 'forbidden'),
+					notFound: (params.code == 'not_found'),
+					pending: (params.code == 'pending')
+				}
+			});
+			log.trace();
+		}
+		else if(params.type == 'success') {
+			render(elem, 'success-message-templ', {
+				text: params.text
+			});
+			window.setTimeout(removeMessage, 1500);
+		}
+	};
+
+
+	// 
+	// hier hooks
+	// 
+
+	// dispatches the markNavSignal with the correct string to be marked as the
+	// currently active navigation link
+	hier.on('post-init', function(path, view) {
+		if(view && view.hasOwnProperty('nav')) {
+			if(view.nav == '_') {
+				clearNavSignal.dispatch();
+			} else {
+				markNavSignal.dispatch(view.nav);
+			}
+		}
+	});
+
+	// if a view object (the return value of a view constructor) defines a
+	// empty method, call it right before removing the node's children
+	hier.on('pre-empty', function(path, view) {
+		if(view && view.hasOwnProperty('empty')) {
+			view.empty();
+		}
+	});
+
+	// if a view object (the return value of a view constructor) defines a
+	// remove method, call it right before removing the view
+	hier.on('pre-remove', function(path, view) {
+		if(view && view.hasOwnProperty('remove')) {
+			view.remove();
+		}
+	});
+
+	// dispatches the clearNavSignal so that there are no navigation links
+	// wrongly marked as active
+	hier.on('post-remove', function() {
+		clearNavSignal.dispatch();
+	});
+
+
+	// 
+	// exports
+	// 
+
+	return {
+		scrolledToBottom: scrolledToBottom,
+
+		render: render,
+		handleError: handleError,
+		addMessage: addMessage,
+		removeMessage: removeMessage,
+		changeTitle: changeTitle,
+
+		inner: createInner,
+		error: createError,
+		message: createMessage
+	};
+
+}());
