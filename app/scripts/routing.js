@@ -67,7 +67,6 @@ fa.routing = (function() {
 
 	crossroads.addRoute('/updates', function() {
 		hier.add('/inner');
-		hier.add('/inner/');
 		hier.add('/inner/updates');
 	});
 

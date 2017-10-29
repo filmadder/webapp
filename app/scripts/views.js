@@ -213,7 +213,7 @@ fa.views = (function() {
 		var showNav, hideNav, showSearch, hideSearch;
 		var marker;
 
-		render(elem, 'inner-templ', {});
+		render(elem, 'inner-templ', {user: fa.auth.getUser()});
 
 		// nav: active links
 		navLinks = fa.dom.filter('header nav a', elem);
