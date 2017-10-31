@@ -1,23 +1,31 @@
+<!-- navigation:
+	 * primary
+	 	- feed
+	 	- me (my profile)
+	 * secondary
+	 	- settings
+	 	- notifications
+	 	- logout button -->
+
 <header class="header-inner">
 	<div class="width-controller">
-		<nav class="nav hidden">
+		<!-- side navigation
+			 * mobile: includes all nav links
+			 * desktop: only secondary nav links-->
+		<nav class="nav side-nav hidden">
 			<ul class="main-nav">
 				<li>
-					<a href="#/" title="your profile">
-						<div class="avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div>
-					</a>
+					<a href="#/" title="my profile"><div class="avatar-small image primary-nav" style="background-image: url('{{ user.avatarUrl }}')"></div></a>
 				</li>
-				<li>
-					<a href="#/feed" title="your feed" data-nav="feed">feed</a>
+				<li class="primary-nav">
+					<a href="#/feed" title="feed" data-nav="feed">feed</a>
 				</li>
-				<li>
-					<a href="#/updates" title="your notifications" data-nav="updates">notifications</a>
+				<li class="secondary-nav">
+					<a href="#/updates" title="notifications" data-nav="updates">notifications</a>
 				</li>
-				<li>
-					<a href="#/settings" title="your settings" data-nav="settings">settings</a>
+				<li  class="secondary-nav" title="settings" data-nav="settings">
+					<a href="#/settings">settings</a>
 				</li>
-			</ul>
-			<ul class="">
 				<li>
 					<button data-fn="logout" class="dark">logout</button>
 				</li>
