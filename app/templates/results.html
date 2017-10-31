@@ -4,19 +4,23 @@
 	<article class="container film">
 		{{# items }}
 		<div class="film-in-list">
-			{{# posterUrl }}
-			<div class="image poster-small" style="background-image: url({{ posterUrl }});"></div>
-			{{/ posterUrl }}
-			{{^ posterUrl }}
-			<div class="no-poster poster-small">
-				<p>No poster</p>
-				<div class="image logo"></div>
+			<div class="poster-container">
+				{{# posterUrl }}
+				<div class="image poster-small" style="background-image: url({{ posterUrl }});"></div>
+				{{/ posterUrl }}
+				{{^ posterUrl }}
+				<div class="no-poster poster-small">
+					<p>No poster</p>
+					<div class="image logo"></div>
+				</div>
+				{{/ posterUrl }}
 			</div>
-			{{/ posterUrl }}
-			<a href="#/film/{{ pk }}" title="{{ title }}"class="result film listed-films">
-				<h3 class="title">{{ title }}</h3>
-				<h4 class="year-directors">{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
-			</a>
+			<div>
+				<a href="#/film/{{ pk }}" title="{{ title }}"class="result film listed-films">
+					<h3 class="title">{{ title }}</h3>
+					<h4 class="year-directors">{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
+				</a>
+			</div>
 		</div>
 		{{/ items }}
 		{{^ items }}

@@ -1,4 +1,4 @@
-<div class="user">
+<div class="user-view">
 	<div class="container">
 		<section class="user-personal">
 			<div class="avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div>
@@ -35,23 +35,18 @@
 	<div class="list-nav">
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}watchlist" data-nav="watchlist">
 			<span class="icon watchlisted-icon-white"></span>
-			<h3 class="list-title">watchlist</h3>
 		</a>
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}seen" data-nav="watched">
 			<span class="icon watched-icon-white"></span>
-			<h3 class="list-title">seen</h3>
 		</a>
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}watching">
 			<span class="icon watching-icon-white"></span>
-			<h3 class="list-title">watching</h3>
 		</a>
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}friends">
 			<span class="icon friendship-icon-white"></span>
-			<h3 class="list-title">friends</h3>
 		</a>
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}tags">
 			<span class="icon tag-icon-white"></span>
-			<h3 class="list-title">labels</h3>
 		</a>
 	</div>
 

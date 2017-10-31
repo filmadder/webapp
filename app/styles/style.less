@@ -821,17 +821,29 @@ h2 {
 		min-width: 80px;
 	}
 
-	.poster-small {
-		.size(240px; 200px);
+	.poster-container {
+		.size(250px; 180px);
 
 		margin: 0 25px 0 0;
+	}
+
+	.poster-small {
+		.size(250px; 180px);
+
+		background-size: cover;
 
 		&.no-poster {
-			.size(200px; 150px);
+			.size(250px; 180px);
 
-			min-width: 150px;
+			min-width: 180px;
 		}
 	}
+}
+
+
+// font-awesome icon
+i.white {
+	color: white;
 }
 
 @import "header";
