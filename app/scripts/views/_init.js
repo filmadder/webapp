@@ -129,13 +129,13 @@ fa.views = (function() {
 		navLinks = fa.dom.filter('header nav a', elem);
 		removeActiveLinks = function() {
 			fjs.map(function(link) {
-				link.classList.remove('clicked');
+				link.classList.remove('selected');
 			}, navLinks);
 		};
 		addActiveLink = function(navId) {
 			fjs.map(function(link) {
 				if(link.dataset.nav == navId) {
-					link.classList.add('clicked');
+					link.classList.add('selected');
 				}
 			}, navLinks);
 		};
@@ -349,6 +349,8 @@ fa.views = (function() {
 
 	return {
 		scrolledToBottom: scrolledToBottom,
+		clearNavSignal: clearNavSignal,
+		markNavSignal: markNavSignal,
 
 		render: render,
 		handleError: handleError,

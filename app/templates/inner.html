@@ -3,16 +3,18 @@
 		<nav class="nav hidden">
 			<ul class="main-nav">
 				<li>
-					<a href="#/"><div class="avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div></a>
+					<a href="#/" title="your profile">
+						<div class="avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div>
+					</a>
 				</li>
 				<li>
-					<a href="#/feed">feed</a>
+					<a href="#/feed" title="your feed" data-nav="feed">feed</a>
 				</li>
 				<li>
-					<a href="#/updates">notifications</a>
+					<a href="#/updates" title="your notifications" data-nav="updates">notifications</a>
 				</li>
 				<li>
-					<a href="#/settings">settings</a>
+					<a href="#/settings" title="your settings" data-nav="settings">settings</a>
 				</li>
 			</ul>
 			<ul class="">

@@ -33,23 +33,28 @@
 
 	{{# user.showData }}
 	<div class="list-nav">
-		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}watchlist" data-nav="watchlist">
+		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}watchlist"
+				title="watchlist" data-nav="user-watchlist">
 			<span class="icon watchlisted-icon-white"></span>
 			<h3 class="list-title">watchlist</h3>
 		</a>
-		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}seen" data-nav="watched">
+		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}seen"
+				title="seen" data-nav="user-seen">
 			<span class="icon watched-icon-white"></span>
 			<h3 class="list-title">seen</h3>
 		</a>
-		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}watching">
+		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}watching"
+				title="watching" data-nav="user-watching">
 			<span class="icon watching-icon-white"></span>
 			<h3 class="list-title">watching</h3>
 		</a>
-		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}friends">
+		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}friends"
+				title="friends" data-nav="user-friends">
 			<span class="icon friendship-icon-white"></span>
 			<h3 class="list-title">friends</h3>
 		</a>
-		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}tags">
+		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}tags"
+				title="tags" data-nav="user-tags">
 			<span class="icon tag-icon-white"></span>
 			<h3 class="list-title">labels</h3>
 		</a>

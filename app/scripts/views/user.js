@@ -17,8 +17,8 @@ fa.views.user = (function() {
 	// otherwise, the rest of the view comprises befriending controls
 	var createUser = function(elem, userId) {
 		var ready = false;
-
 		var loaded = new signals.Signal(); loaded.memorize = true;
+		var navLinks, removeActiveLinks, addActiveLink;
 
 		fa.users.get(userId).then(function(user) {
 			ready = true;
@@ -28,9 +28,25 @@ fa.views.user = (function() {
 			fa.views.render(elem, 'user-templ', {user: user});
 			fa.title.set(user.status.self ? 'me' : ['users', user.name]);
 
-			loaded.dispatch(user);
+			// nav: active links
+			navLinks = fa.dom.filter('a[data-nav]', elem);
+			removeActiveLinks = function() {
+				fjs.map(function(link) {
+					link.classList.remove('selected');
+				}, navLinks);
+			};
+			addActiveLink = function(navId) {
+				fjs.map(function(link) {
+					if(link.dataset.nav == navId) {
+						link.classList.add('selected');
+					}
+				}, navLinks);
+			};
+			fa.views.clearNavSignal.add(removeActiveLinks);
+			fa.views.markNavSignal.add(addActiveLink);
 
-			if(!user.showData) {  // befriending controls
+			// befriending controls
+			if(!user.showData) {
 				fa.dom.on('[data-fn=request-friend]', 'click', function() {
 					user.requestFriendship().then(function() {
 						hier.update('/inner/user', userId);
@@ -47,6 +63,8 @@ fa.views.user = (function() {
 					}).catch(fa.views.handleError);
 				});
 			}
+
+			loaded.dispatch(user);
 		}).catch(fa.views.handleError);
 
 		// show the snake if loading takes too long
@@ -63,6 +81,10 @@ fa.views.user = (function() {
 			loaded: loaded,
 			remove: function() {
 				loaded.dispose();
+
+				fa.views.clearNavSignal.remove(removeActiveLinks);
+				fa.views.markNavSignal.remove(addActiveLink);
+
 				elem.innerHTML = '';
 			}
 		};
@@ -124,6 +146,7 @@ fa.views.user = (function() {
 
 		// the view object
 		return {
+			nav: 'user-'+ params.type,
 			remove: function() {
 				fa.history.setState(stateKey, { scroll: window.pageYOffset });
 				elem.innerHTML = '';
@@ -136,12 +159,20 @@ fa.views.user = (function() {
 	// comprises the list of tags used by a given user
 	var createUserTags = function(elem, user) {
 		fa.views.render(elem, 'user-tags-templ', {tags: user.tags});
+
+		return {
+			nav: 'user-tags'
+		};
 	};
 
 	// inits a user friends view
 	// comprises the list of a given user's friends
 	var createUserFriends = function(elem, user) {
 		fa.views.render(elem, 'user-friends-templ', {friends: user.friends});
+
+		return {
+			nav: 'user-friends'
+		};
 	};
 
 
