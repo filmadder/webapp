@@ -14,8 +14,8 @@
 			 * desktop: only secondary nav links-->
 		<nav class="nav side-nav hidden">
 			<ul class="main-nav">
-				<li>
-					<a href="#/" title="my profile"><div class="avatar-small image primary-nav" style="background-image: url('{{ user.avatarUrl }}')"></div></a>
+				<li class="primary-nav">
+					<a href="#/" title="my profile"><div class="me avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div></a>
 				</li>
 				<li class="primary-nav">
 					<a href="#/feed" title="feed" data-nav="feed">feed</a>
@@ -23,9 +23,11 @@
 				<li class="secondary-nav">
 					<a href="#/updates" title="notifications" data-nav="updates">notifications</a>
 				</li>
-				<li  class="secondary-nav" title="settings" data-nav="settings">
-					<a href="#/settings">settings</a>
+				<li  class="secondary-nav">
+					<a href="#/settings"  title="settings" data-nav="settings">settings</a>
 				</li>
+			</ul>
+			<ul>
 				<li>
 					<button data-fn="logout" class="dark">logout</button>
 				</li>

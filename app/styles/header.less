@@ -78,8 +78,8 @@
 
 	.nav {
 		.column(@center; @spread);
-		.transition;
 		.size(100vh; 80%);
+		.transition;
 
 		background: linear-gradient(45deg, @purple, @lightpurple);
 		box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
@@ -89,8 +89,6 @@
 		right: 20%;
 
 		&.hidden {
-			.transition;
-
 			box-shadow: none;
 			right: 100%;
 		}
@@ -98,26 +96,43 @@
 		// nav group
 		ul {
 			.box(30px 0);
+
+			width: 80%;
 		}
 
 		.main-nav {
 			.column(@y: @center);
 
-
+			// nav item container
 			li {
-				margin: 20px auto;
+				margin: 10px auto;
+				width: 100%;
+
+				// everything except the profile link
+				&:not(:first-child) {
+					a {
+						margin: 0 0 0 8px;
+						padding: 8px;
+					}
+				}
+
+				// nav item
+				a {
+					.font(600; 15px);
+
+					display: inline-block;
+					text-transform: uppercase;
+					width: 200px;
+				}
+
+				// current view
+				.selected {
+					background: white;
+					border-radius: 5px;
+					color: @lightpurple;
+					text-align: right;
+				}
 			}
-		}
-
-		/* nav item */
-		a {
-			.font(600; 15px);
-
-			border-radius: 5px;
-			text-transform: uppercase;
-			text-align: center;
-			padding: 8px 14px;
-			width: 100%;
 		}
 	}
 

@@ -144,7 +144,9 @@ fa.views = (function() {
 		addActiveLink = function(navId) {
 			fjs.map(function(link) {
 				if(link.dataset.nav == navId) {
-					link.classList.add('selected');
+					setTimeout(function() {
+						link.classList.add('selected');
+					}, 300);
 				}
 			}, navLinks);
 		};
