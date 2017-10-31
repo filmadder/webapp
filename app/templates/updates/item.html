@@ -1,0 +1,39 @@
+{{# items }}
+	{{# type.newFriend }}
+	<div class="update-item">
+		<a href="#/user/{{ user.pk }}" title="to {{ user.name }}'s profile">
+		<div class="avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div></a>
+		<p>
+			<a href="#/user/{{ user.pk }}" title="to {{ user.name }}'s profile" class="user">{{ user.name }}</a>
+		 and you are now friends</p>
+		<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
+	</div>
+	{{/ type.newFriend }}
+	
+	{{# type.newFriendReq }}
+	<div class="update-item">
+		<a href="#/user/{{ user.pk }}" title="to {{ user.name }}'s profile"><div class="avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div></a>
+		<p>
+			<a href="#/user/{{ user.pk }}" title="to {{ user.name }}'s profile" class="user">{{ user.name }}</a>
+		 wants to be friends with you</p>
+		<div class="controls-container no-display">
+			<button class="light">accept</button>
+			<button class="light">reject</button>
+		</div>
+		<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
+	</div>
+	{{/ type.newFriendReq }}
+	
+<!-- 	{{# type.newReply }}
+	<div class="update-item">
+		<p>
+			<a href="#/user/{{ user.pk }}" class="user">
+			<div class="avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div>
+			{{ user.name }}</a>
+			replied to your comment on
+			<a href="#/film/{{ film.pk }}">{{ film.title }}</a>
+		</p>
+		<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
+	</div>
+	{{/ type.newReply }} -->
+{{/ items }}
