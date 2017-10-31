@@ -38,7 +38,7 @@ fa.views.settings = (function() {
 		.add('pass2', [fa.forms.equal('pass1')]);
 
 		return {
-			nav: 'me',
+			nav: 'settings',
 			remove: function() {
 				elem.innerHTML = '';
 			}

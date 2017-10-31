@@ -58,7 +58,7 @@ fa.views = (function() {
 	// if the window is wider than 740px and there exists a wide- version of
 	// the requested template, it is used instead
 	var render = function(elem, templateID, context) {
-		var templateElem, rendered;
+		var templateElem;
 
 		if(window.innerWidth > 740) {
 			templateElem = document.getElementById('wide-'+ templateID);
@@ -321,7 +321,7 @@ fa.views = (function() {
 
 	// dispatches the markNavSignal with the correct string to be marked as the
 	// currently active navigation link
-	hier.on('post-init', function(path, view) {
+	hier.on('post-init', function(path, elem, view) {
 		if(view && view.hasOwnProperty('nav')) {
 			if(view.nav == '_') {
 				clearNavSignal.dispatch();
@@ -333,7 +333,7 @@ fa.views = (function() {
 
 	// if a view object (the return value of a view constructor) defines a
 	// empty method, call it right before removing the node's children
-	hier.on('pre-empty', function(path, view) {
+	hier.on('pre-empty', function(path, elem, view) {
 		if(view && view.hasOwnProperty('empty')) {
 			view.empty();
 		}
@@ -341,7 +341,7 @@ fa.views = (function() {
 
 	// if a view object (the return value of a view constructor) defines a
 	// remove method, call it right before removing the view
-	hier.on('pre-remove', function(path, view) {
+	hier.on('pre-remove', function(path, elem, view) {
 		if(view && view.hasOwnProperty('remove')) {
 			view.remove();
 		}
