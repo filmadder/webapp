@@ -1,11 +1,10 @@
 # views
 
-These are the `create*` functions found in `views.js`. Each of these takes as
-first argument the dom element that the view will init or operate; they can also
-take an optional second argument (most of them do), which is specific to the
-view. A view usually renders a template in its given dom element, attaches event
-listeners, and inits sub-views. View functions could return a so-called view
-object, which can have the following properties:
+View constructors expect a dom element, the contents of which will be replaced
+with the view's rendered template, and optionally a second argument which is
+specific to the view. Apart from rendering a template in its given dom element,
+a view function usually also attaches event listeners, inits sub-views, and
+return a so-called view object. The latter can have the following properties:
 
 * `nav`: string identifying the view with regards to the navigation; used for
   nav link highlighting; if set to `_`, the latter is cleared.
