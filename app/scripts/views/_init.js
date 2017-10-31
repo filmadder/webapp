@@ -54,13 +54,22 @@ fa.views = (function() {
 
 	// replaces the contents of the given dom element with the given template,
 	// rendered with the given context
+	//
+	// if the window is wider than 740px and there exists a wide- version of
+	// the requested template, it is used instead
 	var render = function(elem, templateID, context) {
 		var templateElem, rendered;
 
-		templateElem = document.getElementById(templateID);
-		rendered = Mustache.render(templateElem.innerHTML, context);
+		if(window.innerWidth > 740) {
+			templateElem = document.getElementById('wide-'+ templateID);
+			if(!templateElem) {
+				templateElem = document.getElementById(templateID);
+			}
+		} else {
+			templateElem = document.getElementById(templateID);
+		}
 
-		elem.innerHTML = rendered;
+		elem.innerHTML = Mustache.render(templateElem.innerHTML, context);
 	};
 
 	// expects {code, message} object and acts accordingly
