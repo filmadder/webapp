@@ -16,17 +16,11 @@ fa.views.user = (function() {
 	//
 	// otherwise, the rest of the view comprises befriending controls
 	var createUser = function(elem, userId) {
-		var ready = false;
-		var loaded = new signals.Signal(); loaded.memorize = true;
-		var navLinks, removeActiveLinks, addActiveLink;
-
-		fa.users.get(userId).then(function(user) {
-			ready = true;
+		return fa.users.get(userId).then(function(user) {
+			var navLinks, removeActiveLinks, addActiveLink;
 
 			user.showData = (user.status.self || user.status.friend);
-
 			fa.views.render(elem, 'user-templ', {user: user});
-			fa.title.set(user.status.self ? 'me' : ['users', user.name]);
 
 			// nav: active links
 			navLinks = fa.dom.filter('a[data-nav]', elem);
@@ -64,30 +58,27 @@ fa.views.user = (function() {
 				});
 			}
 
-			loaded.dispatch(user);
-		}).catch(fa.views.handleError);
-
-		// show the snake if loading takes too long
-		window.setTimeout(function() {
-			if(!ready) {
-				fa.views.render(elem, 'loading-templ', {});
-				fa.title.set('loading');
-			}
-		}, 500);
-
-		// the view object
-		return {
-			nav: '_',
-			loaded: loaded,
-			remove: function() {
-				loaded.dispose();
-
-				fa.views.clearNavSignal.remove(removeActiveLinks);
-				fa.views.markNavSignal.remove(addActiveLink);
-
-				elem.innerHTML = '';
-			}
-		};
+			// the view object
+			return {
+				nav: '_',
+				title: user.status.self ? 'me' : ['users', user.name],
+				remove: function() {
+					fa.views.clearNavSignal.remove(removeActiveLinks);
+					fa.views.markNavSignal.remove(addActiveLink);
+				},
+				initSubView: function(list) {
+					if(user.showData) {
+						if(list == 'friends') {
+							return hier.add('/inner/user/friends', user);
+						} else if(list == 'tags') {
+							return hier.add('/inner/user/tags', user);
+						} else {
+							return hier.add('/inner/user/films', {user: user, type: list});
+						}
+					}
+				}
+			};
+		});
 	};
 
 	// inits a film list view
@@ -145,13 +136,12 @@ fa.views.user = (function() {
 		window.scroll(0, state ? state.scroll : 0);
 
 		// the view object
-		return {
+		return Promise.resolve({
 			nav: 'user-'+ params.type,
 			remove: function() {
 				fa.history.setState(stateKey, { scroll: window.pageYOffset });
-				elem.innerHTML = '';
 			}
-		};
+		});
 	};
 
 	// inits a user tags view
@@ -160,9 +150,9 @@ fa.views.user = (function() {
 	var createUserTags = function(elem, user) {
 		fa.views.render(elem, 'user-tags-templ', {tags: user.tags});
 
-		return {
+		return Promise.resolve({
 			nav: 'user-tags'
-		};
+		});
 	};
 
 	// inits a user friends view
@@ -170,9 +160,9 @@ fa.views.user = (function() {
 	var createUserFriends = function(elem, user) {
 		fa.views.render(elem, 'user-friends-templ', {friends: user.friends});
 
-		return {
+		return Promise.resolve({
 			nav: 'user-friends'
-		};
+		});
 	};
 
 

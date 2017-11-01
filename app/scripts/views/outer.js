@@ -13,6 +13,7 @@ fa.views.outer = (function() {
 	// comprises a header containing the name and logo
 	var createOuter = function(elem) {
 		fa.views.render(elem, 'outer-templ', {});
+		return Promise.resolve({});
 	};
 
 	// inits a create account view
@@ -20,7 +21,6 @@ fa.views.outer = (function() {
 	// comprises the registration form
 	var createReg = function(elem) {
 		fa.views.render(elem, 'reg-templ', {});
-		fa.title.set('create account');
 
 		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.register(form.getData()).then(function() {
@@ -28,7 +28,7 @@ fa.views.outer = (function() {
 				fa.views.addMessage({type: 'success', text: 'you are now an adder!'});
 			}).catch(function(error) {
 				if(error.code == 'bad_input') {
-					app.views.removeMessage();
+					fa.views.removeMessage();
 					form.showError(error.message);
 				}
 				else fa.views.addMessage({type: 'error', code: error.code});
@@ -40,11 +40,9 @@ fa.views.outer = (function() {
 		.add('pass1', [fa.forms.maxLen(200), fa.forms.minLen(5)])
 		.add('pass2', fa.forms.equal('pass1'));
 
-		return {
-			remove: function() {
-				elem.innerHTML = '';
-			}
-		};
+		return Promise.resolve({
+			title: 'create account'
+		});
 	};
 
 	// inits a login view
@@ -52,14 +50,13 @@ fa.views.outer = (function() {
 	// comprises the login form
 	var createLogin = function(elem) {
 		fa.views.render(elem, 'login-templ', {});
-		fa.title.set('login');
 
 		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.login(form.getData()).then(function() {
 				fa.routing.go('');
 			}).catch(function(error) {
 				if(error.code == 'bad_input') {
-					app.views.removeMessage();
+					fa.views.removeMessage();
 					form.showError(error.message);
 				}
 				else fa.views.addMessage({type: 'error', code: error.code});
@@ -69,11 +66,9 @@ fa.views.outer = (function() {
 		.add('email', [fa.forms.maxLen(200), fa.forms.email])
 		.add('pass', [fa.forms.maxLen(200), fa.forms.minLen(5)]);
 
-		return {
-			remove: function() {
-				elem.innerHTML = '';
-			}
-		};
+		return Promise.resolve({
+			title: 'login'
+		});
 	};
 
 

@@ -34,14 +34,10 @@ fa.views.film = (function() {
 	// 
 	// expects the id of the film as its view param
 	var createFilm = function(elem, id) {
-		var ready = false;
-		var state = fa.history.getState('film:'+id.toString());
-
-		fa.films.get(id).then(function(film) {
-			ready = true;
+		return fa.films.get(id).then(function(film) {
+			var state = fa.history.getState('film:'+id.toString());
 
 			fa.views.render(elem, 'film-templ', {film: film});
-			fa.title.set(['films', film.title]);
 
 			// comments
 			hier.add('/inner/film/comments', {
@@ -102,21 +98,12 @@ fa.views.film = (function() {
 			} else {
 				window.scroll(0, 0);
 			}
-		}).catch(fa.views.handleError);
 
-		// show the snake if loading takes too long
-		window.setTimeout(function() {
-			if(!ready) {
-				fa.views.render(elem, 'loading-templ', {});
-				fa.title.set('loading');
-			}
-		}, 500);
-
-		// the view object
-		return {
-			nav: '_',
-			empty: function() {
-				if(ready) {
+			// the view object
+			return {
+				nav: '_',
+				title: ['films', film.title],
+				empty: function() {
 					fa.history.setState('film:'+id.toString(), {
 						scroll: window.pageYOffset,
 						checkSynopsis: getCheckState('#synopsis-text', elem),
@@ -125,11 +112,8 @@ fa.views.film = (function() {
 						checkSpoilers: getCheckState('#show-spoilers', elem)
 					});
 				}
-			},
-			remove: function() {
-				elem.innerHTML = '';
-			}
-		};
+			};
+		});
 	};
 
 	// inits a film comments view
@@ -179,6 +163,8 @@ fa.views.film = (function() {
 				fa.views.addMessage({type: 'error', code: error.code});
 			});
 		});
+
+		return Promise.resolve({});
 	};
 
 	// inits a film tags view
@@ -247,12 +233,11 @@ fa.views.film = (function() {
 		});
 
 		// the view object
-		return {
+		return Promise.resolve({
 			remove: function() {
 				suggComp.remove();
-				elem.innerHTML = '';
 			}
-		};
+		});
 	};
 
 

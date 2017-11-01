@@ -1,17 +1,20 @@
 # views
 
-View constructors expect a dom element, the contents of which will be replaced
-with the view's rendered template, and optionally a second argument which is
-specific to the view. Apart from rendering a template in its given dom element,
-a view function usually also attaches event listeners, inits sub-views, and
-return a so-called view object. The latter can have the following properties:
+The views are Crockford-style constructors that expect a dom element, the
+contents of which will usually be replaced with a rendered template, and
+optionally a second argument which is specific to the view. View constructors
+request data, render it, attach event listeners, and init sub-views. Views
+should always return a promise that either resolves into the so-called view
+object or rejects with a {code, message} error. View objects can have the
+following properties:
 
 * `nav`: string identifying the view with regards to the navigation; used for
   nav link highlighting; if set to `_`, the latter is cleared.
+* `title`: string or array to be passed onto `fa.title`.
 * `empty`: function that is invoked when the view is destroyed, before the
   sub-views are; often used to set fa.history's state.
 * `remove`: function that is invoked when the view is destroyed, after the
-  sub-views are; usually ends with `elem.innerHTML = '';`.
+  sub-views are.
 
 
 ## list
@@ -21,8 +24,8 @@ return a so-called view object. The latter can have the following properties:
 	- reg
 
 - inner: header, nav
-	- user: sub-nav
-		- seen, currently watching, watchlist: film lists
+	- user: sub-nav, friendship controls
+		- films (seen, currently watching, watchlist)
 		- friends
 		- tags
 	- film
@@ -31,7 +34,7 @@ return a so-called view object. The latter can have the following properties:
 	- tag
 	- search results
 	- feed
-	- notifications
+	- updates (notifications)
 	- settings
 
 - error

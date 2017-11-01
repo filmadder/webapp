@@ -15,12 +15,8 @@ fa.views.search = (function() {
 	// yet-to-be-processed search query
 	var createResults = function(elem, params) {
 		if(!params.hasOwnProperty('q') || !params.q) {
-			fa.routing.go('error');
-			return;
+			return Promise.reject({code: 'not_found', message: ''});
 		}
-
-		var ready = false;
-		var state = fa.history.getState('results');
 
 		// shows the more results button
 		var showMoreResults = function() {
@@ -31,8 +27,8 @@ fa.views.search = (function() {
 			button.classList.remove('no-display');
 		};
 
-		fa.search.search(params.q).then(function(res) {
-			ready = true;
+		return fa.search.search(params.q).then(function(res) {
+			var state = fa.history.getState('results');
 
 			fa.views.render(elem, 'results-templ', {
 				type: {
@@ -41,13 +37,8 @@ fa.views.search = (function() {
 				},
 				items: res.items
 			});
-			fa.title.set('search results');
 
-			if(state) {
-				window.scroll(0, state.scroll);
-			} else {
-				window.scroll(0, 0);
-			}
+			window.scroll(0, state ? state.scroll : 0);
 
 			if(res.type == 'films') {
 				fa.films.gotMoreResults.addOnce(function(mesQuery) {
@@ -56,27 +47,18 @@ fa.views.search = (function() {
 					}
 				});
 			}
-		}).catch(fa.views.handleError);
 
-		window.setTimeout(function() {
-			if(!ready) {
-				fa.views.render(elem, 'loading-templ', {});
-				fa.title.set('loading');
-			}
-		}, 500);
-
-		return {
-			nav: '_',
-			remove: function() {
-				fa.films.gotMoreResults.removeAll();
-				if(ready) {
+			return {
+				nav: '_',
+				title: 'search results',
+				remove: function() {
+					fa.films.gotMoreResults.removeAll();
 					fa.history.setState('results', {
 						scroll: window.pageYOffset
 					});
 				}
-				elem.innerHTML = '';
-			}
-		};
+			};
+		});
 	};
 
 
