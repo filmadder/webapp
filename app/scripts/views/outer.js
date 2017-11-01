@@ -20,7 +20,7 @@ fa.views.outer = (function() {
 	// 
 	// comprises the registration form
 	var createReg = function(elem) {
-		fa.views.render(elem, 'reg-templ', {});
+		fa.views.render(elem, 'outer-reg-templ', {});
 
 		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.register(form.getData()).then(function() {
@@ -49,7 +49,7 @@ fa.views.outer = (function() {
 	// 
 	// comprises the login form
 	var createLogin = function(elem) {
-		fa.views.render(elem, 'login-templ', {});
+		fa.views.render(elem, 'outer-login-templ', {});
 
 		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.login(form.getData()).then(function() {

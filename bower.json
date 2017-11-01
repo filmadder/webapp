@@ -13,9 +13,6 @@
     "hier": "^0.1.5",
     "loglevel": "^1.4.1"
   },
-  "devDependencies": {
-    "qunit": "^1.23.1"
-  },
   "resolutions": {
     "normalize-css": "~5.0.0"
   }
