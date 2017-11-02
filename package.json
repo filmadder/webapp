@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build-html": "bin/build_html.sh",
+    "build-html": "bin/build_html.fish",
     "build-css": "bin/build_css.sh",
     "build-js": "bin/build_js.sh",
     "build-vendor": "bin/build_vendor.sh",
@@ -14,7 +14,6 @@
     "chokidar-cli": "^1.2.0",
     "concurrently": "^3.5.0",
     "ecstatic": "^3.0.0",
-    "html-partials-compiler": "^1.0.7",
     "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-firefox-launcher": "^1.0.1",

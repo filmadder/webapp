@@ -30,7 +30,7 @@ fa.views.search = (function() {
 		return fa.search.search(params.q).then(function(res) {
 			var state = fa.history.getState('results');
 
-			fa.views.render(elem, 'results-templ', {
+			fa.views.render(elem, 'results', {
 				type: {
 					films: (res.type == 'films'),
 					users: (res.type == 'users')

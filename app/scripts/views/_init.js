@@ -61,12 +61,16 @@ fa.views = (function() {
 		var templateElem;
 
 		if(window.innerWidth > 740) {
-			templateElem = document.getElementById('wide-'+ templateID);
+			templateElem = document.getElementById(templateID +'-wide-templ');
 			if(!templateElem) {
-				templateElem = document.getElementById(templateID);
+				templateElem = document.getElementById(templateID +'-templ');
 			}
 		} else {
-			templateElem = document.getElementById(templateID);
+			templateElem = document.getElementById(templateID +'-templ');
+		}
+
+		if(!templateElem) {
+			throw new Error('Could not find template: '+ templateID);
 		}
 
 		elem.innerHTML = Mustache.render(templateElem.innerHTML, context);
@@ -122,7 +126,7 @@ fa.views = (function() {
 		var marker;
 		var heading;
 
-		render(elem, 'inner-templ', {user: fa.auth.getUser()});
+		render(elem, 'inner', {user: fa.auth.getUser()});
 
 		// change heading
 		heading = fa.dom.get('h1');
@@ -276,7 +280,7 @@ fa.views = (function() {
 	// inits an error view
 	// for the time being, this is the 404 view only
 	var createError = function(elem) {
-		render(elem, 'error-404-templ', {});
+		render(elem, 'meta-error-404', {});
 		window.scroll(0, 0);
 
 		return Promise.resolve({
@@ -290,7 +294,7 @@ fa.views = (function() {
 	// expects {type: success, text} for success messages
 	var createMessage = function(elem, params) {
 		if(params.type == 'error') {
-			render(elem, 'error-message-templ', {
+			render(elem, 'meta-error-message', {
 				code: {
 					badInput: (params.code == 'bad_input'),
 					bug: (params.code == 'bug'),
@@ -302,7 +306,7 @@ fa.views = (function() {
 			log.trace();
 		}
 		else if(params.type == 'success') {
-			render(elem, 'success-message-templ', {
+			render(elem, 'meta-success-message', {
 				text: params.text
 			});
 			window.setTimeout(removeMessage, 1500);
@@ -354,7 +358,7 @@ fa.views = (function() {
 
 		window.setTimeout(function() {
 			if(!ready) {
-				render(elem, 'loading-templ', {});
+				render(elem, 'meta-loading', {});
 				fa.title.set('loading');
 			}
 		}, 500);

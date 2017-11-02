@@ -18,7 +18,7 @@ fa.views.tag = (function() {
 			var state = fa.history.getState('tag:'+params.tag);
 			var i;
 
-			fa.views.render(elem, 'tag-templ', {tag: tagObj});
+			fa.views.render(elem, 'tag', {tag: tagObj});
 
 			if(state) {
 				for (i = 0; i < state.opened.length; i++) {

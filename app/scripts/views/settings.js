@@ -11,7 +11,7 @@ fa.views.settings = (function() {
 	// 
 	// this view contains the change password form and the logout button
 	var createSettings = function(elem) {
-		fa.views.render(elem, 'settings-templ', {});
+		fa.views.render(elem, 'settings', {});
 
 		window.scroll(0, 0);
 

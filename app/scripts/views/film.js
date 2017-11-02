@@ -37,7 +37,7 @@ fa.views.film = (function() {
 		return fa.films.get(id).then(function(film) {
 			var state = fa.history.getState('film:'+id.toString());
 
-			fa.views.render(elem, 'film-templ', {film: film});
+			fa.views.render(elem, 'film-base', {film: film});
 
 			// comments
 			hier.add('/inner/film/comments', {
@@ -124,7 +124,7 @@ fa.views.film = (function() {
 			? params.film.comments
 			: fjs.filter('x => !x.hasSpoilers', params.film.comments);
 
-		fa.views.render(elem, 'comments-templ', {
+		fa.views.render(elem, 'film-comments', {
 			comments: comments, film: {title: params.film.title},
 			spoilersOk: params.spoilersOk, open: params.open });
 
@@ -171,7 +171,7 @@ fa.views.film = (function() {
 	//
 	// expects the film long object as its params param
 	var createFilmTags = function(elem, film) {
-		fa.views.render(elem, 'film-tags-templ', {film: film});
+		fa.views.render(elem, 'film-tagging', {film: film});
 
 		var initSuggComp = function(elem) {
 			var comp = {};
@@ -180,7 +180,7 @@ fa.views.film = (function() {
 			comp.selected = new signals.Signal();
 
 			comp.update = function(suggestions) {
-				fa.views.render(elem, 'film-tags-sugg-templ', {suggestions: suggestions});
+				fa.views.render(elem, 'film-tags-sugg', {suggestions: suggestions});
 				lis = fa.dom.filter('li', elem);
 				fa.dom.on(lis, 'click', function(e) {
 					comp.selected.dispatch(e.target.innerHTML);

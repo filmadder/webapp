@@ -12,7 +12,7 @@ fa.views.outer = (function() {
 	// this view is a simple container for the login and reg views and
 	// comprises a header containing the name and logo
 	var createOuter = function(elem) {
-		fa.views.render(elem, 'outer-templ', {});
+		fa.views.render(elem, 'outer-base', {});
 		return Promise.resolve({});
 	};
 
@@ -20,7 +20,7 @@ fa.views.outer = (function() {
 	// 
 	// comprises the registration form
 	var createReg = function(elem) {
-		fa.views.render(elem, 'outer-reg-templ', {});
+		fa.views.render(elem, 'outer-reg', {});
 
 		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.register(form.getData()).then(function() {
@@ -49,7 +49,7 @@ fa.views.outer = (function() {
 	// 
 	// comprises the login form
 	var createLogin = function(elem) {
-		fa.views.render(elem, 'outer-login-templ', {});
+		fa.views.render(elem, 'outer-login', {});
 
 		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.login(form.getData()).then(function() {

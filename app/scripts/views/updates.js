@@ -21,8 +21,8 @@ fa.views.updates = (function() {
 
 			var appendItems = function(items) {
 				var div = document.createElement('div');
-				fa.views.render(div, 'update-items-templ', {items: items});
-				elem.firstChild.appendChild(div);
+				fa.views.render(div, 'updates-item', {items: items});
+				elem.firstElementChild.appendChild(div);
 
 				fa.views.scrolledToBottom.addOnce(function() {
 					updates.loadMore().then(function(newItems) {
@@ -34,7 +34,7 @@ fa.views.updates = (function() {
 				});
 			};
 
-			fa.views.render(elem, 'updates-templ', {isEmpty: isEmpty});
+			fa.views.render(elem, 'updates-base', {isEmpty: isEmpty});
 
 			if(!isEmpty) {
 				appendItems(updates.firstItems);

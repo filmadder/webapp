@@ -43,7 +43,7 @@ QUnit.module('views', function(hooks) {
 		});
 	});
 
-	QUnit.skip('user', function(assert) {
+	QUnit.test('user', function(assert) {
 		var done = assert.async();
 		var mainElem = this.mainElem;
 		var getUser = sinon.stub(fa.users, 'get').resolves({
