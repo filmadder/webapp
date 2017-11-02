@@ -1,5 +1,4 @@
 QUnit.module('views', function(hooks) {
-
 	hooks.beforeEach(function() {
 		var key, html = '<main></main>';
 
@@ -43,20 +42,114 @@ QUnit.module('views', function(hooks) {
 		});
 	});
 
-	QUnit.test('user', function(assert) {
-		var done = assert.async();
-		var mainElem = this.mainElem;
-		var getUser = sinon.stub(fa.models.users, 'get').resolves({
-			pk: 1, name: 'ghost', avatarUrl: '',
-			status: {
-				unknown: true, waiting: false, asked: false,
-				friend: false, self: false
-			}
+	QUnit.module('user', function(hooks) {
+		hooks.beforeEach(function() {
+			this.getUser = sinon.stub(fa.models.users, 'get');
 		});
 
-		fa.views.user(mainElem).then(function(view) {
-			assert.deepEqual(view.title, ['users', 'ghost']);
-			done();
+		hooks.afterEach(function(assert) {
+			assert.ok(this.getUser.calledOnce);
+			this.getUser.restore();
+		});
+
+		QUnit.test('user (unknown)', function(assert) {
+			var done = assert.async();
+			var mainElem = this.mainElem;
+
+			this.getUser.resolves(fa.models.users.createProfile({
+				user: {pk: 1, name: 'ghost', avatarUrl: ''},
+				friendship_status: 'u',
+			}));
+
+			fa.views.user(mainElem).then(function(view) {
+				assert.deepEqual(view.title, ['users', 'ghost']);
+
+				assert.ok(mainElem.querySelector('[data-fn=request-friend]'));
+				assert.notOk(mainElem.querySelector('[data-fn=accept-friend]'));
+				assert.notOk(mainElem.querySelector('[data-fn=reject-friend]'));
+
+				done();
+			});
+		});
+
+		QUnit.test('user (asked viewer)', function(assert) {
+			var done = assert.async();
+			var mainElem = this.mainElem;
+
+			this.getUser.resolves(fa.models.users.createProfile({
+				user: {pk: 1, name: 'ghost', avatarUrl: ''},
+				friendship_status: 'r',
+			}));
+
+			fa.views.user(mainElem).then(function(view) {
+				assert.deepEqual(view.title, ['users', 'ghost']);
+
+				assert.notOk(mainElem.querySelector('[data-fn=request-friend]'));
+				assert.ok(mainElem.querySelector('[data-fn=accept-friend]'));
+				assert.ok(mainElem.querySelector('[data-fn=reject-friend]'));
+
+				done();
+			});
+		});
+
+		QUnit.test('user (asked by viewer)', function(assert) {
+			var done = assert.async();
+			var mainElem = this.mainElem;
+
+			this.getUser.resolves(fa.models.users.createProfile({
+				user: {pk: 1, name: 'ghost', avatarUrl: ''},
+				friendship_status: 'v',
+			}));
+
+			fa.views.user(mainElem).then(function(view) {
+				assert.deepEqual(view.title, ['users', 'ghost']);
+
+				assert.notOk(mainElem.querySelector('[data-fn=request-friend]'));
+				assert.notOk(mainElem.querySelector('[data-fn=accept-friend]'));
+				assert.notOk(mainElem.querySelector('[data-fn=reject-friend]'));
+
+				done();
+			});
+		});
+
+		QUnit.test('user (friend)', function(assert) {
+			var done = assert.async();
+			var mainElem = this.mainElem;
+
+			this.getUser.resolves(fa.models.users.createProfile({
+				user: {pk: 1, name: 'ghost', avatarUrl: ''},
+				friendship_status: 'f',
+			}));
+
+			fa.views.user(mainElem).then(function(view) {
+				assert.deepEqual(view.title, ['users', 'ghost']);
+
+				assert.notOk(mainElem.querySelector('[data-fn=request-friend]'));
+				assert.notOk(mainElem.querySelector('[data-fn=accept-friend]'));
+				assert.notOk(mainElem.querySelector('[data-fn=reject-friend]'));
+
+				done();
+			});
+		});
+
+		QUnit.test('user (self)', function(assert) {
+			var done = assert.async();
+			var mainElem = this.mainElem;
+
+			this.getUser.resolves(fa.models.users.createProfile({
+				user: {pk: 1, name: 'ghost', avatarUrl: ''},
+				friendship_status: 's',
+			}));
+
+			fa.views.user(mainElem).then(function(view) {
+				assert.deepEqual(view.title, 'me');
+
+				assert.notOk(mainElem.querySelector('[data-fn=request-friend]'));
+				assert.notOk(mainElem.querySelector('[data-fn=accept-friend]'));
+				assert.notOk(mainElem.querySelector('[data-fn=reject-friend]'));
+
+				done();
+			});
 		});
 	});
 });

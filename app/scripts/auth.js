@@ -32,7 +32,7 @@ fa.auth = (function() {
 			store = JSON.parse(store);
 
 			token = store.token;
-			user = fa.models.users.unpackUser(store.user);
+			user = store.user;
 			if(!token || !user) {
 				throw new Error();
 			}
@@ -81,13 +81,17 @@ fa.auth = (function() {
 	// 
 
 	// the currently active session object
-	var session;
+	var session = null;
 
 	// the public api
 	var auth = {};
 
 	auth.init = function() {
 		session = createSession();
+	};
+
+	auth.destroy = function() {
+		session.destroy();
 	};
 
 	// returns the auth token
@@ -101,8 +105,8 @@ fa.auth = (function() {
 		return session.getToken() ? true : false;
 	};
 
-	// returns {pk, name} for the logged in user
-	// returns {0, ''} if there is not such
+	// returns {pk, name, avatarUrl} for the logged in user
+	// returns {0, '', ''} if there is not such
 	auth.getUser = function() {
 		return session.getUser();
 	};
@@ -117,7 +121,8 @@ fa.auth = (function() {
 			email: load['email'], name: load['name'],
 			password1: load['pass1'], password2: load['pass2']
 		}).then(function(data) {
-			session = createSession(data.token, data.user);
+			session = createSession(data.token,
+						fa.models.users.unpackUser(data.user));
 			return fa.ws.open();
 		});
 	};
@@ -131,7 +136,8 @@ fa.auth = (function() {
 		return fa.http.post('/auth/', {
 			method: 's', email: load['email'], password: load['pass']
 		}).then(function(data) {
-			session = createSession(data.token, data.user);
+			session = createSession(data.token,
+						fa.models.users.unpackUser(data.user));
 			return fa.ws.open();
 		});
 	};

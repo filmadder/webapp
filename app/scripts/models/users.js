@@ -76,6 +76,7 @@ fa.models.users = (function() {
 
 	return {
 		unpackUser: unpackUser,
+		createProfile: createProfile,
 
 		get: getUser
 	};
