@@ -52,13 +52,20 @@ fa.views.film = (function() {
 			}
 
 			// film status
-			var statusOpts = fa.dom.get('[data-fn=status-opts]', elem);
+			var statusOpts = fa.dom.get('[data-fn=status-opts]');
+			var open = false;
+			var statusBtn = fa.dom.get('[data-fn=open-status-opts]');
 
-			fa.dom.on(fa.dom.get('[data-fn=open-status-opts]', elem), 'click', function() {
-				statusOpts.classList.remove('hidden-options');
-			});
-			fa.dom.on(fa.dom.get('[data-fn=close-status-opts]', elem), 'click', function() {
-				statusOpts.classList.add('hidden-options');
+			fa.dom.on(statusBtn, 'click', function() {
+				if(open) {
+					statusOpts.classList.add('hidden');
+					statusBtn.classList.remove('shrink');
+					open = false;
+				} else {
+					statusOpts.classList.remove('hidden');
+					statusBtn.classList.add('shrink');
+					open = true;
+				}
 			});
 
 			fa.dom.on('[data-fn=add-watched]', 'click', function() {
@@ -71,6 +78,12 @@ fa.views.film = (function() {
 				film.addToWatchlist().then(function() {
 					hier.update('/inner/film', id);
 					fa.views.addMessage({type: 'success', text: 'added to watchlist'});
+				}).catch(fa.views.handleError);
+			});
+			fa.dom.on('[data-fn=add-watching]', 'click', function() {
+				film.addToWatching().then(function() {
+					hier.update('/inner/film', id);
+					fa.views.addMessage({type: 'success', text: 'added to currently watching'});
 				}).catch(fa.views.handleError);
 			});
 			fa.dom.on('[data-fn=remove-list]', 'click', function() {

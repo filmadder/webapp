@@ -79,12 +79,16 @@ fa.films = (function() {
 		
 		film.status = {
 			unknown: (data.status == 'n'),
-			watched: (data.status == 'p'),
-			watchlisted: (data.status == 'f')
+			seen: (data.status == 'p'),
+			watching: (data.status == 'o'),
+			watchlist: (data.status == 'f')
 		};
 		
 		film.addToWatched = function() {
 			return fa.ws.send('set_film_status', {film: film.pk, status: 'p'});
+		};
+		film.addToWatching = function() {
+			return fa.ws.send('set_film_status', {film: film.pk, status: 'o'});
 		};
 		film.addToWatchlist = function() {
 			return fa.ws.send('set_film_status', {film: film.pk, status: 'f'});

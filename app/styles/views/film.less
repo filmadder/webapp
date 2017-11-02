@@ -67,7 +67,7 @@
 				.font(700; 28px);
 
 				color: white;
-				margin: 0 50px 0 0;
+				margin: 0 15px 0 0;
 				text-transform: none;
 				text-align: left;
 
@@ -111,6 +111,7 @@
 		background: @purple;
 		position: relative;
 
+		// slanted line on top
 		&:before {
 			.size(0; 0);
 
@@ -124,6 +125,7 @@
 			left: 0;
 		}
 
+		// slanted line on the bottom
 		&:after {
 			.size(0; 0);
 
@@ -138,11 +140,7 @@
 			left: 0;
 		}
 
-		h3 {
-			color: white;
-			padding: 5px 0;
-		}
-
+		// director, writer..
 		h4 {
 			.font(bold; 16px);
 
@@ -150,6 +148,7 @@
 			margin: 0;
 			padding: 5px 0;
 			
+			// actual names
 			span {
 				.font(normal; 16px);
 
@@ -163,11 +162,12 @@
 
 			background: @purple;
 
-			/* "synopsis" */
+			// "synopsis"
 			h3 {
 				color: white;
 			}
 
+			// when synopsis is clicked the text shows
 			#synopsis-text {
 
 				&:checked ~ .synopsis-text {
@@ -182,6 +182,7 @@
 			}
 		}
 
+		// not done yet
 		.recommend-cont {
 			margin: 20px 0;
 
@@ -192,7 +193,89 @@
 		}
 	}
 
-	/* seen, watchlist, tagged as */
+	// set film status
+	.status-container {
+		.row(@spread);
+
+		.current {
+			.size(50px; 50px;);
+			.transition(@dur: 0.25s);
+			.column(@center; @center);
+
+			background: @salmon;
+			border-radius: 50%;
+			border: 2px solid white;
+			box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+			min-height: 50px;
+			max-height: 50px;
+			z-index: 1;
+
+			&.unknown {
+				background: white;
+			}
+		}
+
+		.current.shrink {
+			transform: scale(0.7) rotate(135deg);
+		}
+
+		.options{
+			max-height: 70px;
+
+			.option {
+				.transition(@dur: 0.25s; @func: cubic-bazier(.175,.67,.83,.67));
+				.box(5px;);
+
+				background: @salmon;
+				border-radius: 50%;
+				border: 2px solid transparent;
+				box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+				display: block;
+				z-index: 2;
+
+				// the position of the options when visible
+				&:first-child {
+					transform: translateY(-55px) translateX(20px);
+				}
+
+				&:nth-child(2) {
+					transform: translateY(-50px) translateX(-5px);
+				}
+
+				&:nth-child(3) {
+					transform: translateY(-45px) translateX(20px);
+				}
+
+				.icon {
+					.size(36px; 36px;);
+
+					min-height: 36px;
+					mix-height: 36px;
+				}
+			}
+		}
+
+		.options.hidden {
+			.transition;
+
+			.option {
+
+				&:first-child {
+					transform: translateY(2px) translateX(52px) scale(0.4);
+				}
+
+				&:nth-child(2) {
+					transform: translateY(-48px) translateX(52px) scale(0.4);
+				}
+
+				&:nth-child(3) {
+					transform: translateY(-98px) translateX(52px) scale(0.4);
+				}
+			}
+		}
+	}
+
+	// seen, watchlist and labels
 	.users-input {
 		.box(0 25px);
 

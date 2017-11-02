@@ -25,72 +25,104 @@
 					</div>
 
 					{{# film.status.unknown }}
-					<div class="status-cont">
-						<div class="status-btn current">
-							<button type="submit"
-									data-fn="open-status-opts"
-									class="icon add-icon status-icon"></button>
-						</div>
-						<div data-fn="status-opts" class="options hidden-options">
-							<div class="status-btn option">
+					<div class="status-container">
+						<ul class="options hidden" data-fn="status-opts">
+							<li class="status-btn option">
 								<button type="submit"
-										data-fn="add-watchlist" class="icon watchlisted-icon status-icon"></button>
-							</div>
-							<div data-fn="close-status-opts" class="icon close dark option"></div>
-							<div class="status-btn option">
+										data-fn="add-watchlist" class="icon watchlist-icon status-icon"></button>
+							</li>
+							<li class="status-btn option">
 								<button type="submit"
 										data-fn="add-watched"
-										class="icon watched-icon status-icon"></button>
-							</div>
+										class="icon seen-icon status-icon"></button>
+							</li>
+							<li class="status-btn option">
+								<button type="submit"
+										data-fn="add-watching"
+										class="icon watching-icon status-icon"></button>
+							</li>
+						</ul>
+						<div class="status-btn current unknown" data-fn="open-status-opts">
+							<button type="submit"
+									class="icon add-icon status-icon"></button>
 						</div>
 					</div>
 					{{/ film.status.unknown }}
 
-					{{# film.status.watched }}
-					<div class="status-cont">
-						<div class="status-btn current">
-							<button type="submit"
-									data-fn="open-status-opts"
-									class="icon watched-icon status-icon"></button>
-						</div>
-						<div data-fn="status-opts" class="options hidden-options">
-							<div class="status-btn option">
+					{{# film.status.seen }}
+					<div class="status-container">
+						<ul class="options hidden" data-fn="status-opts">
+							<li class="status-btn option">
 								<button type="submit"
-										data-fn="add-watchlist"
-										class="icon watchlisted-icon status-icon"></button>
-							</div>
-							<div data-fn="close-status-opts" class="icon close dark option"></div>
-							<div class="status-btn option">
+										data-fn="add-watchlist" class="icon watchlist-icon status-icon"></button>
+							</li>
+							<li class="status-btn option">
 								<button type="submit"
 										data-fn="remove-list"
-										class="icon remove-icon"></button>
-							</div>
+										class="icon remove-icon status-icon"></button>
+							</li>
+							<li class="status-btn option">
+								<button type="submit"
+										data-fn="add-watching"
+										class="icon watching-icon status-icon"></button>
+							</li>
+						</ul>
+						<div class="status-btn current" data-fn="open-status-opts">
+							<button type="submit"
+									class="icon seen-icon-white status-icon"></button>
 						</div>
 					</div>
-					{{/ film.status.watched }}
+					{{/ film.status.seen }}
 
-					{{# film.status.watchlisted }}
-					<div class="status-cont">
-						<div class="status-btn current">
-							<button type="submit"
-									data-fn="open-status-opts"
-									class="icon watchlisted-icon status-icon"></button>
-						</div>
-						<div data-fn="status-opts" class="options hidden-options">
-							<div class="status-btn option">
+					{{# film.status.watching }}
+					<div class="status-container">
+						<ul class="options hidden" data-fn="status-opts">
+							<li class="status-btn option">
+								<button type="submit"
+										data-fn="add-watchlist" class="icon watchlist-icon status-icon"></button>
+							</li>
+							<li class="status-btn option">
 								<button type="submit"
 										data-fn="add-watched"
-										class="icon watched-icon status-icon"></button>
-							</div>
-							<div data-fn="close-status-opts" class="icon close dark option"></div>
-							<div class="status-btn option">
+										class="icon seen-icon status-icon"></button>
+							</li>
+							<li class="status-btn option">
 								<button type="submit"
 										data-fn="remove-list"
-										class="icon remove-icon"></button>
-							</div>
+										class="icon remove-icon status-icon"></button>
+							</li>
+						</ul>
+						<div class="status-btn current" data-fn="open-status-opts">
+							<button type="submit"
+									class="icon watching-icon-white status-icon"></button>
 						</div>
 					</div>
-					{{/ film.status.watchlisted }}
+					{{/ film.status.watching }}
+
+					{{# film.status.watchlist }}
+					<div class="status-container">
+						<ul class="options hidden" data-fn="status-opts">
+							<li class="status-btn option">
+								<button type="submit"
+										data-fn="add-watched" class="icon seen-icon status-icon"></button>
+							</li>
+							<li class="status-btn option">
+								<button type="submit"
+										data-fn="add-watching"
+										class="icon watching-icon status-icon"></button>
+							</li>
+							<li class="status-btn option">
+								<button type="submit"
+										data-fn="remove-list"
+										class="icon remove-icon status-icon"></button>
+							</li>
+						</ul>
+						<div class="status-btn current" data-fn="open-status-opts">
+							<button type="submit"
+									class="icon watchlist-icon-white status-icon"></button>
+						</div>
+					</div>
+					{{/ film.status.watchlist }}
 				</div>
 			</article>
 		</div>
