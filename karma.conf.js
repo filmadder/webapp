@@ -1,3 +1,7 @@
+// by default karma on linux looks for `firefox`, no matter which flavour of
+// firefox is selected
+process.env.FIREFOX_DEVELOPER_BIN = 'firefox-developer';
+
 module.exports = function(config) {
 	config.set({
 
@@ -13,6 +17,7 @@ module.exports = function(config) {
 			'app/templates/**/*.html',
 			'build/scripts/vendor.js',
 			'build/scripts/fa.js',
+			'node_modules/sinon/pkg/sinon.js',
 			'tests/**/*.js'
 		],
 
@@ -55,7 +60,18 @@ module.exports = function(config) {
 
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-		browsers: ['Chromium'],
+		browsers: ['FirefoxDeveloperHeadless'],
+
+		customLaunchers: {
+			FirefoxHeadless: {
+				base: 'Firefox',
+				flags: ['-headless']
+			},
+			FirefoxDeveloperHeadless: {
+				base: 'FirefoxDeveloper',
+				flags: ['-headless']
+			}
+		},
 
 		// Continuous Integration mode
 		// if true, Karma captures browsers, runs the tests and exits
