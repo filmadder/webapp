@@ -13,12 +13,12 @@ fa.views.feed = (function() {
 	// each time the user scrolls to the bottom of the page (unless the end of
 	// the feed is reached)
 	var createFeed = function(elem) {
-		var ready = false;
 		var state = fa.history.getState('feed');
 		var numPages = (state) ? state.numPages : 1;
 
-		fa.feed.get(numPages).then(function(feed) {
+		return fa.feed.get(numPages).then(function(feed) {
 			var isEmpty = (feed.firstItems.length == 0);
+
 			var appendItems = function(items) {
 				var div = document.createElement('div');
 				fa.views.render(div, 'feed-items-templ', {items: items});
@@ -34,35 +34,19 @@ fa.views.feed = (function() {
 				});
 			};
 
-			ready = true;
-
 			fa.views.render(elem, 'feed-templ', {isEmpty: isEmpty});
-			fa.title.set('feed');
 
 			if(!isEmpty) {
 				appendItems(feed.firstItems);
 			}
 
-			if(state) {
-				window.scroll(0, state.scroll);
-			} else {
-				window.scroll(0, 0);
-			}
-		}).catch(fa.views.handleError);
+			window.scroll(0, state ? state.scroll : 0);
 
-		// show the snake if loading takes too long
-		window.setTimeout(function() {
-			if(!ready) {
-				fa.views.render(elem, 'loading-templ', {});
-				fa.title.set('loading');
-			}
-		}, 500);
-
-		// the view object
-		return {
-			nav: 'feed',
-			remove: function() {
-				if(ready) {
+			// the view object
+			return {
+				nav: 'feed',
+				title: 'feed',
+				remove: function() {
 					if(!window.pageYOffset) {
 						numPages = 1;  // avoid loading too many feed items
 					}
@@ -71,9 +55,8 @@ fa.views.feed = (function() {
 						scroll: window.pageYOffset
 					});
 				}
-				elem.innerHTML = '';
-			}
-		};
+			};
+		});
 	};
 
 

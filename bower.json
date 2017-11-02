@@ -10,11 +10,8 @@
     "pythonic-datetime": "^0.0.0",
     "mustache.js": "mustache#^2.2.1",
     "functional.js": "functional-js#^0.8.0",
-    "hier": "^0.1.4",
+    "hier": "^0.1.5",
     "loglevel": "^1.4.1"
-  },
-  "devDependencies": {
-    "qunit": "^1.23.1"
   },
   "resolutions": {
     "normalize-css": "~5.0.0"

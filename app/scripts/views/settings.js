@@ -12,7 +12,6 @@ fa.views.settings = (function() {
 	// this view contains the change password form and the logout button
 	var createSettings = function(elem) {
 		fa.views.render(elem, 'settings-templ', {});
-		fa.title.set('settings');
 
 		window.scroll(0, 0);
 
@@ -37,12 +36,10 @@ fa.views.settings = (function() {
 		.add('pass1', [fa.forms.maxLen(200), fa.forms.minLen(5)])
 		.add('pass2', [fa.forms.equal('pass1')]);
 
-		return {
-			nav: 'me',
-			remove: function() {
-				elem.innerHTML = '';
-			}
-		};
+		return Promise.resolve({
+			nav: 'settings',
+			title: 'settings'
+		});
 	};
 
 

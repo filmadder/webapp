@@ -13,17 +13,11 @@ fa.views.updates = (function() {
 	// time the user scrolls to the bottom of the page (unless the end of the
 	// updates feed is reached)
 	var createUpdates = function(elem) {
-		var ready = false;
 		var state = fa.history.getState('updates');
 		var numPages = (state) ? state.numPages : 1;
 
-		fa.updates.get(numPages).then(function(updates) {
-			ready = true;
-
+		return fa.updates.get(numPages).then(function(updates) {
 			var isEmpty = (updates.firstItems.length == 0);
-
-			fa.views.render(elem, 'updates-templ', {isEmpty: isEmpty});
-			fa.title.set('notifications');
 
 			var appendItems = function(items) {
 				var div = document.createElement('div');
@@ -40,30 +34,19 @@ fa.views.updates = (function() {
 				});
 			};
 
+			fa.views.render(elem, 'updates-templ', {isEmpty: isEmpty});
+
 			if(!isEmpty) {
 				appendItems(updates.firstItems);
 			}
 
-			if(state) {
-				window.scroll(0, state.scroll);
-			} else {
-				window.scroll(0, 0);
-			}
-		}).catch(fa.views.handleError);
+			window.scroll(0, state ? state.scroll : 0);
 
-		// show the snake if loading takes too long
-		window.setTimeout(function() {
-			if(!ready) {
-				fa.views.render(elem, 'loading-templ', {});
-				fa.title.set('loading');
-			}
-		}, 500);
-
-		// the view object
-		return {
-			nav: 'updates',
-			remove: function() {
-				if(ready) {
+			// the view object
+			return {
+				nav: 'updates',
+				title: 'notifications',
+				remove: function() {
 					if(!window.pageYOffset) {
 						numPages = 1;  // avoid loading too many feed items
 					}
@@ -72,9 +55,8 @@ fa.views.updates = (function() {
 						scroll: window.pageYOffset
 					});
 				}
-				elem.innerHTML = '';
-			}
-		};
+			};
+		});
 	};
 
 

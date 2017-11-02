@@ -14,36 +14,25 @@ fa.views.tag = (function() {
 	// 
 	// the params argument is expected to be a {tag} object
 	var createTag = function(elem, params) {
-		var ready = false;
-		var state = fa.history.getState('tag:'+params.tag);
-
-		fa.tags.get(params.tag).then(function(tagObj) {
-			ready = true;
+		return fa.tags.get(params.tag).then(function(tagObj) {
+			var state = fa.history.getState('tag:'+params.tag);
+			var i;
 
 			fa.views.render(elem, 'tag-templ', {tag: tagObj});
-			fa.title.set(['tag', tagObj.tag]);
 
 			if(state) {
-				for (var i = 0; i < state.opened.length; i++) {
+				for (i = 0; i < state.opened.length; i++) {
 					fa.dom.get('#' + state.opened[i]).checked = true;
 				}
 				window.scroll(0, state.scroll);
 			} else {
 				window.scroll(0, 0);
 			}
-		}).catch(fa.views.handleError);
 
-		window.setTimeout(function() {
-			if(!ready) {
-				fa.views.render(elem, 'loading-templ', {});
-				fa.title.set('loading');
-			}
-		}, 500);
-
-		return {
-			nav: '_',
-			remove: function() {
-				if(ready) {
+			return {
+				nav: '_',
+				title: ['tag', tagObj.tag],
+				remove: function() {
 					var opened = fjs.map(function(currentElem) {
 						return currentElem.id;
 					}, fa.dom.filter('.accordion:checked'));
@@ -53,9 +42,8 @@ fa.views.tag = (function() {
 						scroll: window.pageYOffset
 					});
 				}
-				elem.innerHTML = '';
-			}
-		};
+			};
+		});
 	};
 
 

@@ -36,13 +36,10 @@ fa.routing = (function() {
 	crossroads.addRoute('/:list:', function(list) {
 		if(!list) list = 'watchlist';
 
-		hier.add('/inner');
-		hier.add('/inner/user', fa.auth.getUser().pk).loaded.add(function(user) {
-			if(user.showData) {
-				if(list == 'friends') hier.add('/inner/user/friends', user);
-				else if(list == 'tags') hier.add('/inner/user/tags', user);
-				else hier.add('/inner/user/films', {user: user, type: list});
-			}
+		hier.add('/inner').then(function() {
+			return hier.add('/inner/user', fa.auth.getUser().pk);
+		}).then(function(view) {
+			return view.initSubView(list);
 		});
 	}).rules = {
 		list: ['seen', 'watching', 'watchlist', 'friends', 'tags']
@@ -52,13 +49,10 @@ fa.routing = (function() {
 		id = (id) ? parseInt(id) : 0;
 		if(!list) list = 'watchlist';
 
-		hier.add('/inner');
-		hier.add('/inner/user', id).loaded.add(function(user) {
-			if(user.showData) {
-				if(list == 'friends') hier.add('/inner/user/friends', user);
-				else if(list == 'tags') hier.add('/inner/user/tags', user);
-				else hier.add('/inner/user/films', {user: user, type: list});
-			}
+		hier.add('/inner').then(function() {
+			return hier.add('/inner/user', id);
+		}).then(function(view) {
+			return view.initSubView(list);
 		});
 	}).rules = {
 		id: /^[0-9]+$/,
@@ -66,48 +60,54 @@ fa.routing = (function() {
 	};
 
 	crossroads.addRoute('/updates', function() {
-		hier.add('/inner');
-		hier.add('/inner/updates');
+		hier.add('/inner').then(function() {
+			return hier.add('/inner/updates');
+		});
 	});
 
 	crossroads.addRoute('/feed', function() {
-		hier.add('/inner');
-		hier.add('/inner/feed');
+		hier.add('/inner').then(function() {
+			return hier.add('/inner/feed');
+		});
 	});
 
 	crossroads.addRoute('/search/{?query}', function(query) {
-		hier.add('/inner');
-		if(hier.has('/inner/results')) hier.remove('/inner/results', query);
-		hier.add('/inner/results', query);
+		hier.add('/inner').then(function() {
+			return hier.add('/inner/results', query);
+		});
 	});
 
 	crossroads.addRoute('/film/{id}', function(id) {
 		id = (id) ? parseInt(id) : null;
-		hier.add('/inner');
-		hier.add('/inner/film', id);
+		hier.add('/inner').then(function() {
+			return hier.add('/inner/film', id);
+		});
 	}).rules = {
 		id: /^[0-9]+$/
 	};
 
 	crossroads.addRoute('/label/{tag}', function(tag) {
-		hier.add('/inner');
-		if(hier.has('/inner/tag')) hier.remove('/inner/tag');
-		hier.add('/inner/tag', {tag: tag});
+		hier.add('/inner').then(function() {
+			return hier.add('/inner/tag', {tag: tag});
+		});
 	});
 
 	crossroads.addRoute('/settings', function() {
-		hier.add('/inner');
-		hier.add('/inner/settings');
+		hier.add('/inner').then(function() {
+			return hier.add('/inner/settings');
+		});
 	});
 
 	crossroads.addRoute('/login', function() {
-		hier.add('/outer');
-		hier.add('/outer/login');
+		hier.add('/outer').then(function() {
+			return hier.add('/outer/login')
+		});
 	});
 
 	crossroads.addRoute('/reg', function() {
-		hier.add('/outer');
-		hier.add('/outer/reg');
+		hier.add('/outer').then(function() {
+			return hier.add('/outer/reg')
+		});
 	});
 
 	crossroads.addRoute('/error', function() {

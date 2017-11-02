@@ -58,7 +58,7 @@ fa.views = (function() {
 	// if the window is wider than 740px and there exists a wide- version of
 	// the requested template, it is used instead
 	var render = function(elem, templateID, context) {
-		var templateElem, rendered;
+		var templateElem;
 
 		if(window.innerWidth > 740) {
 			templateElem = document.getElementById('wide-'+ templateID);
@@ -260,7 +260,7 @@ fa.views = (function() {
 		});
 
 		// the view object
-		return {
+		return Promise.resolve({
 			remove: function() {
 				fa.updates.changedStatus.removeAll();
 
@@ -269,10 +269,8 @@ fa.views = (function() {
 
 				scrolledFarDown.removeAll();
 				scrolledBackUp.removeAll();
-
-				elem.innerHTML = '';
 			}
-		};
+		});
 	};
 
 	// inits an error view
@@ -281,12 +279,9 @@ fa.views = (function() {
 		render(elem, 'error-404-templ', {});
 		window.scroll(0, 0);
 
-		return {
-			nav: '_',
-			remove: function() {
-				elem.innerHTML = '';
-			}
-		};
+		return Promise.resolve({
+			nav: '_'
+		});
 	};
 
 	// inits a message view
@@ -312,6 +307,8 @@ fa.views = (function() {
 			});
 			window.setTimeout(removeMessage, 1500);
 		}
+
+		return Promise.resolve({});
 	};
 
 
@@ -319,37 +316,72 @@ fa.views = (function() {
 	// hier hooks
 	// 
 
-	// dispatches the markNavSignal with the correct string to be marked as the
-	// currently active navigation link
-	hier.on('post-init', function(path, view) {
-		if(view && view.hasOwnProperty('nav')) {
-			if(view.nav == '_') {
-				clearNavSignal.dispatch();
-			} else {
-				markNavSignal.dispatch(view.nav);
+	// {path: hook} dicts to store the empty and remove hooks
+	// used to invoke the hooks outside of a view.then call
+	var emptyHooks = {};
+	var removeHooks = {};
+
+	// handles the nav and title view props and stores the empty and remove
+	// hooks in the respective dicts
+	//
+	// shows the snake if loading takes too long
+	hier.on('post-init', function(path, elem, view) {
+		var ready = false;
+
+		view.then(function(view) {
+			ready = true;
+
+			if(view.hasOwnProperty('nav')) {
+				if(view.nav == '_') {
+					clearNavSignal.dispatch();
+				} else {
+					markNavSignal.dispatch(view.nav);
+				}
 			}
+
+			if(view.hasOwnProperty('title')) {
+				fa.title.set(view.title);
+			}
+
+			if(view.hasOwnProperty('empty')) {
+				emptyHooks[path] = view.empty;
+			}
+
+			if(view.hasOwnProperty('remove')) {
+				removeHooks[path] = view.remove;
+			}
+		}).catch(handleError);
+
+		window.setTimeout(function() {
+			if(!ready) {
+				render(elem, 'loading-templ', {});
+				fa.title.set('loading');
+			}
+		}, 500);
+	});
+
+	// if a view object defines a empty method, call it right before removing
+	// the node's children
+	hier.on('pre-empty', function(path) {
+		if(emptyHooks.hasOwnProperty(path)) {
+			emptyHooks[path]();
+			delete emptyHooks[path];
 		}
 	});
 
-	// if a view object (the return value of a view constructor) defines a
-	// empty method, call it right before removing the node's children
-	hier.on('pre-empty', function(path, view) {
-		if(view && view.hasOwnProperty('empty')) {
-			view.empty();
+	// if a view object defines a remove method, call it right before removing
+	// the view; also clears the contents of the elem
+	hier.on('pre-remove', function(path, elem) {
+		if(removeHooks.hasOwnProperty(path)) {
+			removeHooks[path]();
+			delete removeHooks[path];
 		}
-	});
-
-	// if a view object (the return value of a view constructor) defines a
-	// remove method, call it right before removing the view
-	hier.on('pre-remove', function(path, view) {
-		if(view && view.hasOwnProperty('remove')) {
-			view.remove();
-		}
+		elem.innerHTML = '';
 	});
 
 	// dispatches the clearNavSignal so that there are no navigation links
 	// wrongly marked as active
-	hier.on('post-remove', function() {
+	hier.on('post-remove', function(path) {
 		clearNavSignal.dispatch();
 	});
 
