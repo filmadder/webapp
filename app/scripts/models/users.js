@@ -1,4 +1,4 @@
-fa.users = (function() {
+fa.models.users = (function() {
 
 	"use strict";
 

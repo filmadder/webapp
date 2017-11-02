@@ -34,7 +34,7 @@ fa.views.film = (function() {
 	// 
 	// expects the id of the film as its view param
 	var createFilm = function(elem, id) {
-		return fa.films.get(id).then(function(film) {
+		return fa.models.films.get(id).then(function(film) {
 			var state = fa.history.getState('film:'+id.toString());
 
 			fa.views.render(elem, 'film-base', {film: film});
@@ -139,7 +139,7 @@ fa.views.film = (function() {
 			var data = form.getData();
 			var id = params.film.pk;
 
-			fa.films.postComment(id, data.comment, data.spoilers).then(function(film) {
+			fa.models.films.postComment(id, data.comment, data.spoilers).then(function(film) {
 				hier.update('/inner/film/comments', {
 					film: film, spoilersOk: data.spoilers, open: true});
 			}).catch(function(error) {
@@ -156,7 +156,7 @@ fa.views.film = (function() {
 
 		// delete comment buttons
 		fa.dom.on('button[data-fn=del-comment]', 'click', function(e) {
-			fa.films.deleteComment(params.film.pk, e.target.dataset.comment).then(function() {
+			fa.models.films.deleteComment(params.film.pk, e.target.dataset.comment).then(function() {
 				hier.update('/inner/film', params.film.pk);
 				fa.views.addMessage({type: 'success', text: 'comment removed'});
 			}).catch(function(error) {
@@ -208,7 +208,7 @@ fa.views.film = (function() {
 
 		fa.forms.create(tagsFormElem, function(form) {
 			var data = form.getData();
-			fa.tags.set(film.pk, data.tags).then(function() {
+			fa.models.tags.set(film.pk, data.tags).then(function() {
 				hier.update('/inner/film', film.pk);
 			}).catch(function(error) {
 				if(error.code == 'bad_input') {
@@ -225,7 +225,7 @@ fa.views.film = (function() {
 		]);
 
 		fa.dom.on(tagsFieldElem, 'input', function() {
-			suggComp.update(fa.tags.suggest(tagsFieldElem.value));
+			suggComp.update(fa.models.tags.suggest(tagsFieldElem.value));
 		});
 
 		fa.dom.on('.tags-form button[type=button]', 'click', function() {

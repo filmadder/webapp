@@ -1,27 +1,21 @@
-fa.films = (function() {
-	
+fa.models.films = (function() {
+
 	"use strict";
-	
-	
-	// 
-	// push receivers
-	// 
-	
+
+
+	//
+	// signals
+	//
+
 	// dispatches when the server found more search results
 	// dispatches with the query for which those results were found
 	var gotMoreResults = new signals.Signal();
-	
-	fa.ws.received.add(function(message) {
-		if(message.type == 'more_search_results') {
-			gotMoreResults.dispatch(message.query);
-		}
-	});
-	
-	
-	// 
+
+
+	//
 	// unpacking
-	// 
-	
+	//
+
 	// creates a downstream film comment object from an upstream json object
 	var unpackComment = function(data) {
 		return {
@@ -37,7 +31,7 @@ fa.films = (function() {
 			replies: data.replies
 		};
 	};
-	
+
 	// creates a downstream short film object from an upstream json object
 	// 
 	// a short film object contains only a subset of fields and is used in
@@ -51,7 +45,7 @@ fa.films = (function() {
 			posterUrl: data.poster_url
 		};
 	};
-	
+
 	// creates a downstream long film object from an upstream json object
 	// 
 	// a long film object is only used in film views
@@ -76,13 +70,13 @@ fa.films = (function() {
 			friendsTagsCount: fjs.fold('x, y => x + y.tags.length', 0, data.tags_friends),
 			tags: data.tags_own
 		};
-		
+
 		film.status = {
 			unknown: (data.status == 'n'),
 			watched: (data.status == 'p'),
 			watchlisted: (data.status == 'f')
 		};
-		
+
 		film.addToWatched = function() {
 			return fa.ws.send('set_film_status', {film: film.pk, status: 'p'});
 		};
@@ -92,22 +86,22 @@ fa.films = (function() {
 		film.removeFromList = function() {
 			return fa.ws.send('set_film_status', {film: film.pk, status: 'n'});
 		};
-		
+
 		return film;
 	};
-	
-	
-	// 
+
+
+	//
 	// downstream api
-	// 
-	
+	//
+
 	// returns a promise that resolves into a long film object
 	var getFilm = function(id) {
 		return fa.ws.send('get_film', {film: id}).then(function(data) {
 			return Promise.resolve(createFilm(data));
 		});
 	};
-	
+
 	// returns a promise that resolves into the re-newed long film object
 	var postComment = function(filmId, comment, hasSpoilers) {
 		return fa.ws.send('post_comment', {
@@ -118,7 +112,7 @@ fa.films = (function() {
 			return getFilm(filmId);
 		});
 	};
-	
+
 	// returns a promise that resolves with nothing
 	var deleteComment = function(filmId, commentId) {
 		return fa.ws.send('delete_comment', {
@@ -126,22 +120,32 @@ fa.films = (function() {
 			comment: commentId
 		});
 	};
-	
-	
-	// 
+
+
+	//
 	// exports
-	// 
-	
+	//
+
+	var init = function() {
+		fa.ws.received.add(function(message) {
+			if(message.type == 'more_search_results') {
+				gotMoreResults.dispatch(message.query);
+			}
+		});
+	};
+
 	return {
 		unpackComment: unpackComment,
 		unpackFilm: unpackFilm,
-		
+
 		get: getFilm,
-		
+
 		gotMoreResults: gotMoreResults,
-		
+
 		postComment: postComment,
-		deleteComment: deleteComment
+		deleteComment: deleteComment,
+
+		init: init
 	};
-	
+
 }());

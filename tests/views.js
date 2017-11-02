@@ -46,7 +46,7 @@ QUnit.module('views', function(hooks) {
 	QUnit.test('user', function(assert) {
 		var done = assert.async();
 		var mainElem = this.mainElem;
-		var getUser = sinon.stub(fa.users, 'get').resolves({
+		var getUser = sinon.stub(fa.models.users, 'get').resolves({
 			pk: 1, name: 'ghost', avatarUrl: '',
 			status: {
 				unknown: true, waiting: false, asked: false,

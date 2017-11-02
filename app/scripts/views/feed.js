@@ -16,7 +16,7 @@ fa.views.feed = (function() {
 		var state = fa.history.getState('feed');
 		var numPages = (state) ? state.numPages : 1;
 
-		return fa.feed.get(numPages).then(function(feed) {
+		return fa.models.feed.get(numPages).then(function(feed) {
 			var isEmpty = (feed.firstItems.length == 0);
 
 			var appendItems = function(items) {

@@ -14,7 +14,7 @@ fa.views.tag = (function() {
 	// 
 	// the params argument is expected to be a {tag} object
 	var createTag = function(elem, params) {
-		return fa.tags.get(params.tag).then(function(tagObj) {
+		return fa.models.tags.get(params.tag).then(function(tagObj) {
 			var state = fa.history.getState('tag:'+params.tag);
 			var i;
 

@@ -32,7 +32,7 @@ fa.auth = (function() {
 			store = JSON.parse(store);
 
 			token = store.token;
-			user = fa.users.unpackUser(store.user);
+			user = fa.models.users.unpackUser(store.user);
 			if(!token || !user) {
 				throw new Error();
 			}
@@ -81,10 +81,14 @@ fa.auth = (function() {
 	// 
 
 	// the currently active session object
-	var session = createSession();
+	var session;
 
 	// the public api
 	var auth = {};
+
+	auth.init = function() {
+		session = createSession();
+	};
 
 	// returns the auth token
 	auth.getToken = function() {

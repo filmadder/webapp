@@ -249,7 +249,7 @@ fa.views = (function() {
 		// unread updates marker
 		marker = fa.dom.get('.notification-marker', elem);
 
-		fa.updates.changedStatus.add(function(status) {
+		fa.models.updates.changedStatus.add(function(status) {
 			if(status == 'has-unread') {
 				marker.classList.remove('hidden');
 			} else {
@@ -266,7 +266,7 @@ fa.views = (function() {
 		// the view object
 		return Promise.resolve({
 			remove: function() {
-				fa.updates.changedStatus.removeAll();
+				fa.models.updates.changedStatus.removeAll();
 
 				clearNavSignal.remove(removeActiveLinks);
 				markNavSignal.remove(addActiveLink);

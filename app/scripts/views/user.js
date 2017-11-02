@@ -16,7 +16,7 @@ fa.views.user = (function() {
 	//
 	// otherwise, the rest of the view comprises befriending controls
 	var createUser = function(elem, userId) {
-		return fa.users.get(userId).then(function(user) {
+		return fa.models.users.get(userId).then(function(user) {
 			var navLinks, removeActiveLinks, addActiveLink;
 
 			user.showData = (user.status.self || user.status.friend);
