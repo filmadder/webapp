@@ -5,7 +5,7 @@
 	{{# type.addedToWatched }}
 	<a href="#/film/{{ film.pk }}" class="film">
 		<div class="icon-cont">
-			<span class="icon watched-icon-white"></span>
+			<span class="icon seen-icon-white"></span>
 		</div>
 		{{# film.posterUrl }}
 		<div class="image poster-medium" style="background-image: url({{ film.posterUrl }});"></div>
@@ -33,7 +33,7 @@
 	{{# type.addedToWatchlist }}
 	<a href="#/film/{{ film.pk }}" class="film">
 		<div class="icon-cont">
-			<span class="icon watchlisted-icon-white"></span>
+			<span class="icon watchlist-icon-white"></span>
 		</div>
 
 		{{# film.posterUrl }}
@@ -57,14 +57,14 @@
 	<abbr class="timestamp" title="{{ created.iso }}">{{ created.ago }}</abbr>
 	{{/ type.addedToWatchlist }}
 
-	<!-- WATCHED 2 -->
+	<!-- WATCHED 2 moved to seen -->
 	{{# type.movedToWatchlist }}
 	<a href="#/film/{{ film.pk }}" class="film">
 		<div class="icon-cont moved">
-			<span class="icon watchlisted-icon-white"></span>
+			<span class="icon watchlist-icon"></span>
 		</div>
 		<div class="icon-cont">
-			<span class="icon watched-icon-white"></span>
+			<span class="icon seen-icon-white"></span>
 		</div>
 
 		{{# film.posterUrl }}
@@ -92,7 +92,7 @@
 	{{# type.addedToWatching }}
 	<a href="#/film/{{ film.pk }}" class="film">
 		<div class="icon-cont">
-			<span class="icon watchlisted-icon-white"></span>
+			<span class="icon watching-icon-white"></span>
 		</div>
 
 		{{# film.posterUrl }}
@@ -119,7 +119,7 @@
 	<!-- FRIENDS -->
 	{{# type.becameFriends }}
 	<h3>
-		<div class="icon friendship-icon"></div>
+		<div class="icon friends-icon-white"></div>
 	</h3>
 	<p class="action friendship">
 		<a href="#/user/{{ userA.pk }}" class="user">{{ userA.name }}</a>
