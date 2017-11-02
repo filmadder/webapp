@@ -5,7 +5,7 @@
   "scripts": {
     "build-html": "bin/build_html.fish",
     "build-css": "bin/build_css.sh",
-    "build-js": "bin/build_js.sh",
+    "build-js": "bin/build_js.fish",
     "build-vendor": "bin/build_vendor.sh",
     "watch": "bin/watch.sh",
     "test": "karma start"
@@ -23,7 +23,7 @@
     "less-plugin-clean-css": "^1.5.1",
     "qunitjs": "^2.4.1",
     "sinon": "^4.0.2",
-    "uglify-js": "^2.8.29"
+    "uglify-js": "^3.1.6"
   },
   "dependencies": {}
 }
