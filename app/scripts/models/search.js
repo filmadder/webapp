@@ -1,12 +1,12 @@
-fa.search = (function() {
-	
+fa.models.search = (function() {
+
 	"use strict";
-	
-	
+
+
 	// 
 	// downstream api
 	// 
-	
+
 	// returns a promise resolving into a {type, items} object
 	// 
 	// type is either 'films' or 'users' and is used by the calling view to
@@ -18,26 +18,26 @@ fa.search = (function() {
 			if(data.hasOwnProperty('films')) {
 				return Promise.resolve({
 					type: 'films',
-					items: fjs.map(fa.films.unpackFilm, data.films)
+					items: fjs.map(fa.models.films.unpackFilm, data.films)
 				});
 			}
 			else if(data.hasOwnProperty('users')) {
 				return Promise.resolve({
 					type: 'users',
-					items: fjs.map(fa.users.unpackUser, data.users)
+					items: fjs.map(fa.models.users.unpackUser, data.users)
 				});
 			}
 			else return Promise.reject({code: 'bug', message: 'Unknown results'});
 		});
 	};
-	
-	
+
+
 	// 
 	// exports
 	// 
-	
+
 	return {
 		search: search
 	};
-	
+
 }());

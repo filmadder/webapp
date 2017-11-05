@@ -1,4 +1,4 @@
-fa.tags = (function() {
+fa.models.tags = (function() {
 
 	"use strict";
 

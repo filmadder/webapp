@@ -27,10 +27,10 @@ fa.views.search = (function() {
 			button.classList.remove('no-display');
 		};
 
-		return fa.search.search(params.q).then(function(res) {
+		return fa.models.search.search(params.q).then(function(res) {
 			var state = fa.history.getState('results');
 
-			fa.views.render(elem, 'results-templ', {
+			fa.views.render(elem, 'results', {
 				type: {
 					films: (res.type == 'films'),
 					users: (res.type == 'users')
@@ -41,7 +41,7 @@ fa.views.search = (function() {
 			window.scroll(0, state ? state.scroll : 0);
 
 			if(res.type == 'films') {
-				fa.films.gotMoreResults.addOnce(function(mesQuery) {
+				fa.models.films.gotMoreResults.addOnce(function(mesQuery) {
 					if(mesQuery == params.q) {
 						showMoreResults();
 					}
@@ -52,7 +52,7 @@ fa.views.search = (function() {
 				nav: '_',
 				title: 'search results',
 				remove: function() {
-					fa.films.gotMoreResults.removeAll();
+					fa.models.films.gotMoreResults.removeAll();
 					fa.history.setState('results', {
 						scroll: window.pageYOffset
 					});

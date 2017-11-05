@@ -16,13 +16,13 @@ fa.views.feed = (function() {
 		var state = fa.history.getState('feed');
 		var numPages = (state) ? state.numPages : 1;
 
-		return fa.feed.get(numPages).then(function(feed) {
+		return fa.models.feed.get(numPages).then(function(feed) {
 			var isEmpty = (feed.firstItems.length == 0);
 
 			var appendItems = function(items) {
 				var div = document.createElement('div');
-				fa.views.render(div, 'feed-items-templ', {items: items});
-				elem.firstChild.appendChild(div);
+				fa.views.render(div, 'feed-item', {items: items});
+				elem.firstElementChild.appendChild(div);
 
 				fa.views.scrolledToBottom.addOnce(function() {
 					feed.loadMore().then(function(newItems) {
@@ -34,7 +34,7 @@ fa.views.feed = (function() {
 				});
 			};
 
-			fa.views.render(elem, 'feed-templ', {isEmpty: isEmpty});
+			fa.views.render(elem, 'feed-base', {isEmpty: isEmpty});
 
 			if(!isEmpty) {
 				appendItems(feed.firstItems);

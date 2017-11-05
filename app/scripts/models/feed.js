@@ -1,4 +1,4 @@
-fa.feed = (function() {
+fa.models.feed = (function() {
 
 	"use strict";
 
@@ -10,7 +10,7 @@ fa.feed = (function() {
 	// creates a downstream feed item film object from an upstream json object
 	// 
 	// the feed item film objects contain only the fields: pk, title, posterUrl 
-	// that is why we cannot use fa.films.unpackFilm here
+	// that is why we cannot use fa.models.films.unpackFilm here
 	var unpackFilm = function(data) {
 		return {
 			pk: data.pk,
@@ -36,11 +36,11 @@ fa.feed = (function() {
 		};
 
 		if(item.type.becameFriends) {
-			item.userA = fa.users.unpackUser(data.user_a);
-			item.userB = fa.users.unpackUser(data.user_b);
+			item.userA = fa.models.users.unpackUser(data.user_a);
+			item.userB = fa.models.users.unpackUser(data.user_b);
 		}
 		else {
-			item.user = fa.users.unpackUser(data.user);
+			item.user = fa.models.users.unpackUser(data.user);
 			item.film = unpackFilm(data.film);
 			if(item.type.addedTags) {
 				item.tags = data.tags;

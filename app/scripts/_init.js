@@ -107,7 +107,9 @@ var fa = (function() {
 		// load locally overwritten settings, if any
 		settings.loadFromStorage();
 
-		// the only fa module that needs explicit initing
+		// modules that needs explicit initing
+		fa.models.init();
+		fa.auth.init();
 		fa.routing.init();
 	};
 

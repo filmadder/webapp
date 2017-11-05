@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build-html": "bin/build_html.sh",
+    "build-html": "bin/build_html.fish",
     "build-css": "bin/build_css.sh",
-    "build-js": "bin/build_js.sh",
+    "build-js": "bin/build_js.fish",
     "build-vendor": "bin/build_vendor.sh",
     "watch": "bin/watch.sh",
     "test": "karma start"
@@ -13,10 +13,7 @@
   "devDependencies": {
     "chokidar-cli": "^1.2.0",
     "concurrently": "^3.5.0",
-    "del": "^1.2.0",
-    "easymock": "^0.2.18",
     "ecstatic": "^3.0.0",
-    "html-partials-compiler": "^1.0.7",
     "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-firefox-launcher": "^1.0.1",
@@ -25,7 +22,8 @@
     "less": "^2.7.2",
     "less-plugin-clean-css": "^1.5.1",
     "qunitjs": "^2.4.1",
-    "uglify-js": "^2.8.29"
+    "sinon": "^4.0.2",
+    "uglify-js": "^3.1.6"
   },
   "dependencies": {}
 }

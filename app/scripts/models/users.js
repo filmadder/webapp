@@ -1,4 +1,4 @@
-fa.users = (function() {
+fa.models.users = (function() {
 
 	"use strict";
 
@@ -76,6 +76,7 @@ fa.users = (function() {
 
 	return {
 		unpackUser: unpackUser,
+		createProfile: createProfile,
 
 		get: getUser
 	};

@@ -16,11 +16,11 @@ fa.views.user = (function() {
 	//
 	// otherwise, the rest of the view comprises befriending controls
 	var createUser = function(elem, userId) {
-		return fa.users.get(userId).then(function(user) {
+		return fa.models.users.get(userId).then(function(user) {
 			var navLinks, removeActiveLinks, addActiveLink;
 
 			user.showData = (user.status.self || user.status.friend);
-			fa.views.render(elem, 'user-templ', {user: user});
+			fa.views.render(elem, 'user-base', {user: user});
 
 			// nav: active links
 			navLinks = fa.dom.filter('a[data-nav]', elem);
@@ -98,13 +98,13 @@ fa.views.user = (function() {
 
 		if(params.type == 'seen') {
 			films = params.user.filmsPast;
-			template = 'user-films-seen-templ';
+			template = 'user-films-seen';
 		} else if(params.type == 'watching') {
 			films = params.user.filmsPresent;
-			template = 'user-films-watching-templ';
+			template = 'user-films-watching';
 		} else if(params.type == 'watchlist') {
 			films = params.user.filmsFuture;
-			template = 'user-films-watchlist-templ';
+			template = 'user-films-watchlist';
 		} else {
 			fa.routing.go('error');
 		}
@@ -112,7 +112,7 @@ fa.views.user = (function() {
 		stateKey = 'user:'+params.user.pk+':'+params.type;
 		state = fa.history.getState(stateKey);
 
-		fa.views.render(elem, 'user-films-templ', { title: params.type });
+		fa.views.render(elem, 'user-films-base', { title: params.type });
 		container = fa.dom.get('[data-fn=film-list]', elem);
 		buttons = fa.dom.filter('button[data-sort]', elem);
 
@@ -148,7 +148,7 @@ fa.views.user = (function() {
 	//
 	// comprises the list of tags used by a given user
 	var createUserTags = function(elem, user) {
-		fa.views.render(elem, 'user-tags-templ', {tags: user.tags});
+		fa.views.render(elem, 'user-tags', {tags: user.tags});
 
 		return Promise.resolve({
 			nav: 'user-tags'
@@ -158,7 +158,7 @@ fa.views.user = (function() {
 	// inits a user friends view
 	// comprises the list of a given user's friends
 	var createUserFriends = function(elem, user) {
-		fa.views.render(elem, 'user-friends-templ', {friends: user.friends});
+		fa.views.render(elem, 'user-friends', {friends: user.friends});
 
 		return Promise.resolve({
 			nav: 'user-friends'
