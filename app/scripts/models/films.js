@@ -71,25 +71,12 @@ fa.models.films = (function() {
 			tags: data.tags_own
 		};
 
-		film.status = {
-			unknown: (data.status == 'n'),
-			seen: (data.status == 'p'),
-			watching: (data.status == 'o'),
-			watchlist: (data.status == 'f')
-		};
-
-		film.addToWatched = function() {
-			return fa.ws.send('set_film_status', {film: film.pk, status: 'p'});
-		};
-		film.addToWatching = function() {
-			return fa.ws.send('set_film_status', {film: film.pk, status: 'o'});
-		};
-		film.addToWatchlist = function() {
-			return fa.ws.send('set_film_status', {film: film.pk, status: 'f'});
-		};
-		film.removeFromList = function() {
-			return fa.ws.send('set_film_status', {film: film.pk, status: 'n'});
-		};
+		film.status = fjs.prop(data.status)({
+			'n': 'unknown',
+			'p': 'seen',
+			'o': 'watching',
+			'f': 'watchlist'
+		});
 
 		return film;
 	};
@@ -103,6 +90,21 @@ fa.models.films = (function() {
 	var getFilm = function(id) {
 		return fa.ws.send('get_film', {film: id}).then(function(data) {
 			return Promise.resolve(createFilm(data));
+		});
+	};
+
+	// returns a promise that resolves with nothing
+	var setStatus = function(id, status) {
+		status = fjs.prop(status)({
+			'unknown': 'n',
+			'seen': 'p',
+			'watching': 'o',
+			'watchlist': 'f'
+		});
+
+		return fa.ws.send('set_film_status', {
+			film: id,
+			status: status
 		});
 	};
 
@@ -146,6 +148,7 @@ fa.models.films = (function() {
 
 		gotMoreResults: gotMoreResults,
 
+		setStatus: setStatus,
 		postComment: postComment,
 		deleteComment: deleteComment,
 
