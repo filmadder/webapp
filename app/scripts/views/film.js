@@ -111,7 +111,7 @@ fa.views.film = (function() {
 
 			fa.models.films.setStatus(film.pk, status).then(function() {
 				hier.update('/inner/film', film.pk);
-				fa.views.addMessage({type: 'success', text: message});
+				hier.add('/mes', {type: 'success', text: message});
 			}).catch(fa.views.handleError);
 		};
 
@@ -179,10 +179,10 @@ fa.views.film = (function() {
 				});
 			}).catch(function(error) {
 				if(error.code == 'bad_input') {
-					app.views.removeMessage();
+					if(hier.has('/mes')) hier.remove('/mes');
 					form.showError(error.message);
 				}
-				else fa.views.addMessage({type: 'error', code: error.code});
+				else hier.add('/mes', {type: 'error', code: error.code});
 				form.enable();
 			});
 		})
@@ -193,9 +193,9 @@ fa.views.film = (function() {
 		fa.dom.on('button[data-fn=del-comment]', 'click', function(e) {
 			fa.models.films.deleteComment(params.film.pk, e.target.dataset.comment).then(function() {
 				hier.update('/inner/film', params.film.pk);
-				fa.views.addMessage({type: 'success', text: 'comment removed'});
+				hier.add('/mes', {type: 'success', text: 'comment removed'});
 			}).catch(function(error) {
-				fa.views.addMessage({type: 'error', code: error.code});
+				hier.add('/mes', {type: 'error', code: error.code});
 			});
 		});
 
@@ -247,10 +247,10 @@ fa.views.film = (function() {
 				hier.update('/inner/film', film.pk);
 			}).catch(function(error) {
 				if(error.code == 'bad_input') {
-					app.views.removeMessage();
+					if(hier.has('/mes')) hier.remove('/mes');
 					form.showError(error.message);
 				}
-				else fa.views.addMessage({type: 'error', code: error.code});
+				else hier.add('/mes', {type: 'error', code: error.code});
 				form.enable();
 			});
 		})

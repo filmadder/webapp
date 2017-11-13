@@ -131,10 +131,7 @@ fa.routing = (function() {
 	hasher.changed.add(parseHash);
 
 	hasher.changed.add(function() {
-		if(hier.has('/mes')) {
-			hier.remove('/mes');
-			document.querySelector('[data-fn=message]').innerHTML = '';
-		}
+		if(hier.has('/mes')) hier.remove('/mes');
 	});
 
 
