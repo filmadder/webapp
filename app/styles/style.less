@@ -144,103 +144,6 @@ h2 {
 	overflow: hidden;
 }
 
-/* reg and login header */
-#outer {
-	.column(@center);
-	min-height: 100vh;
-
-	background: linear-gradient(@lightpurple, @purple);
-}
-
-#view.login {
-	background: transparent;
-	min-height: auto;
-	padding: 10px 0 40px 0;
-}
-
-/* form (login and register) */
-#form {
-	.column(@center);
-
-	h2 {
-		.font(@s: 14px);
-
-		color: white;
-		margin: 10px 0;
-	}
-
-	.error {
-		.font(700;);
-
-		color: darken(@purple, 15%);
-
-		/* field error */
-
-		&.field {
-			padding: 3px 0 0 0;
-		}
-
-		/* form error */
-
-		&.form {
-			.font(700; 18px);
-			.naughty(column; @left);
-
-			margin: 10px 0;
-		}
-	}
-
-	p {
-		.column;
-
-		label {
-			.font-upper;
-		}
-
-		input {
-			.box(8px 12px 8px 0);
-			.font;
-
-			background: transparent;
-			border: none;
-			border-radius: 0;
-			border-bottom: 2px solid white;
-			color: white;
-			margin: 0;
-			outline: none;
-			width: 270px;
-
-			&::-webkit-input-placeholder {
-				color: transparent;
-			}
-
-			&:-moz-placeholder {
-				color: transparent;
-			}
-
-			&::-moz-placeholder {
-				color: transparent;
-			}
-
-			&:focus::-webkit-input-placeholder {
-				color: rgba(255, 255, 255, 0.6);
-			}
-
-			&:focus:-moz-placeholder {
-				color: rgba(255, 255, 255, 0.6);
-			}
-
-			&:focus::-moz-placeholder {
-				color: rgba(255, 255, 255, 0.6);
-			}
-		}
-	}
-
-	button {
-		.naughty(column; @right);
-	}
-}
-
 .notification-marker {
 	.size(14px; 14px);
 	.box();
@@ -268,7 +171,7 @@ h2 {
 }
 
 .logo {
-	.size(100px; 100px);
+	.size(80px; 80px);
 
 	background-image: url(../images/current/logo.svg);
 }
@@ -724,14 +627,9 @@ h2 {
 	}
 }
 
-
-// font-awesome icon
-i.white {
-	color: white;
-}
-
 @import "header";
 @import "search";
+@import "views/login-reg-form";
 @import "views/home";
 @import "views/film";
 @import "views/comments";
@@ -741,6 +639,7 @@ i.white {
 @import "views/settings";
 @import "views/user";
 @import "views/updates";
+// partials
 @import "tagging";
 @import "list";
 @import "messages";

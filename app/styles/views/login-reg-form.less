@@ -1,0 +1,115 @@
+// login and register container
+#outer {
+	.column(@center; @center);
+
+	background: linear-gradient(@lightpurple, @purple);
+	min-height: 100vh;
+
+	// login and reg containers
+	#view {
+		min-height: auto;
+		padding: 20px 0;
+	}
+}
+
+/* form (login and register) */
+#form {
+	.column(@center);
+
+	// 'login' or 'register'
+	h2 {
+		.font(@s: 15px);
+
+		color: white;
+		margin: 10px 0;
+	}
+
+	.error {
+		.font(700;);
+
+		color: darken(@purple, 15%);
+
+		/* field error */
+
+		&.field {
+			padding: 3px 0 0 0;
+		}
+
+		/* form error */
+
+		&.form {
+			.font(700; 18px);
+			.naughty(column; @left);
+
+			margin: 10px 0;
+		}
+	}
+
+	// form field
+	p {
+		.column;
+
+		margin: 5px 0 35px 0;
+
+		// name of the field
+		label {
+			.font-upper;
+
+			&.selected {
+				font-weight: bold;
+			}
+		}
+
+		input {
+			.box(4px 12px 8px 0);
+			.font;
+
+			background: transparent;
+			border: none;
+			border-radius: 0;
+			border-bottom: 2px solid white;
+			color: white;
+			margin: 0;
+			opacity: 0.8;
+			outline: none;
+			width: 270px;
+
+			&::-webkit-input-placeholder {
+				color: transparent;
+			}
+
+			&:-moz-placeholder {
+				color: transparent;
+			}
+
+			&::-moz-placeholder {
+				color: transparent;
+			}
+
+			&:focus::-webkit-input-placeholder {
+				color: rgba(255, 255, 255, 0.55);
+			}
+
+			&:focus:-moz-placeholder {
+				color: rgba(255, 255, 255, 0.55);
+			}
+
+			&:focus::-moz-placeholder {
+				color: rgba(255, 255, 255, 0.55);
+			}
+
+			&:hover,
+			&:focus {
+				opacity: 1;
+			}
+		}
+	}
+
+	// submit button
+	button {
+		.naughty(column; @right);
+	}
+}
+
+@media (min-width: 740px) {
+}
