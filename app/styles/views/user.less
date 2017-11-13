@@ -1,9 +1,9 @@
 .user-view {
 
-	/* USER BASE ELEMS */
+	// USER BASE ELEMS
 
-	/* avatar & username
-	   below the header */
+	// avatar & username
+	//  below the header
 	.user-personal {
 		.row(@left; @center);
 		.box(20px 0);
@@ -40,8 +40,8 @@
 		}
 	}
 
-	/* tab-like lists switcher
-	   at the bottom of the view */
+	// tab-like lists switcher 
+	// at the bottom of the view
 	.list-nav {
 		.row(@spread; @center);
 		background: linear-gradient(45deg, @lightpurple, @purple);
@@ -54,7 +54,7 @@
 		bottom: 0;
 		right: 0;
 
-		/* list item */
+		// list item
 		a {
 			.font(700; 14px);
 			.box(5px 12px);
@@ -105,45 +105,52 @@
 		}
 	}
 
-	/* list container */
+	// list container
 	.user-list-container {
 		.box(20px 25px 50px 25px);
 
 		width: 100%;
 	}
 
-	/* not firiends */
+	// users not firiends
 	.hidden-data {
 		margin: 20px 25px;
 
-		.small-text {
-			margin: 6px 0 0 0;
-		}
-
-		/* user status */
+		// user status
 		article {
 			.column(@center);
 
-			margin: 20px 0 0 0;
+			margin: 20px 0;
+
+			h2 {
+			}
 
 			p {
-				color: #555;
+				text-align: center;
+			}
+
+			.small-text {
+				color: #333;
+			}
+
+			button {
+				margin: 20px 5px;
 			}
 		}
 	}
 
-	/* SPECIFIC LIST STYLES */
-	/* most of the styles are in list.less */
+	// LIST STYLES
+	// most of the styles are in list.less
 
-	/* film lists */
+	// film lists
 	
-	/* list title (seen, watchlist..) */
+	// list title (seen, watchlist..)
 	h2 {
 		margin: 0;
 		text-align: center;
 	}
 
-	/* sorting */
+	// sorting
 	.order-by {
 		.row(@center; @center);
 		.box(10px 15px);
@@ -178,20 +185,19 @@
 		}
 	}
 		
-	/* only watchlist has it */
+	// only watchlist has it
 	.other-watchlisters {
 		margin: 3px 0 0 0;
 
-		/* user */
 		.user {
 			margin: 3px 6px 3px 0;
 		}
 	}
 
-	/* tags list */
+	// tags list
 	.tags-list {
 
-		/* tag container */
+		// tag container
 		li {
 			margin: 0 6px 6px 0;
 		}

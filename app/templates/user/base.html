@@ -60,16 +60,17 @@
 
 	{{^ user.showData }}
 	<section class="hidden-data">
-		<h2>All accounts are private</h2>
-		<p class="small-text">you can see each other's lists once you become friends</p>
 		{{# user.status.unknown }}
 		<article>
+			<h2>All accounts are private</h2>
+			<p>You can see each other's lists once you become friends</p>
 			<button type="submit" data-fn="request-friend" class="light">befriend</button>
 		</article>
 		{{/ user.status.unknown }}
 		{{# user.status.waiting }}
 		<article>
-			<p><strong>{{ user.name }}</strong> wants to be friends with you</p>
+			<h2>{{ user.name }} wants to be friends with you</h2>
+			<p>Once you become friends, you will be able to see each other's lists, comments and film recommendations</p>
 			<div class="buttons">
 				<button type="submit" data-fn="accept-friend" class="light">accept</button>
 				<button type="submit" data-fn="reject-friend" class="light">reject</button>
@@ -78,7 +79,8 @@
 		{{/ user.status.waiting }}
 		{{# user.status.asked }}
 		<article>
-			<p>You have asked <strong>{{ user.name }}</strong> to be friends with you</p>
+			<h2>You have sent a friendship request</h2>
+			<p>Once you become friends, you will be able to see each other's lists, comments and film recommendations</p>
 			<button type="submit" class="light">withdraw</button>
 		</article>
 		{{/ user.status.asked }}

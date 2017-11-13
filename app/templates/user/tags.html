@@ -1,5 +1,6 @@
 <section class="user-list-container">
 	<h2>Labels</h2>
+	{{# tags.length }}
 	<ul class="tags-list">
 		{{# tags }}
 		<li>
@@ -7,6 +8,7 @@
 		</li>
 		{{/ tags }}
 	</ul>
+	{{/ tags.length }}
 	{{^ tags }}
 	<div class="nothing-to-display">
 		{{# user.self }}
