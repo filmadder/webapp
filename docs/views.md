@@ -29,8 +29,9 @@ following properties:
 		- friends
 		- tags
 	- film
-		- comments
+		- status
 		- tags
+		- comments
 	- tag
 	- search results
 	- feed

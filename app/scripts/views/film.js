@@ -44,15 +44,15 @@ fa.views.film = (function() {
 			hier.add('/inner/film/status', '[data-fn=status]', createStatus, film);
 
 			// comments
-			hier.add('/inner/film/comments', {
+			hier.add('/inner/film/comments', '[data-fn=comments]', createComments, {
 				film: film,
 				spoilersOk: (state && state.checkSpoilers) ? true : false,
 				open: (state && state.checkComments) ? true : false
 			});
 
 			// user's own tags
-			if(film.status == 'watched') {
-				hier.add('/inner/film/tags', film);
+			if(film.status == 'seen') {
+				hier.add('/inner/film/tags', '[data-fn=own-tags]', createTags, film);
 			}
 
 			// styling hack
@@ -164,7 +164,8 @@ fa.views.film = (function() {
 		// show/hide spoiler comments
 		fa.dom.on('[data-fn=show-spoilers]', 'change', function(e) {
 			hier.update('/inner/film/comments', {
-				film: params.film, spoilersOk: e.target.checked, open: true});
+				film: params.film, spoilersOk: e.target.checked, open: true
+			});
 		});
 
 		// comment form
@@ -174,7 +175,8 @@ fa.views.film = (function() {
 
 			fa.models.films.postComment(id, data.comment, data.spoilers).then(function(film) {
 				hier.update('/inner/film/comments', {
-					film: film, spoilersOk: data.spoilers, open: true});
+					film: film, spoilersOk: data.spoilers, open: true
+				});
 			}).catch(function(error) {
 				if(error.code == 'bad_input') {
 					app.views.removeMessage();
@@ -203,7 +205,7 @@ fa.views.film = (function() {
 	// inits a film tags view
 	//
 	// expects the film long object as its params param
-	var createFilmTags = function(elem, film) {
+	var createTags = function(elem, film) {
 		fa.views.render(elem, 'film-tagging', {film: film});
 
 		var initSuggComp = function(elem) {
@@ -280,7 +282,7 @@ fa.views.film = (function() {
 
 	createFilm.comments = createComments;
 	createFilm.status = createStatus;
-	createFilm.tags = createFilmTags;
+	createFilm.tags = createTags;
 
 	return createFilm;
 
