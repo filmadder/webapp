@@ -24,105 +24,35 @@
 						<h3 class="type-duration">{{ film.omdbType }} {{# film.runtime }}| {{ film.runtime }}</h3>{{/ film.runtime}}
 					</div>
 
-					{{# film.status.unknown }}
-					<div class="status-container">
+					<div class="status-container" data-fn="status">
 						<ul class="options hidden" data-fn="status-opts">
 							<li class="status-btn option">
-								<button type="submit"
-										data-fn="add-watchlist" class="icon watchlist-icon-white status-icon"></button>
+								<button type="button"
+										data-fn="set-watchlist"
+										class="icon watchlist-icon-white status-icon"></button>
 							</li>
 							<li class="status-btn option">
-								<button type="submit"
-										data-fn="add-watched"
+								<button type="button"
+										data-fn="set-seen"
 										class="icon seen-icon-white status-icon"></button>
 							</li>
 							<li class="status-btn option">
-								<button type="submit"
-										data-fn="add-watching"
-										class="icon watching-icon-white status-icon"></button>
-							</li>
-						</ul>
-						<div class="status-btn current unknown" data-fn="open-status-opts">
-							<button type="submit"
-									class="icon add-icon status-icon"></button>
-						</div>
-					</div>
-					{{/ film.status.unknown }}
-
-					{{# film.status.seen }}
-					<div class="status-container">
-						<ul class="options hidden" data-fn="status-opts">
-							<li class="status-btn option">
-								<button type="submit"
-										data-fn="add-watchlist" class="icon watchlist-icon-white status-icon"></button>
-							</li>
-							<li class="status-btn option">
-								<button type="submit"
-										data-fn="add-watching"
+								<button type="button"
+										data-fn="set-watching"
 										class="icon watching-icon-white status-icon"></button>
 							</li>
 							<li class="status-btn option">
 								<button type="submit"
-										data-fn="remove-list"
+										data-fn="set-unknown"
 										class="icon remove-icon-white status-icon"></button>
 							</li>
 						</ul>
-						<div class="status-btn current" data-fn="open-status-opts">
-							<button type="submit"
-									class="icon seen-icon-white status-icon"></button>
+						<div class="status-btn current">
+							<button type="button"
+									data-fn="open-status-opts"
+									class="icon {{ film.status }}-icon status-icon"></button>
 						</div>
 					</div>
-					{{/ film.status.seen }}
-
-					{{# film.status.watching }}
-					<div class="status-container">
-						<ul class="options hidden" data-fn="status-opts">
-							<li class="status-btn option">
-								<button type="submit"
-										data-fn="add-watchlist" class="icon watchlist-icon-white status-icon"></button>
-							</li>
-							<li class="status-btn option">
-								<button type="submit"
-										data-fn="add-watched"
-										class="icon seen-icon-white status-icon"></button>
-							</li>
-							<li class="status-btn option">
-								<button type="submit"
-										data-fn="remove-list"
-										class="icon remove-icon-white status-icon"></button>
-							</li>
-						</ul>
-						<div class="status-btn current" data-fn="open-status-opts">
-							<button type="submit"
-									class="icon watching-icon-white status-icon"></button>
-						</div>
-					</div>
-					{{/ film.status.watching }}
-
-					{{# film.status.watchlist }}
-					<div class="status-container">
-						<ul class="options hidden" data-fn="status-opts">
-							<li class="status-btn option">
-								<button type="submit"
-										data-fn="add-watched" class="icon seen-icon-white status-icon"></button>
-							</li>
-							<li class="status-btn option">
-								<button type="submit"
-										data-fn="add-watching"
-										class="icon watching-icon-white status-icon"></button>
-							</li>
-							<li class="status-btn option">
-								<button type="submit"
-										data-fn="remove-list"
-										class="icon remove-icon-white status-icon"></button>
-							</li>
-						</ul>
-						<div class="status-btn current" data-fn="open-status-opts">
-							<button type="submit"
-									class="icon watchlist-icon-white status-icon"></button>
-						</div>
-					</div>
-					{{/ film.status.watchlist }}
 				</div>
 			</article>
 		</div>

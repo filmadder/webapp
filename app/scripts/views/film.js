@@ -36,8 +36,12 @@ fa.views.film = (function() {
 	var createFilm = function(elem, id) {
 		return fa.models.films.get(id).then(function(film) {
 			var state = fa.history.getState('film:'+id.toString());
+			var filmTitle;
 
 			fa.views.render(elem, 'film-base', {film: film});
+
+			// status
+			hier.add('/inner/film/status', '[data-fn=status]', createStatus, film);
 
 			// comments
 			hier.add('/inner/film/comments', {
@@ -46,55 +50,13 @@ fa.views.film = (function() {
 				open: (state && state.checkComments) ? true : false
 			});
 
-			// film tags
-			if(film.status.watched) {
+			// user's own tags
+			if(film.status == 'watched') {
 				hier.add('/inner/film/tags', film);
 			}
 
-			// film status
-			var statusOpts = fa.dom.get('[data-fn=status-opts]');
-			var open = false;
-			var statusBtn = fa.dom.get('[data-fn=open-status-opts]');
-
-			fa.dom.on(statusBtn, 'click', function() {
-				if(open) {
-					statusOpts.classList.add('hidden');
-					statusBtn.classList.remove('shrink');
-					open = false;
-				} else {
-					statusOpts.classList.remove('hidden');
-					statusBtn.classList.add('shrink');
-					open = true;
-				}
-			});
-
-			fa.dom.on('[data-fn=add-watched]', 'click', function() {
-				film.addToWatched().then(function() {
-					hier.update('/inner/film', id);
-					fa.views.addMessage({type: 'success', text: 'marked as watched'});
-				}).catch(fa.views.handleError);
-			});
-			fa.dom.on('[data-fn=add-watchlist]', 'click', function() {
-				film.addToWatchlist().then(function() {
-					hier.update('/inner/film', id);
-					fa.views.addMessage({type: 'success', text: 'added to watchlist'});
-				}).catch(fa.views.handleError);
-			});
-			fa.dom.on('[data-fn=add-watching]', 'click', function() {
-				film.addToWatching().then(function() {
-					hier.update('/inner/film', id);
-					fa.views.addMessage({type: 'success', text: 'added to currently watching'});
-				}).catch(fa.views.handleError);
-			});
-			fa.dom.on('[data-fn=remove-list]', 'click', function() {
-				film.removeFromList().then(function() {
-					hier.update('/inner/film', id);
-					fa.views.addMessage({type: 'success', text: 'removed'});
-				}).catch(fa.views.handleError);
-			});
-
 			// styling hack
-			var filmTitle = fa.dom.get('#film-title');
+			filmTitle = fa.dom.get('#film-title', elem);
 			if (filmTitle.innerText.length > 80) {
 				filmTitle.classList.add('very-long-title');
 			} else if (filmTitle.innerText.length > 35 && filmTitle.innerText.length < 80) {
@@ -126,6 +88,64 @@ fa.views.film = (function() {
 					});
 				}
 			};
+		});
+	};
+
+	// inits a film status view
+	//
+	// expects a film object as its param
+	var createStatus = function(elem, film) {
+		var openButton = fa.dom.get('[data-fn=open-status-opts]', elem);
+		var statusOpts = fa.dom.get('[data-fn=status-opts]', elem);
+		var buttons, isOpen = false;
+
+		// sets the film's status to that of the clicked status option button
+		var changeStatus = function(e) {
+			var status = e.target.dataset.fn.split('-')[1];
+			var message = fjs.prop(status)({
+				'unknown': 'removed',
+				'seen': 'marked as seen',
+				'watching': 'added to currently watching',
+				'watchlist': 'added to watchlist'
+			});
+
+			fa.models.films.setStatus(film.pk, status).then(function() {
+				hier.update('/inner/film', film.pk);
+				fa.views.addMessage({type: 'success', text: message});
+			}).catch(fa.views.handleError);
+		};
+
+		// opens and closes the status options container
+		var toggleOpts = function() {
+			if(!isOpen) {
+				openButton.classList.add('add-icon', 'shrink');
+				openButton.classList.remove(film.status +'-icon');
+				statusOpts.classList.remove('hidden');
+				isOpen = true;
+			} else {
+				openButton.classList.remove('add-icon', 'shrink');
+				openButton.classList.add(film.status +'-icon');
+				statusOpts.classList.add('hidden');
+				isOpen = false;
+			}
+		};
+
+		// remove the unnecessary status option button
+		statusOpts.removeChild(
+			fa.dom.get('[data-fn=set-'+ film.status +']', elem).parentNode);
+
+		buttons = fa.dom.filter('button[data-fn]', statusOpts);
+
+		// attach the event listeners
+		fa.dom.on(buttons, 'click', changeStatus);
+		fa.dom.on(openButton, 'click', toggleOpts);
+
+		// the view object
+		return Promise.resolve({
+			remove: function() {
+				fa.dom.off(openButton, 'click', toggleOpts);
+				fa.dom.off(buttons, 'click', changeStatus);
+			}
 		});
 	};
 
@@ -259,6 +279,7 @@ fa.views.film = (function() {
 	//
 
 	createFilm.comments = createComments;
+	createFilm.status = createStatus;
 	createFilm.tags = createFilmTags;
 
 	return createFilm;
