@@ -16,20 +16,24 @@
 			<h3 class="title">{{ title }}</h3>
 			<h4 class="year-directors">{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 		</a>
-		<ul class="other-watchlisters">
+<!-- 		<ul class="other-watchlisters">
 			<li>
 				<span class="small-text">in watching list of</span>
 				<br />
-				<a class="user">stelaseldano</a>
-				<a class="user">stelaseldano</a>
+				<a class="user"></a>
 			</li>
-		</ul>
+		</ul> -->
 	</div>
 </li>
 {{/ films }}
 {{^ films }}
 <div class="nothing-to-display">
+	{{# user.status.self }}
 	<h3>Nothing in your watching list yet</h3>
-	<p>Search for a series you are currently watching to watch and add it to your watching list.</p>
+	<p>Search for a series you are currently watching and add them to your watching list.</p>
+	{{/ user.status.self }}
+	{{^ user.status.self }}
+	<h3>Nothing in {{ user.name }}'s watching list yet</h3>
+	{{/ user.status.self }}
 </div>
 {{/ films }}

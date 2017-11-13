@@ -128,11 +128,11 @@ fa.views.user = (function() {
 				case 'year': films.sort(sortByYear); break;
 				case 'title': films.sort(sortByTitle); break;
 			}
-			renderFilms({films: films});
+			renderFilms({films: films, user: params.user});
 		});
 
 		films.sort(sortByYear);
-		renderFilms({films: films});
+		renderFilms({films: films, user: params.user});
 		window.scroll(0, state ? state.scroll : 0);
 
 		// the view object
