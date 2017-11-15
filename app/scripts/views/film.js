@@ -118,13 +118,15 @@ fa.views.film = (function() {
 		// opens and closes the status options container
 		var toggleOpts = function() {
 			if(!isOpen) {
-				openButton.classList.add('add-icon', 'shrink');
-				openButton.classList.remove(film.status +'-icon');
+				openButton.classList.add('add-icon-white');
+				openButton.parentNode.classList.add('shrink');
+				openButton.classList.remove(film.status +'-icon-white');
 				statusOpts.classList.remove('hidden');
 				isOpen = true;
 			} else {
-				openButton.classList.remove('add-icon', 'shrink');
-				openButton.classList.add(film.status +'-icon');
+				openButton.classList.remove('add-icon-white');
+				openButton.parentNode.classList.remove('shrink');
+				openButton.classList.add(film.status +'-icon-white');
 				statusOpts.classList.add('hidden');
 				isOpen = false;
 			}
