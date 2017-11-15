@@ -8,26 +8,24 @@ fa.routing = (function() {
 	// 
 
 	var setupHier = function() {
-		hier.reg('/outer', 'main', fa.views.outer);
-		hier.reg('/outer/reg', '#view', fa.views.outer.reg);
-		hier.reg('/outer/login', '#view', fa.views.outer.login);
+		hier.reg('/outer', '[data-fn=main]', fa.views.outer);
+		hier.reg('/outer/reg', '[data-fn=view]', fa.views.outer.reg);
+		hier.reg('/outer/login', '[data-fn=view]', fa.views.outer.login);
 
-		hier.reg('/inner', 'main', fa.views.inner);
-		hier.reg('/inner/user', '#view', fa.views.user);
-		hier.reg('/inner/user/films', '#subview', fa.views.user.films);
-		hier.reg('/inner/user/tags', '#subview', fa.views.user.tags);
-		hier.reg('/inner/user/friends', '#subview', fa.views.user.friends);
-		hier.reg('/inner/film', '#view', fa.views.film);
-		hier.reg('/inner/film/comments', 'section.comments', fa.views.film.comments);
-		hier.reg('/inner/film/tags', 'section.tagging-cont', fa.views.film.tags);
-		hier.reg('/inner/tag', '#view', fa.views.tag);
-		hier.reg('/inner/results', '#view', fa.views.search);
-		hier.reg('/inner/feed', '#view', fa.views.feed);
-		hier.reg('/inner/updates', '#view', fa.views.updates);
-		hier.reg('/inner/settings', '#view', fa.views.settings);
+		hier.reg('/inner', '[data-fn=main]', fa.views.inner);
+		hier.reg('/inner/user', '[data-fn=view]', fa.views.user);
+		hier.reg('/inner/user/films', '[data-fn=subview]', fa.views.user.films);
+		hier.reg('/inner/user/tags', '[data-fn=subview]', fa.views.user.tags);
+		hier.reg('/inner/user/friends', '[data-fn=subview]', fa.views.user.friends);
+		hier.reg('/inner/film', '[data-fn=view]', fa.views.film);
+		hier.reg('/inner/tag', '[data-fn=view]', fa.views.tag);
+		hier.reg('/inner/results', '[data-fn=view]', fa.views.search);
+		hier.reg('/inner/feed', '[data-fn=view]', fa.views.feed);
+		hier.reg('/inner/updates', '[data-fn=view]', fa.views.updates);
+		hier.reg('/inner/settings', '[data-fn=view]', fa.views.settings);
 
-		hier.reg('/error', 'main', fa.views.error);
-		hier.reg('/mes', '#message-cont', fa.views.message);
+		hier.reg('/error', '[data-fn=main]', fa.views.error);
+		hier.reg('/mes', '[data-fn=message]', fa.views.message);
 	};
 
 
@@ -133,10 +131,7 @@ fa.routing = (function() {
 	hasher.changed.add(parseHash);
 
 	hasher.changed.add(function() {
-		if(hier.has('/mes')) {
-			hier.remove('/mes');
-			document.getElementById('message-cont').innerHTML = '';
-		}
+		if(hier.has('/mes')) hier.remove('/mes');
 	});
 
 

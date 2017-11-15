@@ -25,13 +25,13 @@ fa.views.outer = (function() {
 		fa.forms.create(fa.dom.get('form', elem), function(form) {
 			fa.auth.register(form.getData()).then(function() {
 				fa.routing.go('');
-				fa.views.addMessage({type: 'success', text: 'you are now an adder!'});
+				hier.add('/mes', {type: 'success', text: 'you are now an adder!'});
 			}).catch(function(error) {
 				if(error.code == 'bad_input') {
-					fa.views.removeMessage();
+					if(hier.has('/mes')) hier.remove('/mes');
 					form.showError(error.message);
 				}
-				else fa.views.addMessage({type: 'error', code: error.code});
+				else hier.add('/mes', {type: 'error', code: error.code});
 				form.enable();
 			});
 		})
@@ -56,10 +56,10 @@ fa.views.outer = (function() {
 				fa.routing.go('');
 			}).catch(function(error) {
 				if(error.code == 'bad_input') {
-					fa.views.removeMessage();
+					if(hier.has('/mes')) hier.remove('/mes');
 					form.showError(error.message);
 				}
-				else fa.views.addMessage({type: 'error', code: error.code});
+				else hier.add('/mes', {type: 'error', code: error.code});
 				form.enable();
 			});
 		})

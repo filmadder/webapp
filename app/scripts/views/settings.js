@@ -22,13 +22,13 @@ fa.views.settings = (function() {
 
 			fa.auth.changePass(load).then(function() {
 				hier.update('/inner/settings');
-				fa.views.addMessage({type: 'success', text: 'password changed'});
+				hier.add('/mes', {type: 'success', text: 'password changed'});
 			}).catch(function(error) {
 				if(error.code == 'bad_input') {
-					app.views.removeMessage();
+					if(hier.has('/mes')) hier.remove('/mes');
 					form.showError(error.message);
 				}
-				else fa.views.addMessage({type: 'error', code: error.code});
+				else hier.add('/mes', {type: 'error', code: error.code});
 				form.enable();
 			});
 		})

@@ -90,22 +90,7 @@ fa.views = (function() {
 			fa.routing.go('error');
 		}
 		else {
-			addMessage({type: 'error', code: error.code});
-		}
-	};
-
-	// shows the specified message
-	// the params are passed unaltered to the createMessage view
-	var addMessage = function(params) {
-		if(hier.has('/mes')) hier.update('/mes', params);
-		else hier.add('/mes', params);
-	};
-
-	// if there is an error/success message, it will be removed
-	var removeMessage = function() {
-		if(hier.has('/mes')) {
-			hier.remove('/mes');
-			document.getElementById('message-cont').innerHTML = '';
+			hier.add('/mes', {type: 'error', code: error.code});
 		}
 	};
 
@@ -163,10 +148,18 @@ fa.views = (function() {
 			render(elem, 'meta-success-message', {
 				text: params.text
 			});
-			window.setTimeout(removeMessage, 1500);
+
+			window.setTimeout(function() {
+				if(hier.has('/mes')) hier.remove('/mes');
+			}, 1500);
 		}
 
-		return Promise.resolve({});
+		// the view object
+		return Promise.resolve({
+			remove: function() {
+				elem.innerHTML = '';
+			}
+		});
 	};
 
 
@@ -258,8 +251,6 @@ fa.views = (function() {
 
 		render: render,
 		handleError: handleError,
-		addMessage: addMessage,
-		removeMessage: removeMessage,
 
 		error: createError,
 		message: createMessage
