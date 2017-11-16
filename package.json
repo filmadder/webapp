@@ -25,5 +25,17 @@
     "sinon": "^4.0.2",
     "uglify-js": "^3.1.6"
   },
-  "dependencies": {}
+  "dependencies": {
+    "crossroads": "^0.12.2",
+    "datetime": "github:pavelsof/pythonic-datetime",
+    "functional.js": "^0.8.0",
+    "hasher": "^1.2.0",
+    "hier": "github:pavelsof/hier",
+    "loglevel": "^1.6.0",
+    "mustache": "^2.3.0",
+    "normalize.css": "^7.0.0",
+    "signals": "^1.0.0",
+    "stellar-less": "github:stelaseldano/stellar",
+    "whatwg-fetch": "^2.0.3"
+  }
 }

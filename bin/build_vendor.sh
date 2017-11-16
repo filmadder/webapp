@@ -1,16 +1,12 @@
 #!/bin/bash
 cat \
-bower_components/normalize-css/normalize.css \
-> build/styles/vendor.css
-
-cat \
-bower_components/loglevel/dist/loglevel.min.js \
-bower_components/js-signals/dist/signals.min.js \
-bower_components/hasher/dist/js/hasher.min.js \
-bower_components/crossroads/dist/crossroads.min.js \
-bower_components/mustache.js/mustache.min.js \
-bower_components/fetch/fetch.js \
-bower_components/functional.js/functional.js \
-bower_components/pythonic-datetime/source/datetime.js \
-bower_components/hier/src/hier.js \
+node_modules/loglevel/dist/loglevel.min.js \
+node_modules/signals/dist/signals.min.js \
+node_modules/hasher/dist/js/hasher.min.js \
+node_modules/crossroads/dist/crossroads.min.js \
+node_modules/mustache/mustache.min.js \
+node_modules/whatwg-fetch/fetch.js \
+node_modules/functional.js/functional.js \
+node_modules/datetime/build/datetime.js \
+node_modules/hier/src/hier.js \
 > build/scripts/vendor.js
