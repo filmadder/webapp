@@ -100,13 +100,13 @@ fa.routing = (function() {
 
 	crossroads.addRoute('/login', function() {
 		hier.add('/outer').then(function() {
-			return hier.add('/outer/login')
+			return hier.add('/outer/login');
 		});
 	});
 
 	crossroads.addRoute('/reg', function() {
 		hier.add('/outer').then(function() {
-			return hier.add('/outer/reg')
+			return hier.add('/outer/reg');
 		});
 	});
 
@@ -123,7 +123,7 @@ fa.routing = (function() {
 	// setup hasher
 	// 
 
-	var parseHash = function(newHash, oldHash) {
+	var parseHash = function(newHash) {
 		crossroads.parse(newHash);
 	};
 

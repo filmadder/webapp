@@ -218,12 +218,6 @@ fa.views = (function() {
 		elem.innerHTML = '';
 	});
 
-	// dispatches the clearNavSignal so that there are no navigation links
-	// wrongly marked as active
-	hier.on('post-remove', function(path) {
-		// clearNavSignal.dispatch();
-	});
-
 
 	// 
 	// exports

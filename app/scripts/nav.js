@@ -76,6 +76,10 @@ fa.nav = (function() {
 	nav.unreg = function(links) {
 		var i, key;
 
+		var areDiff = fjs.curry(function(a, b) {
+			return a != b;
+		});
+
 		if(!fjs.isArray(links)) links = [links];
 
 		for(i = 0; i < links.length; i++) {
@@ -86,9 +90,7 @@ fa.nav = (function() {
 			}
 
 			if(registry.hasOwnProperty(key)) {
-				registry[key] = fjs.filter(function(x) {
-					return x != links[i];
-				}, registry[key]);
+				registry[key] = fjs.filter(areDiff(links[i]), registry[key]);
 			}
 		}
 	};

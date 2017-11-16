@@ -24,73 +24,6 @@ fa.views.film = (function() {
 	// views
 	//
 
-	// inits a film view
-	// 
-	// includes the film info, status; as well as the lists of friends who have
-	// added the film as watched/watchlisted and the tags the friends have
-	// given to the film (this is different from the user's own tags component)
-	// 
-	// comments and tags are handled by separate views
-	// 
-	// expects the id of the film as its view param
-	var createFilm = function(elem, id) {
-		return fa.models.films.get(id).then(function(film) {
-			var state = fa.history.getState('film:'+id.toString());
-			var filmTitle;
-
-			fa.views.render(elem, 'film-base', {film: film});
-
-			// status
-			hier.add('/inner/film/status', '[data-fn=status]', createStatus, film);
-
-			// comments
-			hier.add('/inner/film/comments', '[data-fn=comments]', createComments, {
-				film: film,
-				spoilersOk: (state && state.checkSpoilers) ? true : false,
-				open: (state && state.checkComments) ? true : false
-			});
-
-			// user's own tags
-			if(film.status == 'seen') {
-				hier.add('/inner/film/tags', '[data-fn=own-tags]', createTags, film);
-			}
-
-			// styling hack
-			filmTitle = fa.dom.get('#film-title', elem);
-			if (filmTitle.innerText.length > 80) {
-				filmTitle.classList.add('very-long-title');
-			} else if (filmTitle.innerText.length > 35 && filmTitle.innerText.length < 80) {
-				filmTitle.classList.add('long-title');
-			}
-
-			// history state
-			if(state) {
-				try {
-					fa.dom.get('#synopsis-text', elem).checked = state.checkSynopsis;
-					fa.dom.get('#tags-film', elem).checked = state.checkTags;
-				} catch (error) {}
-				window.scroll(0, state.scroll);
-			} else {
-				window.scroll(0, 0);
-			}
-
-			// the view object
-			return {
-				nav: 'main:_',
-				title: ['films', film.title],
-				empty: function() {
-					fa.history.setState('film:'+id.toString(), {
-						scroll: window.pageYOffset,
-						checkSynopsis: getCheckState('#synopsis-text', elem),
-						checkTags: getCheckState('#tags-film', elem),
-						checkComments: getCheckState('#comments', elem),
-						checkSpoilers: getCheckState('#show-spoilers', elem)
-					});
-				}
-			};
-		});
-	};
-
 	// inits a film status view
 	//
 	// expects a film object as its param
@@ -274,6 +207,73 @@ fa.views.film = (function() {
 			remove: function() {
 				suggComp.remove();
 			}
+		});
+	};
+
+	// inits a film view
+	// 
+	// includes the film info, status; as well as the lists of friends who have
+	// added the film as watched/watchlisted and the tags the friends have
+	// given to the film (this is different from the user's own tags component)
+	// 
+	// comments and tags are handled by separate views
+	// 
+	// expects the id of the film as its view param
+	var createFilm = function(elem, id) {
+		return fa.models.films.get(id).then(function(film) {
+			var state = fa.history.getState('film:'+id.toString());
+			var filmTitle;
+
+			fa.views.render(elem, 'film-base', {film: film});
+
+			// status
+			hier.add('/inner/film/status', '[data-fn=status]', createStatus, film);
+
+			// comments
+			hier.add('/inner/film/comments', '[data-fn=comments]', createComments, {
+				film: film,
+				spoilersOk: (state && state.checkSpoilers) ? true : false,
+				open: (state && state.checkComments) ? true : false
+			});
+
+			// user's own tags
+			if(film.status == 'seen') {
+				hier.add('/inner/film/tags', '[data-fn=own-tags]', createTags, film);
+			}
+
+			// styling hack
+			filmTitle = fa.dom.get('#film-title', elem);
+			if (filmTitle.innerText.length > 80) {
+				filmTitle.classList.add('very-long-title');
+			} else if (filmTitle.innerText.length > 35 && filmTitle.innerText.length < 80) {
+				filmTitle.classList.add('long-title');
+			}
+
+			// history state
+			if(state) {
+				try {
+					fa.dom.get('#synopsis-text', elem).checked = state.checkSynopsis;
+					fa.dom.get('#tags-film', elem).checked = state.checkTags;
+				} catch (error) {}
+				window.scroll(0, state.scroll);
+			} else {
+				window.scroll(0, 0);
+			}
+
+			// the view object
+			return {
+				nav: 'main:_',
+				title: ['films', film.title],
+				empty: function() {
+					fa.history.setState('film:'+id.toString(), {
+						scroll: window.pageYOffset,
+						checkSynopsis: getCheckState('#synopsis-text', elem),
+						checkTags: getCheckState('#tags-film', elem),
+						checkComments: getCheckState('#comments', elem),
+						checkSpoilers: getCheckState('#show-spoilers', elem)
+					});
+				}
+			};
 		});
 	};
 

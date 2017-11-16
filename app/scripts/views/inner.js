@@ -65,7 +65,7 @@ fa.views.inner = (function() {
 			movableElem.classList.remove('move-left');
 			view.classList.remove('uninteractive');
 			isNavOpen = false;
-		}
+		};
 
 		// the nav shows when the snake is clicked (1) and hides when isNavOpen
 		// is true and either the snake (2), the view (3) or a nav link(4) is
