@@ -44,7 +44,7 @@ fa.views.updates = (function() {
 
 			// the view object
 			return {
-				nav: 'updates',
+				nav: 'main:updates',
 				title: 'notifications',
 				remove: function() {
 					if(!window.pageYOffset) {

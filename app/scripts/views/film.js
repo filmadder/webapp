@@ -76,7 +76,7 @@ fa.views.film = (function() {
 
 			// the view object
 			return {
-				nav: '_',
+				nav: 'main:_',
 				title: ['films', film.title],
 				empty: function() {
 					fa.history.setState('film:'+id.toString(), {

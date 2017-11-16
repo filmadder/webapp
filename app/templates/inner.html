@@ -15,16 +15,18 @@
 		<nav class="nav side-nav hidden">
 			<ul class="main-nav">
 				<li class="primary-nav">
-					<a href="#/" title="my profile"><div class="me avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div></a>
+					<a href="#/" title="my profile" data-nav="main:me">
+						<div class="me avatar-medium image" style="background-image: url('{{ user.avatarUrl }}')"></div>
+					</a>
 				</li>
 				<li class="primary-nav">
-					<a href="#/feed" title="feed" data-nav="feed">feed</a>
+					<a href="#/feed" title="feed" data-nav="main:feed">feed</a>
 				</li>
 				<li class="secondary-nav">
-					<a href="#/updates" title="notifications" data-nav="updates">notifications</a>
+					<a href="#/updates" title="notifications" data-nav="main:updates">notifications</a>
 				</li>
 				<li  class="secondary-nav">
-					<a href="#/settings"  title="settings" data-nav="settings">settings</a>
+					<a href="#/settings"  title="settings" data-nav="main:settings">settings</a>
 				</li>
 			</ul>
 			<ul>

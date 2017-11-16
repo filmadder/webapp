@@ -26,7 +26,7 @@ fa.views.inner = (function() {
 	// includes the navigation, the search form, and the #view element that is
 	// the container of all inner views
 	var createInner = function(elem) {
-		var navLinks, removeActiveLinks, addActiveLink;
+		var navLinks;
 		var movableElem, navElem, isNavOpen, view, searchIcon, searchBtn;
 		var searchForm, queryField, doSearchButton, isSearchOpen;
 		var showNav, hideNav, showSearch, hideSearch;
@@ -47,22 +47,7 @@ fa.views.inner = (function() {
 
 		// nav: active links
 		navLinks = fa.dom.filter('header nav a', elem);
-		removeActiveLinks = function() {
-			fjs.map(function(link) {
-				link.classList.remove('selected');
-			}, navLinks);
-		};
-		addActiveLink = function(navId) {
-			fjs.map(function(link) {
-				if(link.dataset.nav == navId) {
-					setTimeout(function() {
-						link.classList.add('selected');
-					}, 300);
-				}
-			}, navLinks);
-		};
-		fa.views.clearNavSignal.add(removeActiveLinks);
-		fa.views.markNavSignal.add(addActiveLink);
+		fa.nav.reg(navLinks);
 
 		// nav: open and close
 		movableElem = fa.dom.get('.header-inner', elem);
@@ -175,8 +160,7 @@ fa.views.inner = (function() {
 			remove: function() {
 				fa.models.updates.changedStatus.removeAll();
 
-				fa.views.clearNavSignal.remove(removeActiveLinks);
-				fa.views.markNavSignal.remove(addActiveLink);
+				fa.nav.unreg(navLinks);
 
 				fa.views.scrolledFarDown.removeAll();
 				fa.views.scrolledBackUp.removeAll();

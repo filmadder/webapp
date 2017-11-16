@@ -49,7 +49,7 @@ fa.views.search = (function() {
 			}
 
 			return {
-				nav: '_',
+				nav: 'main:_',
 				title: 'search results',
 				remove: function() {
 					fa.models.films.gotMoreResults.removeAll();

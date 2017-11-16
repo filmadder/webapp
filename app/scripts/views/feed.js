@@ -44,7 +44,7 @@ fa.views.feed = (function() {
 
 			// the view object
 			return {
-				nav: 'feed',
+				nav: 'main:feed',
 				title: 'feed',
 				remove: function() {
 					if(!window.pageYOffset) {
