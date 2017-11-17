@@ -9,4 +9,5 @@ node_modules/whatwg-fetch/fetch.js \
 node_modules/functional.js/functional.js \
 node_modules/datetime/build/datetime.js \
 node_modules/hier/src/hier.js \
+node_modules/hammerjs/hammer.min.js \
 > build/scripts/vendor.js

@@ -30,6 +30,7 @@
     "crossroads": "^0.12.2",
     "datetime": "github:pavelsof/pythonic-datetime",
     "functional.js": "^0.8.0",
+    "hammerjs": "^2.0.8",
     "hasher": "^1.2.0",
     "hier": "github:pavelsof/hier",
     "loglevel": "^1.6.0",
