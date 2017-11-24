@@ -1,8 +1,8 @@
-/* film */
-.film {
+// film
+/*.film {
 	overflow: hidden;
 
-	/* poster, title, year, status */
+	// poster, title, year, status
 	.details {
 		position: relative;
 
@@ -14,8 +14,8 @@
 			background-repeat: no-repeat;
 			background-size: cover;
 
-			/*-webkit-filter: grayscale(1);
-			filter: grayscale(100%);*/
+			// -webkit-filter: grayscale(1);
+			// filter: grayscale(100%);
 		}
 
 		.no-poster {
@@ -25,7 +25,7 @@
 
 			background: @purple;
 
-			/* "no poster" */
+			// "no poster"
 			h3 {
 				color: white;
 			}
@@ -37,7 +37,7 @@
 			}
 		}
 
-		/* title and status */
+		// title and status
 		.main-info {
 			.box(30px 20px 60px 20px);
 			.column(@spread; @spread);
@@ -104,7 +104,7 @@
 		}		
 	}
 
-	/* director, wtiter, actors, synopsis, recommend btn */
+	// director, wtiter, actors, synopsis, recommend btn
 	.additional-info {
 		.box(15px 25px);
 
@@ -277,11 +277,11 @@
 
 		margin: 50px 0 0 0;
 
-		/* seen and watchlist */
+		// seen and watchlist
 		.watchers-list {
 			margin: 0 0 30px 0;
 
-			/* 'seen by' and 'watchlisted by' */
+			// 'seen by' and 'watchlisted by'
 			h3 {
 				.font(700, 16px);
 
@@ -289,14 +289,14 @@
 				text-transform: uppercase;
 			}
 
-			/* watcher */
+			// watcher
 			li {	
 				display: inline-block;
 				margin: 0 5px 0 0;
 			}
 		}
 
-		/* labels */
+		// labels
 		.tags-section {
 			margin: 0 0 30px 0;
 
@@ -310,7 +310,7 @@
 						padding: 2px 0 0 0;
 					}
 
-					/* tag */
+					// tag
 					li {
 						display: inline-block;
 					} 
@@ -325,10 +325,9 @@
 			}
 		}
 
-		/* comments' styles in views/comment.less */
+		// comments' styles in views/comment.less
 	}
 }
-
 
 @media (min-width: 740px) {
 
@@ -402,13 +401,13 @@
 			top: 40px;
 			right: 0;
 
-			/* no slanted lines */
+			// no slanted lines
 			&:before,
 			&:after {
 				display: none;
 			}
 
-			/* more-info item */
+			// more-info item
 			h4,
 			.synopsis {
 				margin: 0 0 0 2vw;
@@ -470,6 +469,458 @@
 				position: absolute;
 				top: -50px;
 				left: 0;
+			}
+		}
+	}
+}*/
+
+.film-view {
+	.row();
+
+	.primary-container {
+		height: ~"calc(100% - 40px)";
+		width: 40%;
+		max-height: 900px;
+
+		position: fixed;
+		top: 40px;
+		left: 0;
+
+		.poster-container {
+			height: 100%;
+			width: 100%;
+
+			.poster {
+				.size(100%; 100%);
+
+				background-size: cover;
+			}
+		}
+
+		.main-info-container {
+			.box(0 30px 60px 30px);
+			.row(@spread; @bottom);
+
+			background: linear-gradient(rgba(0, 0, 0, 0.55) 20%, rgba(64, 111, 192, 1));
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+
+			.wrapper {
+				.row(@spread);
+
+				width: 100%;
+			}
+
+			.title-container {
+
+				.title {
+					.font(700; 40px);
+
+					color: white;
+					margin: 0 20px 0 0;
+					text-transform: none;
+					text-align: left;
+
+					&.long-title {
+						.font(700; 32px);
+					}
+
+					&.very-long-title {
+						.font(700; 24px);
+					}
+				}
+
+				.year {
+					.font(@s: 22px);
+
+					color: white;
+					margin: 0;
+				}
+
+				.type-duration {
+					.font(bold; 18px;);
+
+					color: white;
+					padding: 15px 0 0 0;
+					margin: 0 0 0 0;
+					text-transform: uppercase;
+				}
+				
+			}
+
+			// set film status
+			.status-container {
+				.row(@spread);
+
+				position: relative;
+
+				.current {
+					.size(50px; 50px;);
+					.transition(@dur: 0.25s);
+					.column(@center; @center);
+
+					background: @salmon;
+					border-radius: 50%;
+					border: 2px solid white;
+					box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.2);
+					min-height: 50px;
+					max-height: 50px;
+					z-index: 2;
+				}
+
+				.current.shrink {
+					transform: scale(0.7) rotate(135deg);
+				}
+
+				.options{
+					max-height: 70px;
+
+					position: absolute;
+					left: ~"calc(50% - 25px)";
+
+					.option {
+						.transition(@dur: 0.25s; @func: cubic-bazier(.175,.67,.83,.67));
+						.box(5px;);
+
+						background: @salmon;
+						border-radius: 50%;
+						border: 2px solid transparent;
+						box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.3);
+						display: block;
+						z-index: 2;
+
+						// the position of the options when visible
+						&:first-child {
+							transform: translateY(-55px) translateX(-30px);
+						}
+
+						&:nth-child(2) {
+							transform: translateY(-50px) translateX(-60px);
+						}
+
+						&:nth-child(3) {
+							transform: translateY(-45px) translateX(-30px);
+						}
+
+						.icon {
+							.size(36px; 36px;);
+
+							min-height: 36px;
+							mix-height: 36px;
+						}
+					}
+				}
+
+				.options.hidden {
+					.transition;
+
+					.option {
+
+						&:first-child {
+							transform: translateY(2px) translateX(2px) scale(0.4);
+						}
+
+						&:nth-child(2) {
+							transform: translateY(-48px) translateX(2px) scale(0.4);
+						}
+
+						&:nth-child(3) {
+							transform: translateY(-98px) translateX(2px) scale(0.4);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.additional-container {
+
+		margin-left: 40%;
+		width: 60%;
+
+		.film-info-container {
+			.box(60px 40px);
+
+			background: #222;
+			box-shadow: inset 2px -2px 2px 4px rgba(0, 0, 0, 0.5);
+			min-height: ~"calc(100vh - 40px)";
+			max-height: 900px;
+
+			.synopsis {
+				.box(10px 10px 10px 0);
+
+				margin: 0 0 30px 0;
+
+				.arrow {
+					display: none;
+				}
+
+				// "synopsis"
+				h3 {
+					.font(600; 16px);
+
+					color: white;
+					margin: 0;
+				}
+
+				// when synopsis is clicked the text shows
+				#synopsis-text {
+					overflow-y: scroll;
+
+					&:checked ~ .synopsis-text {
+						display: block;
+					}
+				}
+
+				.synopsis-text {
+					color: white;
+					display: block;
+					margin: 10px 0;
+				}
+			}
+
+			.country-genre-container {
+				margin: 0 0 40px 0;
+
+				h3 {
+					.font(400; 16px);
+
+					color: white;
+					margin: 4px 0;
+
+					// country
+					&:nth-child(2) {
+						font-weight: bold;
+						margin: 8px 0 0 0;
+						text-transform: uppercase;
+					}
+				}
+			}
+
+
+			// director, writer..
+			h4 {
+				.font(bold; 18px);
+				.column;
+
+				color: @lightpurple;
+				color: white;
+				margin: 8px 0;
+				padding: 5px 0;
+				text-transform: none;
+					
+				span {
+					.font(600; 16px);
+
+					color: @purple;
+
+					margin: 0 6px 0 0;
+					text-transform: uppercase;
+				}
+
+			}
+		}
+
+		.coterie-container {
+			.box(40px);
+
+			position: relative;
+
+			// slanted line on top
+			&:before {
+				.size(0; 0);
+
+				display: block;
+				content: "";
+				border-bottom: 60px solid white;
+				border-right: 100vw solid transparent;
+
+				position: absolute;
+				top: -60px;
+				left: 0;
+			}
+
+
+			// seen and watchlist
+			.watchers-list {
+				margin: 0 0 50px 0;
+
+				// 'seen by' and 'watchlisted by'
+				h3 {
+					.font(600, 16px);
+
+					color: @purple;
+					text-transform: uppercase;
+				}
+
+				// watcher
+				li {	
+					display: inline-block;
+					margin: 0 5px 0 0;
+				}
+			}
+
+			// labels
+			.tags-section {
+				margin: 0 0 50px 0;
+
+				// 'seen by' and 'watchlisted by'
+				h3 {
+					.font(600, 16px);
+
+					color: @purple;
+					text-transform: uppercase;
+				}
+
+				.tags-list {
+					display: none;
+
+					.single-user {
+						margin: 0 0 15px 17px;
+
+						.users-tags {
+							padding: 2px 0 0 0;
+						}
+
+						// tag
+						li {
+							display: inline-block;
+						} 
+					}
+				}
+
+				#tags-on-film {
+
+					&:checked ~ .tags-list {
+						display: block;
+						padding: 15px 0;
+					}
+				}
+			}
+
+			// comments' styles in views/comment.less
+		}
+	}
+}
+
+@media (max-width: 960px) {
+
+	.film-view {
+		.column;
+
+		.primary-container {
+			background: #222;
+			position: relative;
+			height: ~"calc(100vh - 40px)";
+			width: 100%;
+			top: 0;
+
+			.poster {
+			}
+
+			.main-info-container {
+				.box(0 20px 40px 20px);
+
+				.title-container {
+
+					.title {
+						.font(bold; 34px);
+
+						&.long-title {
+							.font(bold; 26px);
+						}
+
+						&.very-long-title {
+							.font(bold; 20px);
+						}
+					}
+
+					.year {
+						font-size: 18px;
+					}
+
+					.type-duration {
+						font-size: 16px;
+					}
+				}
+			}
+		}
+
+		.additional-container {
+			margin-left: 0;
+			height: auto;
+			width: 100%;
+
+			.film-info-container {
+				.box(30px 0 50px 0);
+				padding: 0;
+
+				box-shadow: none;
+				min-height: auto;
+				max-height: none;
+
+				.synopsis {
+					.box(20px);
+
+					background: @purple;
+
+					position: relative;
+
+					// slanted line on the bottom
+					&:before {
+						border-top: 30px solid @purple;
+						border-right: 100vw solid transparent;
+						content: "";
+						display: block;
+
+						position: absolute;
+						left: 0;
+						bottom: -30px;
+					}
+
+					h3 {
+						margin: 0 0 0 12px;
+					}
+
+					.arrow {
+						display: block;
+					}
+
+					.synopsis-text {
+						display: none;
+					}
+				}
+
+				.country-genre-container {
+					.box(20px);
+
+					background: @purple;
+					margin: 0;
+				}
+
+				.creators-container {
+					.box(20px 20px 50px 20px);
+				}
+			}
+
+			.coterie-container {
+				.box(30px 20px);
+
+				// slanted line on top
+				&:before {
+					border-bottom: 30px solid white;
+					border-right: 100vw solid transparent;
+
+					top: -30px;
+				}
+
+				.watchers-list,
+				.tags-section {
+					margin: 0 0 30px 0;
+				}
 			}
 		}
 	}

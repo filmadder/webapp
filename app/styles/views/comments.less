@@ -1,5 +1,12 @@
 .comments {
-	.box(0 25px 30px 25px);
+
+	// 'seen by' and 'watchlisted by'
+	h3 {
+		.font(600, 16px);
+
+		color: @purple;
+		text-transform: uppercase;
+	}
 
 	/* input */
 	#comments {
@@ -186,7 +193,6 @@
 @media(min-width: 740px) {
 
 	.comments{
-		.box(50px 15px 0 40px);
 
 		max-width: 500px;
 	}
