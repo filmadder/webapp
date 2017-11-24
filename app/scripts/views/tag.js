@@ -30,7 +30,7 @@ fa.views.tag = (function() {
 			}
 
 			return {
-				nav: '_',
+				nav: 'main:_',
 				title: ['tag', tagObj.tag],
 				remove: function() {
 					var opened = fjs.map(function(currentElem) {

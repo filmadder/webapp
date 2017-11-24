@@ -23,7 +23,7 @@ var fa = (function() {
 		//
 		// throws an error if the key is unrecognised
 		settings.overwrite = function(key, value) {
-			var key, stored = {};
+			var stored = {};
 
 			if(!defaultSettings.hasOwnProperty(key)) {
 				throw new Error('unrecognised setting');

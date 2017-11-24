@@ -8,9 +8,9 @@ should always return a promise that either resolves into the so-called view
 object or rejects with a {code, message} error. View objects can have the
 following properties:
 
-* `nav`: string identifying the view with regards to the navigation; used for
-  nav link highlighting; if set to `_`, the latter is cleared.
-* `title`: string or array to be passed onto `fa.title`.
+* `nav`: string identifying the view with regards to navigation link
+  highlighting; passed onto `fa.nav`.
+* `title`: string or array to be passed onto `fa.views.setTitle`.
 * `empty`: function that is invoked when the view is destroyed, before the
   sub-views are; often used to set fa.history's state.
 * `remove`: function that is invoked when the view is destroyed, after the

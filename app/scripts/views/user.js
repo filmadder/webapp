@@ -17,27 +17,14 @@ fa.views.user = (function() {
 	// otherwise, the rest of the view comprises befriending controls
 	var createUser = function(elem, userId) {
 		return fa.models.users.get(userId).then(function(user) {
-			var navLinks, removeActiveLinks, addActiveLink;
+			var navLinks;
 
 			user.showData = (user.status.self || user.status.friend);
 			fa.views.render(elem, 'user-base', {user: user});
 
 			// nav: active links
 			navLinks = fa.dom.filter('a[data-nav]', elem);
-			removeActiveLinks = function() {
-				fjs.map(function(link) {
-					link.classList.remove('selected');
-				}, navLinks);
-			};
-			addActiveLink = function(navId) {
-				fjs.map(function(link) {
-					if(link.dataset.nav == navId) {
-						link.classList.add('selected');
-					}
-				}, navLinks);
-			};
-			fa.views.clearNavSignal.add(removeActiveLinks);
-			fa.views.markNavSignal.add(addActiveLink);
+			fa.nav.reg(navLinks);
 
 			// befriending controls
 			if(!user.showData) {
@@ -60,11 +47,10 @@ fa.views.user = (function() {
 
 			// the view object
 			return {
-				nav: '_',
+				nav: user.status.self ? 'main:me' : 'main:_',
 				title: user.status.self ? 'me' : ['users', user.name],
 				remove: function() {
-					fa.views.clearNavSignal.remove(removeActiveLinks);
-					fa.views.markNavSignal.remove(addActiveLink);
+					fa.nav.unreg(navLinks);
 				},
 				initSubView: function(list) {
 					if(user.showData) {
@@ -137,7 +123,7 @@ fa.views.user = (function() {
 
 		// the view object
 		return Promise.resolve({
-			nav: 'user-'+ params.type,
+			nav: 'user:'+ params.type,
 			remove: function() {
 				fa.history.setState(stateKey, { scroll: window.pageYOffset });
 			}
@@ -151,7 +137,7 @@ fa.views.user = (function() {
 		fa.views.render(elem, 'user-tags', {tags: user.tags});
 
 		return Promise.resolve({
-			nav: 'user-tags'
+			nav: 'user:tags'
 		});
 	};
 
@@ -161,7 +147,7 @@ fa.views.user = (function() {
 		fa.views.render(elem, 'user-friends', {friends: user.friends});
 
 		return Promise.resolve({
-			nav: 'user-friends'
+			nav: 'user:friends'
 		});
 	};
 

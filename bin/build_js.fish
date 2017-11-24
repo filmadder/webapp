@@ -7,4 +7,6 @@ begin
 		--compress \
 		--source-map "includeSources,url='fa.js.map'" \
 		--output build/scripts/fa.js
+
+	jshint app/scripts
 end

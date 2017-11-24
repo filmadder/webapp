@@ -118,8 +118,8 @@ fa.auth = (function() {
 	auth.register = function(load) {
 		auth.logout();
 		return fa.http.put('/auth/', {
-			email: load['email'], name: load['name'],
-			password1: load['pass1'], password2: load['pass2']
+			email: load.email, name: load.name,
+			password1: load.pass1, password2: load.pass2
 		}).then(function(data) {
 			session = createSession(data.token,
 						fa.models.users.unpackUser(data.user));
@@ -134,7 +134,7 @@ fa.auth = (function() {
 	auth.login = function(load) {
 		auth.logout();
 		return fa.http.post('/auth/', {
-			method: 's', email: load['email'], password: load['pass']
+			method: 's', email: load.email, password: load.pass
 		}).then(function(data) {
 			session = createSession(data.token,
 						fa.models.users.unpackUser(data.user));

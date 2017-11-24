@@ -37,7 +37,7 @@ fa.views.settings = (function() {
 		.add('pass2', [fa.forms.equal('pass1')]);
 
 		return Promise.resolve({
-			nav: 'settings',
+			nav: 'main:settings',
 			title: 'settings'
 		});
 	};

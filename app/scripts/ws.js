@@ -69,8 +69,12 @@ fa.ws = (function() {
 
 		// removes all IDs from the queue with an error
 		wrapper.rejectAll = function(error) {
-			for(var id in queue) {
-				wrapper.reject(id, error);
+			var id;
+
+			for(id in queue) {
+				if(queue.hasOwnProperty(id)) {
+					wrapper.reject(id, error);
+				}
 			}
 		};
 
@@ -173,6 +177,15 @@ fa.ws = (function() {
 	// functions
 	// 
 
+	// closes the current websocket connection, if there is such
+	// this function should always be safe to call
+	var close = function() {
+		if(socket) {
+			socket.close();
+			socket = null;
+		}
+	};
+
 	// opens a new websocket connection; if there is one, it gets closed
 	// 
 	// returns a promise that resolves upon establishing a connection or
@@ -193,15 +206,6 @@ fa.ws = (function() {
 		}
 
 		return socket.await(0);
-	};
-
-	// closes the current websocket connection, if there is such
-	// this function should always be safe to call
-	var close = function() {
-		if(socket) {
-			socket.close();
-			socket = null;
-		}
 	};
 
 	// returns a promise that resolves into a same-ID message returned by the

@@ -34,23 +34,23 @@
 	{{# user.showData }}
 	<div class="list-nav">
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}watchlist"
-				title="watchlist" data-nav="user-watchlist">
+				title="watchlist" data-nav="user:watchlist">
 			<span class="icon watchlist-icon"></span>
 		</a>
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}seen"
-				title="seen" data-nav="user-seen">
+				title="seen" data-nav="user:seen">
 			<span class="icon seen-icon"></span>
 		</a>
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}watching"
-				title="watching" data-nav="user-watching">
+				title="watching" data-nav="user:watching">
 			<span class="icon watching-icon"></span>
 		</a>
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}friends"
-				title="friends" data-nav="user-friends">
+				title="friends" data-nav="user:friends">
 			<span class="icon friends-icon"></span>
 		</a>
 		<a href="#/{{^ user.status.self }}user/{{ user.pk }}/{{/ user.status.self }}tags"
-				title="tags" data-nav="user-tags">
+				title="tags" data-nav="user:tags">
 			<span class="icon tag-icon"></span>
 		</a>
 	</div>

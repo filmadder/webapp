@@ -26,14 +26,18 @@ fa.views.inner = (function() {
 	// includes the navigation, the search form, and the #view element that is
 	// the container of all inner views
 	var createInner = function(elem) {
-		var navLinks, removeActiveLinks, addActiveLink;
-		var movableElem, navElem, isNavOpen, view, searchIcon, searchBtn;
-		var searchForm, queryField, doSearchButton, isSearchOpen;
+		var heading, navLinks;
+		var viewElem, navElem, movableElem;
+		var searchForm, queryField, doSearchButton, searchIcon, searchBtn;
 		var showNav, hideNav, showSearch, hideSearch;
-		var marker;
-		var heading;
+		var isNavOpen = false, isSearchOpen = false;
+		var marker, hammerManager;
 
 		fa.views.render(elem, 'inner', {user: fa.auth.getUser()});
+
+		// nav: active links
+		navLinks = fa.dom.filter('header nav a', elem);
+		fa.nav.reg(navLinks);
 
 		// change heading
 		heading = fa.dom.get('h1');
@@ -45,73 +49,57 @@ fa.views.inner = (function() {
 			heading.textContent = 'film adder';
 		});
 
-		// nav: active links
-		navLinks = fa.dom.filter('header nav a', elem);
-		removeActiveLinks = function() {
-			fjs.map(function(link) {
-				link.classList.remove('selected');
-			}, navLinks);
-		};
-		addActiveLink = function(navId) {
-			fjs.map(function(link) {
-				if(link.dataset.nav == navId) {
-					setTimeout(function() {
-						link.classList.add('selected');
-					}, 300);
-				}
-			}, navLinks);
-		};
-		fa.views.clearNavSignal.add(removeActiveLinks);
-		fa.views.markNavSignal.add(addActiveLink);
-
 		// nav: open and close
 		movableElem = fa.dom.get('.header-inner', elem);
 		navElem = fa.dom.get('.nav', elem);
-		isNavOpen = false;
+		viewElem = fa.dom.get('#view', elem);
 
 		showNav = function() {
-			navElem.classList.remove('hidden');
-			movableElem.classList.add('move-left');
-			view.classList.add('uninteractive');
-			isNavOpen = true;
+			if(!isNavOpen) {
+				navElem.classList.remove('hidden');
+				movableElem.classList.add('move-left');
+				viewElem.classList.add('uninteractive');
+				isNavOpen = true;
+			}
 		};
 		hideNav = function() {
-			navElem.classList.add('hidden');
-			movableElem.classList.remove('move-left');
-			view.classList.remove('uninteractive');
-			isNavOpen = false;
-		}
+			if(isNavOpen) {
+				navElem.classList.add('hidden');
+				movableElem.classList.remove('move-left');
+				viewElem.classList.remove('uninteractive');
+				isNavOpen = false;
+			}
+		};
 
-		// the nav shows when the snake is clicked (1) and hides when isNavOpen
-		// is true and either the snake (2), the view (3) or a nav link(4) is
-		// clicked
 		fa.dom.on(fa.dom.get('.nav-opener', elem), 'click', function() {
-			if(!isNavOpen) showNav();  // (1)
-			else hideNav();  // (2)
+			if(!isNavOpen) showNav();
+			else hideNav();
 		});
-		fa.dom.on(fa.dom.get('#view', elem), 'click', function() {
-			if(isNavOpen) hideNav();  // (3)
-		});
-		fa.dom.on(navLinks, 'click', hideNav);  // (4)
+		fa.dom.on(viewElem, 'click', hideNav);
+		fa.dom.on(navLinks, 'click', hideNav);
+
+		// hammer js
+		hammerManager = new Hammer.Manager(elem);
+		hammerManager.add(new Hammer.Swipe({
+			direction: Hammer.DIRECTION_HORIZONTAL
+		}));
+		hammerManager.on('swiperight', showNav);
+		hammerManager.on('swipeleft', hideNav);
 
 		// search form
 		searchForm = fa.dom.get('#search-form', elem);
 		queryField = fa.dom.get('[name=q]', searchForm);
 		doSearchButton = fa.dom.get('button[type=submit]', searchForm);
-		view = fa.dom.get('#view', elem);
-		searchIcon = fa.dom.get('.search');
-		searchBtn = fa.dom.get('.search-btn');
-		isSearchOpen = false;
+		searchIcon = fa.dom.get('.search', elem);
+		searchBtn = fa.dom.get('.search-btn', elem);
 
 		showSearch = function() {
 			searchForm.classList.remove('hidden');
 			doSearchButton.classList.remove('hidden');
 			movableElem.classList.add('move-right');
-			searchIcon.classList.remove('search');
-			searchIcon.classList.remove('icon');
+			searchIcon.classList.remove('search icon');
 			searchIcon.classList.add('reset');
-			view.classList.add('foggy');
-			view.classList.add('uninteractive');
+			viewElem.classList.add('foggy uninteractive');
 			isSearchOpen = true;
 		};
 		hideSearch = function() {
@@ -119,10 +107,8 @@ fa.views.inner = (function() {
 			movableElem.classList.remove('move-right');
 			doSearchButton.classList.add('hidden');
 			searchIcon.classList.remove('reset');
-			searchIcon.classList.add('search');
-			searchIcon.classList.add('icon');
-			view.classList.remove('foggy');
-			view.classList.remove('uninteractive');
+			searchIcon.classList.add('search icon');
+			viewElem.classList.remove('foggy uninteractive');
 			isSearchOpen = false;
 		};
 
@@ -137,12 +123,13 @@ fa.views.inner = (function() {
 				hideSearch();
 			}
 		});
-		fa.dom.on(fa.dom.get('body'), 'keypress', function(e) {
+
+		fa.dom.on(document.body, 'keypress', function(e) {
 			if (e.which === 0) {
 				hideSearch();
 			}
 		});
-		// no reset btn for now
+
 		fa.dom.on(searchForm, 'submit', function(e) {
 			e.preventDefault();
 			if(queryField.value) {
@@ -173,10 +160,11 @@ fa.views.inner = (function() {
 		// the view object
 		return Promise.resolve({
 			remove: function() {
+				hammerManager.destroy();
+
 				fa.models.updates.changedStatus.removeAll();
 
-				fa.views.clearNavSignal.remove(removeActiveLinks);
-				fa.views.markNavSignal.remove(addActiveLink);
+				fa.nav.unreg(navLinks);
 
 				fa.views.scrolledFarDown.removeAll();
 				fa.views.scrolledBackUp.removeAll();

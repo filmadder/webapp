@@ -1,0 +1,10 @@
+{
+	"esversion": 5,
+	"forin": true,
+	"freeze": true,
+	"latedef": true,
+	"strict": true,
+	"unused": true,
+	"laxbreak": true,
+	"browser": true
+}

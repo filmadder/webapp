@@ -38,16 +38,6 @@ fa.views = (function() {
 	});
 
 
-	// dispatches when the active nav links should be cleared
-	// triggered by the post-remove hier hook
-	var clearNavSignal = new signals.Signal();
-
-	// dispatches when a nav link should be marked as active
-	// dispatches with one of: feed, me
-	// triggered by the pre-init hier hook
-	var markNavSignal = new signals.Signal();
-
-
 	// 
 	// helper functions
 	// 
@@ -122,9 +112,7 @@ fa.views = (function() {
 		render(elem, 'meta-error-404', {});
 		window.scroll(0, 0);
 
-		return Promise.resolve({
-			nav: '_'
-		});
+		return Promise.resolve({});
 	};
 
 	// inits a message view
@@ -183,10 +171,10 @@ fa.views = (function() {
 			ready = true;
 
 			if(view.hasOwnProperty('nav')) {
-				if(view.nav == '_') {
-					clearNavSignal.dispatch();
+				if(view.nav.substr(-2) == ':_') {
+					fa.nav.unmark(view.nav.substr(0, view.nav.length-2));
 				} else {
-					markNavSignal.dispatch(view.nav);
+					fa.nav.mark(view.nav);
 				}
 			}
 
@@ -230,12 +218,6 @@ fa.views = (function() {
 		elem.innerHTML = '';
 	});
 
-	// dispatches the clearNavSignal so that there are no navigation links
-	// wrongly marked as active
-	hier.on('post-remove', function(path) {
-		clearNavSignal.dispatch();
-	});
-
 
 	// 
 	// exports
@@ -245,9 +227,6 @@ fa.views = (function() {
 		scrolledToBottom: scrolledToBottom,
 		scrolledFarDown: scrolledFarDown,
 		scrolledBackUp: scrolledBackUp,
-
-		clearNavSignal: clearNavSignal,
-		markNavSignal: markNavSignal,
 
 		render: render,
 		handleError: handleError,

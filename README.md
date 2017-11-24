@@ -8,7 +8,6 @@ This is the home of [film adder](https://filmadder.com/)'s
 
 ```sh
 npm install
-bower install
 npm run watch
 ```
 
