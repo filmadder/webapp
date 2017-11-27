@@ -98,7 +98,10 @@ fa.views.user = (function() {
 		stateKey = 'user:'+params.user.pk+':'+params.type;
 		state = fa.history.getState(stateKey);
 
-		fa.views.render(elem, 'user-films-base', { title: params.type });
+		fa.views.render(elem, 'user-films-base', {
+			title: params.type,
+			numFilms: films.length
+		});
 		container = fa.dom.get('[data-fn=film-list]', elem);
 		buttons = fa.dom.filter('button[data-sort]', elem);
 
