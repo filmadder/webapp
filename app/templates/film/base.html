@@ -56,15 +56,13 @@
 
 	<section class="additional-container">
 		<article class="film-info-container">
-			<article class="film-info">
-				<div class="country-genre-container">
-					{{# film.genre }}
-					<h3>{{ film.genre }}</h3>
-					{{/ film.genre }}
-					{{# film.countries }}
-					<h3>{{ film.countries }}</h3>
-					{{/ film.countries }}
-				</div>
+			<div class="film-details">
+				{{# film.genre }}
+				<h3>{{ film.genre }}</h3>
+				{{/ film.genre }}
+				{{# film.countries }}
+				<h3>{{ film.countries }}</h3>
+				{{/ film.countries }}
 				{{# film.plot }}
 				<div class="synopsis arrow-cont">
 					<input type="checkbox" id="synopsis-text" class="no-display" />
@@ -78,18 +76,18 @@
 					<p class='synopsis-text'>{{ film.plot }}</p>
 				</div>
 				{{/ film.plot }}
-				<div class="creators-container">
-					{{# film.directors }}
-					<h4><span>Director</span> {{ film.directors }}</h4>
-					{{/ film.directors }}
-					{{# film.writers }}
-					<h4><span>Writer</span> {{ film.writers }} </h4>
-					{{/ film.writers }}
-					{{# film.actors }}
-					<h4><span>Actors</span> {{ film.actors }}</h4>
-					{{/ film.actors }}
-				</div>
-			</article>
+			</div>
+			<div class="film-creators">
+				{{# film.directors }}
+				<h4><span>Director</span> {{ film.directors }}</h4>
+				{{/ film.directors }}
+				{{# film.writers }}
+				<h4><span>Writer</span> {{ film.writers }} </h4>
+				{{/ film.writers }}
+				{{# film.actors }}
+				<h4><span>Actors</span> {{ film.actors }}</h4>
+				{{/ film.actors }}
+			</div>
 		</article>
 
 		<section class="coterie-container">

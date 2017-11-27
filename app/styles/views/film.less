@@ -1,486 +1,10 @@
-// film
-/*.film {
-	overflow: hidden;
-
-	// poster, title, year, status
-	.details {
-		position: relative;
-
-		.poster {
-			.size(~"calc(100vh - 80px)"; 100%);
-			.size(490px; 100%);
-
-			background-position: top center;
-			background-repeat: no-repeat;
-			background-size: cover;
-
-			// -webkit-filter: grayscale(1);
-			// filter: grayscale(100%);
-		}
-
-		.no-poster {
-			.size(~"calc(100vh - 80px)"; 100%);
-			.size(450px; 100%);
-			.column(@center; @center);
-
-			background: @purple;
-
-			// "no poster"
-			h3 {
-				color: white;
-			}
-
-			.logo {
-				.size(86px; 86px);
-
-				margin: 0 0 100px 0;
-			}
-		}
-
-		// title and status
-		.main-info {
-			.box(30px 20px 60px 20px);
-			.column(@spread; @spread);
-			.size(490px; 100%);
-
-			background: linear-gradient(
-				rgba(0, 0, 0, 0.55),
-				rgba(64, 111, 192, 1));
-			background-blend-mode: multiply;
-			margin: 0;
-
-			position: absolute;
-			bottom: 0;
-			left: 0;
-
-			.title-status-container {
-				.row(@spread;);
-
-				width: 100%;
-			}
-
-			.title-container {
-				max-height: 250px;
-			}
-
-			.title {
-				.font(700; 28px);
-
-				color: white;
-				margin: 0 15px 0 0;
-				text-transform: none;
-				text-align: left;
-
-				&.long-title {
-					.font(700; 24px);
-				}
-
-				&.very-long-title {
-					.font(700; 20px);
-				}
-			}
-
-			.year {
-				.font(@s: 18px);
-
-				color: white;
-				margin: 0;
-			}
-
-			.type-duration {
-				.font(@w: bold);
-
-				color: white;
-				padding: 15px 0 0 0;
-				margin: 0 0 0 0;
-				text-transform: uppercase;
-			}
-
-			&.no-poster-main-info {
-				background: linear-gradient(
-					rgba(0, 0, 0, 0.2),
-					rgba(0, 0, 0, 1));
-			}
-		}		
-	}
-
-	// director, wtiter, actors, synopsis, recommend btn
-	.additional-info {
-		.box(15px 25px);
-
-		background: @purple;
-		position: relative;
-
-		// slanted line on top
-		&:before {
-			.size(0; 0);
-
-			display: block;
-			content: "";
-			border-bottom: 50px solid @purple;
-			border-left: 100vw solid transparent;
-
-			position: absolute;
-			top: -50px;
-			left: 0;
-		}
-
-		// slanted line on the bottom
-		&:after {
-			.size(0; 0);
-
-			display: block;
-			content: "";
-			border-top: 30px solid @purple;
-			border-left: 100vw solid transparent;
-			overflow: hidden;
-
-			position: absolute;
-			bottom: -30px;
-			left: 0;
-		}
-
-		// director, writer..
-		h4 {
-			.font(bold; 16px);
-
-			color: white;
-			margin: 0;
-			padding: 5px 0;
-			
-			// actual names
-			span {
-				.font(normal; 16px);
-
-				margin: 0 6px 0 0;
-			}
-
-		}
-
-		.synopsis {
-			.box(20px 0);
-
-			background: @purple;
-
-			// "synopsis"
-			h3 {
-				color: white;
-			}
-
-			// when synopsis is clicked the text shows
-			#synopsis-text {
-
-				&:checked ~ .synopsis-text {
-					display: block;
-				}
-			}
-
-			.synopsis-text {
-				color: white;
-				display: none;
-				margin: 10px 0;
-			}
-		}
-
-		// not done yet
-		.recommend-cont {
-			margin: 20px 0;
-
-			.recommend {
-				display: block;
-				margin: 0 auto;
-			}
-		}
-	}
-
-	// set film status
-	.status-container {
-		.row(@spread);
-
-		.current {
-			.size(50px; 50px;);
-			.transition(@dur: 0.25s);
-			.column(@center; @center);
-
-			background: @salmon;
-			border-radius: 50%;
-			border: 2px solid white;
-			box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-			min-height: 50px;
-			max-height: 50px;
-			z-index: 2;
-		}
-
-		.current.shrink {
-			transform: scale(0.7) rotate(135deg);
-		}
-
-		.options{
-			max-height: 70px;
-
-			.option {
-				.transition(@dur: 0.25s; @func: cubic-bazier(.175,.67,.83,.67));
-				.box(5px;);
-
-				background: @salmon;
-				border-radius: 50%;
-				border: 2px solid transparent;
-				box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-				display: block;
-				z-index: 2;
-
-				// the position of the options when visible
-				&:first-child {
-					transform: translateY(-55px) translateX(20px);
-				}
-
-				&:nth-child(2) {
-					transform: translateY(-50px) translateX(-5px);
-				}
-
-				&:nth-child(3) {
-					transform: translateY(-45px) translateX(20px);
-				}
-
-				.icon {
-					.size(36px; 36px;);
-
-					min-height: 36px;
-					mix-height: 36px;
-				}
-			}
-		}
-
-		.options.hidden {
-			.transition;
-
-			.option {
-
-				&:first-child {
-					transform: translateY(2px) translateX(52px) scale(0.4);
-				}
-
-				&:nth-child(2) {
-					transform: translateY(-48px) translateX(52px) scale(0.4);
-				}
-
-				&:nth-child(3) {
-					transform: translateY(-98px) translateX(52px) scale(0.4);
-				}
-			}
-		}
-	}
-
-	// seen, watchlist and labels
-	.users-input {
-		.box(0 25px);
-
-		margin: 50px 0 0 0;
-
-		// seen and watchlist
-		.watchers-list {
-			margin: 0 0 30px 0;
-
-			// 'seen by' and 'watchlisted by'
-			h3 {
-				.font(700, 16px);
-
-				color: @purple;
-				text-transform: uppercase;
-			}
-
-			// watcher
-			li {	
-				display: inline-block;
-				margin: 0 5px 0 0;
-			}
-		}
-
-		// labels
-		.tags-section {
-			margin: 0 0 30px 0;
-
-			.tags-list {
-				display: none;
-
-				.single-user {
-					margin: 0 0 20px 17px;
-
-					.users-tags {
-						padding: 2px 0 0 0;
-					}
-
-					// tag
-					li {
-						display: inline-block;
-					} 
-				}
-			}
-
-			#tags-on-film {
-
-				&:checked ~ .tags-list {
-					display: block;
-				}
-			}
-		}
-
-		// comments' styles in views/comment.less
-	}
-}
-
-@media (min-width: 740px) {
-
-	.film {
-
-		.wrapper {
-			.row;
-			.size(100%; 100%);
-		}
-
-		.details {
-
-			.poster {
-				.size(~"calc(100vh - 40px)"; 40%;);
-
-				max-height: 800px;
-			}
-
-			.no-poster {
-				.size(~"calc(100vh - 40px)"; 40%;);
-
-				max-height: 800px;
-			}
-
-			.main-info {
-				.size(~"calc(100vh - 40px)"; 40%);
-
-				background: linear-gradient(
-					90deg,
-					rgba(95, 156, 221, 0.7),
-					rgba(0, 0, 0, 0.55),
-					rgba(95, 156, 221, 0.7));
-
-				background: linear-gradient(
-					90deg,
-					rgba(0, 0, 0, 0.55),
-					rgba(0, 0, 0, 0.85));
-
-				max-height: 800px;
-
-				&.no-poster-main-info {
-					background: transparent;
-				}
-
-				.title {
-					font-size: 38px;
-
-					&.long-title {
-						font-size: 30px;
-					}
-				}
-
-				.year {
-					font-size: 24px;
-				}
-
-				.type-duration {
-					font-size: 20px;
-				}
-			}
-		}
-
-		.additional-info {
-			.size(~"calc(100vh - 40px)"; 60%);
-
-			background-color: #020102;
-			max-height: 800px;
-			overflow-y: auto;
-
-			position: absolute;
-			top: 40px;
-			right: 0;
-
-			// no slanted lines
-			&:before,
-			&:after {
-				display: none;
-			}
-
-			// more-info item
-			h4,
-			.synopsis {
-				margin: 0 0 0 2vw;
-				max-width: 550px;
-
-				&:first-child {
-					margin-top: 50px;
-				}
-			}
-
-			h4 {
-				.font(bold; 18px);
-
-				span {
-					.font(normal; 18px);
-				}
-			}
-
-			.synopsis {
-				background-color: #020102;
-				height: 300px;
-
-				.synopsis-text {
-					.box(10px 0 50px 0);
-				}
-			}
-		}
-
-		.white-wrapper {
-			.row;
-
-			margin: 0 auto 50px auto;
-			max-width: 900px;
-
-			.users-input {
-				flex: 3;
-			}
-			.comments {
-				flex: 5;
-			}
-		}
-
-		.users-input {
-			.box(50px 25px 0 15px);
-
-			margin: 0 auto;
-			max-width: 550px;
-
-			position: relative;
-
-			&:before {
-				.size(0; 0);
-
-				display: block;
-				content: "";
-				border-bottom: 50px solid white;
-				border-left: 100vw solid transparent;
-
-				position: absolute;
-				top: -50px;
-				left: 0;
-			}
-		}
-	}
-}*/
-
 .film-view {
 	.row();
 
 	.primary-container {
 		height: ~"calc(100% - 40px)";
-		width: 40%;
 		max-height: 900px;
+		width: 40%;
 
 		position: fixed;
 		top: 40px;
@@ -501,7 +25,8 @@
 			.box(0 30px 60px 30px);
 			.row(@spread; @bottom);
 
-			background: linear-gradient(rgba(0, 0, 0, 0.55) 20%, rgba(64, 111, 192, 1));
+			background: linear-gradient(rgba(0, 0, 0, 0.55) 35%, rgba(64, 111, 192, 1));
+			background: linear-gradient(rgba(0, 0, 0, 0.55) 35%, rgba(52, 27, 50, 1));
 			height: 100%;
 			width: 100%;
 			position: absolute;
@@ -642,85 +167,101 @@
 		width: 60%;
 
 		.film-info-container {
-			.box(60px 40px);
-
-			background: #222;
-			box-shadow: inset 2px -2px 2px 4px rgba(0, 0, 0, 0.5);
+			background: @purple;
 			min-height: ~"calc(100vh - 40px)";
 			max-height: 900px;
 
-			.synopsis {
-				.box(10px 10px 10px 0);
+			// genre, country, synopsis
+			.film-details {
+				.box(60px 40px);
 
-				margin: 0 0 30px 0;
-
-				.arrow {
-					display: none;
-				}
-
-				// "synopsis"
-				h3 {
-					.font(600; 16px);
-
-					color: white;
-					margin: 0;
-				}
-
-				// when synopsis is clicked the text shows
-				#synopsis-text {
-					overflow-y: scroll;
-
-					&:checked ~ .synopsis-text {
-						display: block;
-					}
-				}
-
-				.synopsis-text {
-					color: white;
-					display: block;
-					margin: 10px 0;
-				}
-			}
-
-			.country-genre-container {
 				margin: 0 0 40px 0;
 
 				h3 {
-					.font(400; 16px);
+					.font(400; 18px);
 
-					color: white;
+					color: @salmon;
 					margin: 4px 0;
 
 					// country
 					&:nth-child(2) {
-						font-weight: bold;
+						.font(bold; 20px);
 						margin: 8px 0 0 0;
 						text-transform: uppercase;
 					}
 				}
+
+				.synopsis {
+					.box(30px 0);
+
+					.arrow {
+						display: none;
+					}
+
+					// "synopsis"
+					h3 {
+						.font(600; 18px);
+
+						color: white;
+						margin: 0;
+					}
+
+					// when synopsis is clicked the text shows
+					#synopsis-text {
+
+						&:checked ~ .synopsis-text {
+							display: block;
+						}
+					}
+
+					.synopsis-text {
+						color: white;
+						font-size: 18px;
+						display: block;
+						margin: 10px 0;
+					}
+				}
 			}
 
+			.film-creators {
+				.box(30px 40px 60px 40px);
 
-			// director, writer..
-			h4 {
-				.font(bold; 18px);
-				.column;
+				background: @darkpurple;
+				position: relative;
 
-				color: @lightpurple;
-				color: white;
-				margin: 8px 0;
-				padding: 5px 0;
-				text-transform: none;
-					
-				span {
-					.font(600; 16px);
+				// slanted line on top
+				&:before {
+					.size(0; 0);
 
-					color: @purple;
+					display: block;
+					content: "";
+					border-bottom: 30px solid @darkpurple;
+					border-left: 100vw solid transparent;
 
-					margin: 0 6px 0 0;
-					text-transform: uppercase;
+					position: absolute;
+					top: -30px;
+					left: 0;
 				}
 
+				// director, writer..
+				h4 {
+					.font(900; 18px);
+					.column;
+
+					color: @salmon;
+					margin: 8px 0;
+					padding: 5px 0;
+					text-transform: none;
+						
+					span {
+						.font(600; 18px);
+
+						color: white;
+
+						margin: 0 6px 0 0;
+						text-transform: uppercase;
+					}
+				}
 			}
 		}
 
@@ -735,11 +276,11 @@
 
 				display: block;
 				content: "";
-				border-bottom: 60px solid white;
+				border-bottom: 30px solid white;
 				border-right: 100vw solid transparent;
 
 				position: absolute;
-				top: -60px;
+				top: -30px;
 				left: 0;
 			}
 
@@ -750,9 +291,9 @@
 
 				// 'seen by' and 'watchlisted by'
 				h3 {
-					.font(600, 16px);
+					.font(600, 18px);
 
-					color: @purple;
+					color: @blue;
 					text-transform: uppercase;
 				}
 
@@ -771,7 +312,7 @@
 				h3 {
 					.font(600, 16px);
 
-					color: @purple;
+					color: @blue;
 					text-transform: uppercase;
 				}
 
@@ -812,14 +353,10 @@
 		.column;
 
 		.primary-container {
-			background: #222;
 			position: relative;
 			height: ~"calc(100vh - 40px)";
 			width: 100%;
 			top: 0;
-
-			.poster {
-			}
 
 			.main-info-container {
 				.box(0 20px 40px 20px);
@@ -846,6 +383,18 @@
 						font-size: 16px;
 					}
 				}
+
+				// slanted line on the bottom
+				&:before {
+					border-top: 30px solid @darkpurple;
+					border-left: 100vw solid transparent;
+					content: "";
+					display: block;
+
+					position: absolute;
+					left: 0;
+					bottom: -30px;
+				}
 			}
 		}
 
@@ -862,64 +411,54 @@
 				min-height: auto;
 				max-height: none;
 
-				.synopsis {
-					.box(20px);
 
-					background: @purple;
-
-					position: relative;
-
-					// slanted line on the bottom
-					&:before {
-						border-top: 30px solid @purple;
-						border-right: 100vw solid transparent;
-						content: "";
-						display: block;
-
-						position: absolute;
-						left: 0;
-						bottom: -30px;
-					}
-
-					h3 {
-						margin: 0 0 0 12px;
-					}
-
-					.arrow {
-						display: block;
-					}
-
-					.synopsis-text {
-						display: none;
-					}
-				}
-
-				.country-genre-container {
-					.box(20px);
+				.film-details {
+					.box(30px 20px 20px 20px);
 
 					background: @purple;
 					margin: 0;
+
+					.synopsis {
+
+						h3 {
+							font-size: 16px;
+							margin: 0 0 0 12px;
+						}
+
+						.arrow {
+							display: block;
+						}
+
+						.synopsis-text {
+							font-size: 16px;
+							display: none;
+						}
+					}
 				}
 
-				.creators-container {
-					.box(20px 20px 50px 20px);
+				.film-creators {
+					padding: 15px 20px 40px 20px;
+
+					h4 {
+						font-size: 16px;
+
+						span {
+							font-size: 16px;
+						}
+					}
 				}
 			}
 
 			.coterie-container {
-				.box(30px 20px);
-
-				// slanted line on top
-				&:before {
-					border-bottom: 30px solid white;
-					border-right: 100vw solid transparent;
-
-					top: -30px;
-				}
+				.box(20px);
 
 				.watchers-list,
 				.tags-section {
 					margin: 0 0 30px 0;
+
+					h3 {
+						font-size: 16px;
+					}
 				}
 			}
 		}
