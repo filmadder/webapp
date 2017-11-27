@@ -97,9 +97,11 @@ fa.views.inner = (function() {
 			searchForm.classList.remove('hidden');
 			doSearchButton.classList.remove('hidden');
 			movableElem.classList.add('move-right');
-			searchIcon.classList.remove('search icon');
+			searchIcon.classList.remove('search');
+			searchIcon.classList.remove('icon');
 			searchIcon.classList.add('reset');
-			viewElem.classList.add('foggy uninteractive');
+			viewElem.classList.add('foggy');
+			viewElem.classList.add('uninteractive');
 			isSearchOpen = true;
 		};
 		hideSearch = function() {
@@ -107,8 +109,10 @@ fa.views.inner = (function() {
 			movableElem.classList.remove('move-right');
 			doSearchButton.classList.add('hidden');
 			searchIcon.classList.remove('reset');
-			searchIcon.classList.add('search icon');
-			viewElem.classList.remove('foggy uninteractive');
+			searchIcon.classList.add('search');
+			searchIcon.classList.add('icon');
+			viewElem.classList.remove('foggy');
+			viewElem.classList.remove('uninteractive');
 			isSearchOpen = false;
 		};
 
