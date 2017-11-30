@@ -108,30 +108,27 @@
 				margin: 10px auto;
 				width: 100%;
 
-				// profile link
+				// avatar
 				&:first-child {
+					margin: 0 0 30px 0;
 
-					.selected {
-						.avatar-medium {
-							margin-left: auto;
-							border: 4px solid white;
-						}
+					.me {
+						border: 3px solid white;
+						margin: 0 auto;
 					}
 				}
 
-				// everything except the profile link
-				&:not(:first-child) {
-					a {
-						padding: 8px;
-					}
+				// everything except the avatar
+				a {
+					padding: 8px;
+				}
 
-					// current view
-					.selected {
-						background: white;
-						border-radius: 5px;
-						color: @blue;
-						text-align: right;
-					}
+				// current view
+				.selected {
+					background: white;
+					border-radius: 5px;
+					color: @blue;
+					text-align: right;
 				}
 
 				// nav item
