@@ -36,7 +36,7 @@ fa.views.inner = (function() {
 		fa.views.render(elem, 'inner', {user: fa.auth.getUser()});
 
 		// nav: active links
-		navLinks = fa.dom.filter('header nav a', elem);
+		navLinks = fa.dom.filter('header nav a[data-nav]', elem);
 		fa.nav.reg(navLinks);
 
 		// change heading
@@ -153,12 +153,6 @@ fa.views.inner = (function() {
 			} else {
 				marker.classList.add('hidden');
 			}
-		});
-
-		// logout
-		fa.dom.on('[data-fn=logout]', 'click', function() {
-			fa.auth.logout();
-			fa.routing.go('login');
 		});
 
 		// the view object

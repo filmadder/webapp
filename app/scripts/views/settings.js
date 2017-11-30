@@ -9,7 +9,7 @@ fa.views.settings = (function() {
 
 	// inits a settings view
 	// 
-	// this view contains the change password form and the logout button
+	// this view contains the change password form
 	var createSettings = function(elem) {
 		fa.views.render(elem, 'settings', {});
 

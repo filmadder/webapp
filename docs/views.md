@@ -40,3 +40,4 @@ following properties:
 
 - error
 - message
+- logout
