@@ -18,6 +18,7 @@ module.exports = function(config) {
 			'build/scripts/vendor.js',
 			'build/scripts/fa.js',
 			'node_modules/sinon/pkg/sinon.js',
+			'node_modules/mock-socket/dist/mock-socket.js',
 			'tests/**/*.js'
 		],
 
