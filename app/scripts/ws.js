@@ -122,7 +122,6 @@ fa.ws = (function() {
 		};
 
 		socket.onclose = function(e) {
-			log.warn(e);
 			queue.rejectAll({code: 'forbidden',
 				message: 'The server connection was closed'});
 		};
