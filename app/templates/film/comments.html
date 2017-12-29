@@ -51,22 +51,23 @@
 		<p class="small-text">The thoughts you share are visible only to your friends. Likewise, you can see only your friends' thoughts.</p>
 	</li>
 	{{/ comments }}
+
+	<form novalidate autocomplete="off" class="comment-form">
+		<div data-fn="error" class="error"></div>
+		<p>
+			<textarea name="comment" rows="4" placeholder="Share your thoughts on {{ film.title }}"></textarea>
+			<span data-fn="error"></span>
+		</p>
+		<p class="spoilers-filter">
+			<input type="checkbox" id="has-spoilers" name="spoilers" />
+			<label for="has-spoilers">
+				<span>this has spoilers</span>
+				<span class="checkbox">
+					<span class="tick"></span>
+				</span>
+			</label>
+			<span data-fn="error"></span>
+		</p>
+		<button type="submit" class="light">post</button>
+	</form>
 </ul>
-<form novalidate autocomplete="off" class="comment-form">
-	<div data-fn="error" class="error"></div>
-	<p>
-		<textarea name="comment" rows="4" placeholder="Share your thoughts on {{ film.title }}"></textarea>
-		<span data-fn="error"></span>
-	</p>
-	<p class="spoilers-filter">
-		<input type="checkbox" id="has-spoilers" name="spoilers" />
-		<label for="has-spoilers">
-			<span>this has spoilers</span>
-			<span class="checkbox">
-				<span class="tick"></span>
-			</span>
-		</label>
-		<span data-fn="error"></span>
-	</p>
-	<button type="submit" class="light">post</button>
-</form>
