@@ -2,7 +2,7 @@
 #outer {
 	.column(@center; @center);
 
-	background: linear-gradient(@lightpurple, @purple);
+	background: linear-gradient(@salmon, @purple);
 	min-height: 100vh;
 
 	// login and reg containers
@@ -18,10 +18,10 @@
 
 	// 'login' or 'register'
 	h2 {
-		.font(@s: 15px);
+		.font(@s: 16px);
 
 		color: white;
-		margin: 10px 0;
+		margin: 0 0 10px 0;
 	}
 
 	.error {
@@ -49,7 +49,7 @@
 	p {
 		.column;
 
-		margin: 5px 0 35px 0;
+		margin: 5px 0 45px 0;
 
 		// name of the field
 		label {
@@ -108,8 +108,10 @@
 	// submit button
 	button {
 		.naughty(column; @right);
-	}
-}
 
-@media (min-width: 740px) {
+		&:hover,
+		&:focus {
+			color: @purple;
+		}
+	}
 }
