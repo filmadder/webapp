@@ -44,6 +44,8 @@
 	// at the bottom of the view
 	.list-nav {
 		.row(@spread; @center);
+		.box(0 5px);
+
 		background: linear-gradient(45deg, @blue, @purple);
 		box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.8);
 
@@ -76,7 +78,11 @@
 
 			&:hover,
 			&.selected {
-				.box(5px 10px);
+				.box(12px 10px 10px 10px);
+
+				background: @salmon;
+				border-top-left-radius: 3px;
+				border-top-right-radius: 3px;
 
 				.icon {
 					.size(28px; 28px);
