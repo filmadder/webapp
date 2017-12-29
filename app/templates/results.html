@@ -6,13 +6,17 @@
 		<div class="film-in-list">
 			<div class="poster-container">
 				{{# posterUrl }}
-				<div class="image poster-small" style="background-image: url({{ posterUrl }});"></div>
+				<a href="#/film/{{ pk }}" title="{{ title }}"class="result film listed-films">
+					<div class="image poster-small" style="background-image: url({{ posterUrl }});"></div>
+				</a>
 				{{/ posterUrl }}
 				{{^ posterUrl }}
-				<div class="no-poster poster-small">
-					<p>No poster</p>
-					<div class="image logo"></div>
-				</div>
+				<a href="#/film/{{ pk }}" title="{{ title }}"class="result film listed-films">
+					<div class="no-poster poster-small">
+						<p>No poster</p>
+						<div class="image logo"></div>
+					</div>
+				</a>
 				{{/ posterUrl }}
 			</div>
 			<div>

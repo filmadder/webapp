@@ -2,13 +2,17 @@
 <li class="film-in-list">
 	<div class="poster-container">
 		{{# poster_url }}
-		<div class="image poster-small" style="background-image: url({{ poster_url }});"></div>
+		<a href="#/film/{{ pk }}" class="listed-films">
+			<div class="image poster-small" style="background-image: url({{ poster_url }});"></div>
+		</a>
 		{{/ poster_url }}
 		{{^ poster_url }}
-		<div class="no-poster poster-small">
-			<p>No poster</p>
-			<div class="image logo"></div>
-		</div>
+		<a href="#/film/{{ pk }}" class="listed-films">
+			<div class="no-poster poster-small">
+				<p>No poster</p>
+				<div class="image logo"></div>
+			</div>
+		</a>
 		{{/ poster_url }}
 	</div>
 	<div>
@@ -16,7 +20,7 @@
 			<h3 class="title">{{ title }}</h3>
 			<h4 class="year-directors">{{ year }} {{# directors }} | {{ directors }} {{/ directors }}</h4>
 		</a>
-<!-- 		<ul class="other-watchlisters">
+		<!--<ul class="other-watchlisters">
 			<li>
 				<span class="small-text">in watching list of</span>
 				<br />
