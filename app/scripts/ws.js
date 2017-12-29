@@ -118,10 +118,12 @@ fa.ws = (function() {
 		};
 
 		socket.onerror = function(e) {
-			log.error(e); log.trace();
+			log.debug(e);
+			socket.close();
 		};
 
 		socket.onclose = function(e) {
+			log.debug(e);
 			queue.rejectAll({code: 'forbidden',
 				message: 'The server connection was closed'});
 		};
@@ -133,7 +135,10 @@ fa.ws = (function() {
 
 		// returns a boolean indicating whether the socket is operational
 		wrapper.isOpen = function() {
-			return socket.readyState === socket.OPEN;
+			if('readyState' in socket && 'OPEN' in socket) {
+				return socket.readyState === socket.OPEN;
+			}
+			else return false;
 		};
 
 		// returns a promise that resolves/rejects with a message/error

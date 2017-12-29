@@ -16,6 +16,8 @@ QUnit.module('ws', function(hooks) {
 	});
 
 	QUnit.module('open', function(hooks) {
+
+		// fa.ws.open should resolve iff fa.auth permits and the server accepts
 		QUnit.test('open successful', function(assert) {
 			var done = assert.async();
 
@@ -29,6 +31,7 @@ QUnit.module('ws', function(hooks) {
 			});
 		});
 
+		// fa.ws.open should reject if fa.auth does not have a token
 		QUnit.test('open error (no auth token)', function(assert) {
 			var done = assert.async();
 
@@ -41,6 +44,7 @@ QUnit.module('ws', function(hooks) {
 			});
 		});
 
+		// fa.ws.open should reject if the server closes the connection
 		QUnit.test('open error (server closes)', function(assert) {
 			var done = assert.async();
 
@@ -54,6 +58,7 @@ QUnit.module('ws', function(hooks) {
 			});
 		});
 
+		// fa.ws.open should reject if the server rejects the connection
 		QUnit.test('open error (server rejects)', function(assert) {
 			var done = assert.async();
 
@@ -77,6 +82,7 @@ QUnit.module('ws', function(hooks) {
 			});
 		});
 
+		// fa.ws.send should receive a response from an echo server
 		QUnit.test('send successful', function(assert) {
 			var done = assert.async();
 
@@ -93,6 +99,7 @@ QUnit.module('ws', function(hooks) {
 			});
 		});
 
+		// fa.ws.send should call fa.ws.open implicitly if needed
 		QUnit.test('send when socket is not open', function(assert) {
 			var done = assert.async();
 
@@ -111,7 +118,8 @@ QUnit.module('ws', function(hooks) {
 		// QUnit.todo('receive out of order');
 		// QUnit.todo('receive non-json message');
 
-		QUnit.test('receive an error', function(assert) {
+		// fa.ws.send should reject if the server responds with error message
+		QUnit.test('send error (server sends)', function(assert) {
 			var done = assert.async();
 
 			server.on('message', function(message) {
@@ -129,7 +137,8 @@ QUnit.module('ws', function(hooks) {
 			});
 		});
 
-		QUnit.test('close while waiting for message', function(assert) {
+		// fa.ws.send should reject if the server closes the connection
+		QUnit.test('send error (server closes)', function(assert) {
 			var done = assert.async();
 
 			server.on('message', function() {
@@ -138,6 +147,24 @@ QUnit.module('ws', function(hooks) {
 
 			fa.ws.send('bag', {balls: 4}).catch(function(error) {
 				assert.equal(error.code, 'forbidden');
+				done();
+			});
+		});
+
+		// fa.ws.send should re-open after the server raised an error
+		QUnit.test('send error (server errs)', function(assert) {
+			var done = assert.async();
+
+			server.on('message', function(message) {
+				server.send(message);
+			});
+
+			fa.ws.open().then(function() {
+				server.simulate('error');
+				return fa.ws.send('bag', {balls: 5});
+			}).then(function(res) {
+				assert.equal(res.type, 'bag');
+				assert.equal(res.balls, 5);
 				done();
 			});
 		});
