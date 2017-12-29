@@ -143,11 +143,19 @@ fa.views = (function() {
 		}
 
 		// the view object
-		return Promise.resolve({
-			remove: function() {
-				elem.innerHTML = '';
-			}
+		return Promise.resolve({});
+	};
+
+	// init a logout view
+	var createLogout = function() {
+		var promise = Promise.resolve({});
+
+		promise.then(function() {
+			fa.auth.logout();
+			fa.routing.go('login');
 		});
+
+		return promise;
 	};
 
 
@@ -232,7 +240,8 @@ fa.views = (function() {
 		handleError: handleError,
 
 		error: createError,
-		message: createMessage
+		message: createMessage,
+		logout: createLogout
 	};
 
 }());

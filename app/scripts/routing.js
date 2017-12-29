@@ -23,6 +23,7 @@ fa.routing = (function() {
 		hier.reg('/inner/feed', '[data-fn=view]', fa.views.feed);
 		hier.reg('/inner/updates', '[data-fn=view]', fa.views.updates);
 		hier.reg('/inner/settings', '[data-fn=view]', fa.views.settings);
+		hier.reg('/inner/logout', '[data-fn=view]', fa.views.logout);
 
 		hier.reg('/error', '[data-fn=main]', fa.views.error);
 		hier.reg('/mes', '[data-fn=message]', fa.views.message);
@@ -95,6 +96,12 @@ fa.routing = (function() {
 	crossroads.addRoute('/settings', function() {
 		hier.add('/inner').then(function() {
 			return hier.add('/inner/settings');
+		});
+	});
+
+	crossroads.addRoute('/logout', function() {
+		hier.add('/inner').then(function() {
+			return hier.add('/inner/logout');
 		});
 	});
 
