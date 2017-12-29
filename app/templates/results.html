@@ -1,6 +1,9 @@
 <div class="results">
 	{{# type.films }}
-	<h2>Films found</h2>
+	<div class="showing-for">
+		<p class="small-text">showing results for:</p>
+		<h2>{{ query }}</h2>
+	</div>
 	<article class="container film">
 		{{# items }}
 		<div class="film-in-list">
@@ -34,7 +37,10 @@
 	{{/ type.films }}
 	
 	{{# type.users }}
-	<h2>users found</h2>
+	<div class="showing-for">
+		<p class="small-text">showing results for:</p>
+		<h2>{{ query }}</h2>
+	</div>
 	<article class="container user">
 		{{# items }}
 		<div class="user-in-list">

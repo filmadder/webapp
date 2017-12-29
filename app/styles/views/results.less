@@ -1,18 +1,30 @@
 .results {
 	.box(10px 0);
 
-	// thing found
-	h2 {
-		margin: 20px 0 0 0;
-		text-align: center;
+	// showing results for..
+	.showing-for {
+		.box(20px 25px);
+		
+		margin: 0 auto;
+		max-width: 550px;
+		
+		// query
+		h2 {
+			border-bottom: 2px solid #ededed;
+			color: @grey;
+			text-transform: none;
+			font-weight: bold;
+			padding: 0 0 20px 0;
+			margin: 0;
+		}
 	}
+	
 
 	.container {
 		.column;
-		.box(20px 25px);
+		.box(0 25px);
 
 		margin: 0 auto;
-		max-width: 550px;
 	}
 
 	/* "No results found so far" */

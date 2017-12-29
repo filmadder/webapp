@@ -35,6 +35,7 @@ fa.views.search = (function() {
 					films: (res.type == 'films'),
 					users: (res.type == 'users')
 				},
+				query: params.q,
 				items: res.items
 			});
 
