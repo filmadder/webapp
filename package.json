@@ -6,8 +6,9 @@
     "build-html": "bin/build_html.fish",
     "build-css": "bin/build_css.fish",
     "build-js": "bin/build_js.fish",
-    "build-vendor": "bin/build_vendor.sh",
-    "watch": "bin/watch.sh",
+    "build-vendor": "bin/build_vendor.fish",
+    "build": "bin/build.fish",
+    "watch": "bin/watch.fish",
     "test": "karma start"
   },
   "devDependencies": {
