@@ -194,6 +194,8 @@ fa.ws = (function() {
 	// 
 	// returns a promise that resolves upon establishing a connection or
 	// rejects with an error otherwise
+	//
+	// @todo: fix the hack with the fake new_update message
 	var open = function() {
 		close();
 
@@ -209,7 +211,12 @@ fa.ws = (function() {
 			return Promise.reject({code: 'bug', message: err.message});
 		}
 
-		return socket.await(0);
+		return socket.await(0).then(function(message) {
+			console.log(message);
+			if(message.has_unread_updates) {
+				received.dispatch({type: 'new_update'});
+			}
+		});
 	};
 
 	// returns a promise that resolves into a same-ID message returned by the
