@@ -31,7 +31,7 @@ fa.views.inner = (function() {
 		var searchForm, queryField, doSearchButton, searchIcon, searchBtn;
 		var showNav, hideNav, showSearch, hideSearch;
 		var isNavOpen = false, isSearchOpen = false;
-		var marker, hammerManager;
+		var markers, hammerManager;
 
 		fa.views.render(elem, 'inner', {user: fa.auth.getUser()});
 
@@ -144,14 +144,17 @@ fa.views.inner = (function() {
 			}
 		});
 
-		// unread updates marker
-		marker = fa.dom.get('.notification-marker', elem);
+		// unread updates markers
+		markers = fa.dom.filter('.notification-marker', elem);
 
 		fa.models.updates.changedStatus.add(function(status) {
-			if(status == 'has-unread') {
-				marker.classList.remove('hidden');
-			} else {
-				marker.classList.add('hidden');
+			var i;
+			for(i = 0; i < markers.length; i++) {
+				if(status == 'has-unread') {
+					markers[i].classList.remove('no-display');
+				} else {
+					markers[i].classList.add('no-display');
+				}
 			}
 		});
 
