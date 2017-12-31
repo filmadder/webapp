@@ -1,13 +1,15 @@
 # filmadder: the webapp
 
-This is the home of [filmadder](https://filmadder.com/)'s
-[webapp](https://app.filmadder.com/).
+This is the home of [filmadder][0]'s [webapp][1].
 
 
 ## setup
 
 ```sh
+git clone filmadder/webapp
+cd webapp
 npm install
+npm test
 npm run watch
 ```
 
@@ -30,3 +32,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+[0]: https://filmadder.com/
+[1]: https://app.filmadder.com/
