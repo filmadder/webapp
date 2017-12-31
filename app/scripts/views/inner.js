@@ -46,7 +46,7 @@ fa.views.inner = (function() {
 			heading.textContent = getTitleEnd();
 		});
 		fa.views.scrolledBackUp.add(function() {
-			heading.textContent = 'film adder';
+			heading.textContent = 'filmadder';
 		});
 
 		// nav: open and close

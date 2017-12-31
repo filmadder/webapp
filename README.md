@@ -1,6 +1,6 @@
-# film adder: the webapp
+# filmadder: the webapp
 
-This is the home of [film adder](https://filmadder.com/)'s
+This is the home of [filmadder](https://filmadder.com/)'s
 [webapp](https://app.filmadder.com/).
 
 

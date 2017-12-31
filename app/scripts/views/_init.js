@@ -95,9 +95,9 @@ fa.views = (function() {
 		}
 
 		if(trail.length > 0) {
-			document.title = 'film adder | '+ trail.join(' | ');
+			document.title = 'filmadder | '+ trail.join(' | ');
 		} else {
-			document.title = 'film adder';
+			document.title = 'filmadder';
 		}
 	};
 
