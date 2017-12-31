@@ -31,8 +31,13 @@
 
 		.logo {
 			.size(38px; 38px);
-
 		}
+
+		.notification-marker {
+			position: absolute;
+			top: 4px;
+			left: 4px;		
+		}	
 	}
 
 	/* current view
@@ -141,6 +146,14 @@
 				}
 
 			}
+
+			.link-to-notif {
+				.row(@y:@center);
+
+				.notification-marker {
+					margin-right: 5px;
+				}
+			}
 		}
 	}
 
@@ -148,16 +161,12 @@
 	/* when search btn is clicked,
 	   the header moves to the left and search form shows */
 	&.move-right {
-		overflow: hidden;
-
 		right: 90%;
 	}
 
 	/* when the logo is clicked,
 	   the header moves to the right and nav opens */
 	&.move-left {
-		overflow: hidden;
-
 		right: -80%;
 	}
 }
