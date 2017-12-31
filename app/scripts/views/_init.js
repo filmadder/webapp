@@ -89,15 +89,15 @@ fa.views = (function() {
 		var trail = [];
 
 		if(fjs.isArray(arg)) {
-			trail = arg.slice();
+			trail = arg.slice().reverse();
 		} else if(arg) {
 			trail = [arg.toString()];
 		}
 
 		if(trail.length > 0) {
-			document.title = 'film adder | '+ trail.join(' | ');
+			document.title = trail.join(' | ') +' | filmadder';
 		} else {
-			document.title = 'film adder';
+			document.title = 'filmadder';
 		}
 	};
 
