@@ -1,4 +1,4 @@
-#!/usr/bin/fish
+#!/usr/bin/env fish
 
 begin
 	cat app/index.html | sed -e '/<!-- include templates -->/,$d'

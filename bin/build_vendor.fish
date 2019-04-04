@@ -1,4 +1,4 @@
-#!/usr/bin/fish
+#!/usr/bin/env fish
 
 cat \
 node_modules/loglevel/dist/loglevel.min.js \
