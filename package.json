@@ -16,7 +16,7 @@
     "chokidar-cli": "^1.2.2",
     "clean-css-cli": "^4.2.1",
     "concurrently": "^4.1.0",
-    "ecstatic": "^3.3.1",
+    "ecstatic": "^3.3.2",
     "jshint": "^2.10.2",
     "karma": "^4.0.1",
     "karma-chrome-launcher": "^2.2.0",
